@@ -52,6 +52,7 @@ def compute_cell(alpha, P_interp, k_min, k_max):
     # Allocate output
     C_ell = np.zeros(len(ELL_ARR))
 
+    # i is index and ell is the multipole value (integer)
     for i, ell in enumerate(ELL_ARR):
         # Wavenumber probed at each comoving distance: k = (ell + 0.5) / chi
         k_arr = (ell + 0.5) / CHI_ARR

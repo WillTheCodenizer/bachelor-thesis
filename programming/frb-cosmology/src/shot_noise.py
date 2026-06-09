@@ -1,7 +1,7 @@
 """
 shot_noise.py — Shot noise contribution to the angular power spectrum.
 
-The shot noise for a single tomographic bin is:
+The shot noise for a single tomographic bin (n_tomo = red shift bin) is:
 
     N_shot = n_tomo * <sigma_host^2> / n_bar
 
