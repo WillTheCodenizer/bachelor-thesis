@@ -40,7 +40,7 @@ def run_pipeline():
     print(f"  k range : {k_min:.4e} – {k_max:.4e}  [1/Mpc]")
     print(f"  P range : {P_phys.min():.4e} – {P_phys.max():.4e}  [Mpc^3]")
 
-    # ── Step 2: angular power spectra ───────────────────────────────────────
+    # ── Step 2: angular power spectra for magnetars ─────────────────────────
     print("Computing C(ell) for shallow survey (alpha = 3.5) ...")
     ell_arr, C_ell_shallow = compute_cell(ALPHA_SHALLOW, P_interp, k_min, k_max)
 
