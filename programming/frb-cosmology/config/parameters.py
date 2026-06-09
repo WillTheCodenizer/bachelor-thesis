@@ -11,10 +11,10 @@ from astropy.cosmology import FlatLambdaCDM
 # =============================================================================
 # Cosmological parameters (Planck 2018, Table 2, TT,TE,EE+lowE+lensing)
 # =============================================================================
-H0 = 67.4              # Hubble constant [km/s/Mpc]
-OMEGA_M = 0.315         # Total matter density parameter
-OMEGA_B = 0.049         # Baryon density parameter
-SIGMA_8 = 0.811         # RMS matter fluctuations in 8 Mpc/h spheres
+H0 = 67.36              # Hubble constant [km/s/Mpc]
+OMEGA_M = 0.3153         # Total matter density parameter
+OMEGA_B = 0.0493         # Baryon density parameter
+SIGMA_8 = 0.8111         # RMS matter fluctuations in 8 Mpc/h spheres
 N_S = 0.9667            # Scalar spectral index
 
 # Derived: reduced Hubble parameter

@@ -40,7 +40,7 @@ def build_power_spectrum():
         n=N_S,
     )
 
-    # Raw arrays from hmf (h/Mpc and (Mpc/h)^3)
+    # Raw arrays from hmf (h/Mpc and (Mpc/h)^3), getting it from mf because it has already computed it   
     k_hmf = mf.k              # [h/Mpc]
     P_hmf = mf.nonlinear_power  # [(Mpc/h)^3]
 
@@ -48,14 +48,15 @@ def build_power_spectrum():
     k_phys = k_hmf * LITTLE_H           # [1/Mpc]
     P_phys = P_hmf / (LITTLE_H ** 3)    # [Mpc^3]
 
-    # Build log-log interpolation (return 0 outside valid range)
+    # Build log-log interpolation (return 0 outside valid range) 
+    # (making a continuous function that can be evaluated at any k, not just the tabulated points)
     log_k = np.log10(k_phys)
     log_P = np.log10(P_phys)
 
     interp_func = interp1d(
         log_k, log_P,
         kind="linear",
-        bounds_error=False,
+        bounds_error=False, # no error if k is outside the range, just return the fill_value
         fill_value=-np.inf,  # log10(0) = -inf → 10^(-inf) = 0
     )
 

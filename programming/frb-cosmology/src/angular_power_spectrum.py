@@ -4,10 +4,10 @@ angular_power_spectrum.py — Limber-approximation angular power spectrum C(ell)
 Computes the FRB auto-correlation angular power spectrum:
 
     C(ell) = integral over chi of
-             [ W(z(chi))^2 / chi^2 ] * P(k = (ell + 0.5) / chi) * (dz/dchi) dchi
+             [ W(chi)^2 / chi^2 ] * P(k = (ell + 0.5) / chi) dchi
 
-where dz/dchi = H(z) / c.
-"""
+where W(chi) = W_z(z(chi)) * sqrt(dz/dchi) and dz/dchi = H(z) / c.
+""" 
 
 import numpy as np
 
@@ -39,12 +39,15 @@ def compute_cell(alpha, P_interp, k_min, k_max):
     C_ell : ndarray
         Angular power spectrum at each multipole.
     """
-    # Weight function evaluated on the redshift grid
-    W = weight_frb(Z_ARR, alpha, B0, DELTA)
+    # Weight function evaluated on the redshift grid W(z) = b(z) * n(z)
+    W_z = weight_frb(Z_ARR, alpha, B0, DELTA)
 
     # dz/dchi = H(z) / c  [1/Mpc]
     H_arr = COSMO.H(Z_ARR).value  # H(z) in km/s/Mpc
     dz_dchi = H_arr / C_KM_S      # convert to 1/Mpc
+
+    # W(chi) = W_z(z(chi)) * sqrt(dz/dchi) — incorporates the Jacobian
+    W = W_z * np.sqrt(dz_dchi)
 
     # Allocate output
     C_ell = np.zeros(len(ELL_ARR))
@@ -63,10 +66,9 @@ def compute_cell(alpha, P_interp, k_min, k_max):
         chi_v = CHI_ARR[valid]
         k_v = k_arr[valid]
         W_v = W[valid]
-        dz_dchi_v = dz_dchi[valid]
 
-        # Integrand: W^2 / chi^2 * P(k) * dz/dchi
-        integrand = (W_v ** 2) / (chi_v ** 2) * P_interp(k_v) * dz_dchi_v
+        # Integrand: W^2 / chi^2 * P(k)
+        integrand = (W_v ** 2) / (chi_v ** 2) * P_interp(k_v)
 
         # Integrate over comoving distance using the trapezoidal rule
         C_ell[i] = np.trapezoid(integrand, chi_v)
