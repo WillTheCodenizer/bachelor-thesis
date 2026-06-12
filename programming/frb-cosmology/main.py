@@ -55,12 +55,12 @@ def run_pipeline():
     # ── Step 4: plots ───────────────────────────────────────────────────────
     _plot_cell_with_noise(
         ell_arr, C_ell_shallow, N_shot_shallow,
-        title="FRB Auto-Correlation Angular Power Spectrum (Shallow Survey)",
+        title="FRB Auto-Correlation Angular Power Spectrum (Shallow Survey) for Magnetars",
         filename="Cell_shallow_shotnoise",
     )
     _plot_cell_with_noise(
         ell_arr, C_ell_deep, N_shot_deep,
-        title="FRB Auto-Correlation Angular Power Spectrum (Deep Survey)",
+        title="FRB Auto-Correlation Angular Power Spectrum (Deep Survey) for Magnetars",
         filename="Cell_deep_shotnoise",
     )
     _plot_cell_comparison(ell_arr, C_ell_shallow, C_ell_deep)
@@ -123,7 +123,7 @@ def _plot_cell_comparison(ell_arr, C_ell_shallow, C_ell_deep):
     ax.loglog(ell_arr, C_ell_deep, label=r"Deep ($\alpha=2.0$)", linewidth=1.5)
     ax.set_xlabel(r"Multipole $\ell$")
     ax.set_ylabel(r"$C_\ell$")
-    ax.set_title("FRB Auto-Correlation: Shallow vs Deep Survey")
+    ax.set_title("FRB Auto-Correlation: Shallow vs Deep Survey for Magnetars")
     ax.legend()
     fig.tight_layout()
     fig.savefig(os.path.join(PLOT_DIR, "Cell_comparison.pdf"))
