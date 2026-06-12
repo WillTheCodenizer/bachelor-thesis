@@ -42,16 +42,10 @@ def compute_shot_noise(alpha, N_total):
     # Normalised redshift distribution
     nz = n_z(Z_ARR, alpha)
 
-    # Host DM scatter as a function of redshift
-    sigma_host = SIGMA_HOST_0 * (1.0 + Z_ARR) ** (-1)
-
-    # Expectation value of sigma_host^2 weighted by n(z)
-    sigma2_mean = trapezoid(nz * sigma_host ** 2, Z_ARR)
-
     # Mean source density on the sky [sr^-1]
     n_bar = N_total / (4.0 * np.pi * F_SKY)
 
     # Shot noise for n_tomo tomographic bins
-    N_shot = N_TOMO * sigma2_mean / n_bar
+    N_shot = 1 / n_bar
 
     return N_shot

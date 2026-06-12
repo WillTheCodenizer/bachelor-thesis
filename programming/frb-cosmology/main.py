@@ -11,10 +11,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from config.parameters import (
+    COSMO,
     ALPHA_SHALLOW, ALPHA_DEEP,
     N_TOTAL_SHALLOW, N_TOTAL_DEEP,
 )
-from src.power_spectrum import build_power_spectrum
+from src.power_spectrum import build_power_spectrum_2d
 from src.angular_power_spectrum import compute_cell
 from src.shot_noise import compute_shot_noise
 
@@ -28,17 +29,15 @@ def run_pipeline():
     Execute the full FRB auto-correlation pipeline for both surveys.
 
     Steps:
-        1. Build the nonlinear matter power spectrum P(k).
+        1. Build the redshift-dependent nonlinear matter power spectrum P(k, z).
         2. Compute C(ell) for the shallow and deep surveys.
         3. Compute shot noise for each survey.
         4. Produce and save four diagnostic plots.
     """
     # ── Step 1: nonlinear power spectrum ────────────────────────────────────
-    print("Building nonlinear P(k) via hmf ...")
-    k_phys, P_phys, P_interp = build_power_spectrum()
-    k_min, k_max = k_phys.min(), k_phys.max()
+    print("Building redshift-dependent P(k, z) via 2D spline ...")
+    k_phys, P_interp, k_min, k_max = build_power_spectrum_2d(z_max=4.0, n_z=120)
     print(f"  k range : {k_min:.4e} – {k_max:.4e}  [1/Mpc]")
-    print(f"  P range : {P_phys.min():.4e} – {P_phys.max():.4e}  [Mpc^3]")
 
     # ── Step 2: angular power spectra for magnetars ─────────────────────────
     print("Computing C(ell) for shallow survey (alpha = 3.5) ...")
@@ -65,7 +64,7 @@ def run_pipeline():
         filename="Cell_deep_shotnoise",
     )
     _plot_cell_comparison(ell_arr, C_ell_shallow, C_ell_deep)
-    _plot_pk(k_phys, P_phys)
+    _plot_pk(k_phys, P_interp)
 
     print("All plots saved to plots/")
 
@@ -133,22 +132,35 @@ def _plot_cell_comparison(ell_arr, C_ell_shallow, C_ell_deep):
     print("  Saved Cell_comparison.pdf / .png")
 
 
-def _plot_pk(k_phys, P_phys):
+def _plot_pk(k_phys, P_interp):
     """
-    Log-log plot of the nonlinear matter power spectrum P(k).
+    Log-log plot of the nonlinear matter power spectrum P(k, z) at multiple redshifts.
 
     Parameters
     ----------
     k_phys : ndarray
-        Wavenumber in 1/Mpc.
-    P_phys : ndarray
-        Power spectrum in Mpc^3.
+        Wavenumber array in 1/Mpc.
+    P_interp : callable
+        2D interpolation function P_interp(k, chi) returning P(k, z(chi)) in Mpc^3.
     """
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.loglog(k_phys, P_phys, linewidth=1.5)
+    fig, ax = plt.subplots(figsize=(8, 6))
+    
+    # Sample redshifts to display the evolution
+    z_sample = np.array([0.0, 0.5, 1.0, 2.0, 3.0, 4.0 ])
+    
+    # Convert redshifts to comoving distances
+    chi_sample = COSMO.comoving_distance(z_sample).value  # [Mpc]
+    
+    # Plot P(k) at each sampled redshift
+    colors = plt.cm.viridis(np.linspace(0, 1, len(z_sample)))
+    for chi, z, color in zip(chi_sample, z_sample, colors):
+        P_at_z = P_interp(k_phys, np.full_like(k_phys, chi))
+        ax.loglog(k_phys, P_at_z, linewidth=1.8, label=f"z = {z:.1f}", color=color)
+    
     ax.set_xlabel(r"Wavenumber $k$ [1/Mpc]")
     ax.set_ylabel(r"$P(k)$ [Mpc$^3$]")
-    ax.set_title("Nonlinear Matter Power Spectrum (z = 0)")
+    ax.set_title("Nonlinear Matter Power Spectrum P(k, z) — Redshift Evolution")
+    ax.legend(loc="best")
     fig.tight_layout()
     fig.savefig(os.path.join(PLOT_DIR, "Pk_nonlinear.pdf"))
     fig.savefig(os.path.join(PLOT_DIR, "Pk_nonlinear.png"), dpi=200)

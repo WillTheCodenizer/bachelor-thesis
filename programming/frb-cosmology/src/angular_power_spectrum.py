@@ -25,8 +25,8 @@ def compute_cell(alpha, P_interp, k_min, k_max):
     alpha : float
         Steepness parameter for the FRB redshift distribution n(z).
     P_interp : callable
-        Interpolated nonlinear power spectrum P(k) in Mpc^3,
-        accepting k in 1/Mpc.
+        Interpolated nonlinear power spectrum P(k, z) in Mpc^3,
+        accepting k in 1/Mpc and chi in Mpc.
     k_min : float
         Minimum valid wavenumber for P_interp [1/Mpc].
     k_max : float
@@ -68,8 +68,8 @@ def compute_cell(alpha, P_interp, k_min, k_max):
         k_v = k_arr[valid]
         W_v = W[valid]
 
-        # Integrand: W^2 / chi^2 * P(k)
-        integrand = (W_v ** 2) / (chi_v ** 2) * P_interp(k_v)
+        # Integrand: W^2 / chi^2 * P(k, z) — P(k, z) evaluated at the redshift corresponding to chi via 2D spline
+        integrand = (W_v ** 2) / (chi_v ** 2) * P_interp(k_v, chi_v)
 
         # Integrate over comoving distance using the trapezoidal rule
         C_ell[i] = np.trapezoid(integrand, chi_v)

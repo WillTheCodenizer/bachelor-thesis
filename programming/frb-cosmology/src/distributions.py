@@ -76,5 +76,4 @@ def weight_frb(z, alpha, b0, delta):
     n = n_z(z, alpha)
     b = bias(z, b0, delta)
     raw = b * n
-    norm = trapezoid(raw, z)  # normalise so integral = 1
-    return raw / norm
+    return raw 

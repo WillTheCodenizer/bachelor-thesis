@@ -5,9 +5,20 @@ Computes the auto-correlation angular power spectrum of Fast Radio Bursts
 
 ## Quick Start
 
+### Setup (erste Nutzung)
+
 ```bash
-pip install numpy scipy matplotlib astropy hmf
-cd frb-cosmology
+# Environment aus environment.yml erstellen
+mamba env create -f environment.yml
+
+# Environment aktivieren
+mamba activate frb
+```
+
+### Ausführen
+
+```bash
+mamba activate frb
 python main.py
 ```
 

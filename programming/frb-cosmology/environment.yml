@@ -1,0 +1,12 @@
+name: frb
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - matplotlib
+  - astropy
+  - pip
+  - pip:
+    - hmf
