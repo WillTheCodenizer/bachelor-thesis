@@ -51,7 +51,7 @@ def build_power_spectrum_2d(z_max=4.0, n_z=120):
 
     # ── Step 2: Extract k-grid and convert to physical units ──────────────
     k_hmf = mf.k              # [h/Mpc]
-    k_phys = k_hmf * LITTLE_H  # [1/Mpc] — converted to physical units
+    k_phys = k_hmf * LITTLE_H  # [1/Mpc] — converted to physical units. 
 
     # ── Step 3: Build redshift grid ───────────────────────────────────────
     z_grid = np.linspace(0.0, z_max, n_z)
