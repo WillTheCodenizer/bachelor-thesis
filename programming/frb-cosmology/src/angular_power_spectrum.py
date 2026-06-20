@@ -16,14 +16,14 @@ from src.cosmology import CHI_ARR, C_KM_S
 from src.distributions import weight_frb
 
 
-def compute_cell(alpha, P_interp, k_min, k_max):
+def compute_cell_from_weight(weight_z, P_interp, k_min, k_max):
     """
-    Compute the angular power spectrum C(ell) via the Limber approximation.
+    Compute the angular power spectrum C(ell) for a provided W(z).
 
     Parameters
     ----------
-    alpha : float
-        Steepness parameter for the FRB redshift distribution n(z).
+    weight_z : ndarray
+        Weight function sampled on Z_ARR.
     P_interp : callable
         Interpolated nonlinear power spectrum P(k, z) in Mpc^3,
         accepting k in 1/Mpc and chi in Mpc.
@@ -39,15 +39,15 @@ def compute_cell(alpha, P_interp, k_min, k_max):
     C_ell : ndarray
         Angular power spectrum at each multipole.
     """
-    # Weight function evaluated on the redshift grid W(z) = b(z) * n(z)
-    W_z = weight_frb(Z_ARR, alpha, B0, DELTA)
+    if len(weight_z) != len(Z_ARR):
+        raise ValueError("weight_z must have same length as Z_ARR.")
 
     # dz/dchi = H(z) / c  [1/Mpc]
     H_arr = COSMO.H(Z_ARR).value  # H(z) in km/s/Mpc
     dz_dchi = H_arr / C_KM_S      # convert to 1/Mpc
 
     # W(chi) = W_z(z(chi)) * sqrt(dz/dchi) — incorporates the Jacobian
-    W = W_z * np.sqrt(dz_dchi)
+    W = weight_z * np.sqrt(dz_dchi)
 
     # Allocate output
     C_ell = np.zeros(len(ELL_ARR))
@@ -75,3 +75,31 @@ def compute_cell(alpha, P_interp, k_min, k_max):
         C_ell[i] = np.trapezoid(integrand, chi_v)
 
     return ELL_ARR, C_ell
+
+
+def compute_cell(alpha, P_interp, k_min, k_max):
+    """
+    Compute the angular power spectrum C(ell) via the Limber approximation.
+
+    Parameters
+    ----------
+    alpha : float
+        Steepness parameter for the FRB redshift distribution n(z).
+    P_interp : callable
+        Interpolated nonlinear power spectrum P(k, z) in Mpc^3,
+        accepting k in 1/Mpc and chi in Mpc.
+    k_min : float
+        Minimum valid wavenumber for P_interp [1/Mpc].
+    k_max : float
+        Maximum valid wavenumber for P_interp [1/Mpc].
+
+    Returns
+    -------
+    ell_arr : ndarray
+        Multipole values (integers).
+    C_ell : ndarray
+        Angular power spectrum at each multipole.
+    """
+    # Weight function evaluated on the redshift grid W(z) = b(z) * n(z)
+    weight_z = weight_frb(Z_ARR, alpha, B0, DELTA)
+    return compute_cell_from_weight(weight_z, P_interp, k_min, k_max)

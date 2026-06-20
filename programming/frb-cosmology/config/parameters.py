@@ -7,6 +7,7 @@ are collected here so that every module draws from one source of truth.
 
 import numpy as np
 from astropy.cosmology import FlatLambdaCDM
+from pathlib import Path
 
 # =============================================================================
 # Cosmological parameters (Planck 2018, Table 2, TT,TE,EE+lowE+lensing)
@@ -66,6 +67,18 @@ N_TOTAL_DEEP = 5.0e4         # Total number of detected FRBs
 ALPHA_DEEP = 2.0             # Steepness of n(z) ∝ z^2 exp(-alpha z)
 
 # --- Common survey parameters ---
-F_SKY = 0.9                  # Observed sky fraction
-SIGMA_HOST_0 = 50.0          # Host DM scatter normalisation [pc/cm^3]
+F_SKY_FRB = 0.9              # Observed sky fraction for FRB surveys
+F_SKY_GALAXY = 0.033         # Observed sky fraction for galaxy surveys, RECHNUNG MUSS NOCH FOLGEN IN CLAUDE
+
 N_TOMO = 1                   # Number of tomographic redshift bins
+
+# =============================================================================
+# Galaxy tomography parameters
+# =============================================================================
+GALAXY_N_BINS = 6                         # Number of tomographic galaxy bins
+
+# This information comes from the KiDS-1000 tomographic n(z) data
+GALAXY_N_TOTAL = 5.0e7                    # Total galaxy count across all bins
+GALAXY_NZ_FILE = (
+    Path(__file__).resolve().parents[1] / "data" / "KiDS_Legacy_nz.txt"
+)

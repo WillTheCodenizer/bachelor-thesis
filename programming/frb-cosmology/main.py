@@ -1,8 +1,8 @@
 """
-main.py — FRB auto-correlation angular power spectrum pipeline.
+main.py — FRB and galaxy tomographic angular power spectrum pipeline.
 
-Runs the full computation for both the shallow and deep surveys,
-then produces publication-quality plots comparing signal and shot noise.
+Runs the full computation for FRB surveys and galaxy tomographic bins,
+then produces publication-quality diagnostic and comparison plots.
 """
 
 import os
@@ -14,10 +14,20 @@ from config.parameters import (
     COSMO,
     ALPHA_SHALLOW, ALPHA_DEEP,
     N_TOTAL_SHALLOW, N_TOTAL_DEEP,
+    Z_ARR,
+    GALAXY_N_BINS, GALAXY_N_TOTAL, F_SKY_FRB, F_SKY_GALAXY,
 )
 from src.power_spectrum import build_power_spectrum_2d
-from src.angular_power_spectrum import compute_cell
-from src.shot_noise import compute_shot_noise
+from src.angular_power_spectrum import compute_cell, compute_cell_from_weight
+from src.shot_noise import compute_shot_noise, compute_shot_noise_from_counts
+from src.distributions import (
+    load_galaxy_nz_data,
+    compute_galaxy_bin_mean_redshifts,
+    compute_galaxy_bias_from_means,
+    interpolate_galaxy_bins,
+    compute_bin_area_fractions,
+    build_galaxy_weights,
+)
 
 # ── Output directory ────────────────────────────────────────────────────────
 PLOT_DIR = os.path.join(os.path.dirname(__file__), "plots")
@@ -26,20 +36,34 @@ os.makedirs(PLOT_DIR, exist_ok=True)
 
 def run_pipeline():
     """
-    Execute the full FRB auto-correlation pipeline for both surveys.
+    Execute the full FRB + galaxy auto-correlation pipeline.
 
     Steps:
         1. Build the redshift-dependent nonlinear matter power spectrum P(k, z).
-        2. Compute C(ell) for the shallow and deep surveys.
-        3. Compute shot noise for each survey.
-        4. Produce and save four diagnostic plots.
+        2. Run FRB auto-correlation (shallow/deep) and plots.
+        3. Run galaxy tomographic auto-correlations for all bins and plots.
+        4. Produce and save a shared P(k, z) diagnostic plot.
     """
     # ── Step 1: nonlinear power spectrum ────────────────────────────────────
     print("Building redshift-dependent P(k, z) via 2D spline ...")
     k_phys, P_interp, k_min, k_max = build_power_spectrum_2d(z_max=4.0, n_z=120)
     print(f"  k range : {k_min:.4e} – {k_max:.4e}  [1/Mpc]")
 
-    # ── Step 2: angular power spectra for magnetars ─────────────────────────
+    # ── Step 2: FRB angular power spectra for magnetars ─────────────────────
+    _run_frb_pipeline(P_interp, k_min, k_max)
+
+    # ── Step 3: galaxy tomographic angular power spectra ────────────────────
+    _run_galaxy_pipeline(P_interp, k_min, k_max)
+
+    # ── Step 4: shared P(k, z) diagnostic plot ──────────────────────────────
+    _plot_pk(k_phys, P_interp)
+
+    print("All plots saved to plots/")
+
+
+def _run_frb_pipeline(P_interp, k_min, k_max):
+    """Compute and plot FRB auto-correlation signals for shallow and deep surveys."""
+    
     print("Computing C(ell) for shallow survey (alpha = 3.5) ...")
     ell_arr, C_ell_shallow = compute_cell(ALPHA_SHALLOW, P_interp, k_min, k_max)
 
@@ -47,26 +71,75 @@ def run_pipeline():
     _, C_ell_deep = compute_cell(ALPHA_DEEP, P_interp, k_min, k_max)
 
     # ── Step 3: shot noise ──────────────────────────────────────────────────
-    N_shot_shallow = compute_shot_noise(ALPHA_SHALLOW, N_TOTAL_SHALLOW)
-    N_shot_deep = compute_shot_noise(ALPHA_DEEP, N_TOTAL_DEEP)
+    N_shot_shallow = compute_shot_noise_from_counts(N_TOTAL_SHALLOW, F_SKY_FRB)
+    N_shot_deep = compute_shot_noise_from_counts(N_TOTAL_DEEP, F_SKY_FRB)
     print(f"  N_shot (shallow) = {N_shot_shallow:.4e}")
     print(f"  N_shot (deep)    = {N_shot_deep:.4e}")
 
-    # ── Step 4: plots ───────────────────────────────────────────────────────
+    # FRB plots
     _plot_cell_with_noise(
         ell_arr, C_ell_shallow, N_shot_shallow,
         title="FRB Auto-Correlation Angular Power Spectrum (Shallow Survey) for Magnetars",
-        filename="Cell_shallow_shotnoise",
+        filename="FRB_Cell_shallow_shotnoise",
     )
     _plot_cell_with_noise(
         ell_arr, C_ell_deep, N_shot_deep,
         title="FRB Auto-Correlation Angular Power Spectrum (Deep Survey) for Magnetars",
-        filename="Cell_deep_shotnoise",
+        filename="FRB_Cell_deep_shotnoise",
     )
     _plot_cell_comparison(ell_arr, C_ell_shallow, C_ell_deep)
-    _plot_pk(k_phys, P_interp)
 
-    print("All plots saved to plots/")
+
+def _run_galaxy_pipeline(P_interp, k_min, k_max):
+    """
+    Compute and plot galaxy tomographic auto-correlations for all bins.
+
+    This pipeline:
+      1) loads the measured n(z) data,
+      2) computes per-bin <z> and b_g,
+      3) builds W_g^i = n_i(z) * b_g^i,
+      4) computes C_ell for each bin i x i,
+      5) plots n(z), per-bin C_ell, and combined C_ell comparison.
+    """
+    z_mid, nz_bins_raw = load_galaxy_nz_data()
+    _plot_galaxy_nz(z_mid, nz_bins_raw)
+
+    z_means = compute_galaxy_bin_mean_redshifts(z_mid, nz_bins_raw)
+    biases = compute_galaxy_bias_from_means(z_means)
+
+    print("Galaxy tomographic mean redshifts and biases:")
+    for idx in range(GALAXY_N_BINS):
+        print(f"  z_mean_bin{idx + 1} = {z_means[idx]:.6f}")
+    for idx in range(GALAXY_N_BINS):
+        print(f"  b_g_bin{idx + 1}    = {biases[idx]:.6f}")
+
+    # Interpolate n(z) bins onto Z_ARR and build W_g^i(z) weights for each bin.
+    nz_bins_interp = interpolate_galaxy_bins(Z_ARR, z_mid, nz_bins_raw, normalize=True)
+    weights = build_galaxy_weights(Z_ARR, nz_bins_interp, biases)
+
+    # Derive per-bin counts from relative n(z) areas, then compute shot noise.
+    area_fractions = compute_bin_area_fractions(z_mid, nz_bins_raw)
+    n_totals_bins = GALAXY_N_TOTAL * area_fractions
+
+    ell_arr = None
+    cell_bins = []
+
+    for idx in range(GALAXY_N_BINS):
+        ell_arr, c_ell_bin = compute_cell_from_weight(
+            weights[:, idx], P_interp, k_min, k_max
+        )
+        n_shot_bin = compute_shot_noise_from_counts(n_totals_bins[idx], F_SKY_GALAXY)
+        cell_bins.append(c_ell_bin)
+
+        _plot_cell_with_noise(
+            ell_arr,
+            c_ell_bin,
+            n_shot_bin,
+            title=f"Galaxy Auto-Correlation Angular Power Spectrum (Bin {idx + 1} x Bin {idx + 1})",
+            filename=f"Galaxy_Cell_bin{idx + 1}_shotnoise",
+        )
+
+    _plot_galaxy_cell_comparison(ell_arr, cell_bins)
 
 
 # =============================================================================
@@ -126,10 +199,10 @@ def _plot_cell_comparison(ell_arr, C_ell_shallow, C_ell_deep):
     ax.set_title("FRB Auto-Correlation: Shallow vs Deep Survey for Magnetars")
     ax.legend()
     fig.tight_layout()
-    fig.savefig(os.path.join(PLOT_DIR, "Cell_comparison.pdf"))
-    fig.savefig(os.path.join(PLOT_DIR, "Cell_comparison.png"), dpi=200)
+    fig.savefig(os.path.join(PLOT_DIR, "FRB_Cell_comparison.pdf"))
+    fig.savefig(os.path.join(PLOT_DIR, "FRB_Cell_comparison.png"), dpi=200)
     plt.close(fig)
-    print("  Saved Cell_comparison.pdf / .png")
+    print("  Saved FRB_Cell_comparison.pdf / .png")
 
 
 def _plot_pk(k_phys, P_interp):
@@ -166,6 +239,50 @@ def _plot_pk(k_phys, P_interp):
     fig.savefig(os.path.join(PLOT_DIR, "Pk_nonlinear.png"), dpi=200)
     plt.close(fig)
     print("  Saved Pk_nonlinear.pdf / .png")
+
+
+def _plot_galaxy_nz(z_mid, nz_bins):
+    """Plot all tomographic galaxy n(z) bins in one figure."""
+    fig, ax = plt.subplots(figsize=(8, 5))
+    colors = plt.cm.tab10(np.linspace(0, 1, nz_bins.shape[1]))
+
+    for idx in range(nz_bins.shape[1]):
+        ax.plot(z_mid, nz_bins[:, idx], linewidth=1.8, color=colors[idx], label=f"BIN{idx + 1}")
+
+    ax.set_xlabel(r"Redshift $z$")
+    ax.set_ylabel(r"$n_i(z)$")
+    ax.set_title("Galaxy Tomographic Redshift Distributions")
+    ax.legend(loc="best", ncol=2)
+    fig.tight_layout()
+    fig.savefig(os.path.join(PLOT_DIR, "Galaxy_nz_bins.pdf"))
+    fig.savefig(os.path.join(PLOT_DIR, "Galaxy_nz_bins.png"), dpi=200)
+    plt.close(fig)
+    print("  Saved Galaxy_nz_bins.pdf / .png")
+
+
+def _plot_galaxy_cell_comparison(ell_arr, cell_bins):
+    """Overlay signal-only galaxy C(ell) curves for BIN1..BIN6."""
+    fig, ax = plt.subplots(figsize=(8, 5))
+    colors = plt.cm.tab10(np.linspace(0, 1, len(cell_bins)))
+
+    for idx, c_ell in enumerate(cell_bins):
+        ax.loglog(
+            ell_arr,
+            c_ell,
+            linewidth=1.6,
+            color=colors[idx],
+            label=f"Bin {idx + 1} x Bin {idx + 1}",
+        )
+
+    ax.set_xlabel(r"Multipole $\ell$")
+    ax.set_ylabel(r"$C_\ell$")
+    ax.set_title("Galaxy Auto-Correlation Comparison (Signal Only)")
+    ax.legend(loc="best", ncol=2)
+    fig.tight_layout()
+    fig.savefig(os.path.join(PLOT_DIR, "Galaxy_Cell_comparison.pdf"))
+    fig.savefig(os.path.join(PLOT_DIR, "Galaxy_Cell_comparison.png"), dpi=200)
+    plt.close(fig)
+    print("  Saved Galaxy_Cell_comparison.pdf / .png")
 
 
 if __name__ == "__main__":
