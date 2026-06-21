@@ -47,7 +47,7 @@ def compute_cell_from_weight(weight_z, P_interp, k_min, k_max):
     dz_dchi = H_arr / C_KM_S      # convert to 1/Mpc
 
     # W(chi) = W_z(z(chi)) * sqrt(dz/dchi) — incorporates the Jacobian
-    W = weight_z * np.sqrt(dz_dchi)
+    W = weight_z * dz_dchi
 
     # Allocate output
     C_ell = np.zeros(len(ELL_ARR))

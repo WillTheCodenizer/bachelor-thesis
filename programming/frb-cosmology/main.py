@@ -19,7 +19,7 @@ from config.parameters import (
 )
 from src.power_spectrum import build_power_spectrum_2d
 from src.angular_power_spectrum import compute_cell, compute_cell_from_weight
-from src.shot_noise import compute_shot_noise, compute_shot_noise_from_counts
+from src.shot_noise import compute_shot_noise_from_counts
 from src.distributions import (
     load_galaxy_nz_data,
     compute_galaxy_bin_mean_redshifts,

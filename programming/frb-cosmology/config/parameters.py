@@ -68,9 +68,8 @@ ALPHA_DEEP = 2.0             # Steepness of n(z) ∝ z^2 exp(-alpha z)
 
 # --- Common survey parameters ---
 F_SKY_FRB = 0.9              # Observed sky fraction for FRB surveys
-F_SKY_GALAXY = 0.033         # Observed sky fraction for galaxy surveys, RECHNUNG MUSS NOCH FOLGEN IN CLAUDE
+F_SKY_GALAXY = 0.03265         # Observed sky fraction for galaxy surveys, RECHNUNG MUSS NOCH FOLGEN IN CLAUDE
 
-N_TOMO = 1                   # Number of tomographic redshift bins
 
 # =============================================================================
 # Galaxy tomography parameters
@@ -78,7 +77,7 @@ N_TOMO = 1                   # Number of tomographic redshift bins
 GALAXY_N_BINS = 6                         # Number of tomographic galaxy bins
 
 # This information comes from the KiDS-1000 tomographic n(z) data
-GALAXY_N_TOTAL = 5.0e7                    # Total galaxy count across all bins
+GALAXY_N_TOTAL = 126085                    # Total galaxy count across all bins
 GALAXY_NZ_FILE = (
     Path(__file__).resolve().parents[1] / "data" / "KiDS_Legacy_nz.txt"
 )
