@@ -11,7 +11,7 @@ where W(chi) = W_z(z(chi)) * sqrt(dz/dchi) and dz/dchi = H(z) / c.
 
 import numpy as np
 
-from config.parameters import COSMO, Z_ARR, ELL_ARR, B0, DELTA
+from config.parameters import COSMO, Z_ARR, ELL_ARR
 from src.cosmology import CHI_ARR, C_KM_S
 from src.distributions import weight_frb
 
