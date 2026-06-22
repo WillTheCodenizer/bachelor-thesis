@@ -3,7 +3,7 @@ distributions.py — FRB redshift distribution, bias model, and weight function.
 
 Defines:
   n(z)  — normalised redshift distribution of FRBs
-  b(z)  — linear bias of the FRB host population (magnetar model)
+    b(z)  — linear bias of the FRB host population
   W(z)  — weight function for the Limber integral: b(z) * n(z), normalised
 """
 
@@ -37,7 +37,7 @@ def n_z(z, alpha):
 
 def bias(z, b0, delta):
     """
-    Linear bias of FRB hosts (magnetar model): b(z) = b0 * (1 + z)^delta.
+    Linear bias of FRB hosts: b(z) = b0 * (1 + z)^delta.
 
     Parameters
     ----------
@@ -211,29 +211,6 @@ def interpolate_galaxy_bins(z_target, z_mid, nz_bins, normalize=True):
         nz_interp[:, idx] = arr
 
     return nz_interp
-
-
-def compute_bin_area_fractions(z_mid, nz_bins):
-    """
-    Compute relative bin weights from areas under raw n(z) curves.
-
-    Parameters
-    ----------
-    z_mid : ndarray
-        Source redshift grid.
-    nz_bins : ndarray
-        Raw bin distributions with shape (n_z, n_bins).
-
-    Returns
-    -------
-    fractions : ndarray
-        Relative area fraction per bin, summing to 1.
-    """
-    areas = np.array([trapezoid(nz_bins[:, idx], z_mid) for idx in range(nz_bins.shape[1])])
-    total_area = np.sum(areas)
-    if total_area <= 0.0:
-        raise ValueError("Total galaxy n(z) area is zero; cannot derive bin fractions.")
-    return areas / total_area
 
 
 def build_galaxy_weights(z_target, nz_interp, biases):

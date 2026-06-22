@@ -49,10 +49,15 @@ ELL_ARR = np.unique(
 )
 
 # =============================================================================
-# Magnetar bias model: b(z) = b0 * (1 + z)^delta
+# FRB host-population bias models: b(z) = b0 * (1 + z)^delta
 # =============================================================================
-B0 = 1.0                # Bias amplitude at z = 0
-DELTA = 0.8             # Bias redshift evolution exponent
+# Magnetars
+MAGNETAR_B0 = 1.0
+MAGNETAR_DELTA = 0.8
+
+# Neutron stars
+NEUTRON_STAR_B0 = 1.5
+NEUTRON_STAR_DELTA = 0.2
 
 # =============================================================================
 # Survey parameters
@@ -68,7 +73,14 @@ ALPHA_DEEP = 2.0             # Steepness of n(z) ∝ z^2 exp(-alpha z)
 
 # --- Common survey parameters ---
 F_SKY_FRB = 0.9              # Observed sky fraction for FRB surveys
-F_SKY_GALAXY = 0.03265         # Observed sky fraction for galaxy surveys, RECHNUNG MUSS NOCH FOLGEN IN CLAUDE
+
+# KiDS survey area used for tomographic galaxy bins
+GALAXY_SURVEY_AREA_DEG2 = 1347.0
+ARCMIN2_PER_DEG2 = 60.0 ** 2
+GALAXY_SURVEY_AREA_ARCMIN2 = GALAXY_SURVEY_AREA_DEG2 * ARCMIN2_PER_DEG2
+
+# Observed sky fraction from survey area
+F_SKY_GALAXY = GALAXY_SURVEY_AREA_DEG2 / (4.0 * np.pi * (180.0 / np.pi) ** 2)
 
 
 # =============================================================================
@@ -76,8 +88,21 @@ F_SKY_GALAXY = 0.03265         # Observed sky fraction for galaxy surveys, RECHN
 # =============================================================================
 GALAXY_N_BINS = 6                         # Number of tomographic galaxy bins
 
-# This information comes from the KiDS-1000 tomographic n(z) data
-GALAXY_N_TOTAL = 126085                    # Total galaxy count across all bins
+# KiDS number-density input: ngal_i in [arcmin^-2] for each tomographic bin.
+GALAXY_NGAL_FILE = Path(__file__).resolve().parents[1] / "data" / "Ngal.txt"
+GALAXY_NGAL_PER_ARCMIN2 = np.loadtxt(GALAXY_NGAL_FILE, comments="#", ndmin=1)
+
+if GALAXY_NGAL_PER_ARCMIN2.size != GALAXY_N_BINS:
+    raise ValueError(
+        f"Expected {GALAXY_N_BINS} ngal values in Ngal.txt, "
+        f"got {GALAXY_NGAL_PER_ARCMIN2.size}."
+    )
+
+# Number of galaxies per bin: N_i = survey_area[arcmin^2] * ngal_i[arcmin^-2]
+GALAXY_N_PER_BIN = GALAXY_SURVEY_AREA_ARCMIN2 * GALAXY_NGAL_PER_ARCMIN2
+GALAXY_N_TOTAL = float(np.sum(GALAXY_N_PER_BIN))
+
+# Tomographic n(z) distributions (independent from ngal_i counts above)
 GALAXY_NZ_FILE = (
     Path(__file__).resolve().parents[1] / "data" / "KiDS_Legacy_nz.txt"
 )

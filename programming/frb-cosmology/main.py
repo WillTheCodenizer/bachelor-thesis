@@ -15,7 +15,9 @@ from config.parameters import (
     ALPHA_SHALLOW, ALPHA_DEEP,
     N_TOTAL_SHALLOW, N_TOTAL_DEEP,
     Z_ARR,
-    GALAXY_N_BINS, GALAXY_N_TOTAL, F_SKY_FRB, F_SKY_GALAXY,
+    MAGNETAR_B0, MAGNETAR_DELTA,
+    NEUTRON_STAR_B0, NEUTRON_STAR_DELTA,
+    GALAXY_N_BINS, GALAXY_N_PER_BIN, GALAXY_N_TOTAL, F_SKY_FRB, F_SKY_GALAXY,
 )
 from src.power_spectrum import build_power_spectrum_2d
 from src.angular_power_spectrum import compute_cell, compute_cell_from_weight
@@ -25,7 +27,6 @@ from src.distributions import (
     compute_galaxy_bin_mean_redshifts,
     compute_galaxy_bias_from_means,
     interpolate_galaxy_bins,
-    compute_bin_area_fractions,
     build_galaxy_weights,
 )
 
@@ -40,7 +41,7 @@ def run_pipeline():
 
     Steps:
         1. Build the redshift-dependent nonlinear matter power spectrum P(k, z).
-        2. Run FRB auto-correlation (shallow/deep) and plots.
+        2. Run FRB auto-correlation (shallow/deep) for both host populations.
         3. Run galaxy tomographic auto-correlations for all bins and plots.
         4. Produce and save a shared P(k, z) diagnostic plot.
     """
@@ -49,7 +50,7 @@ def run_pipeline():
     k_phys, P_interp, k_min, k_max = build_power_spectrum_2d(z_max=4.0, n_z=120)
     print(f"  k range : {k_min:.4e} – {k_max:.4e}  [1/Mpc]")
 
-    # ── Step 2: FRB angular power spectra for magnetars ─────────────────────
+    # ── Step 2: FRB angular power spectra for all FRB host populations ─────
     _run_frb_pipeline(P_interp, k_min, k_max)
 
     # ── Step 3: galaxy tomographic angular power spectra ────────────────────
@@ -62,32 +63,60 @@ def run_pipeline():
 
 
 def _run_frb_pipeline(P_interp, k_min, k_max):
-    """Compute and plot FRB auto-correlation signals for shallow and deep surveys."""
-    
-    print("Computing C(ell) for shallow survey (alpha = 3.5) ...")
-    ell_arr, C_ell_shallow = compute_cell(ALPHA_SHALLOW, P_interp, k_min, k_max)
+    """Compute and plot FRB auto-correlation signals for both host populations."""
 
-    print("Computing C(ell) for deep survey (alpha = 2.0) ...")
-    _, C_ell_deep = compute_cell(ALPHA_DEEP, P_interp, k_min, k_max)
+    populations = [
+        ("Magnetars", "magnetar", MAGNETAR_B0, MAGNETAR_DELTA),
+        ("Neutron Stars", "neutron_star", NEUTRON_STAR_B0, NEUTRON_STAR_DELTA),
+    ]
 
-    # ── Step 3: shot noise ──────────────────────────────────────────────────
+    # Shot noise depends on survey counts/f_sky and is shared across populations.
     N_shot_shallow = compute_shot_noise_from_counts(N_TOTAL_SHALLOW, F_SKY_FRB)
     N_shot_deep = compute_shot_noise_from_counts(N_TOTAL_DEEP, F_SKY_FRB)
-    print(f"  N_shot (shallow) = {N_shot_shallow:.4e}")
-    print(f"  N_shot (deep)    = {N_shot_deep:.4e}")
 
-    # FRB plots
-    _plot_cell_with_noise(
-        ell_arr, C_ell_shallow, N_shot_shallow,
-        title="FRB Auto-Correlation Angular Power Spectrum (Shallow Survey) for Magnetars",
-        filename="FRB_Cell_shallow_shotnoise",
-    )
-    _plot_cell_with_noise(
-        ell_arr, C_ell_deep, N_shot_deep,
-        title="FRB Auto-Correlation Angular Power Spectrum (Deep Survey) for Magnetars",
-        filename="FRB_Cell_deep_shotnoise",
-    )
-    _plot_cell_comparison(ell_arr, C_ell_shallow, C_ell_deep)
+    for population_label, population_slug, b0, delta in populations:
+        print(
+            f"Computing FRB C(ell) for {population_label} "
+            f"(b0={b0:.2f}, delta={delta:.2f}) ..."
+        )
+
+        ell_arr, c_ell_shallow = compute_cell(
+            ALPHA_SHALLOW, P_interp, k_min, k_max, b0=b0, delta=delta
+        )
+        _, c_ell_deep = compute_cell(
+            ALPHA_DEEP, P_interp, k_min, k_max, b0=b0, delta=delta
+        )
+
+        print(f"  N_shot (shallow) = {N_shot_shallow:.4e}")
+        print(f"  N_shot (deep)    = {N_shot_deep:.4e}")
+
+        _plot_cell_with_noise(
+            ell_arr,
+            c_ell_shallow,
+            N_shot_shallow,
+            title=(
+                f"FRB Auto-Correlation Angular Power Spectrum "
+                f"(Shallow Survey) for {population_label}"
+            ),
+            filename=f"FRB_{population_slug}_Cell_shallow_shotnoise",
+        )
+        _plot_cell_with_noise(
+            ell_arr,
+            c_ell_deep,
+            N_shot_deep,
+            title=(
+                f"FRB Auto-Correlation Angular Power Spectrum "
+                f"(Deep Survey) for {population_label}"
+            ),
+            filename=f"FRB_{population_slug}_Cell_deep_shotnoise",
+        )
+        _plot_cell_comparison(
+            ell_arr,
+            c_ell_shallow,
+            c_ell_deep,
+            population_label=population_label,
+            population_slug=population_slug,
+        )
 
 
 def _run_galaxy_pipeline(P_interp, k_min, k_max):
@@ -117,9 +146,11 @@ def _run_galaxy_pipeline(P_interp, k_min, k_max):
     nz_bins_interp = interpolate_galaxy_bins(Z_ARR, z_mid, nz_bins_raw, normalize=True)
     weights = build_galaxy_weights(Z_ARR, nz_bins_interp, biases)
 
-    # Derive per-bin counts from relative n(z) areas, then compute shot noise.
-    area_fractions = compute_bin_area_fractions(z_mid, nz_bins_raw)
-    n_totals_bins = GALAXY_N_TOTAL * area_fractions
+    # Use observed per-bin counts derived from Ngal.txt in parameters.py.
+    n_totals_bins = GALAXY_N_PER_BIN
+    print(f"Galaxy total count (from Ngal.txt): {GALAXY_N_TOTAL:.0f}")
+    for idx in range(GALAXY_N_BINS):
+        print(f"  N_gal_bin{idx + 1} = {n_totals_bins[idx]:.2f}")
 
     ell_arr = None
     cell_bins = []
@@ -178,7 +209,13 @@ def _plot_cell_with_noise(ell_arr, C_ell, N_shot, title, filename):
     print(f"  Saved {filename}.pdf / .png")
 
 
-def _plot_cell_comparison(ell_arr, C_ell_shallow, C_ell_deep):
+def _plot_cell_comparison(
+    ell_arr,
+    C_ell_shallow,
+    C_ell_deep,
+    population_label="Magnetars",
+    population_slug="magnetar",
+):
     """
     Overlay the signal-only C(ell) from both surveys on one log-log plot.
 
@@ -196,13 +233,13 @@ def _plot_cell_comparison(ell_arr, C_ell_shallow, C_ell_deep):
     ax.loglog(ell_arr, C_ell_deep, label=r"Deep ($\alpha=2.0$)", linewidth=1.5)
     ax.set_xlabel(r"Multipole $\ell$")
     ax.set_ylabel(r"$C_\ell$")
-    ax.set_title("FRB Auto-Correlation: Shallow vs Deep Survey for Magnetars")
+    ax.set_title(f"FRB Auto-Correlation: Shallow vs Deep Survey for {population_label}")
     ax.legend()
     fig.tight_layout()
-    fig.savefig(os.path.join(PLOT_DIR, "FRB_Cell_comparison.pdf"))
-    fig.savefig(os.path.join(PLOT_DIR, "FRB_Cell_comparison.png"), dpi=200)
+    fig.savefig(os.path.join(PLOT_DIR, f"FRB_{population_slug}_Cell_comparison.pdf"))
+    fig.savefig(os.path.join(PLOT_DIR, f"FRB_{population_slug}_Cell_comparison.png"), dpi=200)
     plt.close(fig)
-    print("  Saved FRB_Cell_comparison.pdf / .png")
+    print(f"  Saved FRB_{population_slug}_Cell_comparison.pdf / .png")
 
 
 def _plot_pk(k_phys, P_interp):

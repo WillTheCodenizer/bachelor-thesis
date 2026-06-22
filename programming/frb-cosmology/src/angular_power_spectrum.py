@@ -77,7 +77,7 @@ def compute_cell_from_weight(weight_z, P_interp, k_min, k_max):
     return ELL_ARR, C_ell
 
 
-def compute_cell(alpha, P_interp, k_min, k_max):
+def compute_cell(alpha, P_interp, k_min, k_max, b0, delta):
     """
     Compute the angular power spectrum C(ell) via the Limber approximation.
 
@@ -92,6 +92,10 @@ def compute_cell(alpha, P_interp, k_min, k_max):
         Minimum valid wavenumber for P_interp [1/Mpc].
     k_max : float
         Maximum valid wavenumber for P_interp [1/Mpc].
+    b0 : float, optional
+        Bias amplitude at z = 0.
+    delta : float, optional
+        Bias redshift evolution exponent.
 
     Returns
     -------
@@ -101,5 +105,5 @@ def compute_cell(alpha, P_interp, k_min, k_max):
         Angular power spectrum at each multipole.
     """
     # Weight function evaluated on the redshift grid W(z) = b(z) * n(z)
-    weight_z = weight_frb(Z_ARR, alpha, B0, DELTA)
+    weight_z = weight_frb(Z_ARR, alpha, b0, delta)
     return compute_cell_from_weight(weight_z, P_interp, k_min, k_max)
