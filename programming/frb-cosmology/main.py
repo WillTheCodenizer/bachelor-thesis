@@ -17,11 +17,11 @@ from config.parameters import (
     Z_ARR,
     MAGNETAR_B0, MAGNETAR_DELTA,
     NEUTRON_STAR_B0, NEUTRON_STAR_DELTA,
-    GALAXY_N_BINS, GALAXY_N_PER_BIN, GALAXY_N_TOTAL, F_SKY_FRB, F_SKY_GALAXY,
+    GALAXY_N_BINS, GALAXY_NBAR_PER_BIN, F_SKY_FRB,
 )
 from src.power_spectrum import build_power_spectrum_2d
 from src.angular_power_spectrum import compute_cell, compute_cell_from_weight
-from src.shot_noise import compute_shot_noise_from_counts
+from src.shot_noise import compute_shot_noise_from_counts, compute_shot_noise_from_density
 from src.distributions import (
     load_galaxy_nz_data,
     compute_galaxy_bin_mean_redshifts,
@@ -146,11 +146,11 @@ def _run_galaxy_pipeline(P_interp, k_min, k_max):
     nz_bins_interp = interpolate_galaxy_bins(Z_ARR, z_mid, nz_bins_raw, normalize=True)
     weights = build_galaxy_weights(Z_ARR, nz_bins_interp, biases)
 
-    # Use observed per-bin counts derived from Ngal.txt in parameters.py.
-    n_totals_bins = GALAXY_N_PER_BIN
-    print(f"Galaxy total count (from Ngal.txt): {GALAXY_N_TOTAL:.0f}")
+    # Use one direct n_bar value per tomographic bin from Ngal.txt.
+    nbar_bins = GALAXY_NBAR_PER_BIN
+    print("Galaxy n_bar values (from Ngal.txt):")
     for idx in range(GALAXY_N_BINS):
-        print(f"  N_gal_bin{idx + 1} = {n_totals_bins[idx]:.2f}")
+        print(f"  n_bar_bin{idx + 1} = {nbar_bins[idx]:.6e}")
 
     ell_arr = None
     cell_bins = []
@@ -159,7 +159,7 @@ def _run_galaxy_pipeline(P_interp, k_min, k_max):
         ell_arr, c_ell_bin = compute_cell_from_weight(
             weights[:, idx], P_interp, k_min, k_max
         )
-        n_shot_bin = compute_shot_noise_from_counts(n_totals_bins[idx], F_SKY_GALAXY)
+        n_shot_bin = compute_shot_noise_from_density(nbar_bins[idx])
         cell_bins.append(c_ell_bin)
 
         _plot_cell_with_noise(
