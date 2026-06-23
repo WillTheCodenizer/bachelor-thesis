@@ -35,6 +35,18 @@ PLOT_DIR = os.path.join(os.path.dirname(__file__), "plots")
 os.makedirs(PLOT_DIR, exist_ok=True)
 
 
+def _make_plot_dir(subdir_name):
+    """Create and return a dedicated plot subdirectory for one pipeline."""
+    plot_subdir = os.path.join(PLOT_DIR, subdir_name)
+    os.makedirs(plot_subdir, exist_ok=True)
+    return plot_subdir
+
+
+FRB_PLOT_DIR = _make_plot_dir("frb")
+GALAXY_PLOT_DIR = _make_plot_dir("galaxy")
+PK_PLOT_DIR = _make_plot_dir("power_spectrum")
+
+
 def run_pipeline():
     """
     Execute the full FRB + galaxy auto-correlation pipeline.
@@ -57,9 +69,9 @@ def run_pipeline():
     _run_galaxy_pipeline(P_interp, k_min, k_max)
 
     # ── Step 4: shared P(k, z) diagnostic plot ──────────────────────────────
-    _plot_pk(k_phys, P_interp)
+    _plot_pk(k_phys, P_interp, PK_PLOT_DIR)
 
-    print("All plots saved to plots/")
+    print("All plots saved to plots/ with one subfolder per pipeline")
 
 
 def _run_frb_pipeline(P_interp, k_min, k_max):
@@ -99,6 +111,7 @@ def _run_frb_pipeline(P_interp, k_min, k_max):
                 f"(Shallow Survey) for {population_label}"
             ),
             filename=f"FRB_{population_slug}_Cell_shallow_shotnoise",
+            plot_dir=FRB_PLOT_DIR,
         )
         _plot_cell_with_noise(
             ell_arr,
@@ -109,6 +122,7 @@ def _run_frb_pipeline(P_interp, k_min, k_max):
                 f"(Deep Survey) for {population_label}"
             ),
             filename=f"FRB_{population_slug}_Cell_deep_shotnoise",
+            plot_dir=FRB_PLOT_DIR,
         )
         _plot_cell_comparison(
             ell_arr,
@@ -116,6 +130,7 @@ def _run_frb_pipeline(P_interp, k_min, k_max):
             c_ell_deep,
             population_label=population_label,
             population_slug=population_slug,
+            plot_dir=FRB_PLOT_DIR,
         )
 
 
@@ -131,7 +146,7 @@ def _run_galaxy_pipeline(P_interp, k_min, k_max):
       5) plots n(z), per-bin C_ell, and combined C_ell comparison.
     """
     z_mid, nz_bins_raw = load_galaxy_nz_data()
-    _plot_galaxy_nz(z_mid, nz_bins_raw)
+    _plot_galaxy_nz(z_mid, nz_bins_raw, GALAXY_PLOT_DIR)
 
     z_means = compute_galaxy_bin_mean_redshifts(z_mid, nz_bins_raw)
     biases = compute_galaxy_bias_from_means(z_means)
@@ -168,16 +183,17 @@ def _run_galaxy_pipeline(P_interp, k_min, k_max):
             n_shot_bin,
             title=f"Galaxy Auto-Correlation Angular Power Spectrum (Bin {idx + 1} x Bin {idx + 1})",
             filename=f"Galaxy_Cell_bin{idx + 1}_shotnoise",
+            plot_dir=GALAXY_PLOT_DIR,
         )
 
-    _plot_galaxy_cell_comparison(ell_arr, cell_bins)
+    _plot_galaxy_cell_comparison(ell_arr, cell_bins, GALAXY_PLOT_DIR)
 
 
 # =============================================================================
 # Plotting helpers
 # =============================================================================
 
-def _plot_cell_with_noise(ell_arr, C_ell, N_shot, title, filename):
+def _plot_cell_with_noise(ell_arr, C_ell, N_shot, title, filename, plot_dir):
     """
     Log-log plot of C(ell) with and without shot noise.
 
@@ -203,8 +219,8 @@ def _plot_cell_with_noise(ell_arr, C_ell, N_shot, title, filename):
     ax.set_title(title)
     ax.legend()
     fig.tight_layout()
-    fig.savefig(os.path.join(PLOT_DIR, f"{filename}.pdf"))
-    fig.savefig(os.path.join(PLOT_DIR, f"{filename}.png"), dpi=200)
+    fig.savefig(os.path.join(plot_dir, f"{filename}.pdf"))
+    fig.savefig(os.path.join(plot_dir, f"{filename}.png"), dpi=200)
     plt.close(fig)
     print(f"  Saved {filename}.pdf / .png")
 
@@ -215,6 +231,7 @@ def _plot_cell_comparison(
     C_ell_deep,
     population_label="Magnetars",
     population_slug="magnetar",
+    plot_dir=FRB_PLOT_DIR,
 ):
     """
     Overlay the signal-only C(ell) from both surveys on one log-log plot.
@@ -236,13 +253,13 @@ def _plot_cell_comparison(
     ax.set_title(f"FRB Auto-Correlation: Shallow vs Deep Survey for {population_label}")
     ax.legend()
     fig.tight_layout()
-    fig.savefig(os.path.join(PLOT_DIR, f"FRB_{population_slug}_Cell_comparison.pdf"))
-    fig.savefig(os.path.join(PLOT_DIR, f"FRB_{population_slug}_Cell_comparison.png"), dpi=200)
+    fig.savefig(os.path.join(plot_dir, f"FRB_{population_slug}_Cell_comparison.pdf"))
+    fig.savefig(os.path.join(plot_dir, f"FRB_{population_slug}_Cell_comparison.png"), dpi=200)
     plt.close(fig)
     print(f"  Saved FRB_{population_slug}_Cell_comparison.pdf / .png")
 
 
-def _plot_pk(k_phys, P_interp):
+def _plot_pk(k_phys, P_interp, plot_dir):
     """
     Log-log plot of the nonlinear matter power spectrum P(k, z) at multiple redshifts.
 
@@ -272,13 +289,13 @@ def _plot_pk(k_phys, P_interp):
     ax.set_title("Nonlinear Matter Power Spectrum P(k, z) — Redshift Evolution")
     ax.legend(loc="best")
     fig.tight_layout()
-    fig.savefig(os.path.join(PLOT_DIR, "Pk_nonlinear.pdf"))
-    fig.savefig(os.path.join(PLOT_DIR, "Pk_nonlinear.png"), dpi=200)
+    fig.savefig(os.path.join(plot_dir, "Pk_nonlinear.pdf"))
+    fig.savefig(os.path.join(plot_dir, "Pk_nonlinear.png"), dpi=200)
     plt.close(fig)
     print("  Saved Pk_nonlinear.pdf / .png")
 
 
-def _plot_galaxy_nz(z_mid, nz_bins):
+def _plot_galaxy_nz(z_mid, nz_bins, plot_dir):
     """Plot all tomographic galaxy n(z) bins in one figure."""
     fig, ax = plt.subplots(figsize=(8, 5))
     colors = plt.cm.tab10(np.linspace(0, 1, nz_bins.shape[1]))
@@ -291,13 +308,13 @@ def _plot_galaxy_nz(z_mid, nz_bins):
     ax.set_title("Galaxy Tomographic Redshift Distributions")
     ax.legend(loc="best", ncol=2)
     fig.tight_layout()
-    fig.savefig(os.path.join(PLOT_DIR, "Galaxy_nz_bins.pdf"))
-    fig.savefig(os.path.join(PLOT_DIR, "Galaxy_nz_bins.png"), dpi=200)
+    fig.savefig(os.path.join(plot_dir, "Galaxy_nz_bins.pdf"))
+    fig.savefig(os.path.join(plot_dir, "Galaxy_nz_bins.png"), dpi=200)
     plt.close(fig)
     print("  Saved Galaxy_nz_bins.pdf / .png")
 
 
-def _plot_galaxy_cell_comparison(ell_arr, cell_bins):
+def _plot_galaxy_cell_comparison(ell_arr, cell_bins, plot_dir):
     """Overlay signal-only galaxy C(ell) curves for BIN1..BIN6."""
     fig, ax = plt.subplots(figsize=(8, 5))
     colors = plt.cm.tab10(np.linspace(0, 1, len(cell_bins)))
@@ -316,8 +333,8 @@ def _plot_galaxy_cell_comparison(ell_arr, cell_bins):
     ax.set_title("Galaxy Auto-Correlation Comparison (Signal Only)")
     ax.legend(loc="best", ncol=2)
     fig.tight_layout()
-    fig.savefig(os.path.join(PLOT_DIR, "Galaxy_Cell_comparison.pdf"))
-    fig.savefig(os.path.join(PLOT_DIR, "Galaxy_Cell_comparison.png"), dpi=200)
+    fig.savefig(os.path.join(plot_dir, "Galaxy_Cell_comparison.pdf"))
+    fig.savefig(os.path.join(plot_dir, "Galaxy_Cell_comparison.png"), dpi=200)
     plt.close(fig)
     print("  Saved Galaxy_Cell_comparison.pdf / .png")
 
