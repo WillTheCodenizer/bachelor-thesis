@@ -20,7 +20,11 @@ from config.parameters import (
     GALAXY_N_BINS, GALAXY_NBAR_PER_BIN, F_SKY_FRB,
 )
 from src.power_spectrum import build_power_spectrum_2d
-from src.angular_power_spectrum import compute_cell, compute_cell_from_weight
+from src.angular_power_spectrum import (
+    compute_cell,
+    compute_cell_from_weight,
+    compute_cell_cross_correlation,
+)
 from src.shot_noise import compute_shot_noise_from_counts, compute_shot_noise_from_density
 from src.distributions import (
     load_galaxy_nz_data,
@@ -28,6 +32,7 @@ from src.distributions import (
     compute_galaxy_bias_from_means,
     interpolate_galaxy_bins,
     build_galaxy_weights,
+    weight_frb,
 )
 
 # ── Output directory ────────────────────────────────────────────────────────
@@ -45,6 +50,7 @@ def _make_plot_dir(subdir_name):
 FRB_PLOT_DIR = _make_plot_dir("frb")
 GALAXY_PLOT_DIR = _make_plot_dir("galaxy")
 PK_PLOT_DIR = _make_plot_dir("power_spectrum")
+CROSS_PLOT_DIR = _make_plot_dir("frb_x_galaxy")
 
 
 def run_pipeline():
@@ -56,6 +62,8 @@ def run_pipeline():
         2. Run FRB auto-correlation (shallow/deep) for both host populations.
         3. Run galaxy tomographic auto-correlations for all bins and plots.
         4. Produce and save a shared P(k, z) diagnostic plot.
+        5. Run FRB x Galaxy cross-correlation for all 24 combinations
+           (2 populations x 2 surveys x 6 galaxy bins) and comparison plots.
     """
     # ── Step 1: nonlinear power spectrum ────────────────────────────────────
     print("Building redshift-dependent P(k, z) via 2D spline ...")
@@ -70,6 +78,10 @@ def run_pipeline():
 
     # ── Step 4: shared P(k, z) diagnostic plot ──────────────────────────────
     _plot_pk(k_phys, P_interp, PK_PLOT_DIR)
+
+    # ── Step 5: FRB x Galaxy cross-correlation ───────────────────────────────
+    print("\nStep 5: FRB × Galaxy cross-correlation ...")
+    _run_cross_correlation_pipeline(P_interp, k_min, k_max)
 
     print("All plots saved to plots/ with one subfolder per pipeline")
 
@@ -337,6 +349,289 @@ def _plot_galaxy_cell_comparison(ell_arr, cell_bins, plot_dir):
     fig.savefig(os.path.join(plot_dir, "Galaxy_Cell_comparison.png"), dpi=200)
     plt.close(fig)
     print("  Saved Galaxy_Cell_comparison.pdf / .png")
+
+
+def _run_cross_correlation_pipeline(P_interp, k_min, k_max):
+    """
+    Compute and plot FRB x Galaxy cross-correlation spectra for all combinations.
+
+    Iterates over:
+      - 2 FRB host populations: Magnetars, Neutron Stars
+      - 2 FRB surveys: Shallow, Deep
+      - 6 galaxy tomographic bins
+
+    yielding 24 cross-correlation spectra C(ell)^{FRB x gal_i}.
+    No shot noise is added — cross-correlations between distinct populations
+    carry no Poissonian noise contribution.
+
+    Three types of comparison plots are produced in the comparisons/ subdirectory:
+      1. Population: Magnetar vs Neutron Star (per survey, per bin)
+      2. Survey: Shallow vs Deep (per population, per bin)
+      3. Galaxy bins: Bin 1..6 overlay (per population, per survey)
+    """
+    populations = [
+        ("Magnetars", "magnetar", MAGNETAR_B0, MAGNETAR_DELTA),
+        ("Neutron Stars", "neutron_star", NEUTRON_STAR_B0, NEUTRON_STAR_DELTA),
+    ]
+    surveys = [
+        ("Shallow", "shallow", ALPHA_SHALLOW),
+        ("Deep", "deep", ALPHA_DEEP),
+    ]
+
+    # Create per-population/survey subdirectories inside frb_x_galaxy/
+    cell_dirs = {}
+    for _, pop_slug, _, _ in populations:
+        for _, survey_slug, _ in surveys:
+            path = os.path.join(CROSS_PLOT_DIR, pop_slug, survey_slug)
+            os.makedirs(path, exist_ok=True)
+            cell_dirs[(pop_slug, survey_slug)] = path
+    comp_dir = os.path.join(CROSS_PLOT_DIR, "comparisons")
+    os.makedirs(comp_dir, exist_ok=True)
+
+    # Load and prepare galaxy data (identical preparation as in _run_galaxy_pipeline)
+    z_mid, nz_bins_raw = load_galaxy_nz_data()
+    z_means = compute_galaxy_bin_mean_redshifts(z_mid, nz_bins_raw)
+    biases = compute_galaxy_bias_from_means(z_means)
+    nz_bins_interp = interpolate_galaxy_bins(Z_ARR, z_mid, nz_bins_raw, normalize=True)
+    weights_galaxy = build_galaxy_weights(Z_ARR, nz_bins_interp, biases)
+
+    # Compute all 2 × 2 × 6 = 24 cross-correlation spectra.
+    # Store in dict indexed by (pop_slug, survey_slug, bin_idx).
+    cells = {}
+    ell_arr = None
+
+    for pop_label, pop_slug, b0, delta in populations:
+        for survey_label, survey_slug, alpha in surveys:
+            print(
+                f"Computing FRB×Galaxy cross-correlations: "
+                f"{pop_label}, {survey_label} survey ..."
+            )
+            w_frb = weight_frb(Z_ARR, alpha, b0, delta)
+
+            for bin_idx in range(GALAXY_N_BINS):
+                w_gal = weights_galaxy[:, bin_idx]
+                ell_arr, c_ell = compute_cell_cross_correlation(
+                    w_frb, w_gal, P_interp, k_min, k_max
+                )
+                cells[(pop_slug, survey_slug, bin_idx)] = c_ell
+                print(
+                    f"  Bin {bin_idx + 1}: "
+                    f"C_ell_max = {np.max(c_ell):.4e}"
+                )
+                _plot_cross_cell(
+                    ell_arr,
+                    c_ell,
+                    title=(
+                        f"FRB×Galaxy Cross-Correlation ({pop_label}, "
+                        f"{survey_label} Survey, Galaxy Bin {bin_idx + 1})"
+                    ),
+                    filename=f"cross_cell_bin{bin_idx + 1}",
+                    plot_dir=cell_dirs[(pop_slug, survey_slug)],
+                )
+
+    # --- Comparison plots ---
+
+    # 1. Population comparison: Magnetar vs Neutron Star
+    #    One plot per (survey, bin) with 2 curves.
+    for survey_label, survey_slug, _ in surveys:
+        for bin_idx in range(GALAXY_N_BINS):
+            _plot_cross_population_comparison(
+                ell_arr, cells, survey_slug, survey_label, bin_idx, comp_dir
+            )
+
+    # 2. Survey comparison: Shallow vs Deep
+    #    One plot per (population, bin) with 2 curves.
+    for pop_label, pop_slug, _, _ in populations:
+        for bin_idx in range(GALAXY_N_BINS):
+            _plot_cross_survey_comparison(
+                ell_arr, cells, pop_slug, pop_label, bin_idx, comp_dir
+            )
+
+    # 3. Bin comparison: all 6 galaxy bins overlaid
+    #    One plot per (population, survey) with 6 curves.
+    for pop_label, pop_slug, _, _ in populations:
+        for survey_label, survey_slug, _ in surveys:
+            _plot_cross_bin_comparison(
+                ell_arr, cells,
+                pop_slug, pop_label,
+                survey_slug, survey_label,
+                comp_dir,
+            )
+
+
+# =============================================================================
+# Cross-correlation plotting helpers
+# =============================================================================
+
+def _plot_cross_cell(ell_arr, c_ell, title, filename, plot_dir):
+    """
+    Log-log plot of a single FRB x Galaxy cross-correlation spectrum.
+
+    No shot noise overlay — cross-correlations between distinct populations
+    have no shot noise contribution.
+
+    Parameters
+    ----------
+    ell_arr : ndarray
+        Multipole values.
+    c_ell : ndarray
+        Cross-correlation angular power spectrum.
+    title : str
+        Plot title.
+    filename : str
+        Base filename (without extension) for saving.
+    plot_dir : str
+        Directory in which to save the figure.
+    """
+    fig, ax = plt.subplots(figsize=(7, 5))
+    ax.loglog(ell_arr, c_ell, linewidth=1.5, color="C0")
+    ax.set_xlabel(r"Multipole $\ell$")
+    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
+    ax.set_title(title)
+    fig.tight_layout()
+    fig.savefig(os.path.join(plot_dir, f"{filename}.pdf"))
+    fig.savefig(os.path.join(plot_dir, f"{filename}.png"), dpi=200)
+    plt.close(fig)
+    print(f"  Saved {filename}.pdf / .png")
+
+
+def _plot_cross_population_comparison(
+    ell_arr, cells, survey_slug, survey_label, bin_idx, comp_dir
+):
+    """
+    Overlay Magnetar vs Neutron Star cross-correlation for a fixed survey and galaxy bin.
+
+    Parameters
+    ----------
+    ell_arr : ndarray
+        Multipole values.
+    cells : dict
+        Mapping (pop_slug, survey_slug, bin_idx) → C_ell ndarray.
+    survey_slug : str
+        Survey identifier key ('shallow' or 'deep').
+    survey_label : str
+        Human-readable survey name for the plot title.
+    bin_idx : int
+        Zero-based galaxy bin index.
+    comp_dir : str
+        Output directory for comparison plots.
+    """
+    fig, ax = plt.subplots(figsize=(7, 5))
+    ax.loglog(
+        ell_arr, cells[("magnetar", survey_slug, bin_idx)],
+        linewidth=1.5, color="C0", label="Magnetars",
+    )
+    ax.loglog(
+        ell_arr, cells[("neutron_star", survey_slug, bin_idx)],
+        linewidth=1.5, color="C1", label="Neutron Stars",
+    )
+    ax.set_xlabel(r"Multipole $\ell$")
+    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
+    ax.set_title(
+        f"FRB Population Comparison ({survey_label} Survey, "
+        f"Galaxy Bin {bin_idx + 1})"
+    )
+    ax.legend()
+    fig.tight_layout()
+    fname = f"population_{survey_slug}_bin{bin_idx + 1}"
+    fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
+    fig.savefig(os.path.join(comp_dir, f"{fname}.png"), dpi=200)
+    plt.close(fig)
+    print(f"  Saved {fname}.pdf / .png")
+
+
+def _plot_cross_survey_comparison(
+    ell_arr, cells, pop_slug, pop_label, bin_idx, comp_dir
+):
+    """
+    Overlay Shallow vs Deep survey cross-correlation for a fixed population and galaxy bin.
+
+    Parameters
+    ----------
+    ell_arr : ndarray
+        Multipole values.
+    cells : dict
+        Mapping (pop_slug, survey_slug, bin_idx) → C_ell ndarray.
+    pop_slug : str
+        Population identifier key ('magnetar' or 'neutron_star').
+    pop_label : str
+        Human-readable population name for the plot title.
+    bin_idx : int
+        Zero-based galaxy bin index.
+    comp_dir : str
+        Output directory for comparison plots.
+    """
+    fig, ax = plt.subplots(figsize=(7, 5))
+    ax.loglog(
+        ell_arr, cells[(pop_slug, "shallow", bin_idx)],
+        linewidth=1.5, label=r"Shallow ($\alpha=3.5$)",
+    )
+    ax.loglog(
+        ell_arr, cells[(pop_slug, "deep", bin_idx)],
+        linewidth=1.5, label=r"Deep ($\alpha=2.0$)",
+    )
+    ax.set_xlabel(r"Multipole $\ell$")
+    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
+    ax.set_title(f"FRB Survey Comparison ({pop_label}, Galaxy Bin {bin_idx + 1})")
+    ax.legend()
+    fig.tight_layout()
+    fname = f"survey_{pop_slug}_bin{bin_idx + 1}"
+    fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
+    fig.savefig(os.path.join(comp_dir, f"{fname}.png"), dpi=200)
+    plt.close(fig)
+    print(f"  Saved {fname}.pdf / .png")
+
+
+def _plot_cross_bin_comparison(
+    ell_arr, cells, pop_slug, pop_label, survey_slug, survey_label, comp_dir
+):
+    """
+    Overlay all six galaxy bins for a fixed FRB population and survey.
+
+    Shows which galaxy redshift bins carry the highest cross-correlation signal
+    with the FRB sample — a direct probe of their redshift overlap.
+
+    Parameters
+    ----------
+    ell_arr : ndarray
+        Multipole values.
+    cells : dict
+        Mapping (pop_slug, survey_slug, bin_idx) → C_ell ndarray.
+    pop_slug : str
+        Population identifier key.
+    pop_label : str
+        Human-readable population name.
+    survey_slug : str
+        Survey identifier key.
+    survey_label : str
+        Human-readable survey name.
+    comp_dir : str
+        Output directory for comparison plots.
+    """
+    fig, ax = plt.subplots(figsize=(8, 5))
+    colors = plt.cm.tab10(np.linspace(0, 1, GALAXY_N_BINS))
+
+    for bin_idx in range(GALAXY_N_BINS):
+        ax.loglog(
+            ell_arr,
+            cells[(pop_slug, survey_slug, bin_idx)],
+            linewidth=1.6,
+            color=colors[bin_idx],
+            label=f"Galaxy Bin {bin_idx + 1}",
+        )
+
+    ax.set_xlabel(r"Multipole $\ell$")
+    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
+    ax.set_title(
+        f"FRB×Galaxy — All Bins ({pop_label}, {survey_label} Survey)"
+    )
+    ax.legend(loc="best", ncol=2)
+    fig.tight_layout()
+    fname = f"bin_comparison_{pop_slug}_{survey_slug}"
+    fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
+    fig.savefig(os.path.join(comp_dir, f"{fname}.png"), dpi=200)
+    plt.close(fig)
+    print(f"  Saved {fname}.pdf / .png")
 
 
 if __name__ == "__main__":
