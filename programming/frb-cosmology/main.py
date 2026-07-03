@@ -364,10 +364,10 @@ def _run_cross_correlation_pipeline(P_interp, k_min, k_max):
     No shot noise is added — cross-correlations between distinct populations
     carry no Poissonian noise contribution.
 
-    Three types of comparison plots are produced in the comparisons/ subdirectory:
-      1. Population: Magnetar vs Neutron Star (per survey, per bin)
-      2. Survey: Shallow vs Deep (per population, per bin)
-      3. Galaxy bins: Bin 1..6 overlay (per population, per survey)
+        Three types of comparison plots are produced in the comparisons/ subdirectory:
+            1. Population: Magnetar vs Neutron Star (per survey, all bins together)
+            2. Survey: Shallow vs Deep (per population, all bins together)
+            3. Galaxy bins: Bin 1..6 overlay (per population, per survey)
     """
     populations = [
         ("Magnetars", "magnetar", MAGNETAR_B0, MAGNETAR_DELTA),
@@ -432,20 +432,18 @@ def _run_cross_correlation_pipeline(P_interp, k_min, k_max):
     # --- Comparison plots ---
 
     # 1. Population comparison: Magnetar vs Neutron Star
-    #    One plot per (survey, bin) with 2 curves.
+    #    One plot per survey with all galaxy bins overlaid.
     for survey_label, survey_slug, _ in surveys:
-        for bin_idx in range(GALAXY_N_BINS):
-            _plot_cross_population_comparison(
-                ell_arr, cells, survey_slug, survey_label, bin_idx, comp_dir
-            )
+        _plot_cross_population_comparison(
+            ell_arr, cells, survey_slug, survey_label, comp_dir
+        )
 
     # 2. Survey comparison: Shallow vs Deep
-    #    One plot per (population, bin) with 2 curves.
+    #    One plot per population with all galaxy bins overlaid.
     for pop_label, pop_slug, _, _ in populations:
-        for bin_idx in range(GALAXY_N_BINS):
-            _plot_cross_survey_comparison(
-                ell_arr, cells, pop_slug, pop_label, bin_idx, comp_dir
-            )
+        _plot_cross_survey_comparison(
+            ell_arr, cells, pop_slug, pop_label, comp_dir
+        )
 
     # 3. Bin comparison: all 6 galaxy bins overlaid
     #    One plot per (population, survey) with 6 curves.
@@ -496,10 +494,13 @@ def _plot_cross_cell(ell_arr, c_ell, title, filename, plot_dir):
 
 
 def _plot_cross_population_comparison(
-    ell_arr, cells, survey_slug, survey_label, bin_idx, comp_dir
+    ell_arr, cells, survey_slug, survey_label, comp_dir
 ):
     """
-    Overlay Magnetar vs Neutron Star cross-correlation for a fixed survey and galaxy bin.
+    Overlay Magnetar vs Neutron Star cross-correlation for a fixed survey.
+
+    All galaxy bins are shown in one figure. For each bin, Magnetars and
+    Neutron Stars are distinguished by line style.
 
     Parameters
     ----------
@@ -511,29 +512,36 @@ def _plot_cross_population_comparison(
         Survey identifier key ('shallow' or 'deep').
     survey_label : str
         Human-readable survey name for the plot title.
-    bin_idx : int
-        Zero-based galaxy bin index.
     comp_dir : str
         Output directory for comparison plots.
     """
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.loglog(
-        ell_arr, cells[("magnetar", survey_slug, bin_idx)],
-        linewidth=1.5, color="C0", label="Magnetars",
-    )
-    ax.loglog(
-        ell_arr, cells[("neutron_star", survey_slug, bin_idx)],
-        linewidth=1.5, color="C1", label="Neutron Stars",
-    )
+    fig, ax = plt.subplots(figsize=(9, 6))
+    colors = plt.cm.tab10(np.linspace(0, 1, GALAXY_N_BINS))
+
+    for bin_idx in range(GALAXY_N_BINS):
+        ax.loglog(
+            ell_arr,
+            cells[("magnetar", survey_slug, bin_idx)],
+            linewidth=1.4,
+            color=colors[bin_idx],
+            linestyle="-",
+            label=f"Magnetars Bin {bin_idx + 1}",
+        )
+        ax.loglog(
+            ell_arr,
+            cells[("neutron_star", survey_slug, bin_idx)],
+            linewidth=1.4,
+            color=colors[bin_idx],
+            linestyle="--",
+            label=f"Neutron Stars Bin {bin_idx + 1}",
+        )
+
     ax.set_xlabel(r"Multipole $\ell$")
     ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
-    ax.set_title(
-        f"FRB Population Comparison ({survey_label} Survey, "
-        f"Galaxy Bin {bin_idx + 1})"
-    )
-    ax.legend()
+    ax.set_title(f"FRB Population Comparison ({survey_label} Survey, all bins)")
+    ax.legend(loc="best", ncol=2, fontsize=8)
     fig.tight_layout()
-    fname = f"population_{survey_slug}_bin{bin_idx + 1}"
+    fname = f"population_{survey_slug}_all_bins"
     fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
     fig.savefig(os.path.join(comp_dir, f"{fname}.png"), dpi=200)
     plt.close(fig)
@@ -541,10 +549,13 @@ def _plot_cross_population_comparison(
 
 
 def _plot_cross_survey_comparison(
-    ell_arr, cells, pop_slug, pop_label, bin_idx, comp_dir
+    ell_arr, cells, pop_slug, pop_label, comp_dir
 ):
     """
-    Overlay Shallow vs Deep survey cross-correlation for a fixed population and galaxy bin.
+    Overlay Shallow vs Deep survey cross-correlation for a fixed population.
+
+    All galaxy bins are shown in one figure. For each bin, Shallow and Deep
+    are distinguished by line style.
 
     Parameters
     ----------
@@ -556,26 +567,36 @@ def _plot_cross_survey_comparison(
         Population identifier key ('magnetar' or 'neutron_star').
     pop_label : str
         Human-readable population name for the plot title.
-    bin_idx : int
-        Zero-based galaxy bin index.
     comp_dir : str
         Output directory for comparison plots.
     """
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.loglog(
-        ell_arr, cells[(pop_slug, "shallow", bin_idx)],
-        linewidth=1.5, label=r"Shallow ($\alpha=3.5$)",
-    )
-    ax.loglog(
-        ell_arr, cells[(pop_slug, "deep", bin_idx)],
-        linewidth=1.5, label=r"Deep ($\alpha=2.0$)",
-    )
+    fig, ax = plt.subplots(figsize=(9, 6))
+    colors = plt.cm.tab10(np.linspace(0, 1, GALAXY_N_BINS))
+
+    for bin_idx in range(GALAXY_N_BINS):
+        ax.loglog(
+            ell_arr,
+            cells[(pop_slug, "shallow", bin_idx)],
+            linewidth=1.4,
+            color=colors[bin_idx],
+            linestyle="-",
+            label=f"Shallow Bin {bin_idx + 1}",
+        )
+        ax.loglog(
+            ell_arr,
+            cells[(pop_slug, "deep", bin_idx)],
+            linewidth=1.4,
+            color=colors[bin_idx],
+            linestyle="--",
+            label=f"Deep Bin {bin_idx + 1}",
+        )
+
     ax.set_xlabel(r"Multipole $\ell$")
     ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
-    ax.set_title(f"FRB Survey Comparison ({pop_label}, Galaxy Bin {bin_idx + 1})")
-    ax.legend()
+    ax.set_title(f"FRB Survey Comparison ({pop_label}, all bins)")
+    ax.legend(loc="best", ncol=2, fontsize=8)
     fig.tight_layout()
-    fname = f"survey_{pop_slug}_bin{bin_idx + 1}"
+    fname = f"survey_{pop_slug}_all_bins"
     fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
     fig.savefig(os.path.join(comp_dir, f"{fname}.png"), dpi=200)
     plt.close(fig)
