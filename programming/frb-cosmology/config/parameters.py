@@ -37,16 +37,14 @@ N_Z = 500               # Number of redshift sample points
 Z_ARR = np.logspace(np.log10(Z_MIN), np.log10(Z_MAX), N_Z)
 
 # =============================================================================
-# Multipole array — log-spaced integers from ell_min to ell_max
+# Multipole array — dense integer grid from ell_min to ell_max
 # =============================================================================
 ELL_MIN = 2             # Minimum multipole
 ELL_MAX = 1000          # Maximum multipole
-N_ELL = 50              # Number of multipole sample points
 
-# Generate log-spaced values, round to unique integers
-ELL_ARR = np.unique(
-    np.logspace(np.log10(ELL_MIN), np.log10(ELL_MAX), N_ELL).astype(int)
-)
+# Dense integer multipole grid so that the Fisher sum sum_ell (2*ell+1)/2 * ...
+# correctly counts every multipole (required for the Reischke Fisher formula).
+ELL_ARR = np.arange(ELL_MIN, ELL_MAX + 1)
 
 # =============================================================================
 # FRB host-population bias models: b(z) = b0 * (1 + z)^delta
@@ -73,6 +71,9 @@ ALPHA_DEEP = 2.0             # Steepness of n(z) ∝ z^2 exp(-alpha z)
 
 # --- Common survey parameters ---
 F_SKY_FRB = 0.9              # Observed sky fraction for FRB surveys
+
+# Fisher forecast sky fraction: KiDS survey footprint (1347 deg²)
+F_SKY_FISHER = 1347.0 / (4.0 * np.pi * (180.0 / np.pi) ** 2)
 
 # =============================================================================
 # Galaxy tomography parameters

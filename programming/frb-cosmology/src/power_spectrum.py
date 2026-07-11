@@ -47,6 +47,7 @@ def build_power_spectrum_2d(z_max=4.0, n_z=120):
         cosmo_model=COSMO,
         sigma_8=SIGMA_8,
         n=N_S,
+        transfer_model="EH",
     )
 
     # ── Step 2: Extract k-grid and convert to physical units ──────────────

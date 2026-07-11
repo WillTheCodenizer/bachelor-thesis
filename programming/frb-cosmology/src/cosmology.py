@@ -100,12 +100,9 @@ def _linear_growth_factor_hmf(z):
     
     mf = MassFunction(
         cosmo_model=COSMO,
-        # transfer_params={"extrapolate_with_eh": True} allows hmf to compute growth factors at 
-        # high z beyond its default range, using the Eisenstein & Hu fitting formula for the 
-        # transfer function. This is important for our application since we may need D_+(z) at 
-        # redshifts up to ~3 or more, which is outside the default range of hmf's growth factor 
-        # tables.
-        transfer_params={"extrapolate_with_eh": True},
+        # Use EH transfer directly to avoid CAMB backend incompatibilities
+        # and keep behavior consistent with the power-spectrum module.
+        transfer_model="EH",
     )
 
     d_unique = np.empty_like(z_unique)

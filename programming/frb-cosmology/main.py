@@ -8,16 +8,17 @@ then produces publication-quality diagnostic and comparison plots.
 import os
 
 import numpy as np
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 
 from config.parameters import (
     COSMO,
     ALPHA_SHALLOW, ALPHA_DEEP,
     N_TOTAL_SHALLOW, N_TOTAL_DEEP,
-    Z_ARR,
+    Z_ARR, ELL_ARR,
     MAGNETAR_B0, MAGNETAR_DELTA,
     NEUTRON_STAR_B0, NEUTRON_STAR_DELTA,
-    GALAXY_N_BINS, GALAXY_NBAR_PER_BIN, F_SKY_FRB,
+    GALAXY_N_BINS, GALAXY_NBAR_PER_BIN, F_SKY_FRB, F_SKY_FISHER,
 )
 from src.power_spectrum import build_power_spectrum_2d
 from src.angular_power_spectrum import (
@@ -33,6 +34,14 @@ from src.distributions import (
     interpolate_galaxy_bins,
     build_galaxy_weights,
     weight_frb,
+)
+from src.fisher import (
+    compute_frb_cells,
+    compute_galaxy_cells,
+    compute_cell_derivative,
+    compute_fisher_matrix,
+    invert_fisher,
+    get_confidence_ellipse,
 )
 
 # ── Output directory ────────────────────────────────────────────────────────
@@ -51,6 +60,7 @@ FRB_PLOT_DIR = _make_plot_dir("frb")
 GALAXY_PLOT_DIR = _make_plot_dir("galaxy")
 PK_PLOT_DIR = _make_plot_dir("power_spectrum")
 CROSS_PLOT_DIR = _make_plot_dir("frb_x_galaxy")
+FISHER_PLOT_DIR = _make_plot_dir("fisher")
 
 
 def run_pipeline():
@@ -64,6 +74,8 @@ def run_pipeline():
         4. Produce and save a shared P(k, z) diagnostic plot.
         5. Run FRB x Galaxy cross-correlation for all 24 combinations
            (2 populations x 2 surveys x 6 galaxy bins) and comparison plots.
+        6. Run Fisher matrix forecast for all 4 survey/model combinations,
+           comparing FRB-only and Galaxy×FRB multi-tracer constraints on b0 and alpha.
     """
     # ── Step 1: nonlinear power spectrum ────────────────────────────────────
     print("Building redshift-dependent P(k, z) via 2D spline ...")
@@ -82,6 +94,10 @@ def run_pipeline():
     # ── Step 5: FRB x Galaxy cross-correlation ───────────────────────────────
     print("\nStep 5: FRB × Galaxy cross-correlation ...")
     _run_cross_correlation_pipeline(P_interp, k_min, k_max)
+
+    # ── Step 6: Fisher matrix forecast ──────────────────────────────────────
+    print("\nStep 6: Fisher matrix forecast ...")
+    _run_fisher_pipeline(P_interp, k_min, k_max)
 
     print("All plots saved to plots/ with one subfolder per pipeline")
 
@@ -653,6 +669,338 @@ def _plot_cross_bin_comparison(
     fig.savefig(os.path.join(comp_dir, f"{fname}.png"), dpi=200)
     plt.close(fig)
     print(f"  Saved {fname}.pdf / .png")
+
+
+# =============================================================================
+# Fisher matrix forecast pipeline
+# =============================================================================
+
+def _run_fisher_pipeline(P_interp, k_min, k_max):
+    """
+    Run Fisher matrix forecast for all 4 survey/model combinations.
+
+    For each combination (Deep/Shallow × Magnetar/Neutron Star):
+      1. Compute fiducial FRB auto- and FRB×galaxy C_ells.
+      2. Compute numerical C_ell derivatives with b0 and alpha (±1%).
+      3. Build and invert the Fisher matrix for:
+         a. FRB-only forecast (1×1 covariance from C_ell^ff).
+         b. Multi-tracer forecast (7×7 covariance from [g1..g6, FRB]).
+      4. Plot both confidence ellipses on the b0–alpha plane.
+
+    The galaxy-galaxy C_ell block (6×6, parameter-independent) is computed
+    once and reused across all four combinations.
+    """
+    # ── Galaxy setup (identical to _run_cross_correlation_pipeline) ─────────
+    z_mid, nz_bins_raw = load_galaxy_nz_data()
+    z_means = compute_galaxy_bin_mean_redshifts(z_mid, nz_bins_raw)
+    biases = compute_galaxy_bias_from_means(z_means)
+    nz_bins_interp = interpolate_galaxy_bins(Z_ARR, z_mid, nz_bins_raw, normalize=True)
+    weights_galaxy = build_galaxy_weights(Z_ARR, nz_bins_interp, biases)
+
+    # Galaxy shot noise: one constant N_shot per tomographic bin
+    n_shot_gal = np.array([
+        compute_shot_noise_from_density(GALAXY_NBAR_PER_BIN[i])
+        for i in range(GALAXY_N_BINS)
+    ])
+
+    # Galaxy-galaxy C_ell block — computed once (FRB-parameter-independent)
+    print("  Computing galaxy-galaxy C_ell block (6×6) ...")
+    cell_gg = compute_galaxy_cells(weights_galaxy, P_interp, k_min, k_max)
+    print("  Galaxy-galaxy C_ell block done.")
+
+    populations = [
+        ("Magnetars", "magnetar", MAGNETAR_B0, MAGNETAR_DELTA),
+        ("Neutron Stars", "neutron_star", NEUTRON_STAR_B0, NEUTRON_STAR_DELTA),
+    ]
+    surveys = [
+        ("Deep", "deep", ALPHA_DEEP, N_TOTAL_DEEP),
+        ("Shallow", "shallow", ALPHA_SHALLOW, N_TOTAL_SHALLOW),
+    ]
+
+    # Collect data for 2x2 comparison plot
+    fisher_data = []
+    
+    for pop_label, pop_slug, b0, delta in populations:
+        for survey_label, survey_slug, alpha, n_total in surveys:
+            print(
+                f"\n  Fisher forecast: {pop_label}, {survey_label} survey "
+                f"(b0={b0:.2f}, alpha={alpha:.2f}, delta={delta:.2f}) ..."
+            )
+
+            n_shot_frb = compute_shot_noise_from_counts(n_total, F_SKY_FRB)
+
+            # Fiducial FRB C_ells
+            cell_ff, cell_gf = compute_frb_cells(
+                alpha, b0, delta, weights_galaxy, P_interp, k_min, k_max
+            )
+
+            # Numerical derivatives via ±1% central finite difference
+            print("    Computing dC/db0 ...")
+            d_b0 = compute_cell_derivative(
+                'b0', alpha, b0, delta, weights_galaxy, P_interp, k_min, k_max
+            )
+            print("    Computing dC/dalpha ...")
+            d_alpha = compute_cell_derivative(
+                'alpha', alpha, b0, delta, weights_galaxy, P_interp, k_min, k_max
+            )
+
+            # ── FRB-only Fisher ──────────────────────────────────────────────
+            # Uses the full FRB survey footprint (F_SKY_FRB); no galaxy overlap
+            # constraint applies when only the FRB auto-correlation is used.
+            F_frb = compute_fisher_matrix(
+                cell_ff, cell_gg, cell_gf,
+                n_shot_frb, n_shot_gal,
+                d_b0, d_alpha, F_SKY_FRB, mode='frb_only',
+            )
+            cov_frb = invert_fisher(F_frb)
+
+            # ── Multi-tracer Fisher ──────────────────────────────────────────
+            # Restricted to the FRB × galaxy survey overlap (F_SKY_FISHER).
+            F_multi = compute_fisher_matrix(
+                cell_ff, cell_gg, cell_gf,
+                n_shot_frb, n_shot_gal,
+                d_b0, d_alpha, F_SKY_FISHER, mode='multitracer',
+            )
+            cov_multi = invert_fisher(F_multi)
+
+            # Print marginal 1σ constraints
+            sigma_b0_frb    = np.sqrt(cov_frb[0, 0])
+            sigma_alpha_frb = np.sqrt(cov_frb[1, 1])
+            sigma_b0_multi    = np.sqrt(cov_multi[0, 0])
+            sigma_alpha_multi = np.sqrt(cov_multi[1, 1])
+            print(
+                f"    FRB-only:     sigma_b0 = {sigma_b0_frb:.4f}, "
+                f"sigma_alpha = {sigma_alpha_frb:.4f}"
+            )
+            print(
+                f"    Multi-tracer: sigma_b0 = {sigma_b0_multi:.4f}, "
+                f"sigma_alpha = {sigma_alpha_multi:.4f}"
+            )
+
+            _plot_fisher_ellipses(
+                cov_frb, cov_multi,
+                b0_fid=b0,
+                alpha_fid=alpha,
+                title=(
+                    f"Fisher Forecast — {pop_label}, {survey_label} Survey\n"
+                    rf"Fiducial: $b_0={b0}$, $\alpha={alpha}$"
+                ),
+                filename=f"fisher_{survey_slug}_{pop_slug}",
+                plot_dir=FISHER_PLOT_DIR,
+            )
+            
+            # Collect data for 2x2 comparison plot
+            fisher_data.append({
+                'pop_label': pop_label,
+                'survey_label': survey_label,
+                'cov_frb': cov_frb,
+                'cov_multi': cov_multi,
+                'b0_fid': b0,
+                'alpha_fid': alpha,
+            })
+    
+    # Create 2x2 comparison plot
+    _plot_fisher_comparison_2x2(fisher_data, FISHER_PLOT_DIR)
+
+
+def _nice_half_ticks(fiducial, lim, target_ticks=7):
+    """
+    Generate tick values at .0 or .5 spacing, symmetric around the fiducial.
+
+    Chooses the smallest multiple of 0.5 as step size that yields
+    no more than target_ticks within the axis range.
+    """
+    extent = lim[1] - lim[0]
+    # Ideal spacing for target number of ticks
+    ideal_step = extent / target_ticks
+    # Round up to nearest 0.5 multiple
+    step = max(0.5, np.ceil(ideal_step / 0.5) * 0.5)
+
+    n_ticks_half = int(np.ceil((extent / 2.0) / step))
+    ticks = [fiducial + i * step for i in range(-n_ticks_half, n_ticks_half + 1)]
+    # Keep only ticks within axis limits
+    ticks = [t for t in ticks if lim[0] <= t <= lim[1]]
+    return ticks
+
+
+def _plot_fisher_comparison_2x2(fisher_data, plot_dir):
+    """
+    Create a 2x2 comparison plot of Fisher ellipses for all combinations.
+
+    Parameters
+    ----------
+    fisher_data : list of dict
+        List of dictionaries, each containing:
+        - pop_label: population label (e.g., "Magnetars")
+        - survey_label: survey label (e.g., "Deep")
+        - cov_frb: FRB-only covariance matrix
+        - cov_multi: Multi-tracer covariance matrix
+        - b0_fid: fiducial b0 value
+        - alpha_fid: fiducial alpha value
+    plot_dir : str
+        Output directory for the figure.
+    """
+    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+    axes = axes.flatten()
+
+    # Color and style scheme
+    style = {
+        'frb':   {'color': 'C0', 'label_1s': r'FRB-only $1\sigma$',          'label_2s': r'FRB-only $2\sigma$'},
+        'multi': {'color': 'C1', 'label_1s': r'FRB$\times$Galaxy $1\sigma$', 'label_2s': r'FRB$\times$Galaxy $2\sigma$'},
+    }
+
+    for idx, data in enumerate(fisher_data):
+        ax = axes[idx]
+        cov_frb = data['cov_frb']
+        cov_multi = data['cov_multi']
+        b0_fid = data['b0_fid']
+        alpha_fid = data['alpha_fid']
+        pop_label = data['pop_label']
+        survey_label = data['survey_label']
+
+        # Plot ellipses
+        for cov, key in [(cov_frb, 'frb'), (cov_multi, 'multi')]:
+            color = style[key]['color']
+            for confidence, ls, lbl in [
+                (0.6827, '-',  style[key]['label_1s']),
+                (0.9545, '--', style[key]['label_2s']),
+            ]:
+                wa, wb, ang = get_confidence_ellipse(cov, confidence=confidence)
+                ellipse = mpatches.Ellipse(
+                    xy=(b0_fid, alpha_fid),
+                    width=2.0 * wa,
+                    height=2.0 * wb,
+                    angle=ang,
+                    edgecolor=color,
+                    facecolor='none',
+                    linestyle=ls,
+                    linewidth=1.8,
+                    label=lbl,
+                )
+                ax.add_patch(ellipse)
+
+        # Mark fiducial point
+        ax.plot(b0_fid, alpha_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
+
+        # Axis limits: 1.6× the FRB-only 2σ projected extents
+        wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov_frb, confidence=0.9545)
+        ang_rad = np.radians(ang_2s)
+        dx = np.sqrt((wa_2s * np.cos(ang_rad)) ** 2 + (wb_2s * np.sin(ang_rad)) ** 2)
+        dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
+        margin = 1.6
+        xlim = (b0_fid - margin * dx, b0_fid + margin * dx)
+        ylim = (alpha_fid - margin * dy, alpha_fid + margin * dy)
+        ax.set_xlim(xlim)
+        ax.set_ylim(ylim)
+
+        # Set ticks at .0 or .5 values, symmetric around fiducial
+        ax.set_xticks(_nice_half_ticks(b0_fid, xlim))
+        ax.set_yticks(_nice_half_ticks(alpha_fid, ylim))
+
+        ax.set_xlabel(r"$b_0$", fontsize=10)
+        ax.set_ylabel(r"$\alpha$", fontsize=10)
+        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=11, fontweight='bold')
+        
+        # Add legend only to the first subplot to avoid clutter
+        if idx == 0:
+            ax.legend(loc="best", fontsize=8)
+
+    # Remove any unused subplots (if fisher_data has fewer than 4 items)
+    for idx in range(len(fisher_data), 4):
+        fig.delaxes(axes[idx])
+
+    fig.suptitle("Fisher Forecast Comparison", fontsize=14, fontweight='bold', y=0.995)
+    fig.tight_layout(rect=[0, 0, 1, 0.99])
+    fig.savefig(os.path.join(plot_dir, "fisher_comparison_2x2.pdf"))
+    fig.savefig(os.path.join(plot_dir, "fisher_comparison_2x2.png"), dpi=200)
+    plt.close(fig)
+    print(f"  Saved fisher_comparison_2x2.pdf / .png")
+
+
+def _plot_fisher_ellipses(
+    cov_frb, cov_multi,
+    b0_fid, alpha_fid,
+    title, filename, plot_dir,
+):
+    """
+    Plot 1σ and 2σ Fisher confidence ellipses for FRB-only and multi-tracer forecasts.
+
+    Both sets of ellipses are centered at the fiducial parameter values
+    (b0_fid, alpha_fid). The FRB-only ellipse provides the baseline constraint;
+    the multi-tracer ellipse shows the improvement from adding galaxy tomography.
+
+    Parameters
+    ----------
+    cov_frb : ndarray, shape (2, 2)
+        Covariance matrix from the FRB-only Fisher matrix.
+    cov_multi : ndarray, shape (2, 2)
+        Covariance matrix from the multi-tracer Fisher matrix.
+    b0_fid : float
+        Fiducial b0 value (ellipse center x-coordinate).
+    alpha_fid : float
+        Fiducial alpha value (ellipse center y-coordinate).
+    title : str
+        Plot title.
+    filename : str
+        Base filename (without extension) for saving.
+    plot_dir : str
+        Output directory.
+    """
+    fig, ax = plt.subplots(figsize=(7, 6))
+
+    # Color and style scheme
+    style = {
+        'frb':   {'color': 'C0', 'label_1s': r'FRB-only $1\sigma$',          'label_2s': r'FRB-only $2\sigma$'},
+        'multi': {'color': 'C1', 'label_1s': r'FRB$\times$Galaxy $1\sigma$', 'label_2s': r'FRB$\times$Galaxy $2\sigma$'},
+    }
+
+    for cov, key in [(cov_frb, 'frb'), (cov_multi, 'multi')]:
+        color = style[key]['color']
+        for confidence, ls, lbl in [
+            (0.6827, '-',  style[key]['label_1s']),
+            (0.9545, '--', style[key]['label_2s']),
+        ]:
+            wa, wb, ang = get_confidence_ellipse(cov, confidence=confidence)
+            ellipse = mpatches.Ellipse(
+                xy=(b0_fid, alpha_fid),
+                width=2.0 * wa,
+                height=2.0 * wb,
+                angle=ang,
+                edgecolor=color,
+                facecolor='none',
+                linestyle=ls,
+                linewidth=1.8,
+                label=lbl,
+            )
+            ax.add_patch(ellipse)
+
+    # Mark fiducial point
+    ax.plot(b0_fid, alpha_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
+
+    # Axis limits: 1.6× the FRB-only 2σ projected extents
+    wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov_frb, confidence=0.9545)
+    ang_rad = np.radians(ang_2s)
+    dx = np.sqrt((wa_2s * np.cos(ang_rad)) ** 2 + (wb_2s * np.sin(ang_rad)) ** 2)
+    dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
+    margin = 1.6
+    xlim = (b0_fid - margin * dx, b0_fid + margin * dx)
+    ylim = (alpha_fid - margin * dy, alpha_fid + margin * dy)
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+
+    # Set ticks at .0 or .5 values, symmetric around fiducial
+    ax.set_xticks(_nice_half_ticks(b0_fid, xlim))
+    ax.set_yticks(_nice_half_ticks(alpha_fid, ylim))
+
+    ax.set_xlabel(r"$b_0$")
+    ax.set_ylabel(r"$\alpha$")
+    ax.set_title(title)
+    ax.legend(loc="best", fontsize=9)
+    fig.tight_layout()
+    fig.savefig(os.path.join(plot_dir, f"{filename}.pdf"))
+    fig.savefig(os.path.join(plot_dir, f"{filename}.png"), dpi=200)
+    plt.close(fig)
+    print(f"  Saved {filename}.pdf / .png")
 
 
 if __name__ == "__main__":
