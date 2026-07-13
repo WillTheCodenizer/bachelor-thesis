@@ -79,7 +79,7 @@ def run_pipeline():
     """
     # ── Step 1: nonlinear power spectrum ────────────────────────────────────
     print("Building redshift-dependent P(k, z) via 2D spline ...")
-    k_phys, P_interp, k_min, k_max = build_power_spectrum_2d(z_max=4.0, n_z=120)
+    k_phys, P_interp, k_min, k_max = build_power_spectrum_2d(z_max=5.0, n_z=120)
     print(f"  k range : {k_min:.4e} – {k_max:.4e}  [1/Mpc]")
 
     # ── Step 2: FRB angular power spectra for all FRB host populations ─────
@@ -189,7 +189,7 @@ def _run_galaxy_pipeline(P_interp, k_min, k_max):
     nz_bins_interp = interpolate_galaxy_bins(Z_ARR, z_mid, nz_bins_raw, normalize=True)
     weights = build_galaxy_weights(Z_ARR, nz_bins_interp, biases)
 
-    # Use one direct n_bar value per tomographic bin from Ngal.txt.
+    # Use one direct n_bar value per tomographic bin from Ngal.txt. converted to steradians.
     nbar_bins = GALAXY_NBAR_PER_BIN
     print("Galaxy n_bar values (from Ngal.txt):")
     for idx in range(GALAXY_N_BINS):
@@ -882,12 +882,12 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir):
         # Mark fiducial point
         ax.plot(b0_fid, alpha_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
 
-        # Axis limits: 1.6× the FRB-only 2σ projected extents
-        wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov_frb, confidence=0.9545)
+        # Axis limits: 3.0× the FRB×Galaxy 2σ projected extents
+        wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov_multi, confidence=0.9545)
         ang_rad = np.radians(ang_2s)
         dx = np.sqrt((wa_2s * np.cos(ang_rad)) ** 2 + (wb_2s * np.sin(ang_rad)) ** 2)
         dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
-        margin = 1.6
+        margin = 3.0
         xlim = (b0_fid - margin * dx, b0_fid + margin * dx)
         ylim = (alpha_fid - margin * dy, alpha_fid + margin * dy)
         ax.set_xlim(xlim)
@@ -977,12 +977,12 @@ def _plot_fisher_ellipses(
     # Mark fiducial point
     ax.plot(b0_fid, alpha_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
 
-    # Axis limits: 1.6× the FRB-only 2σ projected extents
-    wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov_frb, confidence=0.9545)
+    # Axis limits: 3.0× the FRBxGalaxy 2σ projected extents
+    wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov_multi, confidence=0.9545)
     ang_rad = np.radians(ang_2s)
     dx = np.sqrt((wa_2s * np.cos(ang_rad)) ** 2 + (wb_2s * np.sin(ang_rad)) ** 2)
     dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
-    margin = 1.6
+    margin = 3.0
     xlim = (b0_fid - margin * dx, b0_fid + margin * dx)
     ylim = (alpha_fid - margin * dy, alpha_fid + margin * dy)
     ax.set_xlim(xlim)

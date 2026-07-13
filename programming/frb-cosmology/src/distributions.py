@@ -74,7 +74,7 @@ def weight_frb(z, alpha, b0, delta):
     Returns
     -------
     W : ndarray
-        Normalised weight function (integrates to 1 over z).
+        weight function (integrates to 1 over z).
     """
     n = n_z(z, alpha)
     b = bias(z, b0, delta)

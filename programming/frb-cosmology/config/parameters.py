@@ -31,8 +31,8 @@ COSMO = FlatLambdaCDM(H0=H0, Om0=OMEGA_M, Ob0=OMEGA_B, Tcmb0=TCMB0)
 # Redshift array — log-spaced from z_min to z_max
 # =============================================================================
 Z_MIN = 0.01            # Minimum redshift
-Z_MAX = 3.0             # Maximum redshift
-N_Z = 500               # Number of redshift sample points
+Z_MAX = 5.0             # Maximum redshift
+N_Z = 1000               # Number of redshift sample points
 
 Z_ARR = np.logspace(np.log10(Z_MIN), np.log10(Z_MAX), N_Z)
 
@@ -82,7 +82,10 @@ GALAXY_N_BINS = 6                         # Number of tomographic galaxy bins
 
 # KiDS number-density input: one n_bar value per tomographic bin.
 GALAXY_NGAL_FILE = Path(__file__).resolve().parents[1] / "data" / "Ngal.txt"
-GALAXY_NBAR_PER_BIN = np.loadtxt(GALAXY_NGAL_FILE, comments="#", ndmin=1)
+
+# Convert n_bar from [arcmin^-2] to [steradian^-1] for internal calculations.
+ARCMIN2_PER_STERADIAN = (180.0 * 60.0 / np.pi) ** 2  # ≈ 1.1818e7
+GALAXY_NBAR_PER_BIN = np.loadtxt(GALAXY_NGAL_FILE, comments="#", ndmin=1) * ARCMIN2_PER_STERADIAN
 
 if GALAXY_NBAR_PER_BIN.size != GALAXY_N_BINS:
     raise ValueError(
