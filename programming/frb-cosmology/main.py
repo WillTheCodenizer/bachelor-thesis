@@ -739,9 +739,9 @@ def _run_fisher_pipeline(P_interp, k_min, k_max):
             d_b0 = compute_cell_derivative(
                 'b0', alpha, b0, delta, weights_galaxy, P_interp, k_min, k_max
             )
-            print("    Computing dC/dalpha ...")
-            d_alpha = compute_cell_derivative(
-                'alpha', alpha, b0, delta, weights_galaxy, P_interp, k_min, k_max
+            print("    Computing dC/ddelta ...")
+            d_delta = compute_cell_derivative(
+                'delta', alpha, b0, delta, weights_galaxy, P_interp, k_min, k_max
             )
 
             # ── FRB-only Fisher ──────────────────────────────────────────────
@@ -750,7 +750,7 @@ def _run_fisher_pipeline(P_interp, k_min, k_max):
             F_frb = compute_fisher_matrix(
                 cell_ff, cell_gg, cell_gf,
                 n_shot_frb, n_shot_gal,
-                d_b0, d_alpha, F_SKY_FRB, mode='frb_only',
+                d_b0, d_delta, F_SKY_FRB, mode='frb_only',
             )
             cov_frb = invert_fisher(F_frb)
 
@@ -759,31 +759,31 @@ def _run_fisher_pipeline(P_interp, k_min, k_max):
             F_multi = compute_fisher_matrix(
                 cell_ff, cell_gg, cell_gf,
                 n_shot_frb, n_shot_gal,
-                d_b0, d_alpha, F_SKY_FISHER, mode='multitracer',
+                d_b0, d_delta, F_SKY_FISHER, mode='multitracer',
             )
             cov_multi = invert_fisher(F_multi)
 
             # Print marginal 1σ constraints
             sigma_b0_frb    = np.sqrt(cov_frb[0, 0])
-            sigma_alpha_frb = np.sqrt(cov_frb[1, 1])
+            sigma_delta_frb = np.sqrt(cov_frb[1, 1])
             sigma_b0_multi    = np.sqrt(cov_multi[0, 0])
-            sigma_alpha_multi = np.sqrt(cov_multi[1, 1])
+            sigma_delta_multi = np.sqrt(cov_multi[1, 1])
             print(
                 f"    FRB-only:     sigma_b0 = {sigma_b0_frb:.4f}, "
-                f"sigma_alpha = {sigma_alpha_frb:.4f}"
+                f"sigma_delta = {sigma_delta_frb:.4f}"
             )
             print(
                 f"    Multi-tracer: sigma_b0 = {sigma_b0_multi:.4f}, "
-                f"sigma_alpha = {sigma_alpha_multi:.4f}"
+                f"sigma_delta = {sigma_delta_multi:.4f}"
             )
 
             _plot_fisher_ellipses(
                 cov_frb, cov_multi,
                 b0_fid=b0,
-                alpha_fid=alpha,
+                delta_fid=delta,
                 title=(
                     f"Fisher Forecast — {pop_label}, {survey_label} Survey\n"
-                    rf"Fiducial: $b_0={b0}$, $\alpha={alpha}$"
+                    rf"Fiducial: $b_0={b0}$, $\delta={delta}$"
                 ),
                 filename=f"fisher_{survey_slug}_{pop_slug}",
                 plot_dir=FISHER_PLOT_DIR,
@@ -796,7 +796,7 @@ def _run_fisher_pipeline(P_interp, k_min, k_max):
                 'cov_frb': cov_frb,
                 'cov_multi': cov_multi,
                 'b0_fid': b0,
-                'alpha_fid': alpha,
+                'delta_fid': delta,
             })
     
     # Create 2x2 comparison plot
@@ -836,7 +836,7 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir):
         - cov_frb: FRB-only covariance matrix
         - cov_multi: Multi-tracer covariance matrix
         - b0_fid: fiducial b0 value
-        - alpha_fid: fiducial alpha value
+        - delta_fid: fiducial delta value
     plot_dir : str
         Output directory for the figure.
     """
@@ -854,7 +854,7 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir):
         cov_frb = data['cov_frb']
         cov_multi = data['cov_multi']
         b0_fid = data['b0_fid']
-        alpha_fid = data['alpha_fid']
+        delta_fid = data['delta_fid']
         pop_label = data['pop_label']
         survey_label = data['survey_label']
 
@@ -867,7 +867,7 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir):
             ]:
                 wa, wb, ang = get_confidence_ellipse(cov, confidence=confidence)
                 ellipse = mpatches.Ellipse(
-                    xy=(b0_fid, alpha_fid),
+                    xy=(b0_fid, delta_fid),
                     width=2.0 * wa,
                     height=2.0 * wb,
                     angle=ang,
@@ -880,7 +880,7 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir):
                 ax.add_patch(ellipse)
 
         # Mark fiducial point
-        ax.plot(b0_fid, alpha_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
+        ax.plot(b0_fid, delta_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
 
         # Axis limits: 3.0× the FRB×Galaxy 2σ projected extents
         wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov_multi, confidence=0.9545)
@@ -889,16 +889,16 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir):
         dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
         margin = 3.0
         xlim = (b0_fid - margin * dx, b0_fid + margin * dx)
-        ylim = (alpha_fid - margin * dy, alpha_fid + margin * dy)
+        ylim = (delta_fid - margin * dy, delta_fid + margin * dy)
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
 
         # Set ticks at .0 or .5 values, symmetric around fiducial
         ax.set_xticks(_nice_half_ticks(b0_fid, xlim))
-        ax.set_yticks(_nice_half_ticks(alpha_fid, ylim))
+        ax.set_yticks(_nice_half_ticks(delta_fid, ylim))
 
         ax.set_xlabel(r"$b_0$", fontsize=10)
-        ax.set_ylabel(r"$\alpha$", fontsize=10)
+        ax.set_ylabel(r"$\delta$", fontsize=10)
         ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=11, fontweight='bold')
         
         # Add legend only to the first subplot to avoid clutter
@@ -919,14 +919,14 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir):
 
 def _plot_fisher_ellipses(
     cov_frb, cov_multi,
-    b0_fid, alpha_fid,
+    b0_fid, delta_fid,
     title, filename, plot_dir,
 ):
     """
     Plot 1σ and 2σ Fisher confidence ellipses for FRB-only and multi-tracer forecasts.
 
     Both sets of ellipses are centered at the fiducial parameter values
-    (b0_fid, alpha_fid). The FRB-only ellipse provides the baseline constraint;
+    (b0_fid, delta_fid). The FRB-only ellipse provides the baseline constraint;
     the multi-tracer ellipse shows the improvement from adding galaxy tomography.
 
     Parameters
@@ -937,8 +937,8 @@ def _plot_fisher_ellipses(
         Covariance matrix from the multi-tracer Fisher matrix.
     b0_fid : float
         Fiducial b0 value (ellipse center x-coordinate).
-    alpha_fid : float
-        Fiducial alpha value (ellipse center y-coordinate).
+    delta_fid : float
+        Fiducial delta value (ellipse center y-coordinate).
     title : str
         Plot title.
     filename : str
@@ -962,7 +962,7 @@ def _plot_fisher_ellipses(
         ]:
             wa, wb, ang = get_confidence_ellipse(cov, confidence=confidence)
             ellipse = mpatches.Ellipse(
-                xy=(b0_fid, alpha_fid),
+                xy=(b0_fid, delta_fid),
                 width=2.0 * wa,
                 height=2.0 * wb,
                 angle=ang,
@@ -975,7 +975,7 @@ def _plot_fisher_ellipses(
             ax.add_patch(ellipse)
 
     # Mark fiducial point
-    ax.plot(b0_fid, alpha_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
+    ax.plot(b0_fid, delta_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
 
     # Axis limits: 3.0× the FRBxGalaxy 2σ projected extents
     wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov_multi, confidence=0.9545)
@@ -984,16 +984,16 @@ def _plot_fisher_ellipses(
     dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
     margin = 3.0
     xlim = (b0_fid - margin * dx, b0_fid + margin * dx)
-    ylim = (alpha_fid - margin * dy, alpha_fid + margin * dy)
+    ylim = (delta_fid - margin * dy, delta_fid + margin * dy)
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
 
     # Set ticks at .0 or .5 values, symmetric around fiducial
     ax.set_xticks(_nice_half_ticks(b0_fid, xlim))
-    ax.set_yticks(_nice_half_ticks(alpha_fid, ylim))
+    ax.set_yticks(_nice_half_ticks(delta_fid, ylim))
 
     ax.set_xlabel(r"$b_0$")
-    ax.set_ylabel(r"$\alpha$")
+    ax.set_ylabel(r"$\delta$")
     ax.set_title(title)
     ax.legend(loc="best", fontsize=9)
     fig.tight_layout()

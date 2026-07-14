@@ -39,7 +39,7 @@ Z_ARR = np.logspace(np.log10(Z_MIN), np.log10(Z_MAX), N_Z)
 # =============================================================================
 # Multipole array — dense integer grid from ell_min to ell_max
 # =============================================================================
-ELL_MIN = 2             # Minimum multipole
+ELL_MIN = 10             # Minimum multipole
 ELL_MAX = 1000          # Maximum multipole
 
 # Dense integer multipole grid so that the Fisher sum sum_ell (2*ell+1)/2 * ...

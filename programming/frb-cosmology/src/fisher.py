@@ -1,5 +1,5 @@
 """
-fisher.py — Fisher matrix forecast for FRB bias parameters b0 and alpha.
+fisher.py — Fisher matrix forecast for FRB bias parameters b0 and delta.
 
 Implements the Reischke Fisher formalism:
 
@@ -126,13 +126,13 @@ def compute_cell_derivative(param, alpha, b0, delta, weights_galaxy, P_interp, k
     Parameters
     ----------
     param : str
-        Parameter to differentiate: 'b0' or 'alpha'.
+        Parameter to differentiate: 'b0' or 'delta'.
     alpha : float
         Fiducial alpha value.
     b0 : float
         Fiducial b0 value.
     delta : float
-        FRB bias redshift evolution exponent (held fixed, not perturbed).
+        FRB bias redshift evolution exponent.
     weights_galaxy : ndarray, shape (N_Z, 6)
         Pre-built galaxy weight functions.
     P_interp : callable
@@ -150,7 +150,7 @@ def compute_cell_derivative(param, alpha, b0, delta, weights_galaxy, P_interp, k
         Derivative of FRB×galaxy cross-correlation with param.
     """
     if param == 'b0':
-        step = b0 * step_frac
+        step = max(abs(b0) * step_frac, step_frac)
 
         ff_plus, gf_plus = compute_frb_cells(
             alpha, b0 + step, delta, weights_galaxy, P_interp, k_min, k_max
@@ -158,17 +158,17 @@ def compute_cell_derivative(param, alpha, b0, delta, weights_galaxy, P_interp, k
         ff_minus, gf_minus = compute_frb_cells(
             alpha, b0 - step, delta, weights_galaxy, P_interp, k_min, k_max
         )
-    elif param == 'alpha':
-        step = alpha * step_frac
-        
+    elif param == 'delta':
+        step = max(abs(delta) * step_frac, step_frac)
+
         ff_plus, gf_plus = compute_frb_cells(
-            alpha + step, b0, delta, weights_galaxy, P_interp, k_min, k_max
+            alpha, b0, delta + step, weights_galaxy, P_interp, k_min, k_max
         )
         ff_minus, gf_minus = compute_frb_cells(
-            alpha - step, b0, delta, weights_galaxy, P_interp, k_min, k_max
+            alpha, b0, delta - step, weights_galaxy, P_interp, k_min, k_max
         )
     else:
-        raise ValueError(f"Unknown parameter '{param}'. Use 'b0' or 'alpha'.")
+        raise ValueError(f"Unknown parameter '{param}'. Use 'b0' or 'delta'.")
 
     d_ff = (ff_plus - ff_minus) / (2.0 * step)
     d_gf = (gf_plus - gf_minus) / (2.0 * step)
@@ -182,9 +182,9 @@ def compute_cell_derivative(param, alpha, b0, delta, weights_galaxy, P_interp, k
 
 def compute_fisher_matrix(cell_ff, cell_gg, cell_gf,
                            n_shot_frb, n_shot_gal,
-                           d_b0, d_alpha, f_sky, mode):
+                           d_b0, d_delta, f_sky, mode):
     """
-    Compute the 2×2 Fisher matrix for parameters (b0, alpha).
+    Compute the 2×2 Fisher matrix for parameters (b0, delta).
 
     Uses the Reischke formula with einsum for efficiency:
         F_{ij} = f_sky * sum_ell (2*ell+1)/2
@@ -207,8 +207,8 @@ def compute_fisher_matrix(cell_ff, cell_gg, cell_gf,
         Galaxy shot noise per tomographic bin.
     d_b0 : tuple (d_ff_b0, d_gf_b0)
         Derivatives w.r.t. b0 from compute_cell_derivative.
-    d_alpha : tuple (d_ff_alpha, d_gf_alpha)
-        Derivatives w.r.t. alpha from compute_cell_derivative.
+    d_delta : tuple (d_ff_delta, d_gf_delta)
+        Derivatives w.r.t. delta from compute_cell_derivative.
     f_sky : float
         Observed sky fraction for the Fisher sum prefactor.
     mode : str
@@ -218,10 +218,10 @@ def compute_fisher_matrix(cell_ff, cell_gg, cell_gf,
     Returns
     -------
     F : ndarray, shape (2, 2)
-        Fisher matrix; rows/columns ordered as [b0, alpha].
+        Fisher matrix; rows/columns ordered as [b0, delta].
     """
     d_ff_b0, d_gf_b0 = d_b0
-    d_ff_alpha, d_gf_alpha = d_alpha
+    d_ff_delta, d_gf_delta = d_delta
     n_ell = len(ELL_ARR)
 
     # ── FRB-only forecast ───────────────────────────────────────────────────
@@ -233,14 +233,14 @@ def compute_fisher_matrix(cell_ff, cell_gg, cell_gf,
         # Compute traces for the 2×2 Fisher matrix via Tr[C^{-1} dC_i C^{-1} dC_j]
         # For 1×1 matrices: Tr[C^{-1} dC_i C^{-1} dC_j] = (dC_i * dC_j) / C^2
         trace_b0b0 = (d_ff_b0 * d_ff_b0) / (C_hat_ell ** 2)  # d(b0) × d(b0)
-        trace_b0a  = (d_ff_b0 * d_ff_alpha) / (C_hat_ell ** 2)  # d(b0) × d(alpha)
-        trace_aa   = (d_ff_alpha * d_ff_alpha) / (C_hat_ell ** 2)  # d(alpha) × d(alpha)
+        trace_b0d = (d_ff_b0 * d_ff_delta) / (C_hat_ell ** 2)  # d(b0) × d(delta)
+        trace_dd = (d_ff_delta * d_ff_delta) / (C_hat_ell ** 2)  # d(delta) × d(delta)
 
         # Sum over multipoles with prefactor (2*ell+1)/2
         prefactors = (2.0 * ELL_ARR + 1.0) / 2.0
         F_11 = np.sum(prefactors * trace_b0b0)
-        F_12 = np.sum(prefactors * trace_b0a)
-        F_22 = np.sum(prefactors * trace_aa)
+        F_12 = np.sum(prefactors * trace_b0d)
+        F_22 = np.sum(prefactors * trace_dd)
 
         # Apply sky fraction and build Fisher matrix
         F = np.array([
@@ -283,11 +283,11 @@ def compute_fisher_matrix(cell_ff, cell_gg, cell_gf,
                 continue
 
         # Build derivative matrices for each parameter
-        # dC_b0[ell, :, :] and dC_alpha[ell, :, :] contain the derivatives
+        # dC_b0[ell, :, :] and dC_delta[ell, :, :] contain the derivatives
         # at each multipole ell (7×7 matrices with nonzero entries only in
         # the FRB-containing rows/columns)
         dC_b0 = np.zeros((n_ell, n_tracers, n_tracers))
-        dC_alpha = np.zeros((n_ell, n_tracers, n_tracers))
+        dC_delta = np.zeros((n_ell, n_tracers, n_tracers))
 
         for i_ell in range(n_ell):
             # FRB-galaxy cross-correlation derivatives
@@ -295,9 +295,9 @@ def compute_fisher_matrix(cell_ff, cell_gg, cell_gf,
             dC_b0[i_ell, n_bins, :n_bins] = d_gf_b0[:, i_ell]
             dC_b0[i_ell, n_bins, n_bins] = d_ff_b0[i_ell]
 
-            dC_alpha[i_ell, :n_bins, n_bins] = d_gf_alpha[:, i_ell]
-            dC_alpha[i_ell, n_bins, :n_bins] = d_gf_alpha[:, i_ell]
-            dC_alpha[i_ell, n_bins, n_bins] = d_ff_alpha[i_ell]
+            dC_delta[i_ell, :n_bins, n_bins] = d_gf_delta[:, i_ell]
+            dC_delta[i_ell, n_bins, :n_bins] = d_gf_delta[:, i_ell]
+            dC_delta[i_ell, n_bins, n_bins] = d_ff_delta[i_ell]
 
         # Compute the trace terms using einsum for efficiency
         # Tr[C_hat^{-1} dC_i C_hat^{-1} dC_j]
@@ -311,20 +311,20 @@ def compute_fisher_matrix(cell_ff, cell_gg, cell_gf,
         arg_b0b0 = np.einsum('lij, ljk -> lik', dC_b0, temp_b0)
         trace_b0b0 = np.einsum('lij, lji -> l', C_hat_inv, arg_b0b0)
 
-        # For parameter pair (b0, alpha):
-        temp_alpha = np.einsum('lij, ljk -> lik', C_hat_inv, dC_alpha)
-        arg_b0a = np.einsum('lij, ljk -> lik', dC_b0, temp_alpha)
-        trace_b0a = np.einsum('lij, lji -> l', C_hat_inv, arg_b0a)
+        # For parameter pair (b0, delta):
+        temp_delta = np.einsum('lij, ljk -> lik', C_hat_inv, dC_delta)
+        arg_b0d = np.einsum('lij, ljk -> lik', dC_b0, temp_delta)
+        trace_b0d = np.einsum('lij, lji -> l', C_hat_inv, arg_b0d)
 
-        # For parameter pair (alpha, alpha):
-        arg_aa = np.einsum('lij, ljk -> lik', dC_alpha, temp_alpha)
-        trace_aa = np.einsum('lij, lji -> l', C_hat_inv, arg_aa)
+        # For parameter pair (delta, delta):
+        arg_dd = np.einsum('lij, ljk -> lik', dC_delta, temp_delta)
+        trace_dd = np.einsum('lij, lji -> l', C_hat_inv, arg_dd)
 
         # Sum over multipoles with prefactor (2*ell+1)/2
         prefactors = (2.0 * ELL_ARR + 1.0) / 2.0
         F_11 = np.sum(prefactors * trace_b0b0)
-        F_12 = np.sum(prefactors * trace_b0a)
-        F_22 = np.sum(prefactors * trace_aa)
+        F_12 = np.sum(prefactors * trace_b0d)
+        F_22 = np.sum(prefactors * trace_dd)
 
         # Apply sky fraction and build Fisher matrix
         F = np.array([
