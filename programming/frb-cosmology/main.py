@@ -20,6 +20,7 @@ from config.parameters import (
     NEUTRON_STAR_B0, NEUTRON_STAR_DELTA,
     GALAXY_N_BINS, GALAXY_NBAR_PER_BIN, F_SKY_FRB, F_SKY_FISHER,
 )
+from src.plot_style import configure_matplotlib_fonts
 from src.power_spectrum import build_power_spectrum_2d
 from src.angular_power_spectrum import (
     compute_cell,
@@ -43,6 +44,8 @@ from src.fisher import (
     invert_fisher,
     get_confidence_ellipse,
 )
+
+configure_matplotlib_fonts()
 
 # ── Output directory ────────────────────────────────────────────────────────
 PLOT_DIR = os.path.join(os.path.dirname(__file__), "plots")

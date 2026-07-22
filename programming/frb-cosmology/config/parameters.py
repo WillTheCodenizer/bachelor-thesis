@@ -81,7 +81,7 @@ F_SKY_FISHER = 1347.0 / (4.0 * np.pi * (180.0 / np.pi) ** 2)
 GALAXY_N_BINS = 6                         # Number of tomographic galaxy bins
 
 # KiDS number-density input: one n_bar value per tomographic bin.
-GALAXY_NGAL_FILE = Path(__file__).resolve().parents[1] / "data" / "Ngal.txt"
+GALAXY_NGAL_FILE = Path(__file__).resolve().parents[1] / "data" / "KiDS_Ngal.txt"
 
 # Convert n_bar from [arcmin^-2] to [steradian^-1] for internal calculations.
 ARCMIN2_PER_STERADIAN = (180.0 * 60.0 / np.pi) ** 2  # ≈ 1.1818e7
@@ -89,7 +89,7 @@ GALAXY_NBAR_PER_BIN = np.loadtxt(GALAXY_NGAL_FILE, comments="#", ndmin=1) * ARCM
 
 if GALAXY_NBAR_PER_BIN.size != GALAXY_N_BINS:
     raise ValueError(
-        f"Expected {GALAXY_N_BINS} ngal values in Ngal.txt, "
+        f"Expected {GALAXY_N_BINS} ngal values in KiDS_Ngal.txt, "
         f"got {GALAXY_NBAR_PER_BIN.size}."
     )
 

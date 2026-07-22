@@ -31,9 +31,9 @@
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}  % -- becomes en-dash etc.
 
-% load english (for abstract) and ngerman language
-% the main language has to come last
-\usepackage[american, ngerman]{babel}
+% load english and german languages; the main language must come last
+% put german first so english becomes the main language
+\usepackage[ngerman, american]{babel}
 
 % intelligent quotation marks, language and nesting sensitive
 \usepackage[autostyle]{csquotes}
@@ -133,23 +133,23 @@
 %-------------------------    Angaben zur Arbeit   ----------------------------
 %------------------------------------------------------------------------------
 
-\author{Maximilian Nöthe}
-\title{\LaTeX-Dokumentenklasse und Vorlage für Abschlussarbeiten an der TU Dortmund}
-\date{2014}
-\birthplace{Castrop-Rauxel}
-\chair{Lehrstuhl für Experimentelle Physik V}
-\division{Fakultät Physik}
+\author{Will Ruppert}
+\title{Probing Fast Radio Burst Environments: Cross-Correlating Deep and Shallow FRB Surveys with KiDS DR5}
+\date{2026}
+\birthplace{Herdecke}
+\chair{Research Group Rhode / Elsässer}
+\division{Faculty of Physics}
 \thesisclass{Bachelor of Science}
-\submissiondate{31. September 2015}
-\firstcorrector{Prof.~Dr.~Erstgutachter}
-\secondcorrector{Prof.~Dr.~Zweitgutachter}
+\submissiondate{15th October 2026}
+\firstcorrector{PD~Dr.~Dominik Elsässer}
+\secondcorrector{Prof.~Dr.~Hendrik Hildebrandt}
 
 % tu logo on top of the titlepage
 \titlehead{\includegraphics[height=1.5cm]{logos/tu-logo.pdf}}
 
 \begin{document}
 \frontmatter
-\input{content/hints.tex}
+
 \maketitle
 
 % Gutachterseite
@@ -161,14 +161,16 @@
 
 \mainmatter
 % Hier beginnt der Inhalt mit Seite 1 in arabischen Ziffern
-\input{content/01_einleitung.tex}
-\input{content/02_struktur.tex}
-\input{content/03_grundlagen.tex}
-\input{content/04_figs_tabs.tex}
+\input{content/01_introduction.tex}
+\input{content/02_background.tex}
+\input{content/03_methodology.tex}
+\input{content/04_results.tex}
+\input{content/05_conclusion.tex}
+\input{content/10_note_owner.tex}
 
 \appendix
 % Hier beginnt der Anhang, nummeriert in lateinischen Buchstaben
-\input{content/a_anhang.tex}
+\input{content/a_appendix.tex}
 
 \backmatter
 \printbibliography
