@@ -30,6 +30,7 @@
 %------------------------------------------------------------------------------
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}  % -- becomes en-dash etc.
+\setmainfont{Latin Modern Roman}
 
 % load english and german languages; the main language must come last
 % put german first so english becomes the main language
@@ -73,6 +74,7 @@
   separate-uncertainty=true,
   per-mode=symbol-or-fraction,
 ]{siunitx}
+\sisetup{mode=text}
 
 %------------------------------------------------------------------------------
 %-------------------------------- tables  -------------------------------------
