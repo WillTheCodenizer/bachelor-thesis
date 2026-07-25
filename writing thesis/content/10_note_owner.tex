@@ -21,9 +21,9 @@ Use chapters for the top-level structure. Avoid chapters with only one section.
 
 Diese Vorlage ist auf die Kompilierung mit \texttt{lualatex} ausgelegt. 
 Als Dokumentenklasse  wird die \KOMAScript\-Klasse \texttt{scrbook} verwendet.
-Falls Sie Änderungen am Layout vornehmen möchten, lesen Sie die \KOMAScript-Dokumentation: \cite{koma}.
+Falls Sie Änderungen am Layout vornehmen möchten, lesen Sie die \KOMAScript-Dokumentation: 
 
-Eine umfangreiche Einführung in die moderne Verwendung von \LaTeX{} gibt es hier: \cite{toolbox}, lesenswert ist außerdem das \LaTeX-Tabu: \cite{l2tabu}
+Eine umfangreiche Einführung in die moderne Verwendung von \LaTeX{} gibt es hier: , lesenswert ist außerdem das \LaTeX-Tabu
 
 Um dieses Dokument vollständig zu erstellen sind maximal vier Programmläufe nötig:
 \begin{enumerate}[nosep]
@@ -61,13 +61,13 @@ Make prüft, ob die Quelldateien verändert wurden, falls nicht, werden auch kei
 Falls Sie das Makefile benutzen möchten, sollten Sie alle Abhängigkeiten eintragen (Eigene Dateien für Kapitel, Plots, etc.).
 
 
-Download und weitere Informationen zu Make gibt es unter \cite{make}. Die Befehle sind für die Bash ausgelegt.
-Wenn Sie sie unter Windows nutzen wollen, benötigen Sie einen Bash-Emulator, wie Git Bash, Download unter \cite{gitbash} möglich.
+Download und weitere Informationen zu Make gibt es unter. Die Befehle sind für die Bash ausgelegt.
+Wenn Sie sie unter Windows nutzen wollen, benötigen Sie einen Bash-Emulator, wie Git Bash, Download unter  möglich.
 Wenn Sie Make installiert haben, rufen Sie einfach in der Konsole im Verzeichnis der Arbeit den Befehl \texttt{make}.
 
 \section{Erstellen des Ausgabedokuments mit Texmaker}
 \subsection{Einrichten der nötigen Befehle}
-Ein beliebter Editor für alle Betriebssysteme ist Texmaker, Download unter \cite{texmaker}.
+Ein beliebter Editor für alle Betriebssysteme ist Texmaker, Download unter .
 Damit Texmaker das Dokument korrekt kompiliert, fügen sie einen benutzerdefinierten Befehl hinzu:
 \begin{enumerate}[nosep]
     \item Klicken sie oben in der Menüleiste auf \emph{Benutzer/in}
@@ -152,33 +152,13 @@ Das Paket stellt unter anderem die drei wichtigen Befehle
 zur Verfügung.
 Diese Befehle sollten stets genutzt werden, wenn Zahlen angegeben werden. 
 Sie funktionieren sowohl im Text- als auch im Mathematikmodus.
-In Tabelle \ref{tab:si} sind einige Beispiele aufgetragen. Bitte lesen Sie die Dokumentation \cite{siunitx}.
+In Tabelle \ref{tab:si} sind einige Beispiele aufgetragen. Bitte lesen Sie die Dokumentation .
 
 \section{Das Literaturverzeichnis}
 
-Das Literaturverzeichnis wird mit Hilfe von BibLaTeX und biber erstellt.
-Tragen Sie alle ihre Quellen in die Datei \texttt{references.bib} ein, Sie enthält bereits
-einige Beispiele. Für weitere Informationen lesen Sie bitte die Dokumentation \cite{biblatex}.
 
 Im Text können Sie mit \verb_\cite{kürzel}_ zitieren. Seitenzahlen geben Sie in eckigen Klammern an:
 \verb_\cite[10]{kürzel}_. 
-
-Das Literaturverzeichnis ist so eingestellt, dass es Ihre Quellen in alphabetischer Reihenfolge nach Autoren nummeriert.
-Möchten Sie das Literaturverzeichnis nach der Reihenfolge des Auftauchens im Text sortieren, fügen sie die Paktetoption \texttt{sorting=none} beim Laden
-des BibLaTeX-Pakets hinzu.
-
-Den Zitier- und Bibliographie-Stil geben sie mit der Option \texttt{style=Stil} an. Die beiden gebräuchlisten Stile sind \texttt{numeric} und \texttt{alphabetic}. 
-Bei \texttt{numeric} werden die Quellen durchnummeriert, bei \texttt{alphabetic} wird ein Buchstabenkürzel aus Autor(en)-Name(n) und Jahr verwendet.
-Für weitere Stile konsultieren Sie bitte die Dokumentation: \cite{biblatex}.
-
-Ein Beispiel für das Zitieren eines Buches lautet so \cite{handbook_adhesives},
-wissenschaftliche Artikel hingegen werden so \cite{einstein} zitiert.
-
-Damit das Literaturverzeichnis erstellt wird, ist ein Aufruf von \texttt{biber} nach einem ersten kompilieren mit \texttt{lualatex} nötig.
-Danach muss das Dokument erneut mit \texttt{lualatex} kompiliert werden. 
-
-Zum korrekten Kompilieren des Dokuments siehe Kapitel \ref{make}.
-\end{foreignlanguage}
 
 
 \section{Figures}
@@ -222,3 +202,4 @@ An example is Table~\ref{tab:example}.
         \bottomrule
     \end{tabular}
 \end{table}
+\end{foreignlanguage}{ngerman}

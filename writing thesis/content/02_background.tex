@@ -9,39 +9,82 @@ tested through observations. Current astronomical evidence strongly supports the
 largest observable scales (e.g.~\cite{Scrimgeour_2012, Laurent_2016})
 
 Based on the cosmological principle, the Universe can be described by the \textit{Friedmann-Lemaître-Robertson-Walker} (FLRW) metric
+
 \begin{equation*}
-    ds^2 = dt^2 - a^2(t) \left[ \frac{dr^2}{1 - k r^2} + r^2 (d\theta^2 + \sin^2\theta d\phi^2) \right]
+    ds^2 = -c^2 dt^2 +a^2(t) \left[ \frac{dr^2}{1 - k r^2} + r^2 (d\theta^2 + \sin^2\theta d\phi^2) \right]
 \end{equation*}
 
-with the spatial comoving coordinates $(r, \theta, \phi)$ and the cosmic time $t$. The parameter $k$ describes the curvature of the Universe, 
+with the spatial comoving coordinates $(r, \theta, \phi)$ and the cosmic time $t$~\cite{CervantesCota_2011}. The parameter $k$ describes the curvature of the Universe, 
 which can take values of $-1$, $0$, or $+1$ for open, flat, and closed geometries, respectively. 
-The scale factor $a(t)$ characterizes the expansion of the Universe
+The scale factor $a(t)$ describes the relative expansion of the Universe and is conventionally normalized to its present value,
+
 \begin{equation*}
-    a(t) =
-        \begin{cases}
-            1, & \text{statisches Universum} \\
-            <1, & \text{kontrahierendes Universum} \\
-            >1, & \text{expandierendes Universum}
-        \end{cases}
+    a(t_0)=1.
 \end{equation*}
 
-It is related to the Hubble parameter $H(t)$ through the relation
+For earlier cosmic times, the scale factor satisfies $a(t)<1$, whereas in an expanding Universe it increases with time and can exceed unity in the future. 
+A static Universe would correspond to $\dot{a}(t)=0$, resulting in a vanishing Hubble parameter~\cite{Huterer_2018}.
+
+BIS HIER ALLES GECHECKT. ALS NAECHSTEN UNTEN ALLES CHECKEN MIT CHATGPT CHAT HUBBLE PARAMETER. DA DANN AUCH DIE NEUEN SACHEN HINZUFUEGEN MIT KRITISCHER DICHTE UND SO WEITER.
+
+The expansion rate of the Universe is quantified by the Hubble parameter,
+
 \begin{equation*}
-    H(t) = \frac{\dot{a}(t)}{a(t)}.
+    H(t)=\frac{\dot{a}(t)}{a(t)},
 \end{equation*}
 
-and can also be expressed in terms of the redshift $z$ as
+which describes the relative change of the scale factor with cosmic time. 
+At the present time, this quantity is defined as the Hubble constant,
+
 \begin{equation*}
-    a(t) = \frac{1}{1 + z}.
+    H_0 = H(t_0).
 \end{equation*}
 
-Therefore the 
+The expansion of space introduces a distinction between physical distances and 
+comoving distances. While the physical distance between two objects changes 
+with time due to the expansion of the Universe, the comoving distance remains 
+constant for objects that follow the general expansion of space. The physical 
+distance is related to the comoving distance by
+
+\begin{equation*}
+    D(t)=a(t)\chi,
+\end{equation*}
+
+where $\chi$ denotes the comoving distance. Thus, comoving coordinates remove 
+the effect of the cosmic expansion and provide a convenient description of the 
+large-scale structure of the Universe.
+The expansion of the Universe can be observed through the cosmological 
+redshift. Due to the expansion of space, the wavelength of photons emitted by 
+distant objects is stretched during their propagation. The redshift is defined 
+as
+
+\begin{equation*}
+    z=\frac{\lambda-\lambda_0}{\lambda_0},
+\end{equation*}
+
+where $\lambda_0$ is the emitted wavelength and $\lambda$ is the observed 
+wavelength. The redshift is directly related to the scale factor through
+
+\begin{equation*}
+    a(t)=\frac{1}{1+z}.
+\end{equation*}
+
+Consequently, the observed redshift provides information about the expansion 
+history of the Universe and can be used to determine cosmological distances. 
+For a spatially flat Universe, the comoving distance can be expressed as
+
+\begin{equation*}
+    \chi(z)=\int_0^z \frac{c}{H(z')} dz',
+\end{equation*}
+
+where $H(z)$ describes the redshift evolution of the Hubble parameter. 
 
 
 \begin{itemize}
  \item The Expanding Universe
  \item Large-Scale Structure of the Universe
  \item Redshift
+ \item comoving distance
 \end{itemize}
 
 \section{Fast Radio Bursts} \label{sec:fast_radio_bursts}
