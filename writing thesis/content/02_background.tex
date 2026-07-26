@@ -14,7 +14,7 @@ Based on the cosmological principle, the Universe can be described by the \texti
     ds^2 = -c^2 dt^2 +a^2(t) \left[ \frac{dr^2}{1 - k r^2} + r^2 (d\theta^2 + \sin^2\theta d\phi^2) \right]
 \end{equation*}
 
-with the spatial comoving coordinates $(r, \theta, \phi)$ and the cosmic time $t$~\cite{CervantesCota_2011}. The parameter $k$ describes the curvature of the Universe, 
+with the spatial comoving coordinates $(r, \theta, \phi)$, the speed of light $c$, and the cosmic time $t$~\cite{CervantesCota_2011}. The parameter $k$ describes the curvature of the Universe, 
 which can take values of $-1$, $0$, or $+1$ for open, flat, and closed geometries, respectively. 
 The scale factor $a(t)$ describes the relative expansion of the Universe and is conventionally normalized to its present value,
 
@@ -25,8 +25,6 @@ The scale factor $a(t)$ describes the relative expansion of the Universe and is 
 For earlier cosmic times, the scale factor satisfies $a(t)<1$, whereas in an expanding Universe it increases with time and can exceed unity in the future. 
 A static Universe would correspond to $\dot{a}(t)=0$, resulting in a vanishing Hubble parameter~\cite{Huterer_2018}.
 
-BIS HIER ALLES GECHECKT. ALS NAECHSTEN UNTEN ALLES CHECKEN MIT CHATGPT CHAT HUBBLE PARAMETER. DA DANN AUCH DIE NEUEN SACHEN HINZUFUEGEN MIT KRITISCHER DICHTE UND SO WEITER.
-
 The expansion rate of the Universe is quantified by the Hubble parameter,
 
 \begin{equation*}
@@ -34,29 +32,32 @@ The expansion rate of the Universe is quantified by the Hubble parameter,
 \end{equation*}
 
 which describes the relative change of the scale factor with cosmic time. 
-At the present time, this quantity is defined as the Hubble constant,
+At the present time
 
 \begin{equation*}
-    H_0 = H(t_0).
+    H_0 = H(t_0)
 \end{equation*}
+
+is referred to as the Hubble constant~\cite{CervantesCota_2011}.
 
 The expansion of space introduces a distinction between physical distances and 
 comoving distances. While the physical distance between two objects changes 
 with time due to the expansion of the Universe, the comoving distance remains 
-constant for objects that follow the general expansion of space. The physical 
-distance is related to the comoving distance by
+constant for objects that follow the general expansion of space. The physical or so called
+proper distance is related to the comoving distance $\chi$ by
 
 \begin{equation*}
-    D(t)=a(t)\chi,
+    D(t)=a(t) \chi.
 \end{equation*}
 
-where $\chi$ denotes the comoving distance. Thus, comoving coordinates remove 
+Thus, comoving coordinates remove 
 the effect of the cosmic expansion and provide a convenient description of the 
-large-scale structure of the Universe.
+large-scale structure of the Universe~\cite{Ishak_2019}.
+
 The expansion of the Universe can be observed through the cosmological 
 redshift. Due to the expansion of space, the wavelength of photons emitted by 
-distant objects is stretched during their propagation. The redshift is defined 
-as
+distant objects is stretched during their propagation. 
+The redshift is defined as
 
 \begin{equation*}
     z=\frac{\lambda-\lambda_0}{\lambda_0},
@@ -66,26 +67,19 @@ where $\lambda_0$ is the emitted wavelength and $\lambda$ is the observed
 wavelength. The redshift is directly related to the scale factor through
 
 \begin{equation*}
-    a(t)=\frac{1}{1+z}.
+    1+z = \frac{a(t_0)}{a(t_e)}
 \end{equation*}
 
+with $t_e$ denoting the time of emission.
 Consequently, the observed redshift provides information about the expansion 
 history of the Universe and can be used to determine cosmological distances. 
-For a spatially flat Universe, the comoving distance can be expressed as
+The line-of-sight comoving distance to an object at redshift $z$ is given by
 
 \begin{equation*}
-    \chi(z)=\int_0^z \frac{c}{H(z')} dz',
+    \chi(z)= \chi_H \int_0^z \frac{\mathrm{d}z'}{E(a(z'))},
 \end{equation*}
 
-where $H(z)$ describes the redshift evolution of the Hubble parameter. 
-
-
-\begin{itemize}
- \item The Expanding Universe
- \item Large-Scale Structure of the Universe
- \item Redshift
- \item comoving distance
-\end{itemize}
+where $\chi_H = c/H_0$ is the Hubble distance and $E(a)=H(a)/H_0$ is the dimensionless Hubble parameter~\cite{Hogg_2000}. 
 
 \section{Fast Radio Bursts} \label{sec:fast_radio_bursts}
 \begin{itemize}
