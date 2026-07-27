@@ -66,9 +66,9 @@ The redshift is defined as
 where $\lambda_0$ is the emitted wavelength and $\lambda$ is the observed 
 wavelength. The redshift is directly related to the scale factor through
 
-\begin{equation*}
+\begin{equation}\label{eq:scale_factor_redshift_relation}
     1+z = \frac{a(t_0)}{a(t_e)}
-\end{equation*}
+\end{equation}
 
 with $t_e$ denoting the time of emission.
 Consequently, the observed redshift provides information about the expansion 
@@ -98,11 +98,10 @@ reduce to the \textit{Friedmann equations}
 which determine the evolution of the scale factor $a(t)$. Here $\rho$ and $p$ denote the energy density and pressure of the cosmic fluid, 
 $\symup{\Lambda}$ is the cosmological constant, and $G$ is the gravitational constant~\cite{Huterer_2018}.
 
-For a spatially flat Universe ($k=0$), the critical density is defined as the 
-energy density required to obtain the observed expansion rate $H$,
+The critical density at present time is defined as the total energy density for which the Universe is spatially flat ($k=0$) and is given by,
 
 \begin{equation*}
-    \rho_c=\frac{3H^2}{8\pi G}.
+    \rho_c=\frac{3H_0^2}{8\pi G}.
 \end{equation*}
 
 The ratio between the density of a cosmological component and the critical 
@@ -112,36 +111,50 @@ density defines the corresponding density parameter,
     \symup{\Omega_i}=\frac{\rho_i}{\rho_c}.
 \end{equation*}
 
-A flat Universe therefore satisfies
-
-\begin{equation*}
-    \symup{\Omega}_{0}= \symup{\Omega}_m + \symup{\Omega}_r + \symup{\Omega}_{\symup{\Lambda}} + \symup{\Omega}_k = 1,
-\end{equation*}
-
-where the total density includes matter, radiation, dark energy, and possible 
-curvature contributions.
+with $\symup{\Omega}_m$, $\symup{\Omega}_r$, $\symup{\Omega}_{\symup{\Lambda}}$, and $\symup{\Omega}_k$ 
+denoting the density parameters of matter, radiation, vacuum (dark) energy, and curvature, respectively.
 
 Consequently, the Friedmann equation can be expressed in terms of the density parameters~\cite{BartelmannSchneider_2001}:
 
 \begin{equation*}
-    H^2 = H_0^2 \left[ \symup{\Omega}_m a^{-3} + \symup{\Omega}_r a^{-4} + \symup{\Omega}_{\symup{\Lambda}} + (1-\symup{\Omega}_{0}) a^{-2} \right].
+    H^2 = H_0^2 \left[  \symup{\Omega}_r a^{-4} + \symup{\Omega}_m a^{-3} + \symup{\Omega}_{k} a^{-2} + \symup{\Omega}_{\symup{\Lambda}} \right].
 \end{equation*}
 
-HIER NOCH KLAEREN WIESO GLEICH 1???
-HIER SO SACHEN KLAEREN WIE WAS GENAU IST DICHTE UND DRUCK,EINFACH VERSTEHEN UND IN NOTIZEN MARKIEREN
+Using \autoref{eq:scale_factor_redshift_relation}, the dimensionless Hubble parameter can also be written as
 
-\section{\texorpdfstring{The $\symup{\Lambda}$CDM Model}{The Lambda CDM Model}} \label{sec:lcdm_model}
-HIER VOR ALLEM SCHAUEN WAS IM CHAT FENSTER ALLES STEHT (WAHRESCHEINLICH ZU AUSFUEHRELICH DORT)SIEHE BACHELORARBEIT BERTMANN
+\begin{equation*}
+    E(z)=
+    \sqrt{
+    \symup{\Omega}_{r,0}(1+z)^4+
+    \symup{\Omega}_{m,0}(1+z)^3+
+    \symup{\Omega}_{k,0}(1+z)^2+
+    \symup{\Omega}_{\symup{\Lambda},0}
+    }.
+\end{equation*}
 
-\begin{itemize}
-    \item Matter
-    \item Radiation
-    \item Dark energy
-    \item $H(z)$
-    \item Cosmological parameters
-\end{itemize}
+\subsection{\texorpdfstring{The $\symup{\Lambda}$CDM Model}{The Lambda CDM Model}} \label{sec:lcdm_model}
+The current standard model of cosmology is the so-called $\symup{\Lambda}$CDM model. 
+It describes the evolution of the Universe assuming the presence of cold dark 
+matter (CDM) and a cosmological constant $\symup{\Lambda}$, which is associated with 
+dark energy and the accelerated expansion of the Universe. The model is in good 
+agreement with a wide range of cosmological observations.
+For the late-time Universe relevant for extragalactic sources, radiation and
+curvature contributions are usually negligible. Therefore, the expansion 
+history is mainly determined by the matter and dark energy density parameters,
 
+\begin{equation*}
+    E(z)\approx
+    \sqrt{
+    \symup{\Omega}_{m,0}(1+z)^3+
+    \symup{\Omega}_{\symup{\Lambda},0}
+    }.
+\end{equation*}
 
+This relation is used to describe the redshift evolution of the Hubble 
+parameter and provides the connection between observations of distant sources 
+and their cosmological distances.
+
+HIER NOCHMAL EINE QUELLE FINDEN SODASS ALLES PASST UND EVENTUELL KUERZEN ES BRAUCHT VIELLECIHT DIE FORMEL GAR NICHT...UND CHECKEN MTI CHAT OB HIER PLAGIAT WARE WEIL EINFACH NUR REINKOPIERT
 \section{Fast Radio Bursts} \label{sec:fast_radio_bursts}
 \begin{itemize}
  \item Discovery and Properties
