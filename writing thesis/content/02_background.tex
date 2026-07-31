@@ -6,7 +6,7 @@ is homogeneous and isotropic on large scales. Homogeneity implies that the large
 are statistically uniform across different locations, whereas isotropy means that no direction is preferred. Although 
 this principle is introduced as a fundamental assumption in modern cosmology, it also represents a hypothesis that can be 
 tested through observations. Current astronomical evidence strongly supports the validity of the cosmological principle on the 
-largest observable scales (e.g.~\cite{Scrimgeour_2012, Laurent_2016})
+largest observable scales \cite{Scrimgeour_2012, Laurent_2016}.
 
 Based on the cosmological principle, the Universe can be described by the \textit{Friedmann-Lemaître-Robertson-Walker} (FLRW) metric
 
@@ -152,69 +152,12 @@ curvature, and dark energy. Assuming a spatially flat Universe, the curvature te
 INFLATION THEORY ???
 
 \section{Fast Radio Bursts} \label{sec:fast_radio_bursts}
-Fast Radio Bursts are bright, transient radio pulses with durations of milliseconds or less and peak 
-flux densities ranging from 50 mJy to 100 Jy (Petroff, Hessels & Lorimer 2019).
-They have been detected across a frequency range of 110 MHz(Pleunis, Z., Michilli, D., Bassa, C. G., et al. 2021b, ApJ, 911, L3)
-to 8 GHz (Zhang, Y. G., Gajjar, V., Foster, G., et al. 2018, ApJ, 866, 149) (aus NG 2023).
+Fast Radio Bursts (FRB) are bright, transient radio pulses with durations of milliseconds or less and peak 
+flux densities ranging from 50 mJy to 100 Jy~\cite{Petroff_2019}.
+They have been detected across a frequency range of 110 MHz~\cite{Pleunis_2021}
+to 8 GHz~\cite{Zhang_2018}.
 
-The implied isotropic energies of FRBs are within a few orders of magnitude of those released in gamma-ray bursts 
-and supernova explosions, pointing directly toward extreme and energetic progenitor mechanisms
-(Petroff, Hessels & Lorimer 2019, Zhang et al 2021). 
-
-Consequently, a broad range of progenitor models has been proposed, 
-including neutron stars, magnetars, white dwarfs, black holes
-ultra-luminous X-ray sources, active galactic nuclei, and more exotic scenarios such as superconducting cosmic strings 
-(Petroff 2021).
-
-Despite releasing within a single millisecond an amount of energy comparable to what the Sun radiates over three days [Petroff, Hessels & Lorimer 2019], 
-FRBs are typically located at cosmological distances. As their radio emission propagates across the expanding Universe, 
-it spreads over an immense area, so that the signal received on Earth is roughly a thousand times weaker than that of a 
-mobile phone located on Earth's Moon [7 passt als interview eventuell ein bisschen too populaerwissenschaftlich?].
-
-
-Their extragalactic origin is established through their large dispersion measures (DM), which exceed the expected 
-contribution from the Galactic interstellar medium along the corresponding line of sight. 
-The dispersion measure quantifies the integrated column density of free electrons between the source and the observer:
-
-\begin{equation*}
-DM = \int_0^d n_e(l)\,dl ,
-\end{equation*}
-
-where $n_e$ represents the free electron density and $d$ the distance between the source and the observer. 
-For a source located within the Milky Way, typical values predicted by Galactic electron-density models are 
-of the order of
-
-\begin{equation*}
-DM_{\mathrm{MW}} \lesssim 100\ \mathrm{pc\,cm^{-3}},
-\end{equation*}
-
-whereas observed FRBs often exhibit significantly larger values, typically ranging from several hundred 
-to several thousand $\mathrm{pc\,cm^{-3}}$. The excess dispersion measure,
-
-\begin{equation*}
-DM_{\mathrm{excess}} = DM_{\mathrm{FRB}} - DM_{\mathrm{MW}},
-\end{equation*}
-
-indicates that a substantial fraction of the dispersing plasma must be located outside the Milky Way, 
-thereby providing evidence for an extragalactic origin (core paper 1 HEIR NOCHMAL GUCKEN WAS GENAU DA STEHT UND OB DIE WERTE PASSEN).
-The frequency-dependent propagation delay caused by this dispersive effect allows the dispersion measure 
-to be determined observationally. The arrival-time difference between radiation received at two frequencies 
-is given by
-
-\begin{equation*}
-\Delta t = 4.15\,\mathrm{ms}
-\left(\frac{DM}{\mathrm{pc\,cm^{-3}}}\right)
-\left[
-\left(\frac{\nu_{\mathrm{low}}}{\mathrm{GHz}}\right)^{-2}
--
-\left(\frac{\nu_{\mathrm{high}}}{\mathrm{GHz}}\right)^{-2}
-\right],
-\end{equation*}
-
-where $\nu_{\mathrm{low}}$ and $\nu_{\mathrm{high}}$ are the lower and higher observing frequencies, 
-respectively. Since lower-frequency radio waves are delayed more strongly than higher-frequency waves, 
-this measurable time delay provides a direct estimate of the dispersion measure (WIKIPEDIA FRB DEUTSCH).
-Furthermore, the isotropic-equivalent energy distribution of the observed FRB population follows a power-law 
+The isotropic-equivalent energy distribution of the observed FRB population follows a power-law 
 distribution described by
 
 \begin{equation*}
@@ -223,26 +166,62 @@ N(E_{\mathrm{iso}}) \propto E_{\mathrm{iso}}^{-1.8},
 
 indicating that high-energy bursts are increasingly rare compared to lower-energy events. 
 The negative power-law index of approximately $-1.8$ describes the decrease in the occurrence rate 
-with increasing isotropic-equivalent energy (Zhang).
+with increasing isotropic-equivalent energy.
+
+Furthermore, the implied isotropic energies of FRBs are within a few orders of magnitude of those released in gamma-ray bursts 
+and supernova explosions, suggesting that FRBs may originate from highly energetic astrophysical processes 
+\cite{Petroff_2019,Zhang_2021}. 
+
+Consequently, a broad range of progenitor models has been proposed, 
+including neutron stars, magnetars, white dwarfs, black holes
+ultra-luminous X-ray sources, active galactic nuclei, and more exotic scenarios such as superconducting cosmic strings~\cite{Petroff_2022}.
+
+Despite releasing within a single millisecond an amount of energy comparable to what the Sun radiates over three days~\cite{Petroff_2019}, 
+FRBs are typically located at cosmological distances. As their radio emission propagates across the expanding Universe, 
+it spreads over an immense area, so that the signal received on Earth is roughly a thousand times weaker than that of a 
+mobile phone located on Earth's Moon~\cite{SpaceCom_2018} [ZU POPULAERWISSENSCHAFTLICH ???].
+
+The signal from FRBs is dispersed as it propagates through the ionized interstellar and intergalactic medium,
+causing lower-frequency components to arrive later than higher-frequency components.
+This makes FRBs appear as a frequency-dependent sweep in time, which can be described by the following relation:
+
+\begin{equation*}
+DM = \frac{2\pi m_e c}{e^2} \Delta t \left( \frac{1}{\nu_{\mathrm{low}}^2} - \frac{1}{\nu_{\mathrm{high}}^2} \right)^{-1},
+\end{equation*}
+
+where $\nu_{\mathrm{low}}$ and $\nu_{\mathrm{high}}$ are the lower and higher observing frequencies, $\Delta t$ is the time delay 
+between the arrival of the two frequency components, $c$ is the speed of light, $e$ is the elementary charge, and $m_e$ is the electron 
+mass. The dispersion measure $DM$ quantifies the integrated column density of free electrons between the source and the observer:
+
+\begin{equation*}
+DM \propto  \int_0^d n_e(l)\,dl ,
+\end{equation*}
+
+where $n_e$ represents the free electron density and $d$ the distance between the source and the observer~\cite{Petroff_2019}.
+
+The origin of FRBs is established through their large $DM$, which exceed the expected
+contribution from the Galactic interstellar medium along the corresponding line of sight. 
+For a source located within the Milky Way, typical values predicted by Galactic electron-density models are 
+of the order of
+$ DM_{\mathrm{MW}} \lesssim \qty{50}{\parsec\ \centi\metre^{-3}}$.
+
+In contrast, observed FRBs often exhibit significantly larger values $DM_{\mathrm{FRB}} \gtrsim \qty{1000}{\parsec\ \centi\metre^{-3}}$~\cite{Reischke_2021}.
 
 The first FRB, later named the Lorimer Burst, was identified in archival pulsar survey data acquired 
-in 2001 and published in 2007(Lorimer, D. R., M. Bailes, M. A. McLaughlin, D. J. Narkevic, and F. Crawford. 2007.
-“A Bright Millisecond Radio Burst of Extragalactic Origin.” Science 318, no. 5851
-(November): 777. https://doi.org/10.1126/science.1147532. arXiv: 0709.4301
-[astro-ph].)
+in 2001 and published in 2007~\cite{Lorimer_2007}.
 
 Initially, only a small number of FRBs had been detected, leading to the assumption that they represented rare, 
 singular events. The situation changed decisively with the commissioning of CHIME in 2018, whose wide field of view 
 drove an explosion in detections and increased the known FRB population by several orders of magnitude. 
 The latest CHIME/FRB catalog contains 4,539 detected burst events originating from 3,641 unique FRB sources, 
-including 981 bursts from 83 known repeating sources (arxive: The Second CHIME/FRB Catalog of Fast Radio Bursts).
+including 981 bursts from 83 known repeating sources ~\cite{CHIMEFRB2026}.
 
 \subsection{Repeater}
 
 \subsection{Magnetars vs Neutron Stars}
 
 
-HIER UEBERALL NOCH QUELLEN ANPASSEN UND GLEICHZEITIG AUCH DIE MATHE WERTE MIT \QTY EINFUEGEN. GENERELL HIER SCHONMAL UEBER BILDER NACHDENKEN
+HIER UEBERALL NOCH QUELLEN ANPASSEN UND GLEICHZEITIG AUCH DIE MATHE WERTE MIT QTY EINFUEGEN. GENERELL HIER SCHONMAL UEBER BILDER NACHDENKEN
 WIE ZUM BEISPIEL LORIMER BURST
 \begin{itemize}
  \item Discovery and Properties

@@ -1,0 +1,877 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{BartelmannSchneider_2001}{article}{}
+      \name{author}{2}{}{%
+        {{hash=13ec57e42d0d317ab4367b484e01079f}{%
+           family={Bartelmann},
+           familyi={B\bibinitperiod},
+           given={Matthias},
+           giveni={M\bibinitperiod}}}%
+        {{hash=974c56abd961d7fc57e527b6b1225647}{%
+           family={Schneider},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{31996830bd513c86f27769a3c70b5eae}
+      \strng{fullhash}{31996830bd513c86f27769a3c70b5eae}
+      \strng{bibnamehash}{31996830bd513c86f27769a3c70b5eae}
+      \strng{authorbibnamehash}{31996830bd513c86f27769a3c70b5eae}
+      \strng{authornamehash}{31996830bd513c86f27769a3c70b5eae}
+      \strng{authorfullhash}{31996830bd513c86f27769a3c70b5eae}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Physics Reports}
+      \field{title}{Weak Gravitational Lensing}
+      \field{volume}{340}
+      \field{year}{2001}
+      \field{pages}{291\bibrangedash 472}
+      \range{pages}{182}
+      \verb{doi}
+      \verb 10.1016/S0370-1573(00)00082-X
+      \endverb
+      \verb{eprint}
+      \verb astro-ph/9912508
+      \endverb
+    \endentry
+    \entry{CervantesCota_2011}{inproceedings}{}
+      \name{author}{7}{}{%
+        {{hash=1e168f1d40bb5be7b8a9a9850690191c}{%
+           family={Cervantes-Cota},
+           familyi={C\bibinithyphendelim C\bibinitperiod},
+           given={Jorge\bibnamedelima L.},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=419f07f9692862c01723d4ae849ec890}{%
+           family={Smoot},
+           familyi={S\bibinitperiod},
+           given={George},
+           giveni={G\bibinitperiod}}}%
+        {{hash=0c273a9f38aeb5bf84cba6928535a0b0}{%
+           family={Ureña-López},
+           familyi={U\bibinithyphendelim L\bibinitperiod},
+           given={Luis\bibnamedelima Arturo},
+           giveni={L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=1f098db046dcd2be61300087a1e118d2}{%
+           family={Morales-Técotl},
+           familyi={M\bibinithyphendelim T\bibinitperiod},
+           given={Hugo\bibnamedelima Aurelio},
+           giveni={H\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=0a00c1216b1d53bb987c33aa7e66d5c3}{%
+           family={Linares-Romero},
+           familyi={L\bibinithyphendelim R\bibinitperiod},
+           given={Román},
+           giveni={R\bibinitperiod}}}%
+        {{hash=5a69278a1f65c77d47f16067a787b2a2}{%
+           family={Santos-Rodríguez},
+           familyi={S\bibinithyphendelim R\bibinitperiod},
+           given={Elí},
+           giveni={E\bibinitperiod}}}%
+        {{hash=7a47c19974e1b322d38f6a9d606d4a1f}{%
+           family={Estrada-Jiménez},
+           familyi={E\bibinithyphendelim J\bibinitperiod},
+           given={Sendic},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {AIP}%
+      }
+      \strng{namehash}{d77f99160ce8832769c3b04942021846}
+      \strng{fullhash}{eba9f512147d753a1deefec2df77797b}
+      \strng{bibnamehash}{d77f99160ce8832769c3b04942021846}
+      \strng{authorbibnamehash}{d77f99160ce8832769c3b04942021846}
+      \strng{authornamehash}{d77f99160ce8832769c3b04942021846}
+      \strng{authorfullhash}{eba9f512147d753a1deefec2df77797b}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{AIP Conference Proceedings}
+      \field{issn}{0094-243X}
+      \field{title}{Cosmology today—A brief review}
+      \field{year}{2011}
+      \field{pages}{28\bibrangedash 52}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1063/1.3647524
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1063/1.3647524
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1063/1.3647524
+      \endverb
+    \endentry
+    \entry{CHIMEFRB2026}{article}{}
+      \name{author}{1}{}{%
+        {{hash=131ac2eaa30680fe265772954caff8f3}{%
+           family={{CHIME/FRB Collaboration}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{fullhash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{bibnamehash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{authorbibnamehash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{authornamehash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{authorfullhash}{131ac2eaa30680fe265772954caff8f3}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{The Astrophysical Journal Supplement Series}
+      \field{number}{1}
+      \field{title}{The Second CHIME/FRB Catalog of Fast Radio Bursts}
+      \field{volume}{283}
+      \field{year}{2026}
+      \field{pages}{34}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3847/1538-4365/ae3828
+      \endverb
+      \verb{eprint}
+      \verb 2601.09399
+      \endverb
+    \endentry
+    \entry{Gong_2011}{article}{}
+      \name{author}{3}{}{%
+        {{hash=c2eb8fa5c9e26a3f48bb9a97224eb65c}{%
+           family={Gong},
+           familyi={G\bibinitperiod},
+           given={Yungui},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=67517f86b3b5f8d98c42d03f6826670e}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Xiao-ming},
+           giveni={X\bibinithyphendelim m\bibinitperiod}}}%
+        {{hash=f67b0dfb9ce4b3937e4b81d90099f640}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Zong-Hong},
+           giveni={Z\bibinithyphendelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{6b6e2094b9db30bd0e43ef18c2030546}
+      \strng{fullhash}{6b6e2094b9db30bd0e43ef18c2030546}
+      \strng{bibnamehash}{6b6e2094b9db30bd0e43ef18c2030546}
+      \strng{authorbibnamehash}{6b6e2094b9db30bd0e43ef18c2030546}
+      \strng{authornamehash}{6b6e2094b9db30bd0e43ef18c2030546}
+      \strng{authorfullhash}{6b6e2094b9db30bd0e43ef18c2030546}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Monthly Notices of the Royal Astronomical Society}
+      \field{title}{Current cosmological constraints on the curvature, dark energy and modified gravity}
+      \field{volume}{415}
+      \field{year}{2011}
+      \field{pages}{1943\bibrangedash 1950}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1111/j.1365-2966.2011.18846.x
+      \endverb
+      \verb{eprint}
+      \verb 1008.5010
+      \endverb
+    \endentry
+    \entry{Hogg_2000}{article}{}
+      \name{author}{1}{}{%
+        {{hash=a78b8e911ca3f3ee978a4dfb1e7c1c90}{%
+           family={Hogg},
+           familyi={H\bibinitperiod},
+           given={David\bibnamedelima W.},
+           giveni={D\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{a78b8e911ca3f3ee978a4dfb1e7c1c90}
+      \strng{fullhash}{a78b8e911ca3f3ee978a4dfb1e7c1c90}
+      \strng{bibnamehash}{a78b8e911ca3f3ee978a4dfb1e7c1c90}
+      \strng{authorbibnamehash}{a78b8e911ca3f3ee978a4dfb1e7c1c90}
+      \strng{authornamehash}{a78b8e911ca3f3ee978a4dfb1e7c1c90}
+      \strng{authorfullhash}{a78b8e911ca3f3ee978a4dfb1e7c1c90}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph}
+      \field{eprinttype}{arXiv}
+      \field{title}{Distance measures in cosmology}
+      \field{year}{2000}
+      \verb{eprint}
+      \verb astro-ph/9905116
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/astro-ph/9905116
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/astro-ph/9905116
+      \endverb
+    \endentry
+    \entry{Huterer_2018}{article}{}
+      \name{author}{2}{}{%
+        {{hash=2eb76baeec02d3621d61bea619901cef}{%
+           family={Huterer},
+           familyi={H\bibinitperiod},
+           given={Dragan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=8d30a89e07496c235b7fd98204db2d8d}{%
+           family={Shafer},
+           familyi={S\bibinitperiod},
+           given={Daniel\bibnamedelima L.},
+           giveni={D\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{90992cce565326e2532cde75e07611cf}
+      \strng{fullhash}{90992cce565326e2532cde75e07611cf}
+      \strng{bibnamehash}{90992cce565326e2532cde75e07611cf}
+      \strng{authorbibnamehash}{90992cce565326e2532cde75e07611cf}
+      \strng{authornamehash}{90992cce565326e2532cde75e07611cf}
+      \strng{authorfullhash}{90992cce565326e2532cde75e07611cf}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Reports on Progress in Physics}
+      \field{number}{1}
+      \field{title}{Dark energy two decades after: Observables, probes, consistency tests}
+      \field{volume}{81}
+      \field{year}{2018}
+      \field{pages}{016901}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1088/1361-6633/aa997e
+      \endverb
+      \verb{eprint}
+      \verb 1709.01091
+      \endverb
+    \endentry
+    \entry{Ishak_2019}{article}{}
+      \name{author}{1}{}{%
+        {{hash=11249ca12201a86da47254957052cb45}{%
+           family={Ishak},
+           familyi={I\bibinitperiod},
+           given={Mustapha},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{11249ca12201a86da47254957052cb45}
+      \strng{fullhash}{11249ca12201a86da47254957052cb45}
+      \strng{bibnamehash}{11249ca12201a86da47254957052cb45}
+      \strng{authorbibnamehash}{11249ca12201a86da47254957052cb45}
+      \strng{authornamehash}{11249ca12201a86da47254957052cb45}
+      \strng{authorfullhash}{11249ca12201a86da47254957052cb45}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1433-8351}
+      \field{journaltitle}{Living Reviews in Relativity}
+      \field{number}{1}
+      \field{title}{Testing General Relativity in Cosmology}
+      \field{volume}{22}
+      \field{year}{2019}
+      \field{pages}{1}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1007/s41114-018-0017-4
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s41114-018-0017-4
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s41114-018-0017-4
+      \endverb
+    \endentry
+    \entry{Laurent_2016}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{5}{}{%
+        {{hash=e8cee6c1239a8786ef9ba2a4c91ffcfc}{%
+           family={Laurent},
+           familyi={L\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod}}}%
+        {{hash=699e6f4f233a608d227ec8d759c88675}{%
+           family={Le\bibnamedelima Goff},
+           familyi={L\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Jean-Marc},
+           giveni={J\bibinithyphendelim M\bibinitperiod}}}%
+        {{hash=976f7241a8fca6504f00af45c9ffbe1a}{%
+           family={Burtin},
+           familyi={B\bibinitperiod},
+           given={Etienne},
+           giveni={E\bibinitperiod}}}%
+        {{hash=ce305c7d7caf7ed6dbc2b60905e64bc5}{%
+           family={Hamilton},
+           familyi={H\bibinitperiod},
+           given={Jean-Christophe},
+           giveni={J\bibinithyphendelim C\bibinitperiod}}}%
+        {{hash=a78b8e911ca3f3ee978a4dfb1e7c1c90}{%
+           family={Hogg},
+           familyi={H\bibinitperiod},
+           given={David\bibnamedelima W.},
+           giveni={D\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{46cfaab6ec9eea26ca76a9448f635717}
+      \strng{fullhash}{ac7a2004de241f6f8ec449dfbec81b2c}
+      \strng{bibnamehash}{46cfaab6ec9eea26ca76a9448f635717}
+      \strng{authorbibnamehash}{46cfaab6ec9eea26ca76a9448f635717}
+      \strng{authornamehash}{46cfaab6ec9eea26ca76a9448f635717}
+      \strng{authorfullhash}{ac7a2004de241f6f8ec449dfbec81b2c}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Journal of Cosmology and Astroparticle Physics}
+      \field{number}{11}
+      \field{title}{A 14 $h^{-3}$ Gpc$^3$ Study of Cosmic Homogeneity Using BOSS DR12 Quasar Sample}
+      \field{volume}{2016}
+      \field{year}{2016}
+      \field{pages}{060}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1088/1475-7516/2016/11/060
+      \endverb
+      \verb{eprint}
+      \verb 1602.09010
+      \endverb
+    \endentry
+    \entry{Lorimer_2007}{article}{}
+      \name{author}{5}{}{%
+        {{hash=ab5cbaa133df66dba8d728e10f3723aa}{%
+           family={Lorimer},
+           familyi={L\bibinitperiod},
+           given={Duncan\bibnamedelima R.},
+           giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=dde9c2d75defc639beddd6c78fb3c904}{%
+           family={Bailes},
+           familyi={B\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a817133d08b8bbd375b88a1e9ea99095}{%
+           family={McLaughlin},
+           familyi={M\bibinitperiod},
+           given={Maura\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=e774d3d868d7a39ad6d9669a2edbf3e2}{%
+           family={Narkevic},
+           familyi={N\bibinitperiod},
+           given={David\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=0c121295b9124924aa654c556e848782}{%
+           family={Crawford},
+           familyi={C\bibinitperiod},
+           given={Fronefield},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{9aeb103a040bcafb033d61e4a26780eb}
+      \strng{fullhash}{eeb439fd4adb70a4eebc69415e8b78f6}
+      \strng{bibnamehash}{9aeb103a040bcafb033d61e4a26780eb}
+      \strng{authorbibnamehash}{9aeb103a040bcafb033d61e4a26780eb}
+      \strng{authornamehash}{9aeb103a040bcafb033d61e4a26780eb}
+      \strng{authorfullhash}{eeb439fd4adb70a4eebc69415e8b78f6}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Science}
+      \field{number}{5851}
+      \field{title}{A Bright Millisecond Radio Burst of Extragalactic Origin}
+      \field{volume}{318}
+      \field{year}{2007}
+      \field{pages}{777\bibrangedash 780}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1126/science.1147532
+      \endverb
+      \verb{eprint}
+      \verb 0709.4301
+      \endverb
+    \endentry
+    \entry{PeeblesRatra_2003}{article}{}
+      \name{author}{2}{}{%
+        {{hash=dd71b2b0e5f00721bd0cdf4a474674df}{%
+           family={Peebles},
+           familyi={P\bibinitperiod},
+           given={P.\bibnamedelimi J.\bibnamedelimi E.},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=c2c28677221c419a631087e73697b496}{%
+           family={Ratra},
+           familyi={R\bibinitperiod},
+           given={Bharat},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{3e020294c1afee5dbb251d896397ae45}
+      \strng{fullhash}{3e020294c1afee5dbb251d896397ae45}
+      \strng{bibnamehash}{3e020294c1afee5dbb251d896397ae45}
+      \strng{authorbibnamehash}{3e020294c1afee5dbb251d896397ae45}
+      \strng{authornamehash}{3e020294c1afee5dbb251d896397ae45}
+      \strng{authorfullhash}{3e020294c1afee5dbb251d896397ae45}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Reviews of Modern Physics}
+      \field{title}{The Cosmological Constant and Dark Energy}
+      \field{volume}{75}
+      \field{year}{2003}
+      \field{pages}{559\bibrangedash 606}
+      \range{pages}{48}
+      \verb{doi}
+      \verb 10.1103/RevModPhys.75.559
+      \endverb
+      \verb{eprint}
+      \verb astro-ph/0207347
+      \endverb
+    \endentry
+    \entry{Petroff_2019}{article}{}
+      \name{author}{3}{}{%
+        {{hash=fa880a1cad93c44a4d048dd636ba1055}{%
+           family={Petroff},
+           familyi={P\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod}}}%
+        {{hash=47acc75e6f673f64c986129fa131bf2d}{%
+           family={Hessels},
+           familyi={H\bibinitperiod},
+           given={J.\bibnamedelimi W.\bibnamedelimi T.},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=ab5cbaa133df66dba8d728e10f3723aa}{%
+           family={Lorimer},
+           familyi={L\bibinitperiod},
+           given={Duncan\bibnamedelima R.},
+           giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{fullhash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{bibnamehash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{authorbibnamehash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{authornamehash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{authorfullhash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \field{extraname}{1}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{The Astronomy and Astrophysics Review}
+      \field{number}{1}
+      \field{title}{Fast Radio Bursts}
+      \field{volume}{27}
+      \field{year}{2019}
+      \field{pages}{4}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1007/s00159-019-0116-6
+      \endverb
+      \verb{eprint}
+      \verb 1904.07947
+      \endverb
+    \endentry
+    \entry{Petroff_2022}{article}{}
+      \name{author}{3}{}{%
+        {{hash=fa880a1cad93c44a4d048dd636ba1055}{%
+           family={Petroff},
+           familyi={P\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod}}}%
+        {{hash=47acc75e6f673f64c986129fa131bf2d}{%
+           family={Hessels},
+           familyi={H\bibinitperiod},
+           given={J.\bibnamedelimi W.\bibnamedelimi T.},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=ab5cbaa133df66dba8d728e10f3723aa}{%
+           family={Lorimer},
+           familyi={L\bibinitperiod},
+           given={Duncan\bibnamedelima R.},
+           giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{fullhash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{bibnamehash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{authorbibnamehash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{authornamehash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \strng{authorfullhash}{2af743a7cd3c8bad8b6134699eccc8ba}
+      \field{extraname}{2}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{The Astronomy and Astrophysics Review}
+      \field{number}{1}
+      \field{title}{Fast radio bursts at the dawn of the 2020s}
+      \field{volume}{30}
+      \field{year}{2022}
+      \field{pages}{2}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1007/s00159-022-00139-w
+      \endverb
+      \verb{eprint}
+      \verb 2107.10113
+      \endverb
+    \endentry
+    \entry{Pleunis_2021}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{10}{}{%
+        {{hash=860b4fa838f3bba4b00d0c066db7897b}{%
+           family={Pleunis},
+           familyi={P\bibinitperiod},
+           given={Ziggy},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=ce0a92d9806e17710357c8ec8b596e70}{%
+           family={Michilli},
+           familyi={M\bibinitperiod},
+           given={Daniele},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5c2b9abab747726b4252f76b24e24788}{%
+           family={Bassa},
+           familyi={B\bibinitperiod},
+           given={C.\bibnamedelimi G.},
+           giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=47acc75e6f673f64c986129fa131bf2d}{%
+           family={Hessels},
+           familyi={H\bibinitperiod},
+           given={J.\bibnamedelimi W.\bibnamedelimi T.},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=8bd9dab76c9fd6ad20adc4ab634715d3}{%
+           family={Naidu},
+           familyi={N\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=a7df6a7dbd72963cc04b83aa3bb0ffad}{%
+           family={Andersen},
+           familyi={A\bibinitperiod},
+           given={B.\bibnamedelimi C.},
+           giveni={B\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=7507e2af75bc8995a33449d02f47d9a9}{%
+           family={Chawla},
+           familyi={C\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+        {{hash=d76cad67f121c9792e9b504a68582a13}{%
+           family={Fonseca},
+           familyi={F\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+        {{hash=86913ee4c4a36d886646b1419af56658}{%
+           family={Gopinath},
+           familyi={G\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=9edc92a46a53387fcf3db4b40e4bd7dd}{%
+           family={Kaspi},
+           familyi={K\bibinitperiod},
+           given={V.\bibnamedelimi M.},
+           giveni={V\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{2ca31bffcc0dac2f262c86f6485fd2d7}
+      \strng{fullhash}{87be2b0574d6636a9d335bea610670d4}
+      \strng{bibnamehash}{2ca31bffcc0dac2f262c86f6485fd2d7}
+      \strng{authorbibnamehash}{2ca31bffcc0dac2f262c86f6485fd2d7}
+      \strng{authornamehash}{2ca31bffcc0dac2f262c86f6485fd2d7}
+      \strng{authorfullhash}{87be2b0574d6636a9d335bea610670d4}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{The Astrophysical Journal Letters}
+      \field{number}{1}
+      \field{title}{LOFAR Detection of 110--188 MHz Emission and Frequency-dependent Activity from FRB 20180916B}
+      \field{volume}{911}
+      \field{year}{2021}
+      \field{pages}{L3}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3847/2041-8213/abec72
+      \endverb
+      \verb{eprint}
+      \verb 2012.08372
+      \endverb
+    \endentry
+    \entry{Reischke_2021}{article}{}
+      \name{author}{3}{}{%
+        {{hash=feee8b9f7a9954fe55e6a43b89890eab}{%
+           family={Reischke},
+           familyi={R\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=436bb173d4e5f18abbaa529d256b1083}{%
+           family={Hagstotz},
+           familyi={H\bibinitperiod},
+           given={Steffen},
+           giveni={S\bibinitperiod}}}%
+        {{hash=b529ba63975b18cdf515ea13fe1e6441}{%
+           family={Lilow},
+           familyi={L\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{559f87f981db14a9005035616b8f627d}
+      \strng{fullhash}{559f87f981db14a9005035616b8f627d}
+      \strng{bibnamehash}{559f87f981db14a9005035616b8f627d}
+      \strng{authorbibnamehash}{559f87f981db14a9005035616b8f627d}
+      \strng{authornamehash}{559f87f981db14a9005035616b8f627d}
+      \strng{authorfullhash}{559f87f981db14a9005035616b8f627d}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Physical Review D}
+      \field{number}{2}
+      \field{title}{Probing primordial non-Gaussianity with fast radio bursts}
+      \field{volume}{103}
+      \field{year}{2021}
+      \field{pages}{023517}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.103.023517
+      \endverb
+      \verb{eprint}
+      \verb 2007.04054
+      \endverb
+    \endentry
+    \entry{Scrimgeour_2012}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{6}{}{%
+        {{hash=83c949d88443a4c5aa10d29f686db150}{%
+           family={Scrimgeour},
+           familyi={S\bibinitperiod},
+           given={M.\bibnamedelimi I.},
+           giveni={M\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+        {{hash=36f9ceba36311e7a7920360d515410fe}{%
+           family={Davis},
+           familyi={D\bibinitperiod},
+           given={T.\bibnamedelimi M.},
+           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=e5addf4c49edff767f41311d091386e6}{%
+           family={Blake},
+           familyi={B\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=80ab554f75b2af85adfdb0f2fd18f6aa}{%
+           family={James},
+           familyi={J\bibinitperiod},
+           given={J.\bibnamedelimi B.},
+           giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=45e2417e39491158dab45d0556d26db4}{%
+           family={Poole},
+           familyi={P\bibinitperiod},
+           given={G.\bibnamedelimi B.},
+           giveni={G\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=d4160826b3843f304692bc47123c32c9}{%
+           family={Staveley-Smith},
+           familyi={S\bibinithyphendelim S\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{1e0c29cf8f56ba786d76c9f1f27cc241}
+      \strng{fullhash}{bf25847a3705d353185d94632cfcf80b}
+      \strng{bibnamehash}{1e0c29cf8f56ba786d76c9f1f27cc241}
+      \strng{authorbibnamehash}{1e0c29cf8f56ba786d76c9f1f27cc241}
+      \strng{authornamehash}{1e0c29cf8f56ba786d76c9f1f27cc241}
+      \strng{authorfullhash}{bf25847a3705d353185d94632cfcf80b}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Monthly Notices of the Royal Astronomical Society}
+      \field{number}{1}
+      \field{title}{The WiggleZ Dark Energy Survey: the transition to large-scale cosmic homogeneity}
+      \field{volume}{425}
+      \field{year}{2012}
+      \field{pages}{116\bibrangedash 134}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.1111/j.1365-2966.2012.21402.x
+      \endverb
+      \verb{eprint}
+      \verb 1205.6812
+      \endverb
+    \endentry
+    \entry{SpaceCom_2018}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=6d8d83dd5c3223d81bc7c420bbc6e2f1}{%
+           family={Space.com},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{6d8d83dd5c3223d81bc7c420bbc6e2f1}
+      \strng{fullhash}{6d8d83dd5c3223d81bc7c420bbc6e2f1}
+      \strng{bibnamehash}{6d8d83dd5c3223d81bc7c420bbc6e2f1}
+      \strng{authorbibnamehash}{6d8d83dd5c3223d81bc7c420bbc6e2f1}
+      \strng{authornamehash}{6d8d83dd5c3223d81bc7c420bbc6e2f1}
+      \strng{authorfullhash}{6d8d83dd5c3223d81bc7c420bbc6e2f1}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2026-07-31}
+      \field{title}{Fast Radio Burst Repeater Discovered in New Observation}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://www.space.com/42943-fast-radio-burst-repeater-new-discovery.html
+      \endverb
+      \verb{url}
+      \verb https://www.space.com/42943-fast-radio-burst-repeater-new-discovery.html
+      \endverb
+    \endentry
+    \entry{Zhang_2021}{article}{}
+      \name{author}{4}{}{%
+        {{hash=abba0b78b15bf6bb80d69747b220477f}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Rachel\bibnamedelima C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=44d73e639c535123777db68e270b754e}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Bing},
+           giveni={B\bibinitperiod}}}%
+        {{hash=6230ba6812a667f25b0b53c1ac713629}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Ye},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=ab5cbaa133df66dba8d728e10f3723aa}{%
+           family={Lorimer},
+           familyi={L\bibinitperiod},
+           given={Duncan\bibnamedelima R.},
+           giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{fd5791e76814c63052473cbbf3158e42}
+      \strng{fullhash}{948b159764fa14ae65f402ef70293485}
+      \strng{bibnamehash}{fd5791e76814c63052473cbbf3158e42}
+      \strng{authorbibnamehash}{fd5791e76814c63052473cbbf3158e42}
+      \strng{authornamehash}{fd5791e76814c63052473cbbf3158e42}
+      \strng{authorfullhash}{948b159764fa14ae65f402ef70293485}
+      \field{extraname}{1}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Monthly Notices of the Royal Astronomical Society}
+      \field{number}{1}
+      \field{title}{On the energy and redshift distributions of fast radio bursts}
+      \field{volume}{501}
+      \field{year}{2021}
+      \field{pages}{157\bibrangedash 167}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1093/mnras/staa3537
+      \endverb
+      \verb{eprint}
+      \verb 2011.06151
+      \endverb
+    \endentry
+    \entry{Zhang_2018}{article}{}
+      \name{author}{7}{}{%
+        {{hash=c2afa099b215386d103e615b66d83dea}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Yunfan\bibnamedelima Gerry},
+           giveni={Y\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=c0c3ba94a4dcc08ce0409f4229eea4ee}{%
+           family={Gajjar},
+           familyi={G\bibinitperiod},
+           given={Vishal},
+           giveni={V\bibinitperiod}}}%
+        {{hash=70e669b9bfe56506c62b0403280a4355}{%
+           family={Foster},
+           familyi={F\bibinitperiod},
+           given={Griffin},
+           giveni={G\bibinitperiod}}}%
+        {{hash=4aed0a0fd2f76bb6ad376adc75d901e5}{%
+           family={Siemion},
+           familyi={S\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+        {{hash=35b46d8d215b8b1832cb7a3cf95fbbb1}{%
+           family={Cordes},
+           familyi={C\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod}}}%
+        {{hash=26ae80b6b3d280ff0152fd0006494426}{%
+           family={Law},
+           familyi={L\bibinitperiod},
+           given={Casey},
+           giveni={C\bibinitperiod}}}%
+        {{hash=b2eccb185095fccfeb40fdffd8b2105f}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Yu},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{1ed03b598244475c35c7d19c69a44cca}
+      \strng{fullhash}{1ec4d580f993ec5347ab2796641321a8}
+      \strng{bibnamehash}{1ed03b598244475c35c7d19c69a44cca}
+      \strng{authorbibnamehash}{1ed03b598244475c35c7d19c69a44cca}
+      \strng{authornamehash}{1ed03b598244475c35c7d19c69a44cca}
+      \strng{authorfullhash}{1ec4d580f993ec5347ab2796641321a8}
+      \field{extraname}{2}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{The Astrophysical Journal}
+      \field{number}{2}
+      \field{title}{Fast Radio Burst 121102 Pulse Detection and Periodicity: A Machine Learning Approach}
+      \field{volume}{866}
+      \field{year}{2018}
+      \field{pages}{149}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3847/1538-4357/aadf31
+      \endverb
+      \verb{eprint}
+      \verb 1809.03043
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
