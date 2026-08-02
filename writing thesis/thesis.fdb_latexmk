@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber thesis"] 1785507008 "thesis.bcf" "thesis.bbl" "thesis" 1785507018 0
-  "./references.bib" 1785506740 11808 1eb997308830ee66843634a5bb52d4dc ""
-  "thesis.bcf" 1785507018 109278 6168ad86000c3d4de3d8ffb8f72678f3 "pdflatex"
+["biber thesis"] 1785678587 "thesis.bcf" "thesis.bbl" "thesis" 1785678598 0
+  "./references.bib" 1785678086 13855 d1aa1bf60c16f386d6cbb368a8c4a8bb ""
+  "thesis.bcf" 1785678598 109958 7661385f3a60f0b29eb54318edd2b36f "pdflatex"
   (generated)
   "thesis.bbl"
   "thesis.blg"
   (rewritten before read)
-["pdflatex"] 1785507014 "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" "thesis.pdf" "thesis" 1785507018 0
+["pdflatex"] 1785678594 "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" "thesis.pdf" "thesis" 1785678598 0
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/latinmodern-math.luc" 1696424325 637084 271a8c6faa8c6711553e54c57f484e7c ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc" 1696505741 81837 520b11fdf6ae1f8d0b92c533e28673de ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc" 1696246918 128410 12f05cf771ed69dbcb8a045587c614b5 ""
@@ -254,19 +254,20 @@
   "Plots/texmaker.png" 1780221619 18692 f015087942be308a2c67da6ce54e1b7f ""
   "content/00_abstract.tex" 1784723052 437 1f7f555cd9719867c6dfb5121b0e692f ""
   "content/01_introduction.tex" 1784725237 181 d0fa0d4c5a64477b7dc9af7180bffc05 ""
-  "content/02_background.tex" 1785507003 11960 66d472b8dd4c217180d2f3799a39703e ""
+  "content/02_background.tex" 1785678582 15708 cdc536b2b3dee9a4652c2e68bb4b3971 ""
   "content/03_methodology.tex" 1784725811 365 99ab5ac9d00436079e643f07145fa41a ""
   "content/04_results.tex" 1784725974 87 fd2839857efc7c66859eb25c9ca1ec2c ""
   "content/05_conclusion.tex" 1784726192 54 edec3fa19eed690baa4bd6bcc7df9199 ""
   "content/10_note_owner.tex" 1784987013 9675 a58e1c4ae7d10d6871d1b00df95d7089 ""
   "content/Eidesstattliche_Versicherung.pdf" 1780221619 82694 1cc820dc3b02e947f02bbe73189f6c6f ""
   "content/a_appendix.tex" 1784723237 282 772b475cc5909b253255aa354cdbcc83 ""
+  "figures/frb_sky_distribution_petroff.png" 1785597775 233392 c91bab52bc3a6d1c371a25f0f764c3dc ""
   "logos/tu-logo.pdf" 1780221619 13157 1c5905f8a3419899042add57a2182b18 ""
-  "thesis.aux" 1785507018 19462 a8d6db237b40a31165cd860b8f6fd292 "pdflatex"
-  "thesis.bbl" 1785507010 33838 9d9f2950fb0da0c442028832b39235b2 "biber thesis"
-  "thesis.run.xml" 1785507018 2447 6dc6d7096b36570b09ad9062b6bbc292 "pdflatex"
+  "thesis.aux" 1785678598 21608 1d666801d33199f469900f3774b70e0c "pdflatex"
+  "thesis.bbl" 1785678590 42775 52fbfbc2949e8a56d82e117d56950a47 "biber thesis"
+  "thesis.run.xml" 1785678598 2447 6dc6d7096b36570b09ad9062b6bbc292 "pdflatex"
   "thesis.tex" 1785501607 6455 da52ddaeb038b1422e15a3fd305e89a5 ""
-  "thesis.toc" 1785507018 2553 e79caab36aea677c904bd07fec941836 "pdflatex"
+  "thesis.toc" 1785678598 2567 71f51e3607b28c8a52dd82028183e34e "pdflatex"
   "tudothesis.cls" 1785501567 3679 76f619e384cb1c72a80136a70cb7b0fa ""
   (generated)
   "thesis.aux"

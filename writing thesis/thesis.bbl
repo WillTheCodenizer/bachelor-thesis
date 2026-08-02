@@ -124,6 +124,39 @@
       \verb http://dx.doi.org/10.1063/1.3647524
       \endverb
     \endentry
+    \entry{CHIMEFRB_2020}{article}{}
+      \name{author}{1}{}{%
+        {{hash=131ac2eaa30680fe265772954caff8f3}{%
+           family={{CHIME/FRB Collaboration}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{fullhash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{bibnamehash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{authorbibnamehash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{authornamehash}{131ac2eaa30680fe265772954caff8f3}
+      \strng{authorfullhash}{131ac2eaa30680fe265772954caff8f3}
+      \field{extraname}{1}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Nature}
+      \field{number}{7832}
+      \field{title}{A bright millisecond-duration radio burst from a Galactic magnetar}
+      \field{volume}{587}
+      \field{year}{2020}
+      \field{pages}{54\bibrangedash 58}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1038/s41586-020-2863-y
+      \endverb
+      \verb{eprint}
+      \verb 2005.10324
+      \endverb
+    \endentry
     \entry{CHIMEFRB2026}{article}{}
       \name{author}{1}{}{%
         {{hash=131ac2eaa30680fe265772954caff8f3}{%
@@ -136,6 +169,7 @@
       \strng{authorbibnamehash}{131ac2eaa30680fe265772954caff8f3}
       \strng{authornamehash}{131ac2eaa30680fe265772954caff8f3}
       \strng{authorfullhash}{131ac2eaa30680fe265772954caff8f3}
+      \field{extraname}{2}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
@@ -416,6 +450,76 @@
       \verb 0709.4301
       \endverb
     \endentry
+    \entry{MengDeng_2025}{article}{}
+      \name{author}{2}{}{%
+        {{hash=383d25a4a92bf69e558d720d8e6d0c52}{%
+           family={Meng},
+           familyi={M\bibinitperiod},
+           given={Min},
+           giveni={M\bibinitperiod}}}%
+        {{hash=69f65b0ec0c26baccbf8da084814b1e0}{%
+           family={Deng},
+           familyi={D\bibinitperiod},
+           given={Can-Min},
+           giveni={C\bibinithyphendelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{622791335b6a55a8649c6e64ff633fd0}
+      \strng{fullhash}{622791335b6a55a8649c6e64ff633fd0}
+      \strng{bibnamehash}{622791335b6a55a8649c6e64ff633fd0}
+      \strng{authorbibnamehash}{622791335b6a55a8649c6e64ff633fd0}
+      \strng{authornamehash}{622791335b6a55a8649c6e64ff633fd0}
+      \strng{authorfullhash}{622791335b6a55a8649c6e64ff633fd0}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Astronomy \& Astrophysics}
+      \field{title}{Constraints on the progenitor models of fast radio bursts from population synthesis with the first CHIME/FRB catalog}
+      \field{volume}{698}
+      \field{year}{2025}
+      \field{pages}{A127}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1051/0004-6361/202451250
+      \endverb
+      \verb{eprint}
+      \verb 2506.04986
+      \endverb
+    \endentry
+    \entry{Ng_2023}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=96cb14121fb51e099a3b6abb58115f99}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Cherry},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{96cb14121fb51e099a3b6abb58115f99}
+      \strng{fullhash}{96cb14121fb51e099a3b6abb58115f99}
+      \strng{bibnamehash}{96cb14121fb51e099a3b6abb58115f99}
+      \strng{authorbibnamehash}{96cb14121fb51e099a3b6abb58115f99}
+      \strng{authornamehash}{96cb14121fb51e099a3b6abb58115f99}
+      \strng{authorfullhash}{96cb14121fb51e099a3b6abb58115f99}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the SF2A 2023}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{title}{A Brief Review on Fast Radio Bursts}
+      \field{year}{2023}
+      \field{pages}{37\bibrangedash 40}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.48550/arXiv.2311.01899
+      \endverb
+      \verb{eprint}
+      \verb 2311.01899
+      \endverb
+    \endentry
     \entry{PeeblesRatra_2003}{article}{}
       \name{author}{2}{}{%
         {{hash=dd71b2b0e5f00721bd0cdf4a474674df}{%
@@ -452,6 +556,139 @@
       \endverb
       \verb{eprint}
       \verb astro-ph/0207347
+      \endverb
+    \endentry
+    \entry{Pelliciari_2023}{article}{}
+      \name{author}{21}{}{%
+        {{hash=512a66cda36bbae4330972c6485f35e4}{%
+           family={Pelliciari},
+           familyi={P\bibinitperiod},
+           given={Davide},
+           giveni={D\bibinitperiod}}}%
+        {{hash=cd77e0bf526fbca236fc1730a23da3f6}{%
+           family={Bernardi},
+           familyi={B\bibinitperiod},
+           given={Gianni},
+           giveni={G\bibinitperiod}}}%
+        {{hash=12d842a5b2b8346cb0e1464cff776153}{%
+           family={Pilia},
+           familyi={P\bibinitperiod},
+           given={Maura},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f638f345ee59ef8a9f33601bf1f58789}{%
+           family={Naldi},
+           familyi={N\bibinitperiod},
+           given={Giovanni},
+           giveni={G\bibinitperiod}}}%
+        {{hash=81a4dc7e7a0511412cac886e4b275255}{%
+           family={Pupillo},
+           familyi={P\bibinitperiod},
+           given={Giuseppe},
+           giveni={G\bibinitperiod}}}%
+        {{hash=d6a0955d20a8e7d3de927476e56ffacc}{%
+           family={Trudu},
+           familyi={T\bibinitperiod},
+           given={Matteo},
+           giveni={M\bibinitperiod}}}%
+        {{hash=14a858e6ac17870877070c44b16b2ba0}{%
+           family={Addis},
+           familyi={A\bibinitperiod},
+           given={Antonio},
+           giveni={A\bibinitperiod}}}%
+        {{hash=73c15e15ab5d8ca331f52338fac42bf2}{%
+           family={Bianchi},
+           familyi={B\bibinitperiod},
+           given={Germano},
+           giveni={G\bibinitperiod}}}%
+        {{hash=84c3263ee854bf2fd336e4a738a252e0}{%
+           family={Bortolotti},
+           familyi={B\bibinitperiod},
+           given={Claudio},
+           giveni={C\bibinitperiod}}}%
+        {{hash=0b220a5cc0799e4f24d542063c00153b}{%
+           family={Dallacasa},
+           familyi={D\bibinitperiod},
+           given={Daniele},
+           giveni={D\bibinitperiod}}}%
+        {{hash=d44e5e8f873cc0d92b094e5676fd94d5}{%
+           family={Lulli},
+           familyi={L\bibinitperiod},
+           given={Roberto},
+           giveni={R\bibinitperiod}}}%
+        {{hash=55fd941109ab3fc495f8ceaf2e109b5f}{%
+           family={Maccaferri},
+           familyi={M\bibinitperiod},
+           given={Andrea},
+           giveni={A\bibinitperiod}}}%
+        {{hash=588c5599942f5610f806738a8433c3b7}{%
+           family={Magro},
+           familyi={M\bibinitperiod},
+           given={Alessio},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5cd440a47206550958ef56670f06daf2}{%
+           family={Mattana},
+           familyi={M\bibinitperiod},
+           given={Andrea},
+           giveni={A\bibinitperiod}}}%
+        {{hash=b34a2565a34f50fd300191e21afd5bbd}{%
+           family={Perini},
+           familyi={P\bibinitperiod},
+           given={Federico},
+           giveni={F\bibinitperiod}}}%
+        {{hash=fcd0ffdd8fb0f7bfdb55e88087175a8b}{%
+           family={Roma},
+           familyi={R\bibinitperiod},
+           given={Mauro},
+           giveni={M\bibinitperiod}}}%
+        {{hash=8339b77d0f255c3187172a7f6107758d}{%
+           family={Schiaffino},
+           familyi={S\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+        {{hash=fe57e60f3e782fde23424c67957725a1}{%
+           family={Setti},
+           familyi={S\bibinitperiod},
+           given={Giancarlo},
+           giveni={G\bibinitperiod}}}%
+        {{hash=5ede0ac760b36d022b1f6efd5f618a15}{%
+           family={Tavani},
+           familyi={T\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+        {{hash=763b4619c89981c998f9f456ab9921bb}{%
+           family={Verrecchia},
+           familyi={V\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+        {{hash=6762fd3ae09a0ed16d406c93cca452e0}{%
+           family={Casentini},
+           familyi={C\bibinitperiod},
+           given={Claudio},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{2c145221958988714994d5c42316a3a2}
+      \strng{fullhash}{b6567e713b78c205177c6030bcb0c38b}
+      \strng{bibnamehash}{2c145221958988714994d5c42316a3a2}
+      \strng{authorbibnamehash}{2c145221958988714994d5c42316a3a2}
+      \strng{authornamehash}{2c145221958988714994d5c42316a3a2}
+      \strng{authorfullhash}{b6567e713b78c205177c6030bcb0c38b}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Astronomy \& Astrophysics}
+      \field{title}{The Northern Cross Fast Radio Burst project: III. The FRB--magnetar connection in a sample of nearby galaxies}
+      \field{volume}{674}
+      \field{year}{2023}
+      \field{pages}{A223}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1051/0004-6361/202346307
+      \endverb
+      \verb{eprint}
+      \verb 2304.11179
       \endverb
     \endentry
     \entry{Petroff_2019}{article}{}

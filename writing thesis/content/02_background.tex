@@ -213,23 +213,58 @@ in 2001 and published in 2007~\cite{Lorimer_2007}.
 Initially, only a small number of FRBs had been detected, leading to the assumption that they represented rare, 
 singular events. The situation changed decisively with the commissioning of CHIME in 2018, whose wide field of view 
 drove an explosion in detections and increased the known FRB population by several orders of magnitude. 
-The latest CHIME/FRB catalog contains 4,539 detected burst events originating from 3,641 unique FRB sources, 
-including 981 bursts from 83 known repeating sources ~\cite{CHIMEFRB2026}.
+The latest CHIME/FRB catalog contains $4539$ detected burst events originating from $3641$ unique FRB sources, 
+including $981$ bursts from 83 known repeating sources~\cite{CHIMEFRB2026}.
+As shown in~\autoref{fig:frb_sky_distribution}, the known FRB sources exhibit an approximately isotropic distribution across the sky, 
+consistent with an extragalactic population and suggesting no preferred spatial direction. The shown distribution is based on the FRB 
+sample available up to 2022 and serves as an illustration of the large-scale spatial distribution of FRBs.
 
-\subsection{Repeater}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/frb_sky_distribution_petroff.png}
+    \caption{Aitoff projection of the known FRB population in Galactic coordinates based on observations available up to 2022. 
+    The sample is predominantly 
+    composed of CHIME/FRB detections, whose non-uniform sensitivity and sky coverage influence the observed distribution. After 
+    correcting for these observational biases, the underlying FRB population is consistent with an isotropic distribution expected for 
+    a cosmological source population~\cite{Petroff_2022}.}
+    \label{fig:frb_sky_distribution}
+\end{figure}
+
+\subsection{Repeating FRBs}\label{sec:repeating_frbs}
+While the majority of FRBs have been observed as one-off events, a subset of sources has been found to emit multiple bursts over time.
+The existence of so-called repeaters immediately places a fundamental constraint on emission physics: 
+any cataclysmic, single-event progenitor mechanism is directly ruled out for these sources, since the 
+central engine must be capable of sustaining burst activity over timescales of years~\cite{Petroff_2019}.
+
+Some repeating FRBs also exhibit periodic modulation of their activity windows, as observed in FRB 20180916B~\cite{Ng_2023},
+suggesting either a binary system geometry or precession of the emitting object. Whether all FRBs are intrinsically 
+capable of repeating remains an open question~\cite{Petroff_2022}.
 
 \subsection{Magnetars vs Neutron Stars}
+A broad classification of proposed FRB progenitor models distinguishes between two main categories: catastrophic, 
+one-off events and non-catastrophic scenarios involving long-lived central engines. Catastrophic models can account 
+only for non-repeating FRBs and are therefore incompatible with the observed behavior of repeating sources. In contrast, 
+non-catastrophic models allow for multiple burst episodes over extended periods. Among the proposed progenitors, compact stellar 
+remnants are considered the most promising candidates. In particular, neutron stars and magnetars are strongly supported by both 
+theoretical models and an increasing body of observational evidence~\cite{Petroff_2019}.
 
+\textbf{Magnetars} are neutron stars distinguished by surface magnetic fields many orders of magnitude stronger than those of 
+ordinary radio pulsars, making them the most strongly magnetised stellar remnants known~\cite{Petroff_2019}. 
+They arise primarily through the core collapse of massive stars in supernova explosions and are therefore intrinsically young 
+objects whose formation rate is expected to closely mirror the cosmic star formation history (SFH), preferentially found in or 
+near regions of active star formation~\cite{Pelliciari_2023}.
+The landmark detection in April 2020 of an FRB-like burst from the Galactic magnetar SGR 1935+2154 provided the most direct empirical 
+link between magnetars and FRBs~\cite{CHIMEFRB_2020}.
+Population synthesis work using the CHIME/FRB catalogue finds that the hypothesis of FRBs tracking the SFH is not ruled out by 
+current data, with a small delay preferred, consistent with a scenario in which young magnetars formed through core-collapse supernovae 
+serve as the dominant progenitor class~\cite{MengDeng_2025}.
 
-HIER UEBERALL NOCH QUELLEN ANPASSEN UND GLEICHZEITIG AUCH DIE MATHE WERTE MIT QTY EINFUEGEN. GENERELL HIER SCHONMAL UEBER BILDER NACHDENKEN
-WIE ZUM BEISPIEL LORIMER BURST
-\begin{itemize}
- \item Discovery and Properties
- \item Physical Origin
- \item Cosmological Applications
- \item magnetar and neutron star as progenitors , in which areas they occur
-\end{itemize}
+\textbf{Neutron stars} formed through delayed channels represent a second important progenitor class, motivated by FRBs 
+localised to environments inconsistent with active star formation. FRBs 180924 and 190523, found in massive, 
+low-star-formation-rate galaxies with large offsets from the host centre, display environments similar to those of short 
+gamma-ray burst hosts associated with mergers of binary neutron-star or neutron star-black hole binaries.
 
+END OF THAT SECTION ALLES AUFSCHREIBEN WAS UNKLAR IST IN NOTES
 \section{Galaxy Surveys and Catalogs} \label{sec:galaxy_surveys_and_catalogs}
 \begin{itemize}
  \item Galaxy Survey DR5 stage 3 --> stage 54 KiDS, how measured

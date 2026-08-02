@@ -285,6 +285,8 @@ INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
+INPUT ./figures/frb_sky_distribution_petroff.png
+INPUT ./figures/frb_sky_distribution_petroff.png
 INPUT ./content/03_methodology.tex
 INPUT ./content/04_results.tex
 INPUT ./content/05_conclusion.tex
