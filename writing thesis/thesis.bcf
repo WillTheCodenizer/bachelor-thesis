@@ -2394,6 +2394,10 @@
     <bcf:citekey order="29" intorder="1">Pelliciari_2023</bcf:citekey>
     <bcf:citekey order="30" intorder="1">CHIMEFRB_2020</bcf:citekey>
     <bcf:citekey order="31" intorder="1">MengDeng_2025</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">Wang_2020</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">Zapartas_2017</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">Ruiter_2019</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">Lin_2022</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

@@ -396,6 +396,50 @@
       \verb 1602.09010
       \endverb
     \endentry
+    \entry{Lin_2022}{article}{}
+      \name{author}{3}{}{%
+        {{hash=8592454236b4239d212167c47a22f3fb}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Hai-Nan},
+           giveni={H\bibinithyphendelim N\bibinitperiod}}}%
+        {{hash=2eede671559ed21b80a50159c8929088}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xin-Yi},
+           giveni={X\bibinithyphendelim Y\bibinitperiod}}}%
+        {{hash=2071895214a856ef644a1a1297c07dc0}{%
+           family={Zou},
+           familyi={Z\bibinitperiod},
+           given={Rui},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{dc9eb27714b8b1df87f7bbb32c950e10}
+      \strng{fullhash}{dc9eb27714b8b1df87f7bbb32c950e10}
+      \strng{bibnamehash}{dc9eb27714b8b1df87f7bbb32c950e10}
+      \strng{authorbibnamehash}{dc9eb27714b8b1df87f7bbb32c950e10}
+      \strng{authornamehash}{dc9eb27714b8b1df87f7bbb32c950e10}
+      \strng{authorfullhash}{dc9eb27714b8b1df87f7bbb32c950e10}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Monthly Notices of the Royal Astronomical Society}
+      \field{number}{2}
+      \field{title}{Time Delay of Fast Radio Burst Population with Respect to the Star Formation History}
+      \field{volume}{514}
+      \field{year}{2022}
+      \field{pages}{2228\bibrangedash 2236}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1093/mnras/stac1483
+      \endverb
+      \verb{eprint}
+      \verb 2205.11145
+      \endverb
+    \endentry
     \entry{Lorimer_2007}{article}{}
       \name{author}{5}{}{%
         {{hash=ab5cbaa133df66dba8d728e10f3723aa}{%
@@ -906,6 +950,65 @@
       \verb 2007.04054
       \endverb
     \endentry
+    \entry{Ruiter_2019}{article}{}
+      \name{author}{6}{}{%
+        {{hash=5b1b04187e8c931077ba4b5a77fd983c}{%
+           family={Ruiter},
+           familyi={R\bibinitperiod},
+           given={A.\bibnamedelimi J.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=523c85e11f3ae5e7844cae436451cf85}{%
+           family={Ferrario},
+           familyi={F\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod}}}%
+        {{hash=8ca81b61557eac2499511a6c8c830e57}{%
+           family={Belczynski},
+           familyi={B\bibinitperiod},
+           given={K.},
+           giveni={K\bibinitperiod}}}%
+        {{hash=d72c584efe270a1977ccd0487191b840}{%
+           family={Seitenzahl},
+           familyi={S\bibinitperiod},
+           given={I.\bibnamedelimi R.},
+           giveni={I\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=fe38a4f5bac4ab4bd206d5c44b3b9735}{%
+           family={Crocker},
+           familyi={C\bibinitperiod},
+           given={R.\bibnamedelimi M.},
+           giveni={R\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=3c42a262f9936f3884de9942e922453c}{%
+           family={Karakas},
+           familyi={K\bibinitperiod},
+           given={A.\bibnamedelimi I.},
+           giveni={A\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+      }
+      \strng{namehash}{277f9cb6b599424ecc7d72244b40dfb3}
+      \strng{fullhash}{5960e1ed49ea6b5a6ec2f5c422f8c2fd}
+      \strng{bibnamehash}{277f9cb6b599424ecc7d72244b40dfb3}
+      \strng{authorbibnamehash}{277f9cb6b599424ecc7d72244b40dfb3}
+      \strng{authornamehash}{277f9cb6b599424ecc7d72244b40dfb3}
+      \strng{authorfullhash}{5960e1ed49ea6b5a6ec2f5c422f8c2fd}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.SR}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Monthly Notices of the Royal Astronomical Society}
+      \field{number}{1}
+      \field{title}{On the formation of neutron stars via accretion-induced collapse in binaries}
+      \field{volume}{484}
+      \field{year}{2019}
+      \field{pages}{698\bibrangedash 711}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1093/mnras/stz001
+      \endverb
+      \verb{eprint}
+      \verb 1802.02437
+      \endverb
+    \endentry
     \entry{Scrimgeour_2012}{article}{}
       \true{moreauthor}
       \true{morelabelname}
@@ -991,6 +1094,152 @@
       \endverb
       \verb{url}
       \verb https://www.space.com/42943-fast-radio-burst-repeater-new-discovery.html
+      \endverb
+    \endentry
+    \entry{Wang_2020}{article}{}
+      \name{author}{6}{}{%
+        {{hash=92d38146717a6ac77e0e0131e3b64efd}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Fa-Yin},
+           giveni={F\bibinithyphendelim Y\bibinitperiod}}}%
+        {{hash=1c515bf990b7210d6c14681077a4115a}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Yu-Yang},
+           giveni={Y\bibinithyphendelim Y\bibinitperiod}}}%
+        {{hash=3ab8e0d327d297bc4cf43b35aaf60baf}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Yuan-Pei},
+           giveni={Y\bibinithyphendelim P\bibinitperiod}}}%
+        {{hash=883bf23906725e8813900dfea2c08992}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Yun-Wei},
+           giveni={Y\bibinithyphendelim W\bibinitperiod}}}%
+        {{hash=f21052b8d62f0697b8f227e07144e7b8}{%
+           family={Zuo},
+           familyi={Z\bibinitperiod},
+           given={Zi-Yi},
+           giveni={Z\bibinithyphendelim Y\bibinitperiod}}}%
+        {{hash=0dc22c503716f69b6d3c18ac7635eec4}{%
+           family={Dai},
+           familyi={D\bibinitperiod},
+           given={Zi-Gao},
+           giveni={Z\bibinithyphendelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{5665de8cedff66f87690ae5dd8e92377}
+      \strng{fullhash}{e7015391a8fe9ec441c55c57c7d5f99f}
+      \strng{bibnamehash}{5665de8cedff66f87690ae5dd8e92377}
+      \strng{authorbibnamehash}{5665de8cedff66f87690ae5dd8e92377}
+      \strng{authornamehash}{5665de8cedff66f87690ae5dd8e92377}
+      \strng{authorfullhash}{e7015391a8fe9ec441c55c57c7d5f99f}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.HE}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{The Astrophysical Journal}
+      \field{number}{1}
+      \field{title}{Fast Radio Bursts from Activities of Neutron Stars Newborn in BNS Mergers: Offset, Birth Rate, and Observational Properties}
+      \field{volume}{891}
+      \field{year}{2020}
+      \field{pages}{72}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3847/1538-4357/ab74d0
+      \endverb
+      \verb{eprint}
+      \verb 2002.03507
+      \endverb
+    \endentry
+    \entry{Zapartas_2017}{article}{}
+      \name{author}{11}{}{%
+        {{hash=98e4ef19b7330ad647a5c4c4d19288cd}{%
+           family={Zapartas},
+           familyi={Z\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+        {{hash=9520a9d11644746f4cb83f2f4e6edbe1}{%
+           family={Mink},
+           familyi={M\bibinitperiod},
+           given={S.\bibnamedelimi E.},
+           giveni={S\bibinitperiod\bibinitdelim E\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=ee16ce45a3bf9130b5f8c20fad4cc72e}{%
+           family={Izzard},
+           familyi={I\bibinitperiod},
+           given={R.\bibnamedelimi G.},
+           giveni={R\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=3772a3a6491d8e505211db63116dc986}{%
+           family={Yoon},
+           familyi={Y\bibinitperiod},
+           given={S.-C.},
+           giveni={S\bibinithyphendelim C\bibinitperiod}}}%
+        {{hash=2fce126fdff4d5d6f8ab32e0e2e4ce42}{%
+           family={Badenes},
+           familyi={B\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=639ac396184509aa147e6187d8815272}{%
+           family={Götberg},
+           familyi={G\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=c01254aa77734f6ec5192f7d5098553c}{%
+           family={Koter},
+           familyi={K\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=912b458db6db98130497e3228104529e}{%
+           family={Neijssel},
+           familyi={N\bibinitperiod},
+           given={C.\bibnamedelimi J.},
+           giveni={C\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=43facd2afdfb426127b61b33305e8d81}{%
+           family={Renzo},
+           familyi={R\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f2481e62a33d8cd81e4f9b5b968c169b}{%
+           family={Schootemeijer},
+           familyi={S\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=0a1522d71b24285902fe4df69c7f3188}{%
+           family={Shrotriya},
+           familyi={S\bibinitperiod},
+           given={T.\bibnamedelimi S.},
+           giveni={T\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{03fc12935bd71b6eaadaf18cfd5c15a5}
+      \strng{fullhash}{2586f9a5bc28c0a109bf691faab8907f}
+      \strng{bibnamehash}{03fc12935bd71b6eaadaf18cfd5c15a5}
+      \strng{authorbibnamehash}{03fc12935bd71b6eaadaf18cfd5c15a5}
+      \strng{authornamehash}{03fc12935bd71b6eaadaf18cfd5c15a5}
+      \strng{authorfullhash}{2586f9a5bc28c0a109bf691faab8907f}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.SR}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Astronomy \& Astrophysics}
+      \field{title}{Delay-time distribution of core-collapse supernovae with late events resulting from binary interaction}
+      \field{volume}{601}
+      \field{year}{2017}
+      \field{pages}{A29}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1051/0004-6361/201629685
+      \endverb
+      \verb{eprint}
+      \verb 1702.03979
       \endverb
     \endentry
     \entry{Zhang_2021}{article}{}
