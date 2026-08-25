@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.17.0 (TeX Live 2023)  (format=lualatex 2023.9.2)  6 AUG 2026 11:05
+This is LuaHBTeX, Version 1.17.0 (TeX Live 2023)  (format=lualatex 2023.9.2)  23 AUG 2026 17:57
  restricted system commands enabled.
  file:line:error style messages enabled.
 **"/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex"
@@ -1356,32 +1356,25 @@ chapter 2.
 [2
 
 ] [3] [4] [5] [6]
-<figures/frb_sky_distribution_petroff.png, id=160, 586.19pt x 285.065pt>
+<figures/frb_sky_distribution_petroff.png, id=165, 586.19pt x 285.065pt>
 File: figures/frb_sky_distribution_petroff.png Graphic file (type png)
 <use figures/frb_sky_distribution_petroff.png>
-Package luatex.def Info: figures/frb_sky_distribution_petroff.png  used on input line 224.
+Package luatex.def Info: figures/frb_sky_distribution_petroff.png  used on input line 223.
 (luatex.def)             Requested size: 315.48541pt x 153.41953pt.
- [7<./figures/frb_sky_distribution_petroff.png>] [8]
-Overfull \hbox (5.54213pt too wide) in paragraph at lines 279--280
-[]\TU/LatinModernRoman(0)/m/n/10.95 HIER EINE QUELLE FINDEN WE-GEN HOST GALAXY MODEL ODER CLAUDE
- []
 
+Underfull \vbox (badness 1527) has occurred while \output is active []
 
-Overfull \hbox (11.78947pt too wide) in paragraph at lines 283--284
-[]\TU/LatinModernRoman(0)/m/n/10.95 WAS IST MIT DEN FRA-GEN AN KLARA MIT EDGE CASES SIEHE SLACK????? 
- []
-
-) (./content/03_methodology.tex [9]
+ [7<./figures/frb_sky_distribution_petroff.png>] [8] [9] [10]) (./content/03_methodology.tex [11]
 chapter 3.
-) (./content/04_results.tex [10
+) (./content/04_results.tex [12
 
 ]
 chapter 4.
-) (./content/05_conclusion.tex [11
+) (./content/05_conclusion.tex [13
 
 ]
 chapter 5.
-) (./content/10_note_owner.tex [12
+) (./content/10_note_owner.tex [14
 
 ]
 chapter 6.
@@ -1389,10 +1382,10 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-[13
+[15
 
-] [14]
-<Plots/texmaker.png, id=239, 539.01375pt x 213.79875pt>
+] [16]
+<Plots/texmaker.png, id=269, 539.01375pt x 213.79875pt>
 File: Plots/texmaker.png Graphic file (type png)
 <use Plots/texmaker.png>
 Package luatex.def Info: Plots/texmaker.png  used on input line 83.
@@ -1402,23 +1395,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 106--108
 
  []
 
-[15<./Plots/texmaker.png>] [16]
-<./Plots/Histogramm.pdf, id=257, 338.26375pt x 202.7575pt>
+[17<./Plots/texmaker.png>] [18]
+<./Plots/Histogramm.pdf, id=289, 338.26375pt x 202.7575pt>
 File: ./Plots/Histogramm.pdf Graphic file (type pdf)
 <use ./Plots/Histogramm.pdf>
 Package luatex.def Info: ./Plots/Histogramm.pdf  used on input line 176.
 (luatex.def)             Requested size: 338.26291pt x 202.757pt.
- [17<./Plots/Histogramm.pdf>]) (./content/a_appendix.tex [18]
+ [19<./Plots/Histogramm.pdf>]) (./content/a_appendix.tex [20]
 chapter A.
-) [19
+) [21
 
 ]
 chapter without number
-[20
+[22
 
 
-] [21] [22]
-<content/Eidesstattliche_Versicherung.pdf, id=441, 597.55244pt x 845.0772pt>
+] [23] [24] [25] [26
+
+
+]
+<content/Eidesstattliche_Versicherung.pdf, id=490, 597.55244pt x 845.0772pt>
 File: content/Eidesstattliche_Versicherung.pdf Graphic file (type pdf)
 <use content/Eidesstattliche_Versicherung.pdf>
 Package luatex.def Info: content/Eidesstattliche_Versicherung.pdf  used on input line 173.
@@ -1427,7 +1423,7 @@ File: content/Eidesstattliche_Versicherung.pdf Graphic file (type pdf)
 <use content/Eidesstattliche_Versicherung.pdf>
 Package luatex.def Info: content/Eidesstattliche_Versicherung.pdf  used on input line 173.
 (luatex.def)             Requested size: 597.55098pt x 845.07513pt.
-<content/Eidesstattliche_Versicherung.pdf, id=444, page=1, 597.55244pt x 845.0772pt>
+<content/Eidesstattliche_Versicherung.pdf, id=493, page=1, 597.55244pt x 845.0772pt>
 File: content/Eidesstattliche_Versicherung.pdf Graphic file (type pdf)
 <use content/Eidesstattliche_Versicherung.pdf, page 1>
 Package luatex.def Info: content/Eidesstattliche_Versicherung.pdf , page1 used on input line 173.
@@ -1448,42 +1444,34 @@ File: content/Eidesstattliche_Versicherung.pdf Graphic file (type pdf)
 <use content/Eidesstattliche_Versicherung.pdf, page 1>
 Package luatex.def Info: content/Eidesstattliche_Versicherung.pdf , page1 used on input line 173.
 (luatex.def)             Requested size: 597.57832pt x 845.11382pt.
- [23
-
-
-<./content/Eidesstattliche_Versicherung.pdf>] (./thesis.aux)
+ [27<./content/Eidesstattliche_Versicherung.pdf>] (./thesis.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2020/03/25>
  ***********
-
-
-Package rerunfilecheck Warning: File `thesis.aux' has changed. Rerun.
-
-Package rerunfilecheck Info: Checksums for `thesis.aux':
-(rerunfilecheck)             Before: 2C480166F260E61B74D3600B3936A8CE;22004
-(rerunfilecheck)             After:  34D6DB8050144B95E27778D42455C12B;22131.
+Package rerunfilecheck Info: File `thesis.aux' has not changed.
+(rerunfilecheck)             Checksum: A6B957CA0545D8F4D0BBBEEBD93EC76B;24057.
 Package rerunfilecheck Info: File `thesis.toc' has not changed.
-(rerunfilecheck)             Checksum: 84FD840726FD2009DDAC86F4B2F18126;2567.
+(rerunfilecheck)             Checksum: 50CF0CD2F42D10B05A00F3E373E951A1;2668.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 
 \openout1 = thesis.run.xml
 )
 
 Here is how much of LuaTeX's memory you used:
- 41008 strings out of 477259
+ 41048 strings out of 477259
  100000,2373549 words of node,token memory allocated
- 1108 words of node memory still in use:
-   8 hlist, 2 vlist, 2 rule, 1 local_par, 7 glue, 5 kern, 1 penalty, 2 margin_kern, 4 glyph, 96 attribute, 80 glue_spec, 50 attribute_list, 1 write, 20 pdf_action nodes
-   avail lists: 1:5,2:1931,3:482,4:200,5:350,6:128,7:7363,8:72,9:657,10:24,11:617,12:1
- 61442 multiletter control sequences out of 65536+600000
- 133 fonts using 40945135 bytes
- 122i,19n,114p,10967b,2368s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmsans10-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman8-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm-math/latinmodern-math.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm-math/latinmodern-math.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman17-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmsans10-bold.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf>
-Output written on thesis.pdf (27 pages, 466337 bytes).
+ 1174 words of node memory still in use:
+   8 hlist, 2 vlist, 2 rule, 1 local_par, 7 glue, 5 kern, 1 penalty, 2 margin_kern, 4 glyph, 116 attribute, 80 glue_spec, 60 attribute_list, 1 write, 21 pdf_action nodes
+   avail lists: 1:5,2:2065,3:508,4:206,5:358,6:137,7:7386,8:72,9:673,10:24,11:627,12:1
+ 61472 multiletter control sequences out of 65536+600000
+ 139 fonts using 41735327 bytes
+ 122i,20n,114p,10967b,2368s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmsans10-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm-math/latinmodern-math.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman8-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm-math/latinmodern-math.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm-math/latinmodern-math.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman17-regular.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmsans10-bold.otf></usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf>
+Output written on thesis.pdf (31 pages, 482385 bytes).
 
-PDF statistics: 612 PDF objects out of 1000 (max. 8388607)
- 463 compressed objects within 5 object streams
- 106 named destinations out of 1000 (max. 131072)
- 193 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 672 PDF objects out of 1000 (max. 8388607)
+ 515 compressed objects within 6 object streams
+ 116 named destinations out of 1000 (max. 131072)
+ 201 words of extra memory for PDF output out of 10000 (max. 100000000)
 

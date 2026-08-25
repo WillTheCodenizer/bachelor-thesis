@@ -6,27 +6,28 @@
 \contentsline {subsection}{\numberline {2.2.1}The $\symup {\mitLambda }$CDM Model}{5}{subsection.2.2.1}%
 \contentsline {section}{\numberline {2.3}Fast Radio Bursts}{5}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Repeating FRBs}{7}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Magnetars vs Neutron Stars}{8}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.2}Progenitor Mechanisms}{8}{subsection.2.3.2}%
 \contentsline {section}{\numberline {2.4}Galaxy Surveys and Catalogs}{9}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Correlation Functions}{9}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Methodology}{10}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Redshift Distribution}{10}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Shallow vs. Deep}{10}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}Background Correlation}{10}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Auto-Correlation Analysis}{10}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Cross-Correlation Analysis}{10}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Results}{11}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Fisher Matrix}{11}{section.4.1}%
-\contentsline {chapter}{\numberline {5}Conclusion \& Outlook}{12}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Structure of the thesis}{13}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Erstellen des Ausgabedokuments mit Make}{14}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Erstellen des Ausgabedokuments mit Texmaker}{14}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Einrichten der nötigen Befehle}{14}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Aufräumen}{15}{subsection.6.2.2}%
-\contentsline {section}{\numberline {6.3}Zahlen und Einheiten}{16}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Das Literaturverzeichnis}{17}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Figures}{17}{section.6.5}%
-\contentsline {section}{\numberline {6.6}Tables}{18}{section.6.6}%
-\contentsline {chapter}{\numberline {A}Appendix}{19}{appendix.A}%
-\contentsline {chapter}{\nonumberline Bibliography}{20}{chapter*.9}%
+\contentsline {section}{\numberline {2.5}Structure Formation}{9}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Correlation Functions and Angular Power Spectrum}{9}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Methodology}{12}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Redshift Distribution}{12}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Shallow vs. Deep}{12}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Background Correlation}{12}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Auto-Correlation Analysis}{12}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Cross-Correlation Analysis}{12}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Results}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Fisher Matrix}{13}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Conclusion \& Outlook}{14}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Structure of the thesis}{15}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Erstellen des Ausgabedokuments mit Make}{16}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Erstellen des Ausgabedokuments mit Texmaker}{16}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Einrichten der nötigen Befehle}{16}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Aufräumen}{17}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}Zahlen und Einheiten}{18}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Das Literaturverzeichnis}{19}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Figures}{19}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Tables}{20}{section.6.6}%
+\contentsline {chapter}{\numberline {A}Appendix}{21}{appendix.A}%
+\contentsline {chapter}{\nonumberline Bibliography}{22}{chapter*.9}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

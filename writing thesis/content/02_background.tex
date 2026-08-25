@@ -149,7 +149,6 @@ curvature, and dark energy. Assuming a spatially flat Universe, the curvature te
     \symup{\Omega}_{\symup{\Lambda},0}
     }.
 \end{equation*}
-INFLATION THEORY ???
 
 \section{Fast Radio Bursts} \label{sec:fast_radio_bursts}
 Fast Radio Bursts (FRB) are bright, transient radio pulses with durations of milliseconds or less and peak 
@@ -240,7 +239,7 @@ Some repeating FRBs also exhibit periodic modulation of their activity windows, 
 suggesting either a binary system geometry or precession of the emitting object. Whether all FRBs are intrinsically 
 capable of repeating remains an open question~\cite{Petroff_2022}.
 
-\subsection{Magnetars vs Neutron Stars}
+\subsection{Progenitor Mechanisms} \label{sec:progenitor_mechanisms}
 A broad classification of proposed FRB progenitor models distinguishes between two main categories: catastrophic, 
 one-off events and non-catastrophic scenarios involving long-lived central engines. Catastrophic models can account 
 only for non-repeating FRBs and are therefore incompatible with the observed behavior of repeating sources. In contrast, 
@@ -263,7 +262,7 @@ serve as the dominant progenitor class~\cite{MengDeng_2025}.
 localised to environments inconsistent with active star formation. FRBs 180924 and 190523, found in massive, 
 low-star-formation-rate galaxies with large offsets from the host centre, display environments similar to those of short 
 gamma-ray burst hosts associated with mergers of binary neutron-star or neutron star-black hole binaries~\cite{Wang_2020}.
-The globular cluster localisation of FRB 20200120E reinforces this point, as such an old environment is
+The globular cluster localisation of FRB 20200120E reinforces this point, as such an old environment is is generally not associated with recent star formation.
 Isolated core-collapse supernovae occur within approximately $\qtyrange{3}{48}{\Myr}$ after a burst of star formation, 
 whereas binary interactions can delay some core-collapse events to about $\qty{200}{\Myr}$~\cite{Zapartas_2017}. 
 Accretion-induced collapse (AIC) and compact-object merger channels exhibit much broader delay-time distributions 
@@ -271,16 +270,13 @@ extending to several gigayears~\cite{Ruiter_2019}.
 As a consequence, this progenitor population does not closely track the cosmic SFH but evolves 
 more slowly with redshift~\cite{Lin_2022}.
 
-These two progenitor classes predict observably distinct redshift distributions, forming the theoretical 
+These two progenitor classes predict observably distinct redshift distributions~\cite{Lin_2022}, forming the theoretical 
 basis for the host-population bias modelling adopted in this work, in which each class is assigned a 
 redshift-dependent bias b(z) encoding how strongly its occurrence rate evolves relative to the cosmic star-formation rate. 
-The parameterisation and specific values are detailed in the Methodology section.
+The parameterisation and specific values are detailed in \autoref{ch:methodology}.
 
-HIER EINE QUELLE FINDEN WEGEN HOST GALAXY MODEL ODER CLAUDE DA NOCHMAL FRAGEN/
+WAS IST MIT DEN FRAGEN AN KLARA WEGEN DER EDGE CASES SIEHE SLACK?????
 
-END OF THAT SECTION ALLES AUFSCHREIBEN WAS UNKLAR IST IN NOTES
-
-WAS IST MIT DEN FRAGEN AN KLARA MIT EDGE CASES SIEHE SLACK?????
 \section{Galaxy Surveys and Catalogs} \label{sec:galaxy_surveys_and_catalogs}
 \begin{itemize}
  \item Galaxy Survey DR5 stage 3 --> stage 54 KiDS, how measured
@@ -288,10 +284,121 @@ WAS IST MIT DEN FRAGEN AN KLARA MIT EDGE CASES SIEHE SLACK?????
  \item Comparison of the Data Sets
 \end{itemize}
 
-\section{Correlation Functions} \label{sec:correlation_functions}
+\section{Structure Formation} \label{sec:structure_formation}
+Within the $\symup{\Lambda}$CDM framework, the large-scale structure of the Universe 
+emerged from the gravitational amplification of small primordial density perturbations. 
+According to the gravitational instability paradigm, quantum fluctuations seeded during 
+an inflationary phase were stretched to cosmological scales and subsequently grew into 
+the filaments, voids, and galaxy clusters observed today~\cite{Bernardeau_2002, Riotto_2003}.
+The growth of perturbations depends sensitively on the cosmic expansion history, and 
+the overall amplitude of matter fluctuations at the present time is conventionally 
+parameterised by $\sigma_8$~\cite{BartelmannSchneider_2001}.
+
+\section{Correlation Functions and Angular Power Spectrum}\label{sec:correlation_functions}
+
+The statistical properties of the large-scale matter distribution are quantified through 
+correlation functions and their Fourier-space counterparts, the power spectra. 
+
+The density contrast $\delta(\mathbf{x})$ is defined as the fractional deviation of the local matter density $\rho(\mathbf{x})$ from 
+the average cosmic density $\bar{\rho}$:
+
+\begin{equation*}
+    \delta(\mathbf{x}) := \frac{\rho(\mathbf{x}) - \bar{\rho}}{\bar{\rho}}.
+\end{equation*}
+The two-point correlation function of the density contrast is then defined as
+
+\begin{equation*}
+    \xi(\mathbf{y}) := \langle \delta(\mathbf{x})\, \delta(\mathbf{x} + \mathbf{y}) \rangle,
+\end{equation*}
+
+where the angle brackets denote an ensemble average over all positions $\mathbf{x}$. 
+It describes the excess probability of finding two tracers at a given separation 
+$|\mathbf{y}|$ relative to a random distribution. Its Fourier transform yields the 
+three-dimensional power spectrum $P(k)$, defined by
+
+\begin{equation*}
+    \langle \hat{\delta}(\mathbf{k})\, \hat{\delta}(\mathbf{k}') \rangle 
+    =: (2\pi)^3 P(k)\, \delta_{\mathrm{D}}(\mathbf{k} - \mathbf{k}'),
+\end{equation*}
+
+with the Dirac delta function $\delta_{\mathrm{D}}$ ensuring statistical homogeneity, 
+and where $P(k)$ depends only on the magnitude $k = |\mathbf{k}|$, reflecting 
+statistical isotropy~\cite{BartelmannSchneider_2001}.
+
+HIER NOCHMAL UEBERLGEN BZW NACHFRAGEN WIESO HOMOGEN USW...
+
+When the tracers of interest are observed as projected 
+distributions on the celestial sphere, the appropriate framework shifts from 
+three-dimensional Fourier analysis to a spherical harmonic decomposition. 
+Since the sky is curved, a flat-sky Fourier transform is insufficient on large angular 
+scales; instead, any field $f(\theta, \phi)$ on the sphere can be expanded as
+
+\begin{equation*}
+    f(\theta, \phi) = \sum_{\ell=0}^{\infty} \sum_{m=-\ell}^{\ell} 
+    a_{\ell m}\, Y_{\ell m}(\theta, \phi),
+\end{equation*}
+
+where $Y_{\ell m}$ are the spherical harmonics and the harmonic coefficients are given 
+by 
+
+\begin{equation*}
+    a_{\ell m} = \int f(\theta, \phi)\, Y_{\ell m}^{*}(\theta, \phi)\, \mathrm{d}\Omega.
+\end{equation*}
+
+The multipole moment $\ell$ plays the role of an angular wavenumber, with small $\ell$ 
+corresponding to large angular scales and large $\ell$ to small-scale structure. 
+
+The angular auto-power spectrum $C_\ell$ is defined as the variance of the 
+harmonic coefficients per multipole,
+
+\begin{equation*}
+    \langle a_{\ell m}\, a_{\ell' m'}^{*} \rangle 
+    =: \langle C_\ell \rangle \ \delta_{\ell\ell'}\, \delta_{mm'},
+\end{equation*}
+
+where different multipoles are statistically independent for an isotropic 
+field. The angular power spectrum can be estimated as
+
+\begin{equation*}
+    C_\ell = \frac{1}{2\ell + 1} \sum_{m=-\ell}^{\ell} |a_{\ell m}|^2,
+\end{equation*}
+
+given a set of observed harmonic coefficients~\cite{Hivon_2002}.
+
+The cross-correlation between two distinct projected fields $A$ and $B$ is captured by the angular 
+cross-power spectrum
+
+\begin{equation*}
+    \langle a_{\ell m}^{A}\, a_{\ell' m'}^{B\,*} \rangle 
+    =: \langle C_\ell^{AB} \rangle \ \delta_{\ell\ell'}\, \delta_{mm'}.
+\end{equation*}
+
+
+BIS HIER ALLES GECHECKT AUSSER HALT DIE FETTGEDRUCKTEN SACHEN OBEN
+A non-zero detection of $C_\ell^{AB}$ indicates that the two populations spatially 
+overlap on angular scale $\sim 180°/\ell$. The cross-power spectrum can be related 
+to the underlying three-dimensional matter power spectrum $P(k,z)$ through a 
+line-of-sight projection. Under the Limber approximation, valid for 
+$\ell \gtrsim \mathcal{O}(10)$, this takes the compact form~\cite{LoVerdeAfshordi_2008}
+
+\begin{equation*}
+    C_\ell^{AB} = \int \frac{\mathrm{d}z}{c}\, 
+    \frac{H(z)}{\chi^2(z)}\, 
+    W^A(z)\, W^B(z)\, 
+    P\!\left(k = \frac{\ell + 1/2}{\chi(z)},\, z\right),
+\end{equation*}
+
+where $W^A(z)$ and $W^B(z)$ are the window functions encoding the radial selection 
+of each tracer population, $\chi(z)$ is the comoving distance, and $H(z)$ is the 
+Hubble parameter. For $A = B$, this expression reduces to the angular auto-power 
+spectrum. The cross-correlation signal thus depends on the redshift overlap of the 
+two populations, their individual bias parameters with respect to the matter field, 
+and the underlying matter power spectrum. This makes the FRB--galaxy cross-power 
+spectrum a direct probe of the spatial distribution and host-population properties 
+of FRBs, forming the central observable of this work.
+Bei correlation functions —> power spectrum und Fourier function !!!!
 \begin{itemize}
  \item Two-Point Correlation Function
  \item Auto-Correlation
  \item Cross-Correlation
- \item how do you get to Cell
 \end{itemize}

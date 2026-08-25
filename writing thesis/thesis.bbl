@@ -57,6 +57,54 @@
       \verb astro-ph/9912508
       \endverb
     \endentry
+    \entry{Bernardeau_2002}{article}{}
+      \name{author}{4}{}{%
+        {{hash=af539585442daf6386a494b3b17f04d7}{%
+           family={Bernardeau},
+           familyi={B\bibinitperiod},
+           given={Francis},
+           giveni={F\bibinitperiod}}}%
+        {{hash=fce7fdb2498c8d2ace08d0de0fc20fdf}{%
+           family={Colombi},
+           familyi={C\bibinitperiod},
+           given={Stephane},
+           giveni={S\bibinitperiod}}}%
+        {{hash=2317de246c38d2822063ce28c9901930}{%
+           family={Gaztañaga},
+           familyi={G\bibinitperiod},
+           given={Enrique},
+           giveni={E\bibinitperiod}}}%
+        {{hash=6b1dbfc9f9a04d4a6c8eb39cf09d761b}{%
+           family={Scoccimarro},
+           familyi={S\bibinitperiod},
+           given={Roman},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{0358e1a22671ab2bcca48ed335cb7481}
+      \strng{fullhash}{e384268f439dd2e7af13fb7c553b202f}
+      \strng{bibnamehash}{0358e1a22671ab2bcca48ed335cb7481}
+      \strng{authorbibnamehash}{0358e1a22671ab2bcca48ed335cb7481}
+      \strng{authornamehash}{0358e1a22671ab2bcca48ed335cb7481}
+      \strng{authorfullhash}{e384268f439dd2e7af13fb7c553b202f}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Physics Reports}
+      \field{title}{Large-scale structure of the Universe and cosmological perturbation theory}
+      \field{volume}{367}
+      \field{year}{2002}
+      \field{pages}{1\bibrangedash 248}
+      \range{pages}{248}
+      \verb{doi}
+      \verb 10.1016/S0370-1573(02)00135-7
+      \endverb
+      \verb{eprint}
+      \verb astro-ph/0112551
+      \endverb
+    \endentry
     \entry{CervantesCota_2011}{inproceedings}{}
       \name{author}{7}{}{%
         {{hash=1e168f1d40bb5be7b8a9a9850690191c}{%
@@ -190,6 +238,49 @@
       \verb 2601.09399
       \endverb
     \endentry
+    \entry{Desjacques_2018}{article}{}
+      \name{author}{3}{}{%
+        {{hash=b5513c32c229b140def1963d1ba600c6}{%
+           family={Desjacques},
+           familyi={D\bibinitperiod},
+           given={Vincent},
+           giveni={V\bibinitperiod}}}%
+        {{hash=3326ca74c1b11350b758b6bf0ee8d82d}{%
+           family={Jeong},
+           familyi={J\bibinitperiod},
+           given={Donghui},
+           giveni={D\bibinitperiod}}}%
+        {{hash=90cf806c60a0f6ee733bc817133c3960}{%
+           family={Schmidt},
+           familyi={S\bibinitperiod},
+           given={Fabian},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{e20ccca04c804a15bfa7eb187e6a866f}
+      \strng{fullhash}{e20ccca04c804a15bfa7eb187e6a866f}
+      \strng{bibnamehash}{e20ccca04c804a15bfa7eb187e6a866f}
+      \strng{authorbibnamehash}{e20ccca04c804a15bfa7eb187e6a866f}
+      \strng{authornamehash}{e20ccca04c804a15bfa7eb187e6a866f}
+      \strng{authorfullhash}{e20ccca04c804a15bfa7eb187e6a866f}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Physics Reports}
+      \field{title}{Large-scale galaxy bias}
+      \field{volume}{733}
+      \field{year}{2018}
+      \field{pages}{1\bibrangedash 193}
+      \range{pages}{193}
+      \verb{doi}
+      \verb 10.1016/j.physrep.2017.12.002
+      \endverb
+      \verb{eprint}
+      \verb 1611.09787
+      \endverb
+    \endentry
     \entry{Gong_2011}{article}{}
       \name{author}{3}{}{%
         {{hash=c2eb8fa5c9e26a3f48bb9a97224eb65c}{%
@@ -231,6 +322,64 @@
       \endverb
       \verb{eprint}
       \verb 1008.5010
+      \endverb
+    \endentry
+    \entry{Hivon_2002}{article}{}
+      \name{author}{6}{}{%
+        {{hash=18c0a465699dfb9fd70996c3504a1471}{%
+           family={Hivon},
+           familyi={H\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+        {{hash=ecf6e3bf491baddc5ff2c773abad3cc3}{%
+           family={Górski},
+           familyi={G\bibinitperiod},
+           given={Krzysztof\bibnamedelima M.},
+           giveni={K\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=d930337d90ce6e21b0ba183a020ef197}{%
+           family={Netterfield},
+           familyi={N\bibinitperiod},
+           given={C.\bibnamedelimi B.},
+           giveni={C\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=d4696fd3663b014b5a0468b30f236d1c}{%
+           family={Crill},
+           familyi={C\bibinitperiod},
+           given={B.\bibnamedelimi P.},
+           giveni={B\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=4624f3155b062ad34985408f07b88f9e}{%
+           family={Prunet},
+           familyi={P\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=bac6b052f245e6081b9d461dd15db29e}{%
+           family={Hansen},
+           familyi={H\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{366e30ce7caf68813d1f59c72414828a}
+      \strng{fullhash}{b30ff4f9480dcc692f59c06dbc972cec}
+      \strng{bibnamehash}{366e30ce7caf68813d1f59c72414828a}
+      \strng{authorbibnamehash}{366e30ce7caf68813d1f59c72414828a}
+      \strng{authornamehash}{366e30ce7caf68813d1f59c72414828a}
+      \strng{authorfullhash}{b30ff4f9480dcc692f59c06dbc972cec}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{The Astrophysical Journal}
+      \field{title}{{MASTER} of the Cosmic Microwave Background Anisotropy Power Spectrum}
+      \field{volume}{567}
+      \field{year}{2002}
+      \field{pages}{2\bibrangedash 17}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1086/338126
+      \endverb
+      \verb{eprint}
+      \verb astro-ph/0105302
       \endverb
     \endentry
     \entry{Hogg_2000}{article}{}
@@ -492,6 +641,44 @@
       \endverb
       \verb{eprint}
       \verb 0709.4301
+      \endverb
+    \endentry
+    \entry{LoVerdeAfshordi_2008}{article}{}
+      \name{author}{2}{}{%
+        {{hash=02c84759d19fc745e5a22c85c4053baf}{%
+           family={LoVerde},
+           familyi={L\bibinitperiod},
+           given={Marilena},
+           giveni={M\bibinitperiod}}}%
+        {{hash=bea447a423c59c38674b5d30a14b26f6}{%
+           family={Afshordi},
+           familyi={A\bibinitperiod},
+           given={Niayesh},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{5271986c18b21550dacd7d9bc6280c3a}
+      \strng{fullhash}{5271986c18b21550dacd7d9bc6280c3a}
+      \strng{bibnamehash}{5271986c18b21550dacd7d9bc6280c3a}
+      \strng{authorbibnamehash}{5271986c18b21550dacd7d9bc6280c3a}
+      \strng{authornamehash}{5271986c18b21550dacd7d9bc6280c3a}
+      \strng{authorfullhash}{5271986c18b21550dacd7d9bc6280c3a}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Physical Review D}
+      \field{title}{Extended {Limber} approximation}
+      \field{volume}{78}
+      \field{year}{2008}
+      \field{pages}{123506}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.78.123506
+      \endverb
+      \verb{eprint}
+      \verb 0809.5112
       \endverb
     \endentry
     \entry{MengDeng_2025}{article}{}
@@ -948,6 +1135,32 @@
       \endverb
       \verb{eprint}
       \verb 2007.04054
+      \endverb
+    \endentry
+    \entry{Riotto_2003}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=6762bcb7ece0578e309e9dd97eca78f4}{%
+           family={Riotto},
+           familyi={R\bibinitperiod},
+           given={Antonio},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{6762bcb7ece0578e309e9dd97eca78f4}
+      \strng{fullhash}{6762bcb7ece0578e309e9dd97eca78f4}
+      \strng{bibnamehash}{6762bcb7ece0578e309e9dd97eca78f4}
+      \strng{authorbibnamehash}{6762bcb7ece0578e309e9dd97eca78f4}
+      \strng{authornamehash}{6762bcb7ece0578e309e9dd97eca78f4}
+      \strng{authorfullhash}{6762bcb7ece0578e309e9dd97eca78f4}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{hep-ph}
+      \field{eprinttype}{arXiv}
+      \field{title}{Inflation and the Theory of Cosmological Perturbations}
+      \field{year}{2003}
+      \verb{eprint}
+      \verb hep-ph/0210162
       \endverb
     \endentry
     \entry{Ruiter_2019}{article}{}
