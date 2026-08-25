@@ -375,11 +375,26 @@ cross-power spectrum
 
 
 BIS HIER ALLES GECHECKT AUSSER HALT DIE FETTGEDRUCKTEN SACHEN OBEN
-A non-zero detection of $C_\ell^{AB}$ indicates that the two populations spatially 
-overlap on angular scale $\sim 180°/\ell$. The cross-power spectrum can be related 
-to the underlying three-dimensional matter power spectrum $P(k,z)$ through a 
-line-of-sight projection. Under the Limber approximation, valid for 
-$\ell \gtrsim \mathcal{O}(10)$, this takes the compact form~\cite{LoVerdeAfshordi_2008}
+The cross-correlation between two distinct projected fields $A$ and $B$ — such as 
+the FRB sky distribution and a galaxy catalog — is captured by the angular 
+cross-power spectrum, defined in direct analogy to the auto-power spectrum through 
+the harmonic coefficients of the two fields,
+
+\begin{equation*}
+    \langle a_{\ell m}^{A}\, a_{\ell' m'}^{B\,*} \rangle 
+    =: C_\ell^{AB}\, \delta_{\ell\ell'}\, \delta_{mm'}.
+\end{equation*}
+
+A non-zero detection of $C_\ell^{AB}$ indicates that the two populations are 
+spatially correlated on angular scales $\sim 180°/\ell$~\cite{RafieiRavandi_2021}.
+Since both FRBs and galaxies are projected fields on the sky, arising as 
+line-of-sight integrals of their respective three-dimensional density contrasts 
+weighted by radial selection functions $W^A(z)$ and $W^B(z)$, the angular 
+cross-power spectrum can be connected to the underlying three-dimensional 
+matter power spectrum $P(k,z)$ introduced in~\autoref{sec:correlation_functions}. 
+For multipoles $\ell \gtrsim \mathcal{O}(10)$, the spherical Bessel functions 
+that arise in the exact projection integral are sharply peaked and the 
+Limber approximation~\cite{LoVerdeAfshordi_2008} yields the compact expression
 
 \begin{equation*}
     C_\ell^{AB} = \int \frac{\mathrm{d}z}{c}\, 
@@ -388,14 +403,15 @@ $\ell \gtrsim \mathcal{O}(10)$, this takes the compact form~\cite{LoVerdeAfshord
     P\!\left(k = \frac{\ell + 1/2}{\chi(z)},\, z\right),
 \end{equation*}
 
-where $W^A(z)$ and $W^B(z)$ are the window functions encoding the radial selection 
-of each tracer population, $\chi(z)$ is the comoving distance, and $H(z)$ is the 
-Hubble parameter. For $A = B$, this expression reduces to the angular auto-power 
-spectrum. The cross-correlation signal thus depends on the redshift overlap of the 
-two populations, their individual bias parameters with respect to the matter field, 
-and the underlying matter power spectrum. This makes the FRB--galaxy cross-power 
-spectrum a direct probe of the spatial distribution and host-population properties 
-of FRBs, forming the central observable of this work.
+where $\chi(z)$ is the comoving distance and $H(z)$ the Hubble parameter. 
+For $A = B$ this reduces to the angular auto-power spectrum defined 
+above. The cross-power spectrum therefore depends on the redshift overlap 
+of the two tracer populations, their bias parameters relative to the matter 
+field, and the shape of the underlying matter power spectrum. This makes 
+the FRB--galaxy cross-power spectrum a direct probe of the spatial 
+distribution and host-population properties of FRBs, forming the 
+central observable of this work~\cite{RafieiRavandi_2021, Shirasaki_2017}.
+
 Bei correlation functions —> power spectrum und Fourier function !!!!
 \begin{itemize}
  \item Two-Point Correlation Function
