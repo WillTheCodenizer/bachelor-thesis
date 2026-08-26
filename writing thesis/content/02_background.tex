@@ -193,7 +193,7 @@ between the arrival of the two frequency components, $c$ is the speed of light, 
 mass. The dispersion measure $DM$ quantifies the integrated column density of free electrons between the source and the observer:
 
 \begin{equation*}
-DM \propto  \int_0^d n_e(l)\,dl ,
+DM \propto  \int_0^d \mathrm{d}l\, n_e(l) ,
 \end{equation*}
 
 where $n_e$ represents the free electron density and $d$ the distance between the source and the observer~\cite{Petroff_2019}.
@@ -295,126 +295,216 @@ the overall amplitude of matter fluctuations at the present time is conventional
 parameterised by $\sigma_8$~\cite{BartelmannSchneider_2001}.
 
 \section{Correlation Functions and Angular Power Spectrum}\label{sec:correlation_functions}
-
 The statistical properties of the large-scale matter distribution are quantified through 
 correlation functions and their Fourier-space counterparts, the power spectra. 
 
-The density contrast $\delta(\mathbf{x})$ is defined as the fractional deviation of the local matter density $\rho(\mathbf{x})$ from 
-the average cosmic density $\bar{\rho}$:
+The density contrast $\delta(\mathbf{x})$ is defined as the fractional
+deviation of the local matter density $\rho(\mathbf{x})$ from the mean
+cosmic density $\bar{\rho}$:
 
 \begin{equation*}
-    \delta(\mathbf{x}) := \frac{\rho(\mathbf{x}) - \bar{\rho}}{\bar{\rho}}.
+    \delta(\mathbf{x})
+    := \frac{\rho(\mathbf{x}) - \bar{\rho}}{\bar{\rho}}.
 \end{equation*}
-The two-point correlation function of the density contrast is then defined as
+
+The two-point correlation function
+is defined as
 
 \begin{equation*}
-    \xi(\mathbf{y}) := \langle \delta(\mathbf{x})\, \delta(\mathbf{x} + \mathbf{y}) \rangle,
+    \xi(\mathbf{y})
+    := \left\langle
+    \delta(\mathbf{x})\,\delta(\mathbf{x}+\mathbf{y})
+    \right\rangle,
 \end{equation*}
 
-where the angle brackets denote an ensemble average over all positions $\mathbf{x}$. 
-It describes the excess probability of finding two tracers at a given separation 
-$|\mathbf{y}|$ relative to a random distribution. Its Fourier transform yields the 
-three-dimensional power spectrum $P(k)$, defined by
+where the angle brackets denote an ensemble average. Statistical
+homogeneity implies that $\xi$ depends only on the separation
+$\mathbf{y}$ and not on the absolute position $\mathbf{x}$, while
+statistical isotropy further implies that it depends only on the
+magnitude $y = |\mathbf{y}|$. 
+
+For a discrete tracer population,
+the two-point correlation function can be interpreted as
+describing the excess probability of finding a pair of tracers at a
+given separation relative to an unclustered random distribution.
+To describe the Fourier-transform pair of $\delta(\mathbf{x})$ and $\hat{\delta}(\mathbf{k})$, we adopt the convention
 
 \begin{equation*}
-    \langle \hat{\delta}(\mathbf{k})\, \hat{\delta}(\mathbf{k}') \rangle 
-    =: (2\pi)^3 P(k)\, \delta_{\mathrm{D}}(\mathbf{k} - \mathbf{k}'),
+    \hat{\delta}(\mathbf{k})
+    =
+    \int \mathrm{d}^3 x\,
+    \delta(\mathbf{x})\,
+    e^{-i\mathbf{k}\cdot\mathbf{x}} ; \ \ \ 
+    \delta(\mathbf{x})
+    =
+    \int \frac{\mathrm{d}^3 \symup{k}}{(2\pi)^3}\,
+    \hat{\delta}(\mathbf{k})\,
+    e^{i\mathbf{k}\cdot\mathbf{x}}. 
 \end{equation*}
 
-with the Dirac delta function $\delta_{\mathrm{D}}$ ensuring statistical homogeneity, 
-and where $P(k)$ depends only on the magnitude $k = |\mathbf{k}|$, reflecting 
-statistical isotropy~\cite{BartelmannSchneider_2001}.
-
-HIER NOCHMAL UEBERLGEN BZW NACHFRAGEN WIESO HOMOGEN USW...
-
-When the tracers of interest are observed as projected 
-distributions on the celestial sphere, the appropriate framework shifts from 
-three-dimensional Fourier analysis to a spherical harmonic decomposition. 
-Since the sky is curved, a flat-sky Fourier transform is insufficient on large angular 
-scales; instead, any field $f(\theta, \phi)$ on the sphere can be expanded as
+The three-dimensional matter power spectrum is then defined through
 
 \begin{equation*}
-    f(\theta, \phi) = \sum_{\ell=0}^{\infty} \sum_{m=-\ell}^{\ell} 
-    a_{\ell m}\, Y_{\ell m}(\theta, \phi),
+    \left\langle
+    \hat{\delta}(\mathbf{k})\,
+    \hat{\delta}^{*}(\mathbf{k}')
+    \right\rangle
+    =
+    (2\pi)^3
+    \delta_{\mathrm{D}}(\mathbf{k}-\mathbf{k}')
+    P(k),
 \end{equation*}
 
-where $Y_{\ell m}$ are the spherical harmonics and the harmonic coefficients are given 
-by 
+where $\delta_{\mathrm{D}}$ denotes the Dirac delta function, reflecting statistical homogeneity in Fourier space.
+The power spectrum depends only on the magnitude
+$k = |\mathbf{k}|$, implying that it is isotropic in Fourier space~\cite{BartelmannSchneider_2001}.
+
+When the tracers of interest are observed as projected distributions on
+the celestial sphere, it is common to describe the fields using
+a spherical-harmonic decomposition. On sufficiently large angular scales,
+a flat-sky Fourier transform is not generally adequate because of the
+curvature of the celestial sphere. A scalar field
+on the sphere can instead be expanded as
 
 \begin{equation*}
-    a_{\ell m} = \int f(\theta, \phi)\, Y_{\ell m}^{*}(\theta, \phi)\, \mathrm{d}\Omega.
+    f(\hat{\mathbf{n}})
+    =
+    \sum_{\ell=0}^{\infty}
+    \sum_{m=-\ell}^{\ell}
+    a_{\ell m}\,
+    Y_{\ell m}(\hat{\mathbf{n}}),
 \end{equation*}
 
-The multipole moment $\ell$ plays the role of an angular wavenumber, with small $\ell$ 
-corresponding to large angular scales and large $\ell$ to small-scale structure. 
-
-The angular auto-power spectrum $C_\ell$ is defined as the variance of the 
-harmonic coefficients per multipole,
+where $\hat{\mathbf{n}}$ denotes the direction on the sky and
+$Y_{\ell m}$ are the spherical harmonics. The corresponding harmonic
+coefficients are given by
 
 \begin{equation*}
-    \langle a_{\ell m}\, a_{\ell' m'}^{*} \rangle 
-    =: \langle C_\ell \rangle \ \delta_{\ell\ell'}\, \delta_{mm'},
+    a_{\ell m}
+    =
+    \int \mathrm{d}\Omega\,
+    f(\hat{\mathbf{n}})\,
+    Y_{\ell m}^{*}(\hat{\mathbf{n}}).
 \end{equation*}
 
-where different multipoles are statistically independent for an isotropic 
-field. The angular power spectrum can be estimated as
+The characteristic
+angular scale associated with a multipole $\ell$ is approximately
+$\ell^{-1}$~\cite{RafieiRavandi_2021}.
+For a statistically isotropic field, the angular power spectrum is defined
+through the covariance of the harmonic coefficients,
 
 \begin{equation*}
-    C_\ell = \frac{1}{2\ell + 1} \sum_{m=-\ell}^{\ell} |a_{\ell m}|^2,
+    \left\langle
+    a_{\ell m}\,
+    a_{\ell' m'}^{*}
+    \right\rangle
+    =
+    C_{\ell}\,
+    \delta_{\ell\ell'}\,
+    \delta_{mm'}.
 \end{equation*}
 
-given a set of observed harmonic coefficients~\cite{Hivon_2002}.
-
-The cross-correlation between two distinct projected fields $A$ and $B$ is captured by the angular 
-cross-power spectrum
+An unbiased estimator of the angular power spectrum for
+an ideal full-sky observation is
 
 \begin{equation*}
-    \langle a_{\ell m}^{A}\, a_{\ell' m'}^{B\,*} \rangle 
-    =: \langle C_\ell^{AB} \rangle \ \delta_{\ell\ell'}\, \delta_{mm'}.
+    \hat{C}_{\ell}
+    =
+    \frac{1}{2\ell+1}
+    \sum_{m=-\ell}^{\ell}
+    \left|a_{\ell m}\right|^2.
 \end{equation*}
 
+For a finite or incomplete sky, additional effects such as the survey
+mask and mode coupling have to be taken into account~\cite{Hivon_2002}.
 
-BIS HIER ALLES GECHECKT AUSSER HALT DIE FETTGEDRUCKTEN SACHEN OBEN
-The cross-correlation between two distinct projected fields $A$ and $B$ — such as 
-the FRB sky distribution and a galaxy catalog — is captured by the angular 
-cross-power spectrum, defined in direct analogy to the auto-power spectrum through 
-the harmonic coefficients of the two fields,
+The cross-correlation between two distinct projected fields $A$ and $B$
+is described by the angular cross-power spectrum,
 
 \begin{equation*}
-    \langle a_{\ell m}^{A}\, a_{\ell' m'}^{B\,*} \rangle 
-    =: C_\ell^{AB}\, \delta_{\ell\ell'}\, \delta_{mm'}.
+    \left\langle
+    a_{\ell m}^{A}\,
+    a_{\ell' m'}^{B\,*}
+    \right\rangle
+    =
+    C_{\ell}^{AB}\,
+    \delta_{\ell\ell'}\,
+    \delta_{mm'}.
 \end{equation*}
 
-A non-zero detection of $C_\ell^{AB}$ indicates that the two populations are 
-spatially correlated on angular scales $\sim 180°/\ell$~\cite{RafieiRavandi_2021}.
-Since both FRBs and galaxies are projected fields on the sky, arising as 
-line-of-sight integrals of their respective three-dimensional density contrasts 
-weighted by radial selection functions $W^A(z)$ and $W^B(z)$, the angular 
-cross-power spectrum can be connected to the underlying three-dimensional 
-matter power spectrum $P(k,z)$ introduced in~\autoref{sec:correlation_functions}. 
-For multipoles $\ell \gtrsim \mathcal{O}(10)$, the spherical Bessel functions 
-that arise in the exact projection integral are sharply peaked and the 
-Limber approximation~\cite{LoVerdeAfshordi_2008} yields the compact expression
+A non-zero cross-power spectrum indicates statistical correlation between
+the two fields on the corresponding angular scales.
+For projected tracer fields, the angular fields can be written as
+line-of-sight integrals over the corresponding three-dimensional density
+contrasts,
 
 \begin{equation*}
-    C_\ell^{AB} = \int \frac{\mathrm{d}z}{c}\, 
-    \frac{H(z)}{\chi^2(z)}\, 
-    W^A(z)\, W^B(z)\, 
-    P\!\left(k = \frac{\ell + 1/2}{\chi(z)},\, z\right),
+    A(\hat{\mathbf{n}})
+    =
+    \int \mathrm{d}\chi\,
+    W^{A}(\chi)\,
+    \delta^{A}(\chi\hat{\mathbf{n}}),
 \end{equation*}
 
-where $\chi(z)$ is the comoving distance and $H(z)$ the Hubble parameter. 
-For $A = B$ this reduces to the angular auto-power spectrum defined 
-above. The cross-power spectrum therefore depends on the redshift overlap 
-of the two tracer populations, their bias parameters relative to the matter 
-field, and the shape of the underlying matter power spectrum. This makes 
-the FRB--galaxy cross-power spectrum a direct probe of the spatial 
-distribution and host-population properties of FRBs, forming the 
-central observable of this work~\cite{RafieiRavandi_2021, Shirasaki_2017}.
+\begin{equation*}
+    B(\hat{\mathbf{n}})
+    =
+    \int \mathrm{d}\chi\,
+    W^{B}(\chi)\,
+    \delta^{B}(\chi\hat{\mathbf{n}}),
+\end{equation*}
 
-Bei correlation functions —> power spectrum und Fourier function !!!!
-\begin{itemize}
- \item Two-Point Correlation Function
- \item Auto-Correlation
- \item Cross-Correlation
-\end{itemize}
+where $\chi$ denotes the comoving radial distance and
+$W^{A}(\chi)$ and $W^{B}(\chi)$ are the corresponding radial kernel
+functions.
+Using the spherical-harmonic expansion together with the Fourier
+representation of the three-dimensional fields, the full-sky angular
+cross-power spectrum can be written as
+
+\begin{equation*}
+    C_{\ell}^{AB}
+    =
+    \frac{2}{\pi}
+    \int_0^\infty k^2\,\mathrm{d}k
+    \int \mathrm{d}\chi\,
+    W^{A}(\chi)\,
+    j_{\ell}(k\chi)
+    \int \mathrm{d}\chi'\,
+    W^{B}(\chi')\,
+    j_{\ell}(k\chi')\,
+    P_{AB}(k;\chi,\chi'),
+\end{equation*}
+
+where $j_{\ell}$ denotes the spherical Bessel function and
+$P_{AB}$ is the three-dimensional cross-power spectrum of the two
+tracer fields. 
+The Limber approximation states that
+for approximately $\ell \gtrsim \mathcal{O}(10)$, the double integral collapses to a single line-of-sight integral~\cite{Limber_1953}:
+
+\begin{equation*}
+    C_{\ell}^{AB}
+    \approx
+    \int \frac{\mathrm{d}\chi}{\chi^2}\,
+    W^{A}(\chi)\,
+    W^{B}(\chi)\,
+    P_{AB}
+    \left(
+        k = \frac{\ell+1/2}{\chi},
+        z(\chi)
+    \right).
+\end{equation*}
+
+The use of $\ell+1/2$, rather than simply $\ell$, provides a more accurate
+version of the Limber approximation, particularly at moderately large
+multipoles~\cite{LoVerdeAfshordi_2008}.
+
+The angular cross-power spectrum therefore depends
+on the radial overlap of the two tracer populations, their relation to the
+underlying matter density field through their bias factors, and the shape
+and redshift evolution of the underlying matter power spectrum.
+
+Consequently, the FRB-galaxy angular cross-power spectrum provides a
+sensitive probe of the spatial relation between FRBs and galaxies and can
+be used to constrain the redshift distribution, clustering properties,
+and host-population characteristics of FRBs~\cite{RafieiRavandi_2021,
+Shirasaki_2017}.

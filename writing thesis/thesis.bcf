@@ -2403,9 +2403,13 @@
     <bcf:citekey order="37" intorder="2">Riotto_2003</bcf:citekey>
     <bcf:citekey order="38" intorder="1">BartelmannSchneider_2001</bcf:citekey>
     <bcf:citekey order="39" intorder="1">BartelmannSchneider_2001</bcf:citekey>
-    <bcf:citekey order="40" intorder="1">Hivon_2002</bcf:citekey>
-    <bcf:citekey order="41" intorder="1">LoVerdeAfshordi_2008</bcf:citekey>
-    <bcf:citekey order="42" intorder="1">Desjacques_2018</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">RafieiRavandi_2021</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">Hivon_2002</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">Limber_1953</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">LoVerdeAfshordi_2008</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">RafieiRavandi_2021</bcf:citekey>
+    <bcf:citekey order="44" intorder="2">Shirasaki_2017</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">Desjacques_2018</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

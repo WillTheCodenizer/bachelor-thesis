@@ -1,12 +1,5 @@
 # Fdb version 4
-["biber thesis"] 1787500662 "thesis.bcf" "thesis.bbl" "thesis" 1787500675 0
-  "./references.bib" 1787500247 18433 1a86bcdc5950377b788afb9849fa8e54 ""
-  "thesis.bcf" 1787500674 110798 2eb339624b83c8969b4582847b8a3d3f "pdflatex"
-  (generated)
-  "thesis.bbl"
-  "thesis.blg"
-  (rewritten before read)
-["pdflatex"] 1787500670 "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" "thesis.pdf" "thesis" 1787500675 0
+["pdflatex"] 1787773597 "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" "thesis.pdf" "thesis" 1787773601 0
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/latinmodern-math.luc" 1696424325 637084 271a8c6faa8c6711553e54c57f484e7c ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc" 1696505741 81837 520b11fdf6ae1f8d0b92c533e28673de ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc" 1696246918 128410 12f05cf771ed69dbcb8a045587c614b5 ""
@@ -33,6 +26,7 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf" 1255129361 111536 ae9d1b331000d544f47e5223081b7b54 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf" 1255129361 110496 b9c8767d4cc3bf3f4b21f676bf89aa78 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman17-regular.otf" 1255129361 110248 1d75fdc9dbe45e70de83ff6cc79a81c9 ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman8-bold.otf" 1255129361 112404 bd8026cc46bc23039d2282e4eb9db13a ""
   "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman8-regular.otf" 1255129361 111948 cee9e390fd6d23cfb4d6871ba2a9ee5b ""
   "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmsans10-bold.otf" 1255129361 107448 a9e5b7aaaf5f74194deee407f2fd1552 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmsans10-regular.otf" 1255129361 95128 317da301f5d16ce70da8e5df556bc592 ""
@@ -256,7 +250,7 @@
   "Plots/texmaker.png" 1780221619 18692 f015087942be308a2c67da6ce54e1b7f ""
   "content/00_abstract.tex" 1784723052 437 1f7f555cd9719867c6dfb5121b0e692f ""
   "content/01_introduction.tex" 1784725237 181 d0fa0d4c5a64477b7dc9af7180bffc05 ""
-  "content/02_background.tex" 1787500657 22179 2e0da532365f3c908975dbcf446971af ""
+  "content/02_background.tex" 1787773571 24046 c165939cbfa6d46049d56b5a63d547c2 ""
   "content/03_methodology.tex" 1787495057 716 833c5bf0ca5fe9f800ba34b85d65740f ""
   "content/04_results.tex" 1784725974 87 fd2839857efc7c66859eb25c9ca1ec2c ""
   "content/05_conclusion.tex" 1784726192 54 edec3fa19eed690baa4bd6bcc7df9199 ""
@@ -265,11 +259,10 @@
   "content/a_appendix.tex" 1784723237 282 772b475cc5909b253255aa354cdbcc83 ""
   "figures/frb_sky_distribution_petroff.png" 1785597775 233392 c91bab52bc3a6d1c371a25f0f764c3dc ""
   "logos/tu-logo.pdf" 1780221619 13157 1c5905f8a3419899042add57a2182b18 ""
-  "thesis.aux" 1787500674 24057 a6b957ca0545d8f4d0bbbeebd93ec76b "pdflatex"
-  "thesis.bbl" 1787500665 60736 28523b3f186df51f866de3a9121a24eb "biber thesis"
-  "thesis.run.xml" 1787500674 2447 6dc6d7096b36570b09ad9062b6bbc292 "pdflatex"
+  "thesis.aux" 1787773601 24563 67cdecc583d1b104c4d26a328470c36b "pdflatex"
+  "thesis.run.xml" 1787773601 2447 6dc6d7096b36570b09ad9062b6bbc292 "pdflatex"
   "thesis.tex" 1786006122 6480 120ebef5004898daca5989d6461283c5 ""
-  "thesis.toc" 1787500674 2668 50cf0cd2f42d10b05a00f3e373e951a1 "pdflatex"
+  "thesis.toc" 1787773601 2668 4b70a4797cf13118d6efebc524735d72 "pdflatex"
   "tudothesis.cls" 1785501567 3679 76f619e384cb1c72a80136a70cb7b0fa ""
   (generated)
   "thesis.aux"

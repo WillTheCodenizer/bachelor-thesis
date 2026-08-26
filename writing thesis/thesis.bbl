@@ -545,6 +545,34 @@
       \verb 1602.09010
       \endverb
     \endentry
+    \entry{Limber_1953}{article}{}
+      \name{author}{1}{}{%
+        {{hash=dd9908d17d387cd7b30e029dc0e3d5b6}{%
+           family={Limber},
+           familyi={L\bibinitperiod},
+           given={D.\bibnamedelimi Nelson},
+           giveni={D\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \strng{namehash}{dd9908d17d387cd7b30e029dc0e3d5b6}
+      \strng{fullhash}{dd9908d17d387cd7b30e029dc0e3d5b6}
+      \strng{bibnamehash}{dd9908d17d387cd7b30e029dc0e3d5b6}
+      \strng{authorbibnamehash}{dd9908d17d387cd7b30e029dc0e3d5b6}
+      \strng{authornamehash}{dd9908d17d387cd7b30e029dc0e3d5b6}
+      \strng{authorfullhash}{dd9908d17d387cd7b30e029dc0e3d5b6}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Astrophysical Journal}
+      \field{title}{The Analysis of Counts of the Extragalactic Nebulae in Terms of a Fluctuating Density Field}
+      \field{volume}{117}
+      \field{year}{1953}
+      \field{pages}{134\bibrangedash 141}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1086/145661
+      \endverb
+    \endentry
     \entry{Lin_2022}{article}{}
       \name{author}{3}{}{%
         {{hash=8592454236b4239d212167c47a22f3fb}{%
@@ -1093,6 +1121,239 @@
       \verb 2012.08372
       \endverb
     \endentry
+    \entry{RafieiRavandi_2021}{article}{}
+      \name{author}{41}{}{%
+        {{hash=67f5c1015f721402819efcb4a6f718c1}{%
+           family={Rafiei-Ravandi},
+           familyi={R\bibinithyphendelim R\bibinitperiod},
+           given={Masoud},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f5896044dc6bf6852215f42cb1c0230a}{%
+           family={Smith},
+           familyi={S\bibinitperiod},
+           given={Kendrick\bibnamedelima M.},
+           giveni={K\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=c4d5fc097e0b709146f8db7ff029ef8f}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Dongzi},
+           giveni={D\bibinitperiod}}}%
+        {{hash=bb39cad03635e168cbc0760f4a7c1508}{%
+           family={Masui},
+           familyi={M\bibinitperiod},
+           given={Kiyoshi\bibnamedelima W.},
+           giveni={K\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=30d3688295bdd802dbeeed32adf7aac2}{%
+           family={Josephy},
+           familyi={J\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=1a83e4d4538c6032b271622c901eb2d7}{%
+           family={Dobbs},
+           familyi={D\bibinitperiod},
+           given={Matt},
+           giveni={M\bibinitperiod}}}%
+        {{hash=dbc20302a2076fc55584f8c8de575d05}{%
+           family={Lang},
+           familyi={L\bibinitperiod},
+           given={Dustin},
+           giveni={D\bibinitperiod}}}%
+        {{hash=7cdeb96388e3b21fa6282669581cd465}{%
+           family={Bhardwaj},
+           familyi={B\bibinitperiod},
+           given={Mohit},
+           giveni={M\bibinitperiod}}}%
+        {{hash=99c487fbafdc2385ef7f0bda5d9aa25a}{%
+           family={Patel},
+           familyi={P\bibinitperiod},
+           given={Chitrang},
+           giveni={C\bibinitperiod}}}%
+        {{hash=251dba06f04f9d8df2a462b4bf78539f}{%
+           family={Bandura},
+           familyi={B\bibinitperiod},
+           given={Kevin},
+           giveni={K\bibinitperiod}}}%
+        {{hash=13ec81d2e12a2ce90d32a63eab79e28b}{%
+           family={Berger},
+           familyi={B\bibinitperiod},
+           given={Sabrina},
+           giveni={S\bibinitperiod}}}%
+        {{hash=3148e09a76929e98eace2c15f8d8e5a1}{%
+           family={Boyle},
+           familyi={B\bibinitperiod},
+           given={P.\bibnamedelimi J.},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=0f2fa4a15faadd9898a4b03c6146b364}{%
+           family={Brar},
+           familyi={B\bibinitperiod},
+           given={Charanjot},
+           giveni={C\bibinitperiod}}}%
+        {{hash=393bd320cc05fe42bb43c9932b32f4f7}{%
+           family={Breitman},
+           familyi={B\bibinitperiod},
+           given={Daniela},
+           giveni={D\bibinitperiod}}}%
+        {{hash=f7a47424b44c8b026a4593ddf314fc4f}{%
+           family={Cassanelli},
+           familyi={C\bibinitperiod},
+           given={Tomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=fa7d5e5d2789790ce3dde94024044dda}{%
+           family={Chawla},
+           familyi={C\bibinitperiod},
+           given={Pragya},
+           giveni={P\bibinitperiod}}}%
+        {{hash=e1822eccfdddb71e5f71b14881289b6f}{%
+           family={Dong},
+           familyi={D\bibinitperiod},
+           given={Fengqiu\bibnamedelima Adam},
+           giveni={F\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=cbd62bd0962dc6be897419627827166a}{%
+           family={Fonseca},
+           familyi={F\bibinitperiod},
+           given={Emmanuel},
+           giveni={E\bibinitperiod}}}%
+        {{hash=a8b381550a2202e7e8e1c9c6cd16a9e7}{%
+           family={Gaensler},
+           familyi={G\bibinitperiod},
+           given={B.\bibnamedelimi M.},
+           giveni={B\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=37a2eb854c22bd6fc9e100182074d05e}{%
+           family={Giri},
+           familyi={G\bibinitperiod},
+           given={Utkarsh},
+           giveni={U\bibinitperiod}}}%
+        {{hash=51dfb7af99301e4cfa9a80c657628dd8}{%
+           family={Good},
+           familyi={G\bibinitperiod},
+           given={Deborah\bibnamedelima C.},
+           giveni={D\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=1124ee95edd945406609eeb02f6bbf3b}{%
+           family={Halpern},
+           familyi={H\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod}}}%
+        {{hash=122d9646d70d2257151491bd6e3a0435}{%
+           family={Kaczmarek},
+           familyi={K\bibinitperiod},
+           given={Jane},
+           giveni={J\bibinitperiod}}}%
+        {{hash=359f1e3dc0eb1dad7691549c4ddf8ac4}{%
+           family={Kaspi},
+           familyi={K\bibinitperiod},
+           given={Victoria\bibnamedelima M.},
+           giveni={V\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=f7799275777524bff8604fedc6ab1e85}{%
+           family={Leung},
+           familyi={L\bibinitperiod},
+           given={Calvin},
+           giveni={C\bibinitperiod}}}%
+        {{hash=6f50ec4e7a1273e36e10e0e75f14615a}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Hsiu-Hsien},
+           giveni={H\bibinithyphendelim H\bibinitperiod}}}%
+        {{hash=ec2e6ad764fa17a86429493d2b227918}{%
+           family={Mena-Parra},
+           familyi={M\bibinithyphendelim P\bibinitperiod},
+           given={Juan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=ec8f5faaec0de7f048d64d942bee73be}{%
+           family={Meyers},
+           familyi={M\bibinitperiod},
+           given={B.\bibnamedelimi W.},
+           giveni={B\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=203892fc8323433114ba9b702f837296}{%
+           family={Michilli},
+           familyi={M\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+        {{hash=b540ff98c0fa9d26cbe8ad29b7c4801f}{%
+           family={Münchmeyer},
+           familyi={M\bibinitperiod},
+           given={Moritz},
+           giveni={M\bibinitperiod}}}%
+        {{hash=96cb14121fb51e099a3b6abb58115f99}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Cherry},
+           giveni={C\bibinitperiod}}}%
+        {{hash=fa880a1cad93c44a4d048dd636ba1055}{%
+           family={Petroff},
+           familyi={P\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod}}}%
+        {{hash=860b4fa838f3bba4b00d0c066db7897b}{%
+           family={Pleunis},
+           familyi={P\bibinitperiod},
+           given={Ziggy},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=27a609bb796c4e950efef3dc6adb4d40}{%
+           family={Rahman},
+           familyi={R\bibinitperiod},
+           given={Mubdi},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f672b1d4140d93592624ad0b4d208a31}{%
+           family={Sanghavi},
+           familyi={S\bibinitperiod},
+           given={Pranav},
+           giveni={P\bibinitperiod}}}%
+        {{hash=ab8216bdd448386fb2c27e875e085435}{%
+           family={Scholz},
+           familyi={S\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=982d3cfff32df5d05707ea51e566152c}{%
+           family={Shin},
+           familyi={S\bibinitperiod},
+           given={Kaitlyn},
+           giveni={K\bibinitperiod}}}%
+        {{hash=146ea8dfacc721cba4f7d223ba90e1b9}{%
+           family={Stairs},
+           familyi={S\bibinitperiod},
+           given={Ingrid\bibnamedelima H.},
+           giveni={I\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=45b4ecebc7945b6949d51227becf3a03}{%
+           family={Tendulkar},
+           familyi={T\bibinitperiod},
+           given={Shriharsh\bibnamedelima P.},
+           giveni={S\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=7dcfd5ac4d08786286979a0fde37da83}{%
+           family={Vanderlinde},
+           familyi={V\bibinitperiod},
+           given={Keith},
+           giveni={K\bibinitperiod}}}%
+        {{hash=5d3ed81c23e0ef34698478d628cb52cc}{%
+           family={Zwaniga},
+           familyi={Z\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{cecc5eff4cc3baf37a47e71aa676bd06}
+      \strng{fullhash}{a9df0c8de1efd4ef4bc3b26167dcf4b1}
+      \strng{bibnamehash}{cecc5eff4cc3baf37a47e71aa676bd06}
+      \strng{authorbibnamehash}{cecc5eff4cc3baf37a47e71aa676bd06}
+      \strng{authornamehash}{cecc5eff4cc3baf37a47e71aa676bd06}
+      \strng{authorfullhash}{a9df0c8de1efd4ef4bc3b26167dcf4b1}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{The Astrophysical Journal}
+      \field{title}{{CHIME/FRB} Catalog 1 Results: Statistical Cross-correlations with Large-scale Structure}
+      \field{volume}{922}
+      \field{year}{2021}
+      \field{pages}{42}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3847/1538-4357/ac1dab
+      \endverb
+      \verb{eprint}
+      \verb 2106.04354
+      \endverb
+    \endentry
     \entry{Reischke_2021}{article}{}
       \name{author}{3}{}{%
         {{hash=feee8b9f7a9954fe55e6a43b89890eab}{%
@@ -1281,6 +1542,49 @@
       \endverb
       \verb{eprint}
       \verb 1205.6812
+      \endverb
+    \endentry
+    \entry{Shirasaki_2017}{article}{}
+      \name{author}{3}{}{%
+        {{hash=5b75124f7c415519008b7feb9e7be476}{%
+           family={Shirasaki},
+           familyi={S\bibinitperiod},
+           given={Masato},
+           giveni={M\bibinitperiod}}}%
+        {{hash=2acf86c1bd06249ce724cc75dca3bdc4}{%
+           family={Kashiyama},
+           familyi={K\bibinitperiod},
+           given={Kazumi},
+           giveni={K\bibinitperiod}}}%
+        {{hash=90a298f99b1c4d1edcac9c29e9c542b0}{%
+           family={Yoshida},
+           familyi={Y\bibinitperiod},
+           given={Naoki},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{83da2c9dc3643cf8330514d8e50ffd1d}
+      \strng{fullhash}{83da2c9dc3643cf8330514d8e50ffd1d}
+      \strng{bibnamehash}{83da2c9dc3643cf8330514d8e50ffd1d}
+      \strng{authorbibnamehash}{83da2c9dc3643cf8330514d8e50ffd1d}
+      \strng{authornamehash}{83da2c9dc3643cf8330514d8e50ffd1d}
+      \strng{authorfullhash}{83da2c9dc3643cf8330514d8e50ffd1d}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Physical Review D}
+      \field{title}{Large-scale clustering as a probe of the origin and the host environment of fast radio bursts}
+      \field{volume}{95}
+      \field{year}{2017}
+      \field{pages}{083012}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevD.95.083012
+      \endverb
+      \verb{eprint}
+      \verb 1702.07085
       \endverb
     \endentry
     \entry{SpaceCom_2018}{misc}{}
