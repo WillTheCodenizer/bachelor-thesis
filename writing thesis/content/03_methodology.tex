@@ -1,17 +1,529 @@
 \chapter{Methodology} \label{ch:methodology}
 
-Irgendwo das hier: Since luminous tracers 
+This chapter describes the analysis pipeline developed in this work to model the angular auto- and
+cross-power spectra of Fast Radio Bursts and photometrically selected galaxies. The pipeline is
+implemented in Python and follows the theoretical formalism established in
+\autoref{ch:theoretical_background}. Since luminous tracers 
 such as galaxies do not perfectly follow the underlying dark matter distribution, 
 their spatial statistics are related to the matter field through a bias parameter $b$, 
 a concept that is formalised in \autoref{sec:correlation_functions} and forms a 
 central ingredient of this work~\cite{Desjacques_2018}.
-\section{Redshift Distribution} \label{sec:redshift_distribution}
 
-\subsection{Shallow vs. Deep}
+\section{Overview of the Analysis Pipeline} \label{sec:pipeline_overview}
+The computation proceeds in four consecutive stages. First, a fiducial background cosmology is fixed
+and the corresponding distance-redshift relation is evaluated
+(\autoref{sec:fiducial_cosmology}). Second, the nonlinear matter power spectrum $P(k,z)$ is
+tabulated on a two-dimensional grid and interpolated (\autoref{sec:matter_power_spectrum}). Third,
+the radial selection functions and bias models of both tracer populations are constructed and
+combined into the radial weight functions entering the line-of-sight projection
+(\autoref{sec:redshift_distribution} to \autoref{sec:weight_functions}). Fourth, the angular power
+spectra are obtained from the Limber integral and complemented by the Poissonian shot-noise
+contribution (\autoref{sec:angular_power_spectra} and \autoref{sec:shot_noise}).
 
+All numerical operations are carried out with \texttt{NumPy}~\cite{numpy} and
+\texttt{SciPy}~\cite{scipy}. Background cosmological quantities such as the comoving distance and
+the Hubble rate are evaluated with the \texttt{astropy.cosmology} module~\cite{astropy}, while the
+linear and nonlinear matter power spectra as well as the linear growth factor are obtained from the
+\texttt{hmf} package~\cite{hmf}. All figures are produced with \texttt{Matplotlib}~\cite{matplotlib}.
 
-\section{Background Correlation} \label{sec:background_correlation}
+\section{Fiducial Cosmology and Numerical Grids} \label{sec:fiducial_cosmology}
+Throughout this work a spatially flat $\symup{\Lambda}$CDM cosmology as introduced in
+\autoref{sec:lcdm_model} is assumed. The fiducial parameter values are taken from the Planck 2018
+baseline analysis of the combined \mbox{TT,TE,EE+lowE+lensing} likelihood~\cite{Planck2018} and are
+summarised in \autoref{tab:fiducial_cosmology}. The corresponding background model is realised as a
+\texttt{FlatLambdaCDM} instance of \texttt{astropy.cosmology}~\cite{astropy}, from which the
+line-of-sight comoving distance $\chi(z)$ and the Hubble rate $H(z)$ are evaluated numerically
+following the relations given in \autoref{sec:cosmological_background}.
 
-\section{Auto-Correlation Analysis} \label{sec:auto_correlation_analysis}
+\begin{table}
+    \centering
+    \caption{Fiducial cosmological parameters assumed throughout this work. The values correspond to
+    the Planck 2018 baseline \mbox{TT,TE,EE+lowE+lensing} results~\cite{Planck2018}. The reduced
+    Hubble parameter $h$ and the dark-energy density parameter
+    $\symup{\Omega}_{\symup{\Lambda},0}$ are derived quantities, the latter following from the
+    flatness condition $\symup{\Omega}_{m,0}+\symup{\Omega}_{\symup{\Lambda},0}=1$.}
+    \label{tab:fiducial_cosmology}
+    \begin{tabular}{llS}
+        \toprule
+        Parameter & Symbol & {Value} \\
+        \midrule
+        Hubble constant          & $H_0\ [\si{\kilo\metre\per\second\per\mega\parsec}]$ & 67.36 \\
+        Reduced Hubble parameter & $h$                                  & 0.6736 \\
+        Total matter density     & $\symup{\Omega}_{m,0}$               & 0.3153 \\
+        Baryon density           & $\symup{\Omega}_{b,0}$               & 0.0493 \\
+        Dark energy density      & $\symup{\Omega}_{\symup{\Lambda},0}$ & 0.6847 \\
+        Fluctuation amplitude    & $\sigma_8$                           & 0.8111 \\
+        Scalar spectral index    & $n_s$                                & 0.9667 \\
+        CMB temperature          & $T_{\symup{CMB},0}\ [\si{\kelvin}]$  & 2.7255 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
-\section{Cross-Correlation Analysis} \label{sec:cross_correlation_analysis}
+All redshift-dependent quantities are evaluated on a common logarithmically spaced grid of
+$1000$ points covering $z\in[0.01,\,5]$. The logarithmic spacing places a comparatively large
+fraction of the sampling points at low redshift, where the comoving distance varies most rapidly
+with $z$ and where the radial weight functions of the galaxy sample are non-negligible. Angular
+power spectra are evaluated on a dense grid of integer multipoles $\ell\in[10,\,1000]$. The lower
+limit is set by the validity range of the Limber approximation discussed in
+\autoref{sec:correlation_functions}, which requires $\ell \gtrsim \mathcal{O}(10)$~\cite{Limber_1953,
+LoVerdeAfshordi_2008}, while the upper limit restricts the analysis to scales on which the halofit
+prescription for the nonlinear matter power spectrum remains reliable.
+
+\section{Nonlinear Matter Power Spectrum} \label{sec:matter_power_spectrum}
+The three-dimensional matter power spectrum $P(k,z)$ defined in
+\autoref{sec:correlation_functions} is computed with the \texttt{hmf} package~\cite{hmf}. The linear
+transfer function is evaluated using the analytic fitting formula of Eisenstein and
+Hu~\cite{EisensteinHu_1998}, which reproduces the output of full Boltzmann solvers at the level of a
+few percent while avoiding the computational cost of a Boltzmann code. Nonlinear corrections are
+applied through the halofit prescription~\cite{Smith_2003} with the revised parameters of
+Takahashi et al.~\cite{Takahashi_2012}. The linear power spectrum is normalised to the fiducial
+values of $\sigma_8$ and $n_s$ listed in \autoref{tab:fiducial_cosmology}.
+
+Since \texttt{hmf} returns wavenumbers in units of $h\,\si{\per\mega\parsec}$ and power spectra in
+units of $(\si{\mega\parsec}\,h^{-1})^{3}$, all quantities are converted to physical units through
+$k = h\,k_{\mathrm{hmf}}$ and $P = h^{-3} P_{\mathrm{hmf}}$ before entering the projection integral.
+The resulting wavenumber grid spans $\qtyrange{6.7e-9}{1.3e4}{\per\mega\parsec}$.
+
+The redshift dependence is obtained by re-evaluating the power spectrum on a grid of $120$ linearly
+spaced redshifts covering $z\in[0,\,5]$, so that the nonlinear growth of structure is treated
+self-consistently rather than through a scale-independent rescaling of the $z=0$ spectrum. The
+resulting table is converted from redshift to comoving distance and interpolated with a bicubic
+spline using the \texttt{RectBivariateSpline} routine of \texttt{SciPy}~\cite{scipy}. The
+interpolation is performed on $\log_{10} P$ as a function of $\chi$ and $\log_{10} k$, since the
+power spectrum spans many orders of magnitude in both variables and is approximately piecewise
+power-law in shape, which makes the spline considerably more accurate in logarithmic space. The
+resulting interpolator is shown in \autoref{fig:pk_nonlinear}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/pk_nonlinear.pdf}
+    \caption{Nonlinear matter power spectrum $P(k,z)$ evaluated from the bicubic spline interpolator
+    at six representative redshifts. The characteristic turnover near the matter-radiation equality
+    scale is visible at $k\sim\qty{e-2}{\per\mega\parsec}$, while the enhancement relative to the
+    linear prediction at $k\gtrsim\qty{e-1}{\per\mega\parsec}$ reflects the halofit nonlinear
+    correction. The overall amplitude decreases monotonically with redshift, as expected from the
+    growth of structure, and the suppression is strongest on small scales, where nonlinear collapse
+    has had the least time to operate at early times.}
+    \label{fig:pk_nonlinear}
+\end{figure}
+
+\section{Redshift Distributions} \label{sec:redshift_distribution}
+
+\subsection{FRB Redshift Distribution} \label{sec:frb_redshift_distribution}
+Since the FRB population considered in this work is not associated with individually measured
+redshifts, its radial selection function has to be modelled. Following
+Reischke, Hagstotz and Lilow~\cite{Reischke_2021}, the normalised FRB redshift distribution is
+assumed to take the form
+
+\begin{equation}\label{eq:frb_nz}
+    n(z) \propto z^2 \exp(-\alpha z),
+\end{equation}
+
+where the parameter $\alpha$ controls the steepness of the high-redshift tail and thereby the
+effective depth of the survey. The $z^2$ prefactor reflects the growth of the comoving volume
+element at low redshift, whereas the exponential cutoff encodes the decreasing detectability of
+bursts at large distances.
+
+Two survey configurations are considered, both taken from~\cite{Reischke_2021} and summarised in
+\autoref{tab:frb_surveys}. A shallow survey is characterised by $\alpha = 3.5$ and a total of
+$N_{\mathrm{tot}} = \num{5e3}$ detected bursts, while a deep survey is described by $\alpha = 2.0$
+and $N_{\mathrm{tot}} = \num{5e4}$ bursts. Both configurations are assumed to cover a sky fraction
+of $f_{\mathrm{sky}} = 0.9$, consistent with the near-all-sky coverage achievable by wide-field
+radio interferometers such as CHIME (\autoref{sec:fast_radio_bursts}).
+
+\begin{table}
+    \centering
+    \caption{FRB survey configurations adopted in this work, following~\cite{Reischke_2021}. The
+    steepness parameter $\alpha$ enters the redshift distribution of \autoref{eq:frb_nz}, while the
+    total number of bursts $N_{\mathrm{tot}}$ and the sky fraction $f_{\mathrm{sky}}$ determine the
+    shot-noise level according to \autoref{eq:shot_noise}.}
+    \label{tab:frb_surveys}
+    \begin{tabular}{lSSS}
+        \toprule
+        Configuration & {$\alpha$} & {$N_{\mathrm{tot}}$} & {$f_{\mathrm{sky}}$} \\
+        \midrule
+        Shallow & 3.5 & 5000  & 0.9 \\
+        Deep    & 2.0 & 50000 & 0.9 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The distribution of \autoref{eq:frb_nz} is normalised numerically on the redshift grid defined in
+\autoref{sec:fiducial_cosmology} using the composite trapezoidal rule as implemented in
+\texttt{SciPy}~\cite{scipy}, such that $\int n(z)\,\mathrm{d}z = 1$. Both distributions are shown in
+\autoref{fig:frb_nz}.
+
+Because the projection integrals of \autoref{sec:correlation_functions} are formulated in comoving
+distance rather than redshift, the distribution has to be transformed accordingly. Conservation of
+the number of sources, $n(\chi)\,\mathrm{d}\chi = n(z)\,\mathrm{d}z$, yields
+
+\begin{equation}\label{eq:jacobian}
+    n(\chi) = n(z)\,\frac{\mathrm{d}z}{\mathrm{d}\chi},
+    \qquad
+    \frac{\mathrm{d}z}{\mathrm{d}\chi} = \frac{H(z)}{c},
+\end{equation}
+
+where the Jacobian follows directly from the definition of the line-of-sight comoving distance given
+in \autoref{sec:cosmological_background}. In the implementation, $H(z)$ is evaluated with
+\texttt{astropy}~\cite{astropy} and the speed of light is taken as
+$c = \qty{2.998e5}{\kilo\metre\per\second}$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/frb_nz_shallow_deep.pdf}
+    \caption{Normalised FRB redshift distributions of \autoref{eq:frb_nz} for the shallow
+    ($\alpha=3.5$) and deep ($\alpha=2.0$) survey configuration. The shallow configuration peaks near
+    $z\approx0.6$ and falls off rapidly beyond $z\approx1.5$, whereas the deep configuration peaks
+    near $z\approx1.0$ and retains appreciable support out to $z\approx3$. The deep configuration
+    therefore overlaps substantially more with the high-redshift galaxy bins, which is the decisive
+    factor for the cross-correlation signal discussed in \autoref{sec:cross_correlation_analysis}.}
+    \label{fig:frb_nz}
+\end{figure}
+
+\subsection{Galaxy Redshift Distribution} \label{sec:galaxy_redshift_distribution}
+The galaxy sample is taken from the fifth and final data release of the Kilo-Degree Survey
+(KiDS-Legacy) introduced in \autoref{sec:kids}. In contrast to the FRB sample, the galaxy redshift
+distribution is not modelled analytically but taken directly from the calibrated tomographic
+distributions published by the KiDS collaboration~\cite{Wright_2025, KiDS_DR5}. The sample is divided
+into six tomographic bins, whose redshift distributions $n_i(z)$ are provided as tabulated values on
+a regular grid of bin centres with spacing $\symup{\Delta}z = 0.05$. These distributions are the
+result of the calibration procedure applied to approximately $126\,000$ spectroscopically confirmed
+sources, so that the residual photometric-redshift bias is already accounted for at the level of the
+published $n_i(z)$~\cite{Wright_2025}. No further cuts are applied to the sample in this work.
+
+In order to combine the galaxy distributions with the FRB distributions, the tabulated $n_i(z)$ are
+linearly interpolated onto the common redshift grid of \autoref{sec:fiducial_cosmology}. Outside the
+tabulated range the distributions are set to zero, reflecting the absence of calibrated sources
+beyond the support of the published data. Each interpolated bin is subsequently re-normalised to
+unit area using the trapezoidal rule, which compensates for the small amount of probability mass lost
+in the interpolation and truncation. The resulting distributions are shown in
+\autoref{fig:galaxy_nz}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/galaxy_nz_bins.pdf}
+    \caption{Tomographic redshift distributions $n_i(z)$ of the six KiDS-Legacy galaxy bins as
+    published in~\cite{Wright_2025}. The bins are ordered by increasing photometric redshift and
+    exhibit the characteristic overlap of photometrically selected samples, with pronounced tails
+    extending into neighbouring bins. The low-redshift bins are narrow and well localised, whereas
+    the highest bin is considerably broader, reflecting the degrading photometric redshift precision
+    at faint magnitudes.}
+    \label{fig:galaxy_nz}
+\end{figure}
+
+\section{Tracer Bias Models} \label{sec:bias_models}
+
+\subsection{FRB Host-Population Bias} \label{sec:frb_bias}
+As motivated in \autoref{sec:progenitor_mechanisms}, the two dominant progenitor classes are expected
+to trace the underlying matter distribution differently. Magnetars formed in core-collapse supernovae
+closely follow the cosmic star-formation history and therefore preferentially reside in young,
+actively star-forming environments, whereas neutron stars produced through delayed formation channels
+populate older and more massive hosts, whose clustering evolves more slowly with
+redshift~\cite{Lin_2022, Pelliciari_2023}.
+
+This difference is encoded in a redshift-dependent linear bias of the power-law form
+
+\begin{equation}\label{eq:frb_bias}
+    b(z) = b_0 \, (1+z)^{\delta},
+\end{equation}
+
+where $b_0$ denotes the bias amplitude at $z=0$ and the exponent $\delta$ parameterises its redshift
+evolution. This parameterisation is deliberately minimal: it captures the monotonic growth of the
+bias of a fixed tracer population with redshift using only two parameters, both of which carry a
+direct physical interpretation. The fiducial values adopted for the two progenitor classes are listed
+in \autoref{tab:frb_bias} and shown in \autoref{fig:frb_bias}. The magnetar channel is assigned a low
+amplitude but a steep evolution, consistent with a young population whose host haloes become
+progressively rarer, and therefore more strongly biased, towards higher redshift. The delayed
+neutron-star channel is assigned a higher amplitude but a much shallower evolution, reflecting a
+population that resides in massive hosts already at low redshift and whose clustering is largely
+decoupled from the instantaneous star-formation rate.
+
+% TODO: Quelle fuer die fiduziellen Bias-Werte (b0 und delta je Progenitor-Klasse) eintragen.
+\begin{table}
+    \centering
+    \caption{Fiducial parameters of the FRB host-population bias model of \autoref{eq:frb_bias} for
+    the two progenitor classes considered in this work~\cite{TODO_frb_bias}. The two classes differ
+    both in amplitude and in redshift evolution, such that they can in principle be distinguished
+    through their clustering signal.}
+    \label{tab:frb_bias}
+    \begin{tabular}{lSS}
+        \toprule
+        Progenitor class & {$b_0$} & {$\delta$} \\
+        \midrule
+        Magnetars     & 1.0 & 0.8 \\
+        Neutron stars & 1.5 & 0.2 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/frb_bias_bz.pdf}
+    \caption{Redshift-dependent linear bias $b(z)$ of the two FRB host populations according to
+    \autoref{eq:frb_bias}. The magnetar model starts at a lower amplitude but grows more steeply, so
+    that the two curves intersect near $z\approx1$. Below this redshift the delayed neutron-star
+    population is the more strongly biased tracer, above it the magnetar population dominates. This
+    crossing is the reason why the two models cannot be distinguished by the clustering amplitude at
+    a single redshift alone and why the radial overlap with tomographic galaxy bins carries
+    additional information.}
+    \label{fig:frb_bias}
+\end{figure}
+
+\subsection{Galaxy Bias} \label{sec:galaxy_bias}
+For the galaxy sample a constant-clustering bias model is adopted, in which the comoving clustering
+amplitude of the sample is assumed to remain constant over the redshift range spanned by each
+tomographic bin. Under this assumption the bias evolves inversely with the linear growth factor,
+
+\begin{equation}\label{eq:galaxy_bias}
+    b_g^{\,i} = \frac{0.95}{D_+(\langle z \rangle_i)},
+\end{equation}
+
+which is the standard prescription used in photometric survey forecasts~\cite{Amendola_2018}. Here
+$D_+(z)$ denotes the linear growth factor normalised to $D_+(0)=1$, evaluated with
+\texttt{hmf}~\cite{hmf}, and $\langle z \rangle_i$ is the mean redshift of the $i$-th tomographic
+bin. The latter is computed from the tabulated distributions as the discrete first moment
+
+\begin{equation*}
+    \langle z \rangle_i
+    =
+    \frac{\sum_j z_j \, n_i(z_j)}{\sum_j n_i(z_j)}.
+\end{equation*}
+
+Since \autoref{eq:galaxy_bias} is evaluated at the mean redshift of the bin rather than at every
+sampling point, each tomographic bin is assigned a single constant bias value. This is a deliberate
+simplification: the bias is a slowly varying function across the width of an individual bin, so that
+replacing it by its value at the effective redshift introduces an error that is small compared to
+the uncertainty of the bias model itself. The resulting mean redshifts and bias values are listed in
+\autoref{tab:galaxy_bins}.
+
+\begin{table}
+    \centering
+    \caption{Properties of the six KiDS-Legacy tomographic galaxy bins. The mean redshift
+    $\langle z \rangle_i$ is computed from the published redshift distributions, the bias
+    $b_g^{\,i}$ follows from \autoref{eq:galaxy_bias}, and the projected number density
+    $\bar{n}_i$ is taken from the KiDS-Legacy release~\cite{Wright_2025, KiDS_DR5} and determines the
+    galaxy shot noise according to \autoref{eq:shot_noise}.}
+    \label{tab:galaxy_bins}
+    \begin{tabular}{cSSS}
+        \toprule
+        Bin & {$\langle z \rangle_i$} & {$b_g^{\,i}$} & {$\bar{n}_i\ [\si{\per\arcmin\squared}]$} \\
+        \midrule
+        1 & 0.335 & 1.135 & 1.688 \\
+        2 & 0.477 & 1.221 & 1.574 \\
+        3 & 0.587 & 1.291 & 1.429 \\
+        4 & 0.789 & 1.423 & 1.391 \\
+        5 & 0.940 & 1.525 & 1.283 \\
+        6 & 1.224 & 1.721 & 1.019 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Radial Weight Functions} \label{sec:weight_functions}
+The radial kernels $W^A(\chi)$ and $W^B(\chi)$ introduced in \autoref{eq:projected_field} weight the
+three-dimensional density contrast along the line of sight. For a discrete tracer population whose
+fluctuations are related to the matter density contrast by a linear bias, the kernel is given by the
+product of the normalised radial selection function and the bias of the population.
+
+For the FRB sample the weight function is therefore constructed on the redshift grid as
+
+\begin{equation}\label{eq:weight_frb}
+    W_{\mathrm{FRB}}(z) = b(z) \, n(z),
+\end{equation}
+
+with $n(z)$ from \autoref{eq:frb_nz} and $b(z)$ from \autoref{eq:frb_bias}. It is important to note
+that only the redshift distribution $n(z)$ is normalised to unit area, whereas the product in
+\autoref{eq:weight_frb} is deliberately left un-normalised. Normalising the weight function itself
+would divide out the bias amplitude $b_0$ and thereby remove precisely the information that the
+clustering measurement is meant to constrain.
+
+For the galaxy sample the corresponding kernel of the $i$-th tomographic bin reads
+
+\begin{equation}\label{eq:weight_galaxy}
+    W_g^{\,i}(z) = b_g^{\,i} \, n_i(z),
+\end{equation}
+
+where the constant bias factor of \autoref{eq:galaxy_bias} can be pulled out of the redshift
+dependence.
+
+Both kernels are subsequently transformed to comoving distance using the Jacobian of
+\autoref{eq:jacobian},
+
+\begin{equation}\label{eq:weight_chi}
+    W(\chi) = W(z) \, \frac{H(z)}{c},
+\end{equation}
+
+which yields the radial kernels entering the projection integral. All integrals over the redshift
+grid required for the normalisation of the distributions are evaluated with the composite
+trapezoidal rule provided by \texttt{SciPy}~\cite{scipy}, which is sufficiently accurate given the
+dense sampling of the redshift grid and the smoothness of the integrands.
+
+\section{Angular Power Spectrum Computation} \label{sec:angular_power_spectra}
+The angular power spectra are computed from the Limber-approximated projection integral of
+\autoref{eq:limber}. Rather than relying on an external angular power spectrum code, the integral is
+evaluated directly with a custom implementation, which keeps the treatment of the weight functions
+fully transparent and allows the bias parameters to be varied without recomputing the matter power
+spectrum.
+
+Two approximations enter this step. First, the Limber approximation itself replaces the double
+radial integral over spherical Bessel functions by a single line-of-sight integral, which is
+accurate for broad radial kernels and multipoles
+$\ell \gtrsim \mathcal{O}(10)$~\cite{Limber_1953}. Both the FRB and the galaxy kernels are broad in
+comparison with the scales probed here, so this condition is comfortably satisfied over the adopted
+multipole range. Second, the extended form $k = (\ell + 1/2)/\chi$ is used instead of
+$k = \ell/\chi$, which substantially reduces the residual error of the approximation at moderate
+multipoles~\cite{LoVerdeAfshordi_2008}.
+
+For each multipole the integrand
+
+\begin{equation*}
+    \frac{W^{A}(\chi)\,W^{B}(\chi)}{\chi^2}\,
+    P\!\left(k = \frac{\ell+1/2}{\chi},\, z(\chi)\right)
+\end{equation*}
+
+is evaluated on the comoving-distance grid corresponding to the redshift grid of
+\autoref{sec:fiducial_cosmology} and integrated with the composite trapezoidal rule. Sampling points
+for which the associated wavenumber falls outside the validity range of the power spectrum
+interpolator are excluded from the integration, so that the spline is never evaluated by
+extrapolation. Because the excluded region corresponds to wavenumbers at which the power spectrum is
+many orders of magnitude below its peak, the neglected contribution to the integral is negligible.
+
+\subsection{Auto-Correlation Analysis} \label{sec:auto_correlation_analysis}
+For the auto-correlation of a single tracer population, the two kernels in \autoref{eq:limber}
+coincide, $W^A = W^B$, and the projection integral reduces to a weighted line-of-sight average of
+the matter power spectrum. Auto-spectra are computed for both FRB survey configurations and both
+progenitor classes, as well as for each of the six tomographic galaxy bins.
+
+In contrast to the cross-spectra discussed below, auto-spectra receive an additive Poissonian
+shot-noise contribution from the discreteness of the tracer field, which is treated in
+\autoref{sec:shot_noise}. \autoref{fig:frb_cell_shotnoise} illustrates the relative importance of
+signal and noise for a representative FRB configuration, while \autoref{fig:frb_cell_comparison}
+compares the signal-only spectra of the two survey configurations for both progenitor classes. The
+galaxy auto-spectra of all six tomographic bins are shown in \autoref{fig:galaxy_cell_comparison}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/frb_cell_magnetar_shallow_shotnoise.pdf}
+    \caption{FRB auto-correlation angular power spectrum for the magnetar population in the shallow
+    survey configuration, shown with and without the Poissonian shot-noise contribution. The
+    clustering signal peaks at $\ell\approx20$ and falls off steeply thereafter, whereas the shot
+    noise is scale-independent and exceeds the signal by roughly three orders of magnitude across
+    the entire multipole range. For a burst sample of only $\num{5e3}$ events the FRB
+    auto-correlation is therefore completely noise-dominated, which is the central motivation for
+    combining it with a dense galaxy sample in a cross-correlation analysis.}
+    \label{fig:frb_cell_shotnoise}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.72\textwidth]{figures/frb_cell_magnetar_comparison.pdf}
+    \includegraphics[width=0.72\textwidth]{figures/frb_cell_neutron_star_comparison.pdf}
+    \caption{Signal-only FRB auto-correlation angular power spectra for the shallow and deep survey
+    configuration, shown for the magnetar population (top) and the delayed neutron-star population
+    (bottom). In both cases the shallow configuration yields the larger amplitude, since its
+    narrower redshift distribution projects a smaller radial range onto the same angular scale and
+    therefore suffers less from line-of-sight dilution. Comparing the two panels shows that the
+    choice of progenitor model changes the overall amplitude but leaves the shape of the spectrum
+    largely unaffected, which illustrates the degeneracy between bias amplitude and redshift
+    evolution in the auto-spectrum alone.}
+    \label{fig:frb_cell_comparison}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/galaxy_cell_comparison.pdf}
+    \caption{Signal-only galaxy auto-correlation angular power spectra of the six KiDS-Legacy
+    tomographic bins. The amplitude decreases systematically from the low-redshift to the
+    high-redshift bins: although the bias increases with redshift according to
+    \autoref{eq:galaxy_bias}, this is more than compensated by the broader radial extent of the
+    high-redshift bins and by the smaller amplitude of the matter power spectrum at earlier times.
+    In addition, the peak of the spectrum shifts towards higher multipoles for the higher bins,
+    since a fixed comoving scale subtends a smaller angle when viewed from a larger distance.}
+    \label{fig:galaxy_cell_comparison}
+\end{figure}
+
+\subsection{Cross-Correlation Analysis} \label{sec:cross_correlation_analysis}
+The angular cross-power spectrum between the FRB sample and the $i$-th tomographic galaxy bin is
+obtained from \autoref{eq:limber} by inserting the two distinct kernels of \autoref{eq:weight_frb}
+and \autoref{eq:weight_galaxy}. Cross-spectra are computed for all combinations of two progenitor
+classes, two survey configurations and six tomographic bins, yielding $2\times2\times6 = 24$ spectra
+in total.
+
+No shot-noise term is added to the cross-spectra. The Poissonian contribution to a cross-spectrum
+arises only from objects that are common to both catalogues; for two distinct tracer populations the
+discreteness noise is statistically independent and averages to zero. Strictly speaking, FRBs reside
+in galaxies and a subset of their hosts may be contained in the KiDS sample, which would introduce a
+small residual Poisson term. Given the vast difference in number density between the two samples,
+this contribution is neglected here.
+
+The resulting spectra are presented in three complementary ways.
+\autoref{fig:cross_bin_comparison} compares the six tomographic bins for a fixed progenitor class
+and survey configuration, \autoref{fig:cross_population} contrasts the two progenitor classes, and
+\autoref{fig:cross_survey} contrasts the two survey configurations.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/cross_bin_comparison_magnetar_deep.pdf}
+    \caption{FRB$\times$galaxy angular cross-power spectra for the magnetar population in the deep
+    survey configuration, shown separately for the six tomographic galaxy bins. The amplitude
+    decreases monotonically from the first to the sixth bin, directly reflecting the decreasing
+    radial overlap between the FRB redshift distribution of \autoref{fig:frb_nz} and the
+    progressively higher-redshift galaxy bins of \autoref{fig:galaxy_nz}. The cross-spectrum
+    therefore acts as a tomographic probe of the FRB redshift distribution.}
+    \label{fig:cross_bin_comparison}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/cross_population_deep.pdf}
+    \caption{Comparison of the FRB$\times$galaxy cross-power spectra of the magnetar and the delayed
+    neutron-star population in the deep survey configuration, shown for all six tomographic galaxy
+    bins. The neutron-star model produces the larger amplitude in all but the highest tomographic
+    bin, since its bias exceeds that of the magnetar model below $z\approx1$
+    (\autoref{fig:frb_bias}). In the sixth bin, whose mean redshift lies above the crossing point of
+    the two bias models, the two predictions become nearly indistinguishable. The separation between
+    the progenitor classes is thus bin-dependent, which is what makes a tomographic
+    cross-correlation analysis informative.}
+    \label{fig:cross_population}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/cross_survey_magnetar.pdf}
+    \caption{Comparison of the FRB$\times$galaxy cross-power spectra of the shallow and deep survey
+    configuration for the magnetar population, shown for all six tomographic galaxy bins. The
+    shallow configuration yields the stronger signal in the low-redshift bins because its redshift
+    distribution is concentrated there, whereas the deep configuration produces a much flatter
+    dependence on bin index and retains comparatively more signal at high redshift.}
+    \label{fig:cross_survey}
+\end{figure}
+
+\section{Shot Noise and Survey Coverage} \label{sec:shot_noise}
+Because both tracers are discrete point processes, the measured auto-spectra contain an additive
+Poissonian noise term. For a sample of mean projected number density $\bar{n}$ per steradian, this
+contribution is scale-independent and given by
+
+\begin{equation}\label{eq:shot_noise}
+    N_{\ell} = \frac{1}{\bar{n}}.
+\end{equation}
+
+For the FRB samples the number density follows from the total number of detected bursts and the
+observed sky fraction listed in \autoref{tab:frb_surveys},
+
+\begin{equation*}
+    \bar{n}_{\mathrm{FRB}} = \frac{N_{\mathrm{tot}}}{4\pi f_{\mathrm{sky}}},
+\end{equation*}
+
+which yields $N_{\ell} = \num{2.26e-3}$ for the shallow and $N_{\ell} = \num{2.26e-4}$ for the deep
+configuration. For the galaxy sample the per-bin number densities of \autoref{tab:galaxy_bins} are
+used directly. Since these are published in units of $\si{\per\arcmin\squared}$ while the angular
+power spectra are dimensionless, they are converted to inverse steradians through the factor
+$(10800/\pi)^2 \approx \num{1.18e7}$ before \autoref{eq:shot_noise} is applied. Neglecting this
+conversion would misestimate the galaxy shot noise by more than seven orders of magnitude.
+
+Finally, the incomplete sky coverage of a realistic survey is accounted for only through the sky
+fraction $f_{\mathrm{sky}}$. A measurement on a masked sky does not yield the true angular power
+spectrum but a mode-coupled pseudo-spectrum, whose deconvolution requires the full mode-coupling
+matrix of the survey mask~\cite{Hivon_2002}. As this work is concerned with the theoretical
+prediction of the angular power spectra rather than with their estimation from observed maps, no
+mask is applied and no mode-coupling correction is performed; the effect of partial sky coverage
+enters solely through the reduced number of independent modes per multipole.

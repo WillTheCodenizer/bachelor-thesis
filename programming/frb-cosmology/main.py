@@ -35,6 +35,8 @@ from src.distributions import (
     interpolate_galaxy_bins,
     build_galaxy_weights,
     weight_frb,
+    n_z,
+    bias,
 )
 from src.fisher import (
     compute_frb_cells,
@@ -116,6 +118,9 @@ def _run_frb_pipeline(P_interp, k_min, k_max):
         ("Magnetars", "magnetar", MAGNETAR_B0, MAGNETAR_DELTA),
         ("Neutron Stars", "neutron_star", NEUTRON_STAR_B0, NEUTRON_STAR_DELTA),
     ]
+
+    _plot_frb_nz(FRB_PLOT_DIR)
+    _plot_frb_bias(populations, FRB_PLOT_DIR)
 
     # Shot noise depends on survey counts/f_sky and is shared across populations.
     N_shot_shallow = compute_shot_noise_from_counts(N_TOTAL_SHALLOW, F_SKY_FRB)
@@ -328,6 +333,50 @@ def _plot_pk(k_phys, P_interp, plot_dir):
     fig.savefig(os.path.join(plot_dir, "Pk_nonlinear.png"), dpi=200)
     plt.close(fig)
     print("  Saved Pk_nonlinear.pdf / .png")
+
+
+def _plot_frb_nz(plot_dir):
+    """Plot the normalised FRB redshift distributions of both survey configurations."""
+    fig, ax = plt.subplots(figsize=(7, 5))
+
+    ax.plot(Z_ARR, n_z(Z_ARR, ALPHA_SHALLOW), linewidth=1.8,
+            label=rf"Shallow ($\alpha={ALPHA_SHALLOW}$)")
+    ax.plot(Z_ARR, n_z(Z_ARR, ALPHA_DEEP), linewidth=1.8, linestyle="--",
+            label=rf"Deep ($\alpha={ALPHA_DEEP}$)")
+
+    ax.set_xlabel(r"Redshift $z$")
+    ax.set_ylabel(r"$n(z)$")
+    ax.set_title("FRB Redshift Distributions: Shallow vs Deep Survey")
+    ax.legend(loc="best")
+    fig.tight_layout()
+    fig.savefig(os.path.join(plot_dir, "FRB_nz_shallow_deep.pdf"))
+    fig.savefig(os.path.join(plot_dir, "FRB_nz_shallow_deep.png"), dpi=200)
+    plt.close(fig)
+    print("  Saved FRB_nz_shallow_deep.pdf / .png")
+
+
+def _plot_frb_bias(populations, plot_dir):
+    """Plot the FRB host-population bias b(z) for every progenitor class."""
+    fig, ax = plt.subplots(figsize=(7, 5))
+
+    for (population_label, _, b0, delta), linestyle in zip(populations, ["-", "--"]):
+        ax.plot(
+            Z_ARR,
+            bias(Z_ARR, b0, delta),
+            linewidth=1.8,
+            linestyle=linestyle,
+            label=rf"{population_label} ($b_0={b0}$, $\delta={delta}$)",
+        )
+
+    ax.set_xlabel(r"Redshift $z$")
+    ax.set_ylabel(r"$b(z)$")
+    ax.set_title("FRB Host-Population Bias Models")
+    ax.legend(loc="best")
+    fig.tight_layout()
+    fig.savefig(os.path.join(plot_dir, "FRB_bias_bz.pdf"))
+    fig.savefig(os.path.join(plot_dir, "FRB_bias_bz.png"), dpi=200)
+    plt.close(fig)
+    print("  Saved FRB_bias_bz.pdf / .png")
 
 
 def _plot_galaxy_nz(z_mid, nz_bins, plot_dir):
