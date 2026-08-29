@@ -13,6 +13,10 @@
 % just list chapters and sections in the toc, not subsections or smaller
 \setcounter{tocdepth}{1}
 
+% keep the remaining space at the bottom of a page blank instead of stretching
+% vertical glue to force every page to the same height
+\raggedbottom
+
 %------------------------------------------------------------------------------
 %------------------------------ Fonts, Unicode, Language ----------------------
 %------------------------------------------------------------------------------
@@ -58,13 +62,18 @@
 %------------------------------------------------------------------------------
 
 \usepackage[
-  locale=DE,
+  locale=US,
   separate-uncertainty=true,
   per-mode=symbol-or-fraction,
 ]{siunitx}
 \sisetup{mode=text}
 \DeclareSIUnit\parsec{pc}
 \DeclareSIUnit{\Myr}{Myr}
+\DeclareSIUnit{\arcsec}{arcsec}
+\DeclareSIUnit{\arcmin}{arcmin}
+\DeclareSIUnit{\mag}{mag}
+\DeclareSIUnit{\deg}{deg}
+
 %------------------------------------------------------------------------------
 %-------------------------------- tables  -------------------------------------
 %------------------------------------------------------------------------------

@@ -2399,17 +2399,22 @@
     <bcf:citekey order="34" intorder="1">Ruiter_2019</bcf:citekey>
     <bcf:citekey order="35" intorder="1">Lin_2022</bcf:citekey>
     <bcf:citekey order="36" intorder="1">Lin_2022</bcf:citekey>
-    <bcf:citekey order="37" intorder="1">Bernardeau_2002</bcf:citekey>
-    <bcf:citekey order="37" intorder="2">Riotto_2003</bcf:citekey>
-    <bcf:citekey order="38" intorder="1">BartelmannSchneider_2001</bcf:citekey>
-    <bcf:citekey order="39" intorder="1">BartelmannSchneider_2001</bcf:citekey>
-    <bcf:citekey order="40" intorder="1">RafieiRavandi_2021</bcf:citekey>
-    <bcf:citekey order="41" intorder="1">Hivon_2002</bcf:citekey>
-    <bcf:citekey order="42" intorder="1">Limber_1953</bcf:citekey>
-    <bcf:citekey order="43" intorder="1">LoVerdeAfshordi_2008</bcf:citekey>
-    <bcf:citekey order="44" intorder="1">RafieiRavandi_2021</bcf:citekey>
-    <bcf:citekey order="44" intorder="2">Shirasaki_2017</bcf:citekey>
-    <bcf:citekey order="45" intorder="1">Desjacques_2018</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">deJong_2013</bcf:citekey>
+    <bcf:citekey order="37" intorder="2">Wright_2024</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">Wright_2024</bcf:citekey>
+    <bcf:citekey order="38" intorder="2">KiDS_DR5</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">Wright_2025</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">Bernardeau_2002</bcf:citekey>
+    <bcf:citekey order="40" intorder="2">Riotto_2003</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">BartelmannSchneider_2001</bcf:citekey>
+    <bcf:citekey order="42" intorder="1">BartelmannSchneider_2001</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">RafieiRavandi_2021</bcf:citekey>
+    <bcf:citekey order="44" intorder="1">Hivon_2002</bcf:citekey>
+    <bcf:citekey order="45" intorder="1">Limber_1953</bcf:citekey>
+    <bcf:citekey order="46" intorder="1">LoVerdeAfshordi_2008</bcf:citekey>
+    <bcf:citekey order="47" intorder="1">RafieiRavandi_2021</bcf:citekey>
+    <bcf:citekey order="47" intorder="2">Shirasaki_2017</bcf:citekey>
+    <bcf:citekey order="48" intorder="1">Desjacques_2018</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

@@ -8,6 +8,7 @@
 \contentsline {subsection}{\numberline {2.3.1}Repeating FRBs}{7}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Progenitor Mechanisms}{8}{subsection.2.3.2}%
 \contentsline {section}{\numberline {2.4}Galaxy Surveys and Catalogs}{9}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}The Kilo-Degree Survey}{9}{subsection.2.4.1}%
 \contentsline {section}{\numberline {2.5}Structure Formation}{9}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Correlation Functions and Angular Power Spectrum}{9}{section.2.6}%
 \contentsline {chapter}{\numberline {3}Methodology}{13}{chapter.3}%

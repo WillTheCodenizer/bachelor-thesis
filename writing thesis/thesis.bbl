@@ -489,6 +489,96 @@
       \verb https://doi.org/10.1007/s41114-018-0017-4
       \endverb
     \endentry
+    \entry{deJong_2013}{article}{}
+      \name{author}{6}{}{%
+        {{hash=0631f39ab76eed7098468078be01c9ec}{%
+           family={Jong},
+           familyi={J\bibinitperiod},
+           given={Jelte\bibnamedelimb T.\bibnamedelimi A.},
+           giveni={J\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim A\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=f845d5240e90c8503304da0565cfeca0}{%
+           family={Verdoes\bibnamedelima Kleijn},
+           familyi={V\bibinitperiod\bibinitdelim K\bibinitperiod},
+           given={Gijs\bibnamedelima A.},
+           giveni={G\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=ee6bae5e286ebf7e4bb971c0fa34ed9a}{%
+           family={Kuijken},
+           familyi={K\bibinitperiod},
+           given={Konrad\bibnamedelima H.},
+           giveni={K\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=7086f937b4263ac0c315879edef2e704}{%
+           family={Valentijn},
+           familyi={V\bibinitperiod},
+           given={Edwin\bibnamedelima A.},
+           giveni={E\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=2aedb1f1a1ab63d71edf4c1077e4e16f}{%
+           family={KiDS},
+           familyi={K\bibinitperiod}}}%
+        {{hash=88a7a8a791bf18a7a0054758aea69fc3}{%
+           family={consortiums},
+           familyi={c\bibinitperiod},
+           given={Astro-WISE},
+           giveni={A\bibinithyphendelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{15b90dbfa80558b3613a2048f5c333b9}
+      \strng{fullhash}{30b9aae5c0360db464f4d6119ce0c5a8}
+      \strng{bibnamehash}{15b90dbfa80558b3613a2048f5c333b9}
+      \strng{authorbibnamehash}{15b90dbfa80558b3613a2048f5c333b9}
+      \strng{authornamehash}{15b90dbfa80558b3613a2048f5c333b9}
+      \strng{authorfullhash}{30b9aae5c0360db464f4d6119ce0c5a8}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Experimental Astronomy}
+      \field{title}{The Kilo-Degree Survey}
+      \field{volume}{35}
+      \field{year}{2013}
+      \field{pages}{25\bibrangedash 44}
+      \range{pages}{20}
+      \verb{doi}
+      \verb 10.1007/s10686-012-9306-1
+      \endverb
+      \verb{eprint}
+      \verb 1206.1254
+      \endverb
+    \endentry
+    \entry{KiDS_DR5}{dataset}{}
+      \name{author}{1}{}{%
+        {{hash=529f3c36020c7bb4763cca9461499d5b}{%
+           family={{KiDS Collaboration}},
+           familyi={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Kilo-Degree Survey}%
+      }
+      \strng{namehash}{529f3c36020c7bb4763cca9461499d5b}
+      \strng{fullhash}{529f3c36020c7bb4763cca9461499d5b}
+      \strng{bibnamehash}{529f3c36020c7bb4763cca9461499d5b}
+      \strng{authorbibnamehash}{529f3c36020c7bb4763cca9461499d5b}
+      \strng{authornamehash}{529f3c36020c7bb4763cca9461499d5b}
+      \strng{authorfullhash}{529f3c36020c7bb4763cca9461499d5b}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{KiDS-ESO Data Release 5}
+      \field{urlday}{27}
+      \field{urlmonth}{8}
+      \field{urlyear}{2026}
+      \field{year}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://kids.strw.leidenuniv.nl/DR5/
+      \endverb
+      \verb{url}
+      \verb https://kids.strw.leidenuniv.nl/DR5/
+      \endverb
+    \endentry
     \entry{Laurent_2016}{article}{}
       \true{moreauthor}
       \true{morelabelname}
@@ -1670,6 +1760,327 @@
       \endverb
       \verb{eprint}
       \verb 2002.03507
+      \endverb
+    \endentry
+    \entry{Wright_2025}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{25}{}{%
+        {{hash=79b91d8dfb8459331d6284eb3b6bfa9c}{%
+           family={Wright},
+           familyi={W\bibinitperiod},
+           given={Angus\bibnamedelima H.},
+           giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=a04d59e0da28f8d42bfa6899a06a8fe1}{%
+           family={Hildebrandt},
+           familyi={H\bibinitperiod},
+           given={Hendrik},
+           giveni={H\bibinitperiod}}}%
+        {{hash=bde246b4d8b76e3bbc392c13dbe2675c}{%
+           family={Busch},
+           familyi={B\bibinitperiod},
+           given={Jan\bibnamedelima Luca},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+           prefix={van\bibnamedelima den},
+           prefixi={v\bibinitperiod\bibinitdelim d\bibinitperiod}}}%
+        {{hash=66ba10d84bd039e5922114f84e1ba45f}{%
+           family={Bilicki},
+           familyi={B\bibinitperiod},
+           given={Maciej},
+           giveni={M\bibinitperiod}}}%
+        {{hash=547f50bc09e412063e60ef05fa6befd4}{%
+           family={Heymans},
+           familyi={H\bibinitperiod},
+           given={Catherine},
+           giveni={C\bibinitperiod}}}%
+        {{hash=af99d1a416920854edf011e3973256ab}{%
+           family={Joachimi},
+           familyi={J\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=b95284332d80db52851c0dc17b7db5e9}{%
+           family={Mahony},
+           familyi={M\bibinitperiod},
+           given={Constance},
+           giveni={C\bibinitperiod}}}%
+        {{hash=feee8b9f7a9954fe55e6a43b89890eab}{%
+           family={Reischke},
+           familyi={R\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=19f72aebb8373542214e415de665ec25}{%
+           family={Stölzner},
+           familyi={S\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=8b04d5188f6c3e3e765b067c2e526093}{%
+           family={Wittje},
+           familyi={W\bibinitperiod},
+           given={Anna},
+           giveni={A\bibinitperiod}}}%
+        {{hash=43dcd463a69bcd8e5af81b4a5016b8ea}{%
+           family={Asgari},
+           familyi={A\bibinitperiod},
+           given={Marika},
+           giveni={M\bibinitperiod}}}%
+        {{hash=207128d60611a44a368daca2f75b12a2}{%
+           family={Chisari},
+           familyi={C\bibinitperiod},
+           given={Nora\bibnamedelima Elisa},
+           giveni={N\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=a5373500ce680bb37b669ec6cf1f5834}{%
+           family={Dvornik},
+           familyi={D\bibinitperiod},
+           given={Andrej},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5889a735b4b0ba1e30325b96977d9085}{%
+           family={Georgiou},
+           familyi={G\bibinitperiod},
+           given={Christos},
+           giveni={C\bibinitperiod}}}%
+        {{hash=8c97a95c12cb1e156f91d37136705e5d}{%
+           family={Giblin},
+           familyi={G\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=8517e4d49d336f4fc2923429df2adef0}{%
+           family={Hoekstra},
+           familyi={H\bibinitperiod},
+           given={Henk},
+           giveni={H\bibinitperiod}}}%
+        {{hash=fbd043d20c27050632997f524735c68d}{%
+           family={Jalan},
+           familyi={J\bibinitperiod},
+           given={Priyanka},
+           giveni={P\bibinitperiod}}}%
+        {{hash=bb3be50897827bca21339c54e3abd990}{%
+           family={John\bibnamedelima William},
+           familyi={J\bibinitperiod\bibinitdelim W\bibinitperiod},
+           given={Anjitha},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8a408da392886ecc3aa68ee461d07217}{%
+           family={Joudaki},
+           familyi={J\bibinitperiod},
+           given={Shahab},
+           giveni={S\bibinitperiod}}}%
+        {{hash=a2a666d7c6abbcf7ab4576807b8ea0a0}{%
+           family={Kuijken},
+           familyi={K\bibinitperiod},
+           given={Konrad},
+           giveni={K\bibinitperiod}}}%
+        {{hash=4206e3cbae99c7b51807e78419c1f767}{%
+           family={Lesci},
+           familyi={L\bibinitperiod},
+           given={Giorgio\bibnamedelima Francesco},
+           giveni={G\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=5d29c1d37cc21a4ae814f745653bb460}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Shun-Sheng},
+           giveni={S\bibinithyphendelim S\bibinitperiod}}}%
+        {{hash=728bfae2c4057922eb6203d5b69afd2d}{%
+           family={Linke},
+           familyi={L\bibinitperiod},
+           given={Laila},
+           giveni={L\bibinitperiod}}}%
+        {{hash=a60f420fb32bf3adb1e2aebebe32e559}{%
+           family={Loureiro},
+           familyi={L\bibinitperiod},
+           given={Arthur},
+           giveni={A\bibinitperiod}}}%
+        {{hash=fdd35d38a659c9adee0ab49e580df811}{%
+           family={Maturi},
+           familyi={M\bibinitperiod},
+           given={Matteo},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{62f1b6aa8f63a8114ed8588b6ba5af4f}
+      \strng{fullhash}{9d0837f2737d528be4aac288e82e30d2}
+      \strng{bibnamehash}{62f1b6aa8f63a8114ed8588b6ba5af4f}
+      \strng{authorbibnamehash}{62f1b6aa8f63a8114ed8588b6ba5af4f}
+      \strng{authornamehash}{62f1b6aa8f63a8114ed8588b6ba5af4f}
+      \strng{authorfullhash}{9d0837f2737d528be4aac288e82e30d2}
+      \field{extraname}{1}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.CO}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Astronomy \& Astrophysics}
+      \field{title}{KiDS-Legacy: Redshift distributions and their calibration}
+      \field{volume}{703}
+      \field{year}{2025}
+      \field{pages}{A144}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1051/0004-6361/202554909
+      \endverb
+      \verb{eprint}
+      \verb 2503.19440
+      \endverb
+    \endentry
+    \entry{Wright_2024}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{26}{}{%
+        {{hash=79b91d8dfb8459331d6284eb3b6bfa9c}{%
+           family={Wright},
+           familyi={W\bibinitperiod},
+           given={Angus\bibnamedelima H.},
+           giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=a2a666d7c6abbcf7ab4576807b8ea0a0}{%
+           family={Kuijken},
+           familyi={K\bibinitperiod},
+           given={Konrad},
+           giveni={K\bibinitperiod}}}%
+        {{hash=a04d59e0da28f8d42bfa6899a06a8fe1}{%
+           family={Hildebrandt},
+           familyi={H\bibinitperiod},
+           given={Hendrik},
+           giveni={H\bibinitperiod}}}%
+        {{hash=12da9f5d4834bb81d490f4328c62d780}{%
+           family={Radovich},
+           familyi={R\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod}}}%
+        {{hash=66ba10d84bd039e5922114f84e1ba45f}{%
+           family={Bilicki},
+           familyi={B\bibinitperiod},
+           given={Maciej},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a5373500ce680bb37b669ec6cf1f5834}{%
+           family={Dvornik},
+           familyi={D\bibinitperiod},
+           given={Andrej},
+           giveni={A\bibinitperiod}}}%
+        {{hash=cca9b449789ba3830de9d37434b08a7c}{%
+           family={Getman},
+           familyi={G\bibinitperiod},
+           given={Fedor},
+           giveni={F\bibinitperiod}}}%
+        {{hash=547f50bc09e412063e60ef05fa6befd4}{%
+           family={Heymans},
+           familyi={H\bibinitperiod},
+           given={Catherine},
+           giveni={C\bibinitperiod}}}%
+        {{hash=8517e4d49d336f4fc2923429df2adef0}{%
+           family={Hoekstra},
+           familyi={H\bibinitperiod},
+           given={Henk},
+           giveni={H\bibinitperiod}}}%
+        {{hash=5d29c1d37cc21a4ae814f745653bb460}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Shun-Sheng},
+           giveni={S\bibinithyphendelim S\bibinitperiod}}}%
+        {{hash=0d6a63506bce712d4f353685ccbe94f0}{%
+           family={Miller},
+           familyi={M\bibinitperiod},
+           given={Lance},
+           giveni={L\bibinitperiod}}}%
+        {{hash=7a608e466ac342806e5c6e51496644a3}{%
+           family={Napolitano},
+           familyi={N\bibinitperiod},
+           given={Nicola\bibnamedelima R.},
+           giveni={N\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=43ba6ce454924ecb5c1615caf55f84b6}{%
+           family={Xia},
+           familyi={X\bibinitperiod},
+           given={Qianli},
+           giveni={Q\bibinitperiod}}}%
+        {{hash=43dcd463a69bcd8e5af81b4a5016b8ea}{%
+           family={Asgari},
+           familyi={A\bibinitperiod},
+           given={Marika},
+           giveni={M\bibinitperiod}}}%
+        {{hash=781d29c2d14dfeb1a9617fcec3a5246f}{%
+           family={Brescia},
+           familyi={B\bibinitperiod},
+           given={Massimo},
+           giveni={M\bibinitperiod}}}%
+        {{hash=fe11ba21c728c5c00e49390fece22ad7}{%
+           family={Buddelmeijer},
+           familyi={B\bibinitperiod},
+           given={Hugo},
+           giveni={H\bibinitperiod}}}%
+        {{hash=2f1dd927b47a32f4657d26777c296106}{%
+           family={Burger},
+           familyi={B\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod}}}%
+        {{hash=7a2352b4654c5d5facd9ed1ed5c0c353}{%
+           family={Castignani},
+           familyi={C\bibinitperiod},
+           given={Gianluca},
+           giveni={G\bibinitperiod}}}%
+        {{hash=54366be1fa65f8f07ba6ed398baa47a4}{%
+           family={Cavuoti},
+           familyi={C\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod}}}%
+        {{hash=6220a46ccde6fc2ac32647993d229f11}{%
+           family={Jong},
+           familyi={J\bibinitperiod},
+           given={Jelte},
+           giveni={J\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+        {{hash=ba4aa56e425664cf09fbc17392e3750f}{%
+           family={Edge},
+           familyi={E\bibinitperiod},
+           given={Alastair},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8c97a95c12cb1e156f91d37136705e5d}{%
+           family={Giblin},
+           familyi={G\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=6ee843c069a89906cc72f6f8e9b9b886}{%
+           family={Giocoli},
+           familyi={G\bibinitperiod},
+           given={Carlo},
+           giveni={C\bibinitperiod}}}%
+        {{hash=e687cc5f1fc0d3dca4e6c2b5d5dfaafc}{%
+           family={Harnois-Deraps},
+           familyi={H\bibinithyphendelim D\bibinitperiod},
+           given={Joachim},
+           giveni={J\bibinitperiod}}}%
+        {{hash=fbd043d20c27050632997f524735c68d}{%
+           family={Jalan},
+           familyi={J\bibinitperiod},
+           given={Priyanka},
+           giveni={P\bibinitperiod}}}%
+        {{hash=af99d1a416920854edf011e3973256ab}{%
+           family={Joachimi},
+           familyi={J\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{62f1b6aa8f63a8114ed8588b6ba5af4f}
+      \strng{fullhash}{c175871735b002cbbb532a83404dcea4}
+      \strng{bibnamehash}{62f1b6aa8f63a8114ed8588b6ba5af4f}
+      \strng{authorbibnamehash}{62f1b6aa8f63a8114ed8588b6ba5af4f}
+      \strng{authornamehash}{62f1b6aa8f63a8114ed8588b6ba5af4f}
+      \strng{authorfullhash}{c175871735b002cbbb532a83404dcea4}
+      \field{extraname}{2}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{astro-ph.GA}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{Astronomy \& Astrophysics}
+      \field{title}{The fifth data release of the Kilo-Degree Survey: Multi-epoch optical/NIR imaging covering wide and legacy-calibration fields}
+      \field{volume}{686}
+      \field{year}{2024}
+      \field{pages}{A170}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1051/0004-6361/202346730
+      \endverb
+      \verb{eprint}
+      \verb 2503.19439
       \endverb
     \endentry
     \entry{Zapartas_2017}{article}{}

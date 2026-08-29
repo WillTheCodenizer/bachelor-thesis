@@ -1,5 +1,12 @@
 # Fdb version 4
-["pdflatex"] 1787773597 "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" "thesis.pdf" "thesis" 1787773601 0
+["biber thesis"] 1787824996 "thesis.bcf" "thesis.bbl" "thesis" 1787825007 0
+  "./references.bib" 1787823860 24084 46423d8759d0e48057ca60d2ee39f1d9 ""
+  "thesis.bcf" 1787825007 111415 e6be6beaa0faf7e277f2c0c0a940eab6 "pdflatex"
+  (generated)
+  "thesis.bbl"
+  "thesis.blg"
+  (rewritten before read)
+["pdflatex"] 1787825003 "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" "thesis.pdf" "thesis" 1787825007 0
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/latinmodern-math.luc" 1696424325 637084 271a8c6faa8c6711553e54c57f484e7c ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc" 1696505741 81837 520b11fdf6ae1f8d0b92c533e28673de ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc" 1696246918 128410 12f05cf771ed69dbcb8a045587c614b5 ""
@@ -18,7 +25,7 @@
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmsans10-regular.luc" 1696252343 127646 d7f0b6ffdcff41b2563bf105b8a1e7eb ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/names/luaotfload-lookup-cache.luc" 1787490866 31217 57e2ccfa2ee2f897e22301afdbfda333 ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/names/luaotfload-names.luc.gz" 1727895038 381217 159e37598b617924708783a0bdc87f9a ""
-  "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" 1786006122 6480 120ebef5004898daca5989d6461283c5 ""
+  "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" 1787823188 6597 9d4669a52b2513ff0ea70fa60dd977e3 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm-math/latinmodern-math.otf" 1429396570 733736 0b8cd5044567d896491fd777c12d5cda ""
   "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf" 1255129361 64684 15a2082c8e31f411875a86ea2d29a0ee ""
   "/usr/local/texlive/2023/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf" 1255129361 111240 0af0b64d6d3df41bead3f9de314afbd4 ""
@@ -250,7 +257,7 @@
   "Plots/texmaker.png" 1780221619 18692 f015087942be308a2c67da6ce54e1b7f ""
   "content/00_abstract.tex" 1784723052 437 1f7f555cd9719867c6dfb5121b0e692f ""
   "content/01_introduction.tex" 1784725237 181 d0fa0d4c5a64477b7dc9af7180bffc05 ""
-  "content/02_background.tex" 1787773571 24046 c165939cbfa6d46049d56b5a63d547c2 ""
+  "content/02_background.tex" 1787824988 24655 a0df5b99d243f70a143e37b59bb5ce6d ""
   "content/03_methodology.tex" 1787495057 716 833c5bf0ca5fe9f800ba34b85d65740f ""
   "content/04_results.tex" 1784725974 87 fd2839857efc7c66859eb25c9ca1ec2c ""
   "content/05_conclusion.tex" 1784726192 54 edec3fa19eed690baa4bd6bcc7df9199 ""
@@ -259,10 +266,11 @@
   "content/a_appendix.tex" 1784723237 282 772b475cc5909b253255aa354cdbcc83 ""
   "figures/frb_sky_distribution_petroff.png" 1785597775 233392 c91bab52bc3a6d1c371a25f0f764c3dc ""
   "logos/tu-logo.pdf" 1780221619 13157 1c5905f8a3419899042add57a2182b18 ""
-  "thesis.aux" 1787773601 24563 67cdecc583d1b104c4d26a328470c36b "pdflatex"
-  "thesis.run.xml" 1787773601 2447 6dc6d7096b36570b09ad9062b6bbc292 "pdflatex"
-  "thesis.tex" 1786006122 6480 120ebef5004898daca5989d6461283c5 ""
-  "thesis.toc" 1787773601 2668 4b70a4797cf13118d6efebc524735d72 "pdflatex"
+  "thesis.aux" 1787825007 25358 f29a4470f469dcfcb837862905cdb5f0 "pdflatex"
+  "thesis.bbl" 1787824998 88545 55b68d7633da577b34d7bbefb2dbc873 "biber thesis"
+  "thesis.run.xml" 1787825007 2447 6dc6d7096b36570b09ad9062b6bbc292 "pdflatex"
+  "thesis.tex" 1787823188 6597 9d4669a52b2513ff0ea70fa60dd977e3 ""
+  "thesis.toc" 1787825007 2760 74dc4c824f7f9b4f6efda2e1ab646cc5 "pdflatex"
   "tudothesis.cls" 1785501567 3679 76f619e384cb1c72a80136a70cb7b0fa ""
   (generated)
   "thesis.aux"
