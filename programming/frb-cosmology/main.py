@@ -387,6 +387,7 @@ def _plot_galaxy_nz(z_mid, nz_bins, plot_dir):
     for idx in range(nz_bins.shape[1]):
         ax.plot(z_mid, nz_bins[:, idx], linewidth=1.8, color=colors[idx], label=f"BIN{idx + 1}")
 
+    ax.set_xlim(0, 5)
     ax.set_xlabel(r"Redshift $z$")
     ax.set_ylabel(r"$n_i(z)$")
     ax.set_title("Galaxy Tomographic Redshift Distributions")

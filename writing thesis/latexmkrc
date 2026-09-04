@@ -1,6 +1,19 @@
+#!/usr/bin/env perl
+# LuaLaTeX + Biber configuration for latexmk
+
 $cleanup_mode = 1;
 $out_dir = "build";
-$pdflatex = "lualatex -interaction=nonstopmode -halt-on-error %O %S";
-$pdf_mode = 1;
-@default_files = ("thesis.tex");
-$clean_ext = "bbl run.xml"
+
+# Use custom lualatex as the PDF generation engine
+$pdf_mode = 1;         # 1 = pdflatex, but we override it with $pdflatex
+$pdflatex = 'lualatex -interaction=nonstopmode -halt-on-error %O %S';
+
+# Configure biber for bibliography
+$bibtex_use = 2;       # 2 = biber
+$biber = 'biber --output_directory=%d %O %S';
+
+# Clean up extra files
+$clean_ext = 'bbl blg run.xml aux bcf fdb_latexmk fls';
+
+# Process default file
+@default_files = ('thesis.tex');

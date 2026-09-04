@@ -15,6 +15,7 @@ configure_matplotlib_fonts()
 forecast_year = "10"
 
 yaml_file = "parameters/lsst_desc_parameters.yaml"
+lsst_nz_file = "data/LSST_Y10_nz.txt"
 
 z = np.linspace(0.0, 3.5, 500)
 
@@ -153,6 +154,15 @@ for i in range(source["n_tomo_bins"]):
     source_bins[i+1] = normalize(nz_bin)
 
 
+# ---------------------------------------------------------
+# LSST Y10 Source-Daten laden
+# ---------------------------------------------------------
+
+lsst_nz_data = np.loadtxt(lsst_nz_file, skiprows=1)
+lsst_z = lsst_nz_data[:, 0]
+lsst_source_bins = lsst_nz_data[:, 1:]
+
+
 
 # ---------------------------------------------------------
 # Plot lens
@@ -183,23 +193,23 @@ plt.show()
 
 
 # ---------------------------------------------------------
-# Plot source
+# Plot source data
 # ---------------------------------------------------------
 
 plt.figure(figsize=(9,5))
 
-for i,nz_bin in source_bins.items():
+for i in range(lsst_source_bins.shape[1]):
 
     plt.plot(
-        z,
-        nz_bin,
-        label=f"Source bin {i}"
+        lsst_z,
+        lsst_source_bins[:, i],
+        label=f"Source bin {i + 1}"
     )
 
 
 plt.xlabel("Redshift z")
 plt.ylabel(r"$p(z)$")
-plt.title("LSST Y10 Source Tomographic Bins")
+plt.title("LSST Y10 Source Tomographic Bins from Data")
 plt.legend(ncol=2)
 plt.grid(alpha=0.3)
 

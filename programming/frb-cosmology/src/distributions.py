@@ -58,7 +58,7 @@ def bias(z, b0, delta):
 
 def weight_frb(z, alpha, b0, delta):
     """
-    FRB weight function for the Limber integral: W(z) = b(z) * n(z), normalised.
+    FRB weight function for the Limber integral: W(z) = b(z) * n(z).
 
     Parameters
     ----------
