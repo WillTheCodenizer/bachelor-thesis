@@ -1,12 +1,13 @@
 # Fdb version 4
-["biber thesis"] 1788514444 "thesis.bcf" "thesis.bbl" "thesis" 1788514446 2
-  "./references.bib" 1788513273 32455 67fca867690133c701c1bd14314fa04c ""
-  "thesis.bcf" 1788514444 112920 e58a114278412d146caaeac6fbb4c73a "pdflatex"
+["biber thesis"] 1788515776 "thesis.bcf" "thesis.bbl" "thesis" 1788515779 2
+  "./references.bib" 1788515764 29235 c41a55e727a6746fd5ee69c9c244793f ""
+  "references.bib" 1788515764 29235 c41a55e727a6746fd5ee69c9c244793f ""
+  "thesis.bcf" 1788515776 112920 e58a114278412d146caaeac6fbb4c73a "pdflatex"
   (generated)
   "thesis.bbl"
   "thesis.blg"
   (rewritten before read)
-["pdflatex"] 1788514440 "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" "thesis.pdf" "thesis" 1788514446 0
+["pdflatex"] 1788515772 "/Users/willruppert/Programmieren/bachelor-thesis/writing thesis/thesis.tex" "thesis.pdf" "thesis" 1788515779 0
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/latinmodern-math.luc" 1696424325 637084 271a8c6faa8c6711553e54c57f484e7c ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc" 1696505741 81837 520b11fdf6ae1f8d0b92c533e28673de ""
   "/Users/willruppert/Library/texlive/2023/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc" 1696246918 128410 12f05cf771ed69dbcb8a045587c614b5 ""
@@ -275,10 +276,10 @@
   "figures/galaxy_nz_bins.pdf" 1788187042 301823 0eae9b54919f99fb08d44f4047f9aae9 ""
   "figures/pk_nonlinear.pdf" 1788029146 25087 ae38cfee920002d83b8bc7250d1e893c ""
   "logos/tu-logo.pdf" 1780221619 13157 1c5905f8a3419899042add57a2182b18 ""
-  "thesis.aux" 1788514444 34723 76c41449849ae7bf60b2196ee3c2729f "pdflatex"
-  "thesis.bbl" 0 -1 0 "biber thesis"
+  "thesis.aux" 1788515776 34723 76c41449849ae7bf60b2196ee3c2729f "pdflatex"
+  "thesis.bbl" 1788515779 0 d41d8cd98f00b204e9800998ecf8427e "biber thesis"
   "thesis.tex" 1788081403 6712 af04ee2595e27a336e283d2578d970fc ""
-  "thesis.toc" 1788514444 2687 c6483ac50f34c6b729095efea39d9785 "pdflatex"
+  "thesis.toc" 1788515776 2687 c6483ac50f34c6b729095efea39d9785 "pdflatex"
   "tudothesis.cls" 1785501567 3679 76f619e384cb1c72a80136a70cb7b0fa ""
   (generated)
   "thesis.aux"
