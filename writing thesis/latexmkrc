@@ -10,7 +10,7 @@ $pdflatex = 'lualatex -interaction=nonstopmode -halt-on-error %O %S';
 
 # Configure biber for bibliography
 $bibtex_use = 2;       # 2 = biber
-$biber = 'biber --output_directory=%d %O %S';
+$biber = 'biber %O %B';
 
 # Clean up extra files
 $clean_ext = 'bbl blg run.xml aux bcf fdb_latexmk fls';
