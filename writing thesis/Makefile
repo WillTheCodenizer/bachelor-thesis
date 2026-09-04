@@ -16,6 +16,14 @@ preview: FORCE
 bib-debug: build/thesis.bcf
 	biber --debug --validate-datamodel build/thesis
 
+# biber is a PAR-packed binary that unpacks its Perl libs into $TMPDIR.
+# macOS prunes /var/folders/... periodically and leaves a half-empty cache
+# behind, after which biber dies with "Unicode::UCD: failed to find
+# unicore/version" and writes a 0-byte .bbl. This forces a clean re-extract.
+bib-cache-reset:
+	rm -rf "$${TMPDIR:-/tmp}"/par-*
+	biber --version
+
 build/thesis.bcf:
 	latexmk thesis.tex
 
