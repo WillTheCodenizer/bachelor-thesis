@@ -1,31 +1,25 @@
 all: build/thesis.pdf
 
+# Engine, output directory and biber are configured once in ./latexmkrc.
+# Do not repeat --lualatex/--output-directory here, otherwise two different
+# build configurations fight over the same aux/bcf files.
 
-TeXOptions = --lualatex \
-             --interaction=nonstopmode \
-             --halt-on-error \
-             --output-directory=build
+build/thesis.pdf: FORCE
+	latexmk thesis.tex
 
-build/thesis.pdf: FORCE | build
-	latexmk $(TeXOptions) thesis.tex
-	
-preview: FORCE | build
+preview: FORCE
 	# continuous preview (open external viewer and auto-update on changes)
-	TEXINPUTS=..: \
-	BIBINPUTS=..: \
-	max_print_line=1048576 \
-	latexmk \
-	  -pvc \
-	  --lualatex \
-	  --output-directory=build \
-	  --interaction=nonstopmode \
-	  --halt-on-error \
-	thesis.tex
+	latexmk -pvc thesis.tex
+
+# Show the real biber error when the bibliography stays empty:
+# with --debug biber does not swallow the libbtparse message on stderr.
+bib-debug: build/thesis.bcf
+	biber --debug --validate-datamodel build/thesis
+
+build/thesis.bcf:
+	latexmk thesis.tex
 
 FORCE:
 
-build:
-	mkdir -p build/
-
 clean:
-	rm -rf build
+	latexmk -C

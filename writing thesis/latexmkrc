@@ -1,19 +1,25 @@
 #!/usr/bin/env perl
 # LuaLaTeX + Biber configuration for latexmk
 
-$cleanup_mode = 1;
-$out_dir = "build";
+# All generated files go here. latexmk puts $out_dir on TEXINPUTS itself, so
+# lualatex finds the thesis.bbl that biber wrote in the previous pass.
+$out_dir = 'build';
 
-# Use custom lualatex as the PDF generation engine
-$pdf_mode = 1;         # 1 = pdflatex, but we override it with $pdflatex
-$pdflatex = 'lualatex -interaction=nonstopmode -halt-on-error %O %S';
+# LuaLaTeX is the engine (the class needs fontspec/unicode-math).
+# $pdf_mode = 4 selects $lualatex. Do not use $pdf_mode = 1 with a hacked
+# $pdflatex: a caller passing -pdf would then silently use a different setup.
+$pdf_mode = 4;
+$lualatex = 'lualatex -file-line-error -interaction=nonstopmode -synctex=1 %O %S';
+
+# -halt-on-error is deliberately NOT used: it aborts the first pass (which
+# always has undefined citations because no .bbl exists yet) before biber runs.
 
 # Configure biber for bibliography
 $bibtex_use = 2;       # 2 = biber
 $biber = 'biber %O %B';
 
-# Clean up extra files
-$clean_ext = 'bbl blg run.xml aux bcf fdb_latexmk fls';
+# Extra files for `latexmk -c/-C`; aux, bcf, fls, fdb_latexmk are built in.
+$clean_ext = 'bbl run.xml synctex.gz';
 
 # Process default file
 @default_files = ('thesis.tex');

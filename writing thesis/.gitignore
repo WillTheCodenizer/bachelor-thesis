@@ -1,2 +1,21 @@
 
 *.swp
+.DS_Store
+
+# latexmk builds into ./build only - never commit generated files, a stale or
+# empty thesis.bbl committed here breaks the bibliography on the next machine.
+build/
+
+# stray artifacts from builds that ignored $out_dir
+/thesis.aux
+/thesis.bbl
+/thesis.bcf
+/thesis.blg
+/thesis.fdb_latexmk
+/thesis.fls
+/thesis.log
+/thesis.out
+/thesis.pdf
+/thesis.run.xml
+/thesis.synctex.gz
+/thesis.toc

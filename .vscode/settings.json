@@ -1,4 +1,31 @@
 {
     "python-envs.defaultEnvManager": "ms-python.python:system",
-    "python-envs.defaultPackageManager": "ms-python.python:pip"
+    "python-envs.defaultPackageManager": "ms-python.python:pip",
+    // Build the thesis exactly like `make`/`latexmk` on the command line: same
+    // engine, same output directory. Otherwise LaTeX Workshop writes a second
+    // aux/bcf/bbl/pdf set next to thesis.tex and the two builds shadow each other.
+    "latex-workshop.latex.outDir": "%DIR%/build",
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-lualatex",
+                "-file-line-error",
+                "-interaction=nonstopmode",
+                "-synctex=1",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk (lualatex + biber)",
+            "tools": [
+                "latexmk"
+            ]
+        }
+    ]
 }
