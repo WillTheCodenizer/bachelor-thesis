@@ -82,7 +82,7 @@ def weight_frb(z, alpha, b0, delta):
     return raw
 
 
-def load_galaxy_nz_data(file_path=GALAXY_NZ_FILE):
+def load_galaxy_nz_data(file_path=GALAXY_NZ_FILE, n_bins=GALAXY_N_BINS):
     """
     Load galaxy tomographic redshift distributions from a text file.
 
@@ -94,6 +94,8 @@ def load_galaxy_nz_data(file_path=GALAXY_NZ_FILE):
     ----------
     file_path : str or pathlib.Path, optional
         Path to the galaxy n(z) file.
+    n_bins : int, optional
+        Expected number of tomographic bins (columns after Z_MID).
 
     Returns
     -------
@@ -109,9 +111,9 @@ def load_galaxy_nz_data(file_path=GALAXY_NZ_FILE):
     z_mid = data[:, 0]
     nz_bins = data[:, 1:]
 
-    if nz_bins.shape[1] != GALAXY_N_BINS:
+    if nz_bins.shape[1] != n_bins:
         raise ValueError(
-            f"Expected {GALAXY_N_BINS} galaxy bins, got {nz_bins.shape[1]}."
+            f"Expected {n_bins} galaxy bins, got {nz_bins.shape[1]}."
         )
 
     return z_mid, nz_bins

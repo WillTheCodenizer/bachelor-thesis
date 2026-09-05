@@ -97,3 +97,22 @@ if GALAXY_NBAR_PER_BIN.size != GALAXY_N_BINS:
 GALAXY_NZ_FILE = (
     Path(__file__).resolve().parents[1] / "data" / "KiDS_Legacy_nz.txt"
 )
+
+# =============================================================================
+# LSST Y10 galaxy tomography parameters (10-bin lens sample)
+# =============================================================================
+LSST_N_BINS = 10                          # Number of LSST Y10 lens tomographic bins
+
+# Tomographic n(z) distributions for the LSST Y10 lens sample.
+LSST_NZ_FILE = (
+    Path(__file__).resolve().parents[1] / "data" / "LSST_Y10_nz.txt"
+)
+
+# LSST Y10 lens number density [arcmin^-2], split equally across all bins.
+LSST_NGAL_TOTAL = 26.94                    # Total lens number density [arcmin^-2]
+LSST_NBAR_PER_BIN = (
+    np.full(LSST_N_BINS, LSST_NGAL_TOTAL / LSST_N_BINS) * ARCMIN2_PER_STERADIAN
+)
+
+# Fisher forecast sky fraction: LSST Y10 footprint (18000 deg²)
+F_SKY_FISHER_LSST = 18000.0 / (4.0 * np.pi * (180.0 / np.pi) ** 2)

@@ -13,13 +13,13 @@ at a ±1% perturbation around the fiducial parameter values.
 
 Two forecast modes:
   - 'frb_only'    : 1×1 covariance using only C_ell^ff
-  - 'multitracer' : 7×7 covariance using [g1, g2, g3, g4, g5, g6, FRB]
+  - 'multitracer' : (N+1)×(N+1) covariance using [g1, ..., gN, FRB]
 """
 
 import numpy as np
 from scipy.stats import chi2 as chi2_dist
 
-from config.parameters import GALAXY_N_BINS, Z_ARR, ELL_ARR
+from config.parameters import Z_ARR, ELL_ARR
 from src.angular_power_spectrum import compute_cell_from_weight, compute_cell_cross_correlation
 from src.distributions import weight_frb
 
@@ -57,9 +57,10 @@ def compute_frb_cells(alpha, b0, delta, weights_galaxy, P_interp, k_min, k_max):
     w_frb = weight_frb(Z_ARR, alpha, b0, delta)
     _, cell_ff = compute_cell_from_weight(w_frb, P_interp, k_min, k_max)
 
+    n_bins = weights_galaxy.shape[1]
     n_ell = len(ELL_ARR)
-    cell_gf = np.zeros((GALAXY_N_BINS, n_ell))
-    for i in range(GALAXY_N_BINS):
+    cell_gf = np.zeros((n_bins, n_ell))
+    for i in range(n_bins):
         _, cell_gf[i] = compute_cell_cross_correlation(
             weights_galaxy[:, i], w_frb, P_interp, k_min, k_max
         )
@@ -88,11 +89,12 @@ def compute_galaxy_cells(weights_galaxy, P_interp, k_min, k_max):
     cell_gg : ndarray, shape (6, 6, n_ell)
         Symmetric galaxy auto- and cross-correlation spectra.
     """
+    n_bins = weights_galaxy.shape[1]
     n_ell = len(ELL_ARR)
-    cell_gg = np.zeros((GALAXY_N_BINS, GALAXY_N_BINS, n_ell))
+    cell_gg = np.zeros((n_bins, n_bins, n_ell))
 
-    for i in range(GALAXY_N_BINS):
-        for j in range(i, GALAXY_N_BINS):
+    for i in range(n_bins):
+        for j in range(i, n_bins):
             if i == j:
                 _, c = compute_cell_from_weight(
                     weights_galaxy[:, i], P_interp, k_min, k_max
@@ -250,8 +252,8 @@ def compute_fisher_matrix(cell_ff, cell_gg, cell_gf,
 
     # ── Multi-tracer forecast ───────────────────────────────────────────────
     elif mode == 'multitracer':
-        n_bins = GALAXY_N_BINS
-        n_tracers = n_bins + 1  # ordering: [g1, g2, g3, g4, g5, g6, FRB]
+        n_bins = cell_gg.shape[0]
+        n_tracers = n_bins + 1  # ordering: [g1, ..., gN, FRB]
 
         # Build full 7×7 observed covariance matrices for all multipoles
         # Shape: (n_ell, n_tracers, n_tracers)
