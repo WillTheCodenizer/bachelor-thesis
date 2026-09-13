@@ -6,6 +6,12 @@
   cleardoublepage=plain,  % no header/footer on blank pages
 ]{tudothesis}
 
+%\usepackage[
+%  left=3cm,
+%  right=2.5cm,
+%  top=3cm,
+%  bottom=3cm
+%]{geometry}
 
 % Warning, if another latex run is needed
 \usepackage[aux]{rerunfilecheck}
@@ -126,6 +132,16 @@
 
 % Last packages, do not change order or insert new packages after these ones
 \usepackage[pdfusetitle, unicode, linkbordercolor=tugreen, citebordercolor=tugreen]{hyperref}
+\addto\extrasamerican{%
+  \renewcommand{\chapterautorefname}{Section}%
+  \renewcommand{\sectionautorefname}{Section}%
+  \renewcommand{\subsectionautorefname}{Section}%
+}
+\addto\extrasngerman{%
+  \renewcommand{\chapterautorefname}{Section}%
+  \renewcommand{\sectionautorefname}{Section}%
+  \renewcommand{\subsectionautorefname}{Section}%
+}
 \usepackage{bookmark}
 \usepackage[shortcuts]{extdash}
 
