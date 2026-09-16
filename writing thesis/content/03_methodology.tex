@@ -182,17 +182,9 @@ This difference is encoded in a redshift-dependent linear bias of the power-law 
 \end{equation}
 
 where $b_0$ denotes the bias amplitude at $z=0$ and the exponent $\delta$ parameterizes its redshift
-evolution. The fiducial values adopted for the two progenitor classes are listed
-in \autoref{tab:frb_bias}. The magnetar channel is assigned a low
-amplitude but a steep evolution, consistent with a young population whose host haloes become
-progressively rarer, and therefore more strongly biased, toward higher redshift. The delayed
-neutron-star channel is assigned a higher amplitude but a much shallower evolution, reflecting a
-population that resides in massive hosts already at low redshift and whose clustering is largely
-decoupled from the instantaneous star-formation rate.
+evolution~\cite{Pan_2020}. The fiducial values adopted for the two progenitor classes are listed
+in \autoref{tab:frb_bias}
 
-% TODO: Quelle fuer die fiduziellen Bias-Werte (b0 und delta je Progenitor-Klasse) eintragen
-% und hier zitieren. Solange keine Quelle steht, darf hier KEIN \cite mit Platzhalter-Key
-% stehen -- ein unbekannter Key laesst die Referenz im PDF als "?" erscheinen.
 \begin{table} [H]
     \centering
     \caption{Fiducial parameters of the FRB host population bias model of \autoref{eq:frb_bias} for
@@ -207,7 +199,20 @@ decoupled from the instantaneous star-formation rate.
         \bottomrule
     \end{tabular}
 \end{table}
-HIER NOCH QUELLE FINDEN
+
+and shown in \autoref{fig:frb_bias}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/frb_bias_bz.pdf}
+    \caption{The magnetar channel is assigned a low
+    amplitude but a steep evolution, consistent with a young population whose host haloes become
+    progressively rarer, and therefore more strongly biased, toward higher redshift. The delayed
+    neutron-star channel is assigned a higher amplitude but a much shallower evolution, reflecting a
+    relatively older population that resides in massive hosts already at low redshift and whose clustering is largely
+    decoupled from the instantaneous star-formation rate.}
+    \label{fig:frb_bias}
+\end{figure}
 
 \subsection{Galaxy Bias} \label{sec:galaxy_bias}
 For the galaxy sample a constant-clustering bias model is adopted, in which the comoving clustering
@@ -275,13 +280,14 @@ For the FRB sample the weight function is therefore constructed on the redshift 
 \end{equation}
 
 with $n(z)$ from \autoref{eq:frb_nz} and $b(z)$ from \autoref{eq:frb_bias}. 
-
-For the galaxy sample the corresponding kernel of the $i$-th tomographic bin reads
+For the galaxy sample, the radial kernel of the $i$-th tomographic bin is given by
 
 \begin{equation}\label{eq:weight_galaxy}
-    W_g^{\,i}(z) = b_g^{\,i} \, n_i(z).
+    W_g^{\,i}(z) = b_g^{\,i} \, n_i(z),
 \end{equation}
 
+where $b_g^{\,i}$ is the galaxy bias and $n_i(z)$ is the normalized redshift
+distribution of the corresponding bin~\cite{Muir_2020}.
 Both kernels are subsequently transformed to comoving distance using the Jacobian introduced in \autoref{sec:frb_redshift_distribution}:
 
 \begin{equation}\label{eq:weight_chi}
@@ -289,8 +295,6 @@ Both kernels are subsequently transformed to comoving distance using the Jacobia
 \end{equation}
 
 which gives the radial kernels entering the projection integral.
-
-WO KOMMT W = B mal N HER?
 
 \section{Angular Power Spectrum Computation} \label{sec:angular_power_spectra}
 The angular power spectra are computed from the Limber-approximated projection integral of
@@ -430,6 +434,3 @@ For the FRB samples the number density is given by
 
 following from the total number of detected bursts and the
 observed sky fraction in \autoref{tab:frb_surveys}~\cite{Reischke_2021}.
-
-
-WAS IST MIT DEN FRAGEN AN KLARA WEGEN DER EDGE CASES SIEHE SLACK?????
