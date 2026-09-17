@@ -8,7 +8,7 @@ For each FRB configuration (host population × survey depth) the Fisher matrix i
 
 $$F_{ij} = f_{\rm sky}\sum_\ell \frac{2\ell+1}{2}\, \mathrm{Tr}\!\left[\hat C_\ell^{-1}\,\partial_i C_\ell\,\hat C_\ell^{-1}\,\partial_j C_\ell\right],$$
 
-with $\hat C_\ell = C_\ell + N_\ell$ the signal-plus-noise covariance.
+with $\hat C_\ell = C_\ell + N_\ell$ the signal-plus-noise covariance. The **FRB-only** forecast uses only the FRB auto-spectrum (a $1\times1$ covariance, galaxy-survey independent). The **multi-tracer** forecast uses the full $(N_{\rm bin}+1)\times(N_{\rm bin}+1)$ tracer covariance $[g_1,\dots,g_N,\mathrm{FRB}]$. Marginal errors are $\sigma_p = \sqrt{(F^{-1})_{pp}}$ and the figure of merit is $\mathrm{FoM} = 1/\sqrt{\det\,\mathrm{Cov}}$ (larger is tighter).
 
 ## Survey configuration
 
