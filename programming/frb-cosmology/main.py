@@ -22,7 +22,14 @@ from config.parameters import (
     GALAXY_NZ_FILE, ARCMIN2_PER_STERADIAN,
     LSST_N_BINS, LSST_NBAR_PER_BIN, LSST_NZ_FILE, F_SKY_FISHER_LSST,
 )
-from src.plot_style import configure_matplotlib_fonts, get_matplotlib_font_report
+from src.plot_style import (
+    AXIS_LABEL_SIZE,
+    LEGEND_SIZE,
+    SUPTITLE_SIZE,
+    TITLE_SIZE,
+    configure_matplotlib_fonts,
+    get_matplotlib_font_report,
+)
 from src.power_spectrum import build_power_spectrum_2d
 from src.angular_power_spectrum import (
     compute_cell,
@@ -713,7 +720,7 @@ def _plot_cross_population_comparison(
     ax.set_xlabel(r"Multipole $\ell$")
     ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
     ax.set_title(f"{title_tag}FRB Population Comparison ({survey_label} Survey, all bins)")
-    ax.legend(loc="best", ncol=2, fontsize=8)
+    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE)
     fig.tight_layout()
     fname = f"population_{survey_slug}_all_bins"
     fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
@@ -772,7 +779,7 @@ def _plot_cross_survey_comparison(
     ax.set_xlabel(r"Multipole $\ell$")
     ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
     ax.set_title(f"{title_tag}FRB Survey Comparison ({pop_label}, all bins)")
-    ax.legend(loc="best", ncol=2, fontsize=8)
+    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE)
     fig.tight_layout()
     fname = f"survey_{pop_slug}_all_bins"
     fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
@@ -1078,19 +1085,19 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
         ax.set_xticks(_nice_half_ticks(b0_fid, xlim))
         ax.set_yticks(_nice_half_ticks(delta_fid, ylim))
 
-        ax.set_xlabel(r"$b_0$", fontsize=10)
-        ax.set_ylabel(r"$\delta$", fontsize=10)
-        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=11, fontweight='bold')
+        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE)
+        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE)
+        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=TITLE_SIZE, fontweight='bold')
         
         # Add legend only to the first subplot to avoid clutter
         if idx == 0:
-            ax.legend(loc="best", fontsize=8)
+            ax.legend(loc="best", fontsize=LEGEND_SIZE)
 
     # Remove any unused subplots (if fisher_data has fewer than 4 items)
     for idx in range(len(fisher_data), 4):
         fig.delaxes(axes[idx])
 
-    fig.suptitle(f"{title_tag}Fisher Forecast Comparison", fontsize=14, fontweight='bold', y=0.995)
+    fig.suptitle(f"{title_tag}Fisher Forecast Comparison", fontsize=SUPTITLE_SIZE, fontweight='bold', y=0.995)
     fig.tight_layout(rect=[0, 0, 1, 0.99])
     fig.savefig(os.path.join(plot_dir, "fisher_comparison_2x2.pdf"))
     fig.savefig(os.path.join(plot_dir, "fisher_comparison_2x2.png"), dpi=200)
@@ -1176,7 +1183,7 @@ def _plot_fisher_ellipses(
     ax.set_xlabel(r"$b_0$")
     ax.set_ylabel(r"$\delta$")
     ax.set_title(title)
-    ax.legend(loc="best", fontsize=9)
+    ax.legend(loc="best", fontsize=LEGEND_SIZE)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, f"{filename}.pdf"))
     fig.savefig(os.path.join(plot_dir, f"{filename}.png"), dpi=200)
@@ -1464,17 +1471,17 @@ def _plot_fisher_kids_vs_lsst(kids_by_combo, lsst_by_combo, kids_cfg, lsst_cfg, 
         ax.set_xticks(_nice_half_ticks(b0_fid, xlim))
         ax.set_yticks(_nice_half_ticks(delta_fid, ylim))
 
-        ax.set_xlabel(r"$b_0$", fontsize=10)
-        ax.set_ylabel(r"$\delta$", fontsize=10)
-        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=11, fontweight='bold')
+        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE)
+        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE)
+        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=TITLE_SIZE, fontweight='bold')
         if idx == 0:
-            ax.legend(loc="best", fontsize=8)
+            ax.legend(loc="best", fontsize=LEGEND_SIZE)
 
     for idx in range(len(combos), len(axes)):
         fig.delaxes(axes[idx])
 
     fig.suptitle("Multi-tracer Fisher Constraints: KiDS vs LSST Y10",
-                 fontsize=14, fontweight='bold', y=0.995)
+                 fontsize=SUPTITLE_SIZE, fontweight='bold', y=0.995)
     fig.tight_layout(rect=[0, 0, 1, 0.99])
     fig.savefig(os.path.join(plot_dir, "fisher_kids_vs_lsst_2x2.pdf"))
     fig.savefig(os.path.join(plot_dir, "fisher_kids_vs_lsst_2x2.png"), dpi=200)
