@@ -7,13 +7,10 @@ information matrix. Since the true posterior may be broader and non-Gaussian, th
 quoted here should be regarded as optimistic estimates of the achievable constraints.
 
 \section{Fisher Matrix} \label{sec:fisher_matrix}
-The Fisher matrix measures how sensitively the data react to a variation of the model parameters and
-therefore how much information a given measurement carries about them. Since
-conducting an experiment is costly, such a forecast is a useful tool to assess the merit of a
-proposed survey configuration before any data are taken. For a set of tracer fields whose harmonic
-coefficients are Gaussian distributed, the Fisher matrix of the angular power spectra is given
-by~\cite{Tegmark_1997, Reischke_2021}
-
+The Fisher matrix quantifies how sensitively the observables respond to variations in the model
+parameters and therefore how much information a given measurement carries about them. For a set
+of tracer fields whose harmonic coefficients are Gaussian distributed, the Fisher matrix of the
+angular power spectra $C_\ell$ is given by~\cite{Tegmark_1997, Reischke_2021}
 \begin{equation}\label{eq:fisher}
     F_{ij}
     =
@@ -29,14 +26,11 @@ by~\cite{Tegmark_1997, Reischke_2021}
     \right],
 \end{equation}
 
-where $\theta_i$ denotes the $i$-th model parameter and the trace runs over the tracer indices. The
-factor $(2\ell+1)/2$ counts the number of independent modes available at each multipole, and the sky
-fraction $f_{\mathrm{sky}}$ accounts for the fact that only a part of the celestial sphere is
-observed.
-DAS KOENNTE EIN BISSCHEN GEKUERZT WERDEN MIT DEM 2L+1 ding.
+where $\theta_i$ denotes the $i$-th model parameter, $C_\ell$ is the matrix of auto- and
+cross-power spectra over all tracer pairs, the trace runs over the tracer indices, and
+$f_{\mathrm{sky}}$ accounts for the fact that only a fraction of the celestial sphere is observed.
 
-The derivatives entering \autoref{eq:fisher} are not available analytically and are evaluated by
-central finite differencing,
+The derivatives entering \autoref{eq:fisher} are evaluated by central finite differencing,
 
 \begin{equation}\label{eq:finite_difference}
     \frac{\partial C_{\ell}}{\partial \theta_i}
@@ -44,17 +38,16 @@ central finite differencing,
     \frac{C_{\ell}(\theta_i + h_i) - C_{\ell}(\theta_i - h_i)}{2 h_i},
 \end{equation}
 
-with a step size of $h_i = 0.01\,\theta_i$. The two parameters considered here are the amplitude $b_0$ and the evolution exponent
-$\delta$ of the FRB host bias of \autoref{eq:frb_bias}. All cosmological parameters are held fixed
-at the values listed in \autoref{tab:fiducial_cosmology}. The fiducial values and the corresponding
-step sizes are summarized in \autoref{tab:fisher_setup}.
-VIELLECIHT HIER NOCHMAL RAN UND KUERZEN
+with step sizes $h_i = 0.01\,\theta_i$. The two parameters considered here are the amplitude
+$b_0$ and the evolution exponent $\delta$ of the FRB host bias of \autoref{eq:frb_bias}; all
+cosmological parameters are held fixed at the values listed in \autoref{tab:fiducial_cosmology}.
+The fiducial values and corresponding step sizes are summarized in \autoref{tab:fisher_setup}.
+
 \begin{table}[H]
     \centering
     \caption{Fiducial values of the FRB bias parameters of \autoref{eq:frb_bias} and the
     corresponding displacements used in the central finite difference of
-    \autoref{eq:finite_difference}. The step size is set to one percent of the respective fiducial
-    value.}
+    \autoref{eq:finite_difference}. The step size is one percent of the respective fiducial value.}
     \label{tab:fisher_setup}
     \begin{tabular}{llSSS}
         \toprule
@@ -69,16 +62,15 @@ VIELLECIHT HIER NOCHMAL RAN UND KUERZEN
 \end{table}
 
 The sum in \autoref{eq:fisher} is carried out over the multipole range $\ell \in [10,\,1000]$
-introduced in \autoref{sec:fiducial_cosmology}. The FRB-only forecast adopts the full FRB footprint
-of $f_{\mathrm{sky}} = 0.9$ given in \autoref{tab:frb_surveys}, whereas the joint forecast is
-restricted to the overlap with the KiDS field, $f_{\mathrm{sky}} = 0.0327$, corresponding to the
-$\qty{1347}{\deg\squared}$ quoted in \autoref{sec:galaxy_redshift_distribution}.
+introduced in \autoref{sec:fiducial_cosmology}. The FRB-only forecast adopts the full FRB
+footprint of $f_{\mathrm{sky}} = 0.9$ given in \autoref{tab:frb_surveys}, whereas the joint
+forecast is restricted to the overlap with the KiDS field, $f_{\mathrm{sky}} = 0.0327$,
+corresponding to the $\qty{1347}{\deg\squared}$ quoted in
+\autoref{sec:galaxy_redshift_distribution}.
 
-Inverting the Fisher matrix yields the parameter covariance $\mathrm{Cov} = F^{-1}$, whose diagonal
-entries define the marginalized errors $\sigma_i = \sqrt{\mathrm{Cov}_{ii}}$~\cite{Coe_2009}. 
-
-In order
-to compress the two-dimensional constraint into a single number, the figure of merit
+Inverting the Fisher matrix yields the parameter covariance $\mathrm{Cov} = F^{-1}$, whose
+diagonal entries define the marginalized errors $\sigma_i = \sqrt{\mathrm{Cov}_{ii}}$~\cite{Coe_2009}.
+To compress the two-dimensional constraint into a single number, the figure of merit
 
 \begin{equation}\label{eq:fom}
     \mathrm{FoM} = \frac{1}{\sqrt{\det \mathrm{Cov}}}
@@ -155,75 +147,53 @@ errors together with the figures of merit are listed in \autoref{tab:fisher_cons
     \end{tabular}
 \end{table}
 
-The most immediate result is that the FRB auto-correlation alone does not constrain the host bias at
-all. The marginalized errors range from $\sigma_{b_0} = 23.5$ for the most favorable configuration
-to $\sigma_{b_0} = 101$ for the least favorable one, which exceeds the fiducial values of
-\autoref{tab:frb_bias} by one to two orders of magnitude. The same holds for the evolution exponent.
-Adding the galaxy sample reduces the errors to $\sigma_{b_0} = 1.27$--$2.42$ and
-$\sigma_{\delta} = 1.77$--$3.76$, corresponding to an improvement by a factor of $17$ to $51$ in the
-individual parameters and by a factor of $61$ to $449$ in the figure of merit. The joint analysis is
-therefore not a marginal refinement of the FRB measurement but the reason a measurement becomes
-feasible in the first place.
+The FRB auto-correlation alone does not constrain the host bias: marginalized errors range from
+$\sigma_{b_0} = 23.5$ to $101$, exceeding the fiducial values by one to two orders of magnitude.
+Adding the galaxy sample reduces these to $\sigma_{b_0} = 1.27$--$2.42$ and
+$\sigma_{\delta} = 1.77$--$3.76$, an improvement by factors of $17$--$51$ in the individual
+parameters and $61$--$449$ in the figure of merit. The joint analysis is therefore not a marginal
+refinement but the reason a measurement becomes feasible in the first place.
 
-BIS HIER GECHECKT
 \section{Discussion} \label{sec:results_discussion}
-The failure of the FRB-only forecast is a direct consequence of the shot-noise budget discussed in
-\autoref{sec:shot_noise}. As \autoref{fig:frb_cell_shotnoise} shows, the Poissonian noise of a
-sample of a few thousand bursts exceeds the clustering signal by about three orders of magnitude
-across the entire multipole range, and even the deep configuration with $\num{5e4}$ bursts remains
-noise-dominated by roughly two orders of magnitude. The observed covariance is then essentially
-equal to the noise, $\hat{C}_{\ell} \approx N_{\ell}$, while the derivative in \autoref{eq:fisher}
-is proportional to the much smaller signal. Each individual mode contributes only a minute amount of
-information, and summing over the available modes does not compensate for this.
 
-In the joint analysis the FRB field is no longer correlated with itself but with a second, far
-denser field. Two properties of the cross-spectrum are responsible for the improvement. First, the
-cross-spectrum carries no shot-noise contribution, so that the noise enters the corresponding term
-of \autoref{eq:fisher} only through the two auto-spectra. The relevant noise level is therefore set
-by the geometric mean of the FRB and the galaxy noise rather than by the FRB noise alone. Second,
-the galaxy auto-spectra dominate over their own shot noise across the whole multipole range, since
-the KiDS sample contains of order $\num{2e7}$ galaxies per steradian in each tomographic bin. One
-factor of the large FRB noise is thus effectively replaced by a much smaller one, which is precisely
-the multi-tracer argument that motivates the cross-correlation approach.
+As shown in \autoref{fig:frb_cell_shotnoise}, the FRB shot noise exceeds the clustering signal
+by two to three orders of magnitude at every multipole, rendering the auto-spectrum essentially
+uninformative. The cross-correlation with the much denser KiDS galaxy field circumvents this
+because the cross-spectrum carries no FRB shot-noise contribution, as discussed in
+\autoref{sec:cross_correlation_analysis}.
 
-The orientation of the contours in \autoref{fig:fisher_comparison} is equally informative. In all
-four panels the two parameters are anti-correlated, which follows directly from the functional form
-of \autoref{eq:frb_bias}: the spectra are sensitive to the bias at the effective redshift of the
-radial kernel, so that an increase of the amplitude $b_0$ can be compensated by a decrease of the
-evolution exponent $\delta$ while $b_0\,(1+z_{\mathrm{eff}})^{\delta}$ remains unchanged. The
-FRB-only contours are extremely elongated along this direction and constrain essentially a single
-parameter combination, because the auto-spectrum projects the entire FRB kernel onto one effective
-redshift. The joint contours are not only smaller but also visibly rounder. This is a genuinely
-tomographic effect: each of the six galaxy bins samples the FRB kernel over a different redshift
-range, as is evident from the bin dependence of the cross-spectra in \autoref{fig:cross_survey}, so
-that the bias is probed at six different effective redshifts. The degeneracy between amplitude and
-evolution is broken by this lever arm in redshift and not by the increased signal-to-noise ratio
-alone.
+%\pagebreak
+%The orientation of the contours in \autoref{fig:fisher_comparison} is equally informative. In all
+%four panels, the parameters are anti-correlated because the FRB auto-spectrum integrates over the
+%full FRB redshift kernel but is locally most sensitive to a weighted effective redshift. Thus, an
+%increase in $b_0$ can be compensated by a decrease in $\delta$, leaving the combination
+%$b_0(1+z_{\mathrm{eff}})^\delta$ approximately unchanged. The FRB-only contours are therefore highly
+%elongated and constrain essentially one parameter combination. The joint contours are smaller and
+%visibly rounder. This is a genuinely tomographic effect: the six galaxy bins weight the FRB kernel
+%over different redshift ranges, as indicated by the bin dependence of the cross-spectra in
+%\autoref{fig:cross_survey}. The bias is consequently probed with several different effective
+%redshift weightings, breaking the degeneracy through redshift leverage rather than increased
+%signal-to-noise alone.
+%\pagebreak
 
-Comparing the two FRB survey configurations, the deep sample performs better in every case, which is
-expected given that it contains ten times as many bursts and therefore a shot noise lower by the
-same factor. It is nevertheless worth noting how differently this factor propagates into the two
-forecasts. In the FRB-only case the deep configuration improves $\sigma_{b_0}$ by a factor of three
-to four, whereas in the joint case the gain amounts to only about $1.4$ to $1.5$. Once the
-constraint is no longer limited by the FRB shot noise alone, increasing the number of bursts becomes
-considerably less effective, and the radial overlap between the FRB and the galaxy sample takes over
-as the limiting factor.
+Comparing the two survey configurations, the deep sample outperforms the shallow one in every
+case, as expected from its ten-fold larger burst count and correspondingly lower shot noise.
+However, this advantage propagates differently into the two forecasts: in the FRB-only case the
+deep configuration improves $\sigma_{b_0}$ by a factor of three to four, while in the joint case
+the gain is only about $1.4$--$1.5$. Once the constraint is no longer dominated by FRB shot noise,
+increasing the burst count becomes considerably less effective, and the radial overlap between the
+FRB and galaxy samples takes over as the limiting factor.
 
-A comparison of the two progenitor classes requires some care, since their fiducial values differ.
-The magnetar model yields the smaller absolute errors, but relative to its own fiducial amplitude the
-neutron-star model is constrained equally well, with $\sigma_{b_0}/b_0 = 1.27$ against $1.13$ for the
-deep configuration. The evolution exponent behaves differently: the delayed neutron-star channel is
-assigned a shallow evolution of $\delta = 0.2$, so that a comparable absolute uncertainty corresponds
-to a far worse relative precision. The physically relevant question, however, is not how well either
-model is constrained in isolation but whether the two can be told apart. The two fiducial points are
-separated by $\Delta b_0 = 0.5$ and $\Delta \delta = 0.6$, both of which lie comfortably inside the
-$1\sigma$ contours of the joint forecast. With the KiDS footprint the cross-correlation therefore
-improves the measurement by more than two orders of magnitude in the figure of merit, but it does
-not yet reach the precision required to discriminate between a prompt magnetar and a delayed
-neutron-star origin of the bursts.
+VIELLEICHT GAR NICHT NOETIG DIESER PART HIER
 
-This is not a statement about the method but about the available sky area. As pointed out above, the
-joint forecast is confined to the $\qty{1347}{\deg\squared}$ of the KiDS field, and the Fisher
-information of \autoref{eq:fisher} scales linearly with $f_{\mathrm{sky}}$. The natural way to
-improve on the result presented here is therefore not a larger burst sample but a wider galaxy
-survey, which is taken up in \autoref{sec:outlook}.
+A comparison of the two progenitor classes requires some care, as their fiducial values differ.
+In absolute terms the magnetar model yields smaller errors, but relative to the respective fiducial
+amplitudes both models are constrained equally well, with $\sigma_{b_0}/b_0 = 1.13$ and $1.27$
+for the deep configuration. The more consequential question is whether the two models can be
+distinguished: the fiducial separation of $\Delta b_0 = 0.5$ and $\Delta \delta = 0.6$ lies
+comfortably within the $1\sigma$ contours of the joint forecast, so the cross-correlation with
+KiDS improves the measurement by more than two orders of magnitude in the figure of merit but
+does not yet reach the precision required to discriminate between a prompt magnetar and a delayed
+neutron-star origin. This is not a statement about the method but about sky area: the Fisher
+information of \autoref{eq:fisher} scales linearly with $f_{\mathrm{sky}}$, and the natural path
+to improvement is a wider galaxy survey, which is taken up in \autoref{sec:outlook}.

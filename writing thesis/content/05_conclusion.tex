@@ -1,89 +1,64 @@
 \chapter{Conclusion \& Outlook} \label{ch:conclusion}
-The aim of this thesis was to assess whether the clustering of fast radio bursts can be used to
-constrain the bias of their host population, and to what extent a cross-correlation with a
-photometric galaxy survey improves such a measurement. To this end a complete forecasting pipeline
-was developed. The nonlinear matter power spectrum was evaluated with \texttt{hmf} and represented
-by a bicubic spline in comoving distance and wavenumber. Radial weight functions were constructed
-for a mock FRB sample following \cite{Reischke_2021} and for the six tomographic bins of the final
-KiDS-Legacy data release, and the corresponding angular auto- and cross-power spectra were obtained
-from the Limber-approximated projection integral of \autoref{eq:limber}. The discreteness of both
-tracer populations was accounted for through a Poissonian shot-noise term, and the resulting spectra
-were propagated into a Fisher forecast for the amplitude $b_0$ and the evolution exponent $\delta$
-of the FRB host bias.
+This thesis assessed whether the clustering of fast radio bursts can constrain the bias of their
+host population, and to what extent a cross-correlation with a photometric galaxy survey improves
+such a measurement. A complete forecasting pipeline was developed: the nonlinear matter power
+spectrum was combined with radial weight functions for a mock FRB sample and the six tomographic
+bins of the KiDS-Legacy data release to produce angular auto- and cross-power spectra via the
+Limber approximation. Poissonian shot noise was included for both tracer populations, and the
+resulting spectra were propagated into a Fisher forecast for the amplitude $b_0$ and evolution
+exponent $\delta$ of the FRB host bias.
 
 The central result is that the FRB auto-correlation is of no practical use on its own. For the burst
 numbers considered here the shot noise exceeds the clustering signal by two to three orders of
 magnitude at every multipole, and the resulting marginalized errors are one to two orders of
 magnitude larger than the parameters they are meant to constrain. Correlating the same burst sample
 with the KiDS galaxies changes this picture entirely: the marginalized errors shrink by factors of
-$17$ to $51$, and the figure of merit improves by factors of $61$ to $449$. Remarkably, this is
-achieved on a footprint roughly $27$ times smaller than the one assumed for the FRB-only case. The
-gain arises because the cross-spectrum itself is free of shot noise and because the dense galaxy
-sample provides a low-noise reference field, so that the prohibitive FRB noise enters the forecast
-only once instead of twice. In addition, the tomographic structure of the galaxy sample probes the
-FRB kernel at several distinct effective redshifts and thereby breaks the degeneracy between the
-amplitude and the redshift evolution of the bias, which is visible as a rounder confidence contour
-in \autoref{fig:fisher_comparison}. At the same time the forecast shows that the KiDS footprint is
-not yet sufficient to distinguish a prompt magnetar channel from a delayed neutron-star channel,
-since the separation between the two fiducial models remains well inside the $1\sigma$ contours.
+$17$ to $51$, and the figure of merit improves by factors of $61$ to $449$, achieved on a footprint
+roughly $27$ times smaller than the one assumed for the FRB-only case. At the same time, the
+KiDS footprint is not yet sufficient to distinguish a prompt magnetar channel from a delayed
+neutron-star channel, as the separation between the two fiducial models remains well inside the
+$1\sigma$ contours.
 
 \section{Limitations} \label{sec:limitations}
-The analysis presented here rests on a number of simplifying assumptions, each of which may affect
-the forecast to some degree.
+The analysis rests on several simplifying assumptions that may affect the forecast.
 
 \begin{itemize}
-    \item Both tracers are described by a linear, deterministic and scale-independent bias. In
-    particular the galaxy bias of \autoref{eq:galaxy_bias} is evaluated once per tomographic bin and
-    then held constant across its width, and the FRB bias of \autoref{eq:frb_bias} is assumed to
-    follow a pure power law in $1+z$. On the smaller scales included in the multipole range this
-    description is known to break down.
-    \item The projection relies on the Limber approximation, which restricts the analysis to
-    $\ell \gtrsim \mathcal{O}(10)$ and therefore excludes precisely those large angular scales on
-    which the radial kernels differ most strongly between the two progenitor models.
-    \item The forecast assumes a Gaussian likelihood and a purely Gaussian covariance. Non-Gaussian
-    contributions arising from the nonlinear evolution of the density field, as well as super-sample
-    covariance, are neglected. The Fisher errors therefore represent a lower bound on the true
-    uncertainties.
-    \item The FRB redshift distribution is a parametric model rather than a measured quantity. The
-    burst numbers and the steepness parameter $\alpha$ of \autoref{tab:frb_surveys} are assumptions
-    about future surveys, and the fiducial bias values of \autoref{tab:frb_bias} are motivated by
-    the progenitor scenarios of \autoref{sec:progenitor_mechanisms} rather than measured.
-    \item A fraction of the FRB host galaxies is presumably contained in the KiDS sample itself,
-    which would introduce a small residual Poisson term in the cross-spectrum. Given the vast
-    difference in number density between the two samples this contribution was neglected.
+    \item Both tracers are described by a linear, deterministic, scale-independent bias. On the
+    smaller scales included in the multipole range this description is known to break down.
+    \item The Limber approximation restricts the analysis to $\ell \gtrsim \mathcal{O}(10)$,
+    excluding precisely the large angular scales on which the radial kernels differ most strongly
+    between the two progenitor models.
+    \item The Gaussian likelihood and purely Gaussian covariance neglect non-Gaussian contributions
+    from nonlinear structure growth. The Fisher errors should therefore be interpreted as optimistic
+    lower bounds rather than as realistic uncertainties.
+    \item The FRB redshift distribution and fiducial bias values are model assumptions rather than
+    measured quantities.
+    \item The small fraction of FRB host galaxies contained in the KiDS sample would introduce a
+    residual Poisson term in the cross-spectrum; given the large difference in number density this
+    contribution was neglected.
 \end{itemize}
 
-Finally, the incomplete sky coverage of a realistic survey is accounted for only through the sky
-fraction $f_{\mathrm{sky}}$. A measurement on a masked sky does not yield the true angular power
-spectrum but a mode-coupled pseudo-spectrum, whose deconvolution requires the full mode-coupling
-matrix of the survey mask~\cite{Hivon_2002}. As this thesis is concerned with the theoretical
-prediction of the angular power spectra rather than with their estimation from observed maps, no
-mask is applied and no mode-coupling correction is performed; the effect of partial sky coverage
-enters solely through the reduced number of independent modes per multipole.
+The analysis further simplifies the survey geometry by accounting for an incomplete sky coverage
+only through the $f_{\mathrm{sky}}$ prefactor, while a real analysis would require a full
+pseudo-spectrum treatment~\cite{Hivon_2002}.
 
 \section{Outlook} \label{sec:outlook}
-Since the Fisher information of \autoref{eq:fisher} scales linearly with $f_{\mathrm{sky}}$, the
-most direct way to improve on the results of \autoref{ch:results} is to replace the KiDS field by a
-substantially wider galaxy survey. The Legacy Survey of Space and Time (LSST) at the Vera C. Rubin
-Observatory will image about $\qty{18000}{\deg\squared}$ of the southern sky over ten
-years~\cite{Ivezic_2019}, which corresponds to $f_{\mathrm{sky}} = 0.4363$ and thus to roughly
-thirteen times the area available with KiDS. In order to illustrate what such a survey would add,
-the pipeline of \autoref{ch:methodology} was run a second time with the ten-bin lens sample of the
-LSST Dark Energy Science Collaboration ten-year baseline, assuming a total number density of
-$\qty{26.94}{\per\arcmin\squared}$ distributed equally among the bins~\cite{Mandelbaum_2018}. All
-remaining ingredients, including the FRB configurations and the bias prescriptions, were left
-unchanged, so that the two forecasts differ only in the galaxy sample. The resulting contours are
-compared in \autoref{fig:fisher_kids_vs_lsst} and the corresponding numbers are listed in
-\autoref{tab:lsst_outlook}.
+Since the Fisher information scales linearly with $f_{\mathrm{sky}}$, the most direct improvement
+is to replace the KiDS field with a wider galaxy survey. The Legacy Survey of Space and Time
+(LSST) at the Vera C. Rubin Observatory will image about $\qty{18000}{\deg\squared}$ of the
+southern sky~\cite{Ivezic_2019}, corresponding to $f_{\mathrm{sky}} = 0.4363$, roughly thirteen
+times the KiDS area. Running the pipeline with the ten-bin LSST Dark Energy Science Collaboration
+Y10 lens sample~\cite{Mandelbaum_2018}
+while keeping all other ingredients unchanged yields the contours shown in
+\autoref{fig:fisher_kids_vs_lsst} and the numbers listed in \autoref{tab:lsst_outlook}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/fisher_kids_vs_lsst_2x2.pdf}
-    \caption{Comparison of the joint FRB$\times$galaxy forecast obtained with the six KiDS-Legacy
-    tomographic bins and with the ten-bin LSST Y10 lens sample, shown for the two progenitor classes
-    and the two FRB survey configurations. In contrast to \autoref{fig:fisher_comparison}, both
-    contours shown here correspond to a joint analysis; the FRB-only case is omitted since it is
-    independent of the galaxy survey.}
+    \caption{Comparison of the joint FRB$\times$galaxy forecast for the KiDS-Legacy and LSST Y10
+    lens samples, shown for the two progenitor classes and FRB survey configurations. Both contours
+    correspond to a joint analysis; the FRB-only case is omitted as it is independent of the
+    galaxy survey.}
     \label{fig:fisher_kids_vs_lsst}
 \end{figure}
 
@@ -112,50 +87,30 @@ compared in \autoref{fig:fisher_kids_vs_lsst} and the corresponding numbers are 
     \end{tabular}
 \end{table}
 
-The improvement is substantial. For the deep FRB configuration combined with the magnetar model the
-marginalized error on the bias amplitude drops from $\sigma_{b_0} = 1.27$ to $0.25$, and the figure
-of merit increases by a factor of $26$. Most of this gain is simply the larger footprint, as the
-factor of thirteen in $f_{\mathrm{sky}}$ already accounts for the bulk of the difference; the
-remainder is contributed by the finer tomographic resolution and by the deeper redshift coverage of
-the LSST lens sample, which extends the useful overlap with the FRB distribution to higher
-redshift. What matters physically is that the separation between the two progenitor models,
-$\Delta b_0 = 0.5$ and $\Delta \delta = 0.6$, now lies outside the $1\sigma$ contours of the deep
-configuration. A cross-correlation of a future FRB catalog with an LSST-like lens sample would
-therefore be able to discriminate between a prompt and a delayed origin of the bursts, which the
-KiDS configuration cannot. This conclusion should be read with the caveat that the equal split of
-the total number density among the ten bins is an approximation, and that at matched sky area the
-advantage would reduce to the tomographic and redshift-coverage terms alone.
+The improvement is substantial: for the deep magnetar configuration the error on $b_0$ drops from
+$1.27$ to $0.25$ and the figure of merit increases by a factor of $26$. Most of this gain follows
+directly from the larger footprint; the remainder comes from the finer tomographic resolution and
+the deeper redshift coverage of the LSST lens sample. Physically, the separation between the two
+progenitor models, $\Delta b_0 = 0.5$ and $\Delta\delta = 0.6$, now lies outside the $1\sigma$
+contours of the deep configuration, meaning that a cross-correlation with an LSST-like sample
+would be sufficient to discriminate between a prompt and a delayed origin of the bursts.
 
-Beyond a wider galaxy survey there are several directions in which the analysis presented here could
-be extended.
+Beyond a wider footprint, several extensions of the analysis are conceivable:
 
 \begin{itemize}
-    \item The parametric redshift distribution of \autoref{eq:frb_nz} could be replaced by the
-    measured distribution of an observed burst catalog. With the second CHIME/FRB
-    catalog~\cite{CHIMEFRB2026} a sample of the size assumed for the shallow configuration is
-    already available, so that the forecast could be turned into an actual measurement.
-    \item The parameter vector could be extended from the two bias parameters to cosmological
-    parameters such as $H_0$, $\symup{\Omega}_{m,0}$ and $\sigma_8$. The bias parameters would then
-    act as nuisance parameters, and the question becomes how strongly the residual degeneracy
-    between bias and cosmology degrades the cosmological constraints.
-    \item Rather than treating the bursts as a pure number-count field, their dispersion measures
-    could be used as weights. The dispersion measure integrates the free-electron density along the
-    line of sight and therefore carries considerably more information per burst than its position
-    alone~\cite{Reischke_2021, Shirasaki_2017}. This would also make the analysis sensitive to the
-    distribution of baryons rather than only to that of the host galaxies.
-    \item The Gaussian Fisher formalism could be replaced by a sampling of the full likelihood,
-    which would reveal possible non-Gaussian features of the posterior and allow a consistent
-    treatment of non-Gaussian contributions to the covariance.
-    \item Finally, the linear bias model could be replaced by a scale-dependent halo-model
-    description, in which the FRB hosts are populated into dark matter haloes according to their
-    progenitor scenario. This would extend the analysis to the small scales that are currently
-    excluded and would connect the measured bias more directly to the host halo masses.
+    \item The parametric FRB redshift distribution of \autoref{eq:frb_nz} could be replaced by
+    the measured distribution of an observed catalog; with the second CHIME/FRB
+    catalog~\cite{CHIMEFRB2026} a sample of shallow-configuration size is already available.
+    \item The Gaussian Fisher formalism could be replaced by a full likelihood sampling, revealing
+    non-Gaussian posterior features and allowing a consistent treatment of non-Gaussian covariance
+    contributions.
+    \item The linear bias model could be replaced by a scale-dependent halo-model description,
+    connecting the measured bias to host halo masses and extending the analysis to smaller scales.
 \end{itemize}
 
 Taken together, the results of this thesis show that the clustering of fast radio bursts becomes a
-usable cosmological observable as soon as it is not analyzed in isolation. The bursts themselves are
-far too sparse to support an auto-correlation measurement, but their cross-correlation with a dense
-photometric galaxy sample recovers most of the information that is lost to shot noise. With the
-survey footprints available today this suffices to constrain the host bias to order unity, and with
-the footprints expected from the next generation of imaging surveys it should suffice to identify
-the progenitor population itself.
+usable cosmological observable as soon as it is not analyzed in isolation. The bursts themselves
+are far too sparse to support an auto-correlation measurement, but their cross-correlation with a
+dense photometric galaxy sample recovers most of the information lost to shot noise. With current
+survey footprints this suffices to constrain the host bias to order unity; with next-generation
+imaging surveys it should suffice to identify the progenitor population itself.
