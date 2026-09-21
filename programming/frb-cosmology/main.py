@@ -27,6 +27,7 @@ from src.plot_style import (
     LEGEND_SIZE,
     SUPTITLE_SIZE,
     TITLE_SIZE,
+    TICK_LABEL_SIZE,
     configure_matplotlib_fonts,
     get_matplotlib_font_report,
 )
@@ -352,7 +353,7 @@ def _plot_cell_with_noise(ell_arr, C_ell, N_shot, title, filename, plot_dir):
               linewidth=1.5, linestyle="--")
     ax.set_xlabel(r"Multipole $\ell$")
     ax.set_ylabel(r"$C_\ell$")
-    ax.set_title(title)
+    #ax.set_title(title)
     ax.legend()
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, f"{filename}.pdf"))
@@ -386,7 +387,7 @@ def _plot_cell_comparison(
     ax.loglog(ell_arr, C_ell_deep, label=r"Deep ($\alpha=2.0$)", linewidth=1.5)
     ax.set_xlabel(r"Multipole $\ell$")
     ax.set_ylabel(r"$C_\ell$")
-    ax.set_title(f"FRB Auto-Correlation: Shallow vs Deep Survey for {population_label}")
+    #ax.set_title(f"FRB Auto-Correlation: Shallow vs Deep Survey for {population_label}")
     ax.legend()
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, f"FRB_{population_slug}_Cell_comparison.pdf"))
@@ -406,7 +407,7 @@ def _plot_pk(k_phys, P_interp, plot_dir):
     P_interp : callable
         2D interpolation function P_interp(k, chi) returning P(k, z(chi)) in Mpc^3.
     """
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(7, 4.5))
     
     # Sample redshifts to display the evolution
     z_sample = np.array([0.0, 0.5, 1.0, 2.0, 3.0, 4.0 ])
@@ -421,8 +422,8 @@ def _plot_pk(k_phys, P_interp, plot_dir):
         ax.loglog(k_phys, P_at_z, linewidth=1.8, label=f"z = {z:.1f}", color=color)
     
     ax.set_xlabel(r"Wavenumber $k$ [1/Mpc]")
-    ax.set_ylabel(r"$P(k)$ [Mpc$^3$]")
-    ax.set_title("Nonlinear Matter Power Spectrum P(k, z) — Redshift Evolution")
+    ax.set_ylabel(r"$P(k, z)$ [Mpc$^3$]")
+    ax.set_title(r"Nonlinear Matter Power Spectrum")
     ax.legend(loc="best")
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "Pk_nonlinear.pdf"))
@@ -466,7 +467,7 @@ def _plot_frb_bias(populations, plot_dir):
 
     ax.set_xlabel(r"Redshift $z$")
     ax.set_ylabel(r"$b(z)$")
-    ax.set_title("FRB Host-Population Bias Models")
+    #ax.set_title("FRB Host Population Bias Models")
     ax.legend(loc="best")
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "FRB_bias_bz.pdf"))
@@ -776,10 +777,11 @@ def _plot_cross_survey_comparison(
             label=f"Deep Bin {bin_idx + 1}",
         )
 
-    ax.set_xlabel(r"Multipole $\ell$")
-    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
-    ax.set_title(f"{title_tag}FRB Survey Comparison ({pop_label}, all bins)")
-    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE)
+    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_title(f"{title_tag}FRB x Galaxy Cross-Power Spectra ({pop_label}, all bins)", fontsize=TITLE_SIZE+3)
+    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE+3)
+    ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
     fig.tight_layout()
     fname = f"survey_{pop_slug}_all_bins"
     fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
@@ -1097,7 +1099,6 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
     for idx in range(len(fisher_data), 4):
         fig.delaxes(axes[idx])
 
-    fig.suptitle(f"{title_tag}Fisher Forecast Comparison", fontsize=SUPTITLE_SIZE, fontweight='bold', y=0.995)
     fig.tight_layout(rect=[0, 0, 1, 0.99])
     fig.savefig(os.path.join(plot_dir, "fisher_comparison_2x2.pdf"))
     fig.savefig(os.path.join(plot_dir, "fisher_comparison_2x2.png"), dpi=200)

@@ -1,4 +1,6 @@
 \documentclass[
+  DIV= 14,      % automatically calculate the page layout
+  12pt,         % font size
   tucolor,       % remove for less green,
   BCOR=12mm,     % 12mm binding corrections, adjust to fit your binding
   parskip=half,  % new paragraphs start with half line vertical space
@@ -6,6 +8,9 @@
   cleardoublepage=plain,  % no header/footer on blank pages
 ]{tudothesis}
 
+\RedeclareSectionCommand[
+  beforeskip=0pt
+]{chapter}
 %\usepackage[
 %  left=3cm,
 %  right=2.5cm,
@@ -22,7 +27,7 @@
 % keep the remaining space at the bottom of a page blank instead of stretching
 % vertical glue to force every page to the same height
 \raggedbottom
-
+% set the text area to a fixed size, adjust to your liking
 %------------------------------------------------------------------------------
 %------------------------------ Fonts, Unicode, Language ----------------------
 %------------------------------------------------------------------------------
@@ -43,7 +48,7 @@
 %------------------------------------------------------------------------------
 %------------------------ Math Packages and settings --------------------------
 %------------------------------------------------------------------------------
-
+\usepackage{wrapfig}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
@@ -62,7 +67,11 @@
 % nice, small fracs for the text with \sfrac{}{}
 \usepackage{xfrac}
 
+% this package allows to use subfigures and subtables, e.g. with \subref{} and \subcaption{}
+\usepackage{subcaption}
 
+\usepackage{setspace}
+\singlespacing
 %------------------------------------------------------------------------------
 %---------------------------- Numbers and Units -------------------------------
 %------------------------------------------------------------------------------
@@ -126,6 +135,7 @@
                    % german, has to be loaded with \setotherlanguages
                    % in the references.bib use langid={en} for english sources
 ]{biblatex}
+
 \addbibresource{references.bib}  % the bib file to use
 \DefineBibliographyStrings{german}{andothers = {{et\,al\adddot}}}  % replace u.a. with et al.
 
@@ -190,7 +200,10 @@
 \backmatter
 \printbibliography
 \bigskip
-\noindent\textit{Hinweis zur Formulierungshilfe:} Einzelne Formulierungen dieser Arbeit wurden mit Unterstützung von ChatGPT (OpenAI) überarbeitet. Wissenschaftliche Inhalte, Auswertungen und Schlussfolgerungen liegen vollständig bei der Autorin/dem Autor; für verbleibende Fehler trägt die Autorin/der Autor die Verantwortung.
+{\fontsize{12.5pt}{14.5pt}\selectfont\noindent\textit{Hinweis zur Formulierungshilfe:}} Einzelne 
+Formulierungen dieser Arbeit wurden mit Unterstützung von ChatGPT (OpenAI) überarbeitet. 
+Wissenschaftliche Inhalte, Auswertungen und Schlussfolgerungen liegen vollständig bei der 
+Autorin/dem Autor; für verbleibende Fehler trägt die Autorin/der Autor die Verantwortung.
 
 \cleardoublepage
 % From https://www.tu-dortmund.de/studierende/im-studium/pruefungsangelegenheiten/allgemeine-vordrucke/

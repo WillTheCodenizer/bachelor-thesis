@@ -4,9 +4,9 @@ host population, and to what extent a cross-correlation with a photometric galax
 such a measurement. A complete forecasting pipeline was developed: the nonlinear matter power
 spectrum was combined with radial weight functions for a mock FRB sample and the six tomographic
 bins of the KiDS-Legacy data release to produce angular auto- and cross-power spectra via the
-Limber approximation. Poissonian shot noise was included for both tracer populations, and the
-resulting spectra were propagated into a Fisher forecast for the amplitude $b_0$ and evolution
-exponent $\delta$ of the FRB host bias.
+Limber approximation. Poissonian shot noise was added to the auto-spectra of both tracer populations, 
+while the cross-spectrum was assumed to be free of shot noise. The resulting spectra were then 
+propagated into a Fisher forecast for the FRB host-bias amplitude $b_0$ and evolution exponent $\delta$.
 
 The central result is that the FRB auto-correlation is of no practical use on its own. For the burst
 numbers considered here the shot noise exceeds the clustering signal by two to three orders of
@@ -50,42 +50,7 @@ southern sky~\cite{Ivezic_2019}, corresponding to $f_{\mathrm{sky}} = 0.4363$, r
 times the KiDS area. Running the pipeline with the ten-bin LSST Dark Energy Science Collaboration
 Y10 lens sample~\cite{Mandelbaum_2018}
 while keeping all other ingredients unchanged yields the contours shown in
-\autoref{fig:fisher_kids_vs_lsst} and the numbers listed in \autoref{tab:lsst_outlook}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher_lsst/fisher_kids_vs_lsst_2x2.pdf}
-    \caption{Comparison of the joint FRB$\times$galaxy forecast for the KiDS-Legacy and LSST Y10
-    lens samples, shown for the two progenitor classes and FRB survey configurations. Both contours
-    correspond to a joint analysis; the FRB-only case is omitted as it is independent of the
-    galaxy survey.}
-    \label{fig:fisher_kids_vs_lsst}
-\end{figure}
-
-\begin{table}[H]
-    \centering
-    \small
-    \caption{Marginalized $1\sigma$ errors and figures of merit of the joint FRB$\times$galaxy
-    forecast for the two galaxy surveys. The last column gives the ratio of the two figures of
-    merit.}
-    \label{tab:lsst_outlook}
-    \begin{tabular}{llSSSSSSS}
-        \toprule
-        & & \multicolumn{2}{c}{$\sigma_{b_0}$} & \multicolumn{2}{c}{$\sigma_{\delta}$}
-        & \multicolumn{3}{c}{FoM} \\
-        \cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-9}
-        Progenitor class & Configuration
-        & {KiDS} & {LSST Y10}
-        & {KiDS} & {LSST Y10}
-        & {KiDS} & {LSST Y10} & {Ratio} \\
-        \midrule
-        Magnetars     & Deep    & 1.27 & 0.25 & 1.88 & 0.31 & 1.59 & 42.01 & 26.4 \\
-        Magnetars     & Shallow & 1.91 & 0.48 & 3.76 & 0.92 & 0.41 &  6.29 & 15.3 \\
-        Neutron stars & Deep    & 1.70 & 0.36 & 1.77 & 0.33 & 1.15 & 25.72 & 22.3 \\
-        Neutron stars & Shallow & 2.42 & 0.62 & 3.41 & 0.85 & 0.34 &  5.13 & 14.9 \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+\autoref{fig:fisher_kids_vs_lsst} and the numbers listed in \autoref{tab:lsst_sigmas} and \autoref{tab:lsst_fom}.
 
 The improvement is substantial: for the deep magnetar configuration the error on $b_0$ drops from
 $1.27$ to $0.25$ and the figure of merit increases by a factor of $26$. Most of this gain follows
@@ -114,3 +79,10 @@ are far too sparse to support an auto-correlation measurement, but their cross-c
 dense photometric galaxy sample recovers most of the information lost to shot noise. With current
 survey footprints this suffices to constrain the host bias to order unity; with next-generation
 imaging surveys it should suffice to identify the progenitor population itself.
+
+MARKOV CHAIN BETTER FOR PRIORS:
+"A full Bayesian analysis with Markov Chain Monte Carlo sampling would be 
+required to accurately characterise the posterior in that regime and to assess 
+potential biases from prior volume effects."
+
+DIE SCHRAEGE SCHRIFT IN BIBLIOGRAPHY FIXEN

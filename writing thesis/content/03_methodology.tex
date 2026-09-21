@@ -20,13 +20,17 @@ summarized in \autoref{tab:fiducial_cosmology}.
     \caption{Fiducial cosmological parameters assumed throughout this thesis. The values correspond to
     the Planck 2018 baseline \mbox{TT,TE,EE+lowE+lensing} results~\cite{Planck2018}.}
     \label{tab:fiducial_cosmology}
-    \begin{tabular}{llS}
+    \begin{tabular}{
+        l@{\hspace{1.0em}}
+        l@{\hspace{1.0em}}
+        S[table-format=2.4]
+        }
         \toprule
         Parameter & Symbol & {Value} \\
         \midrule
         Hubble constant          & $H_0\ [\si{\kilo\metre\per\second\per\mega\parsec}]$ & 67.36 \\
         Total matter density     & $\symup{\Omega}_{m,0}$               & 0.3153 \\
-        Baryon density           & $\symup{\Omega}_{b,0}$               & 0.02237 \\
+        Baryon density           & $\symup{\Omega}_{b,0}$               & 0.0224 \\
         Fluctuation amplitude    & $\sigma_8$                           & 0.8111 \\
         Scalar spectral index    & $n_s$                                & 0.9649 \\
         CMB temperature          & $T_{\symup{CMB},0}\ [\si{\kelvin}]$  & 2.7255 \\
@@ -116,7 +120,14 @@ near-all-sky coverage achievable by wide-field radio interferometers such as CHI
     parameters $\alpha$ and $N_{\mathrm{tot}}$ determine the redshift distribution and shot-noise
     level according to \autoref{eq:frb_nz} and \autoref{eq:shot_noise}, respectively.}
     \label{tab:frb_surveys}
-    \begin{tabular}{lSSS}
+    \begin{tabular}{
+        l@{\hspace{1.0em}}
+        S[table-format=1.1]
+        @{\hspace{0.8em}}
+        S[table-format=5.0]
+        @{\hspace{0.8em}}
+        S[table-format=1.1]
+        }
         \toprule
         Configuration & {$\alpha$} & {$N_{\mathrm{tot}}$} & {$f_{\mathrm{sky}}$} \\
         \midrule
@@ -173,6 +184,18 @@ The resulting distributions are shown in \autoref{fig:galaxy_nz}.
 
 \section{Tracer Bias Models} \label{sec:bias_models}
 \subsection{FRB Host Population Bias} \label{sec:frb_bias}
+
+%\begin{wrapfigure}[15] % 20 stands for the number of lines the figure should span
+%    {r}{0.5\textwidth} % 'r' for right, '
+%    \begin{center}
+%        \vspace{-24pt} % Adjust vertical space if needed
+%        \includegraphics[width=0.48\textwidth]{../programming/frb-cosmology/plots/frb/FRB_bias_bz.pdf}
+%        \caption{FRB host population bias models of \autoref{eq:frb_bias} for the two progenitor classes
+%        considered in this thesis.}
+%        \label{fig:frb_bias}
+%    \end{center}
+%\end{wrapfigure}
+
 As motivated in \autoref{sec:progenitor_mechanisms}, the two dominant progenitor classes are expected
 to trace the underlying matter distribution differently. 
 This difference is encoded in a redshift-dependent linear bias of the power-law form
@@ -183,34 +206,49 @@ This difference is encoded in a redshift-dependent linear bias of the power-law 
 
 where $b_0$ denotes the bias amplitude at $z=0$ and the exponent $\delta$ parameterizes its redshift
 evolution~\cite{Pan_2020}. The fiducial values adopted for the two progenitor classes are listed
-in \autoref{tab:frb_bias}
+in \autoref{tab:frb_bias} and shown in \autoref{fig:frb_bias}.
 
-\begin{table} [H]
+\begin{table}[H]
     \centering
-    \caption{Fiducial parameters of the FRB host population bias model of \autoref{eq:frb_bias} for
-    the two progenitor classes considered in this thesis.}
+    \vspace{-5pt} % Adjust vertical space if needed
+    \caption{Fiducial parameters of the FRB host population bias model.}
     \label{tab:frb_bias}
-    \begin{tabular}{lSS}
+    \begin{tabular}{
+        l@{\hspace{1.2em}}
+        S[table-format=1.1]
+        @{\hspace{1.0em}}
+        S[table-format=1.1]
+    }
         \toprule
         Progenitor class & {$b_0$} & {$\delta$} \\
         \midrule
-        Magnetars     & 1.0 & 0.8 \\
-        Neutron stars & 1.5 & 0.2 \\
+        Magnetars      & 1.0 & 0.8 \\
+        Neutron stars  & 1.5 & 0.2 \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-and shown in \autoref{fig:frb_bias}.
-
-\begin{figure}[H]
+VIELLEICHT HIER DOPPELT IN LEGEND UND IN TABELLE
+%\begin{table}[H]
+%    \centering
+%    \caption{Fiducial parameters of the FRB host population bias model of
+%    \autoref{eq:frb_bias} for the two progenitor classes considered in this thesis.}
+%    \label{tab:frb_bias}
+%    \begin{tabular}{lSS}
+%        \toprule
+%        Progenitor class & {$b_0$} & {$\delta$} \\
+%        \midrule
+%        Magnetars      & 1.0 & 0.8 \\
+%        Neutron stars  & 1.5 & 0.2 \\
+%        \bottomrule
+%    \end{tabular}
+%\end{table}
+%
+\begin{figure}[H] 
     \centering
     \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/FRB_bias_bz.pdf}
-    \caption{The magnetar channel is assigned a low
-    amplitude but a steep evolution, consistent with a young population whose host haloes become
-    progressively rarer, and therefore more strongly biased, toward higher redshift. The delayed
-    neutron-star channel is assigned a higher amplitude but a much shallower evolution, reflecting a
-    relatively older population that resides in massive hosts already at low redshift and whose clustering is largely
-    decoupled from the instantaneous star-formation rate.}
+    \caption{FRB host population bias models of \autoref{eq:frb_bias} for the two progenitor classes
+    considered in this thesis.}
     \label{fig:frb_bias}
 \end{figure}
 
@@ -252,7 +290,13 @@ The resulting mean redshifts and bias values are listed in
     $\langle z \rangle_i$ is computed from the published redshift distributions and the bias
     $b_g^{\,i}$ follows from \autoref{eq:galaxy_bias}.}
     \label{tab:galaxy_bins}
-    \begin{tabular}{cSSS}
+    \begin{tabular}{
+        S[table-format=1]
+        @{\hspace{1.2em}}
+        S[table-format=1.3]
+        @{\hspace{1.0em}}
+        S[table-format=1.3]
+        }
         \toprule
         Bin & {$\langle z \rangle_i$} & {$b_g^{\,i}$} \\
         \midrule
@@ -316,50 +360,85 @@ coincide, $W^A = W^B$, and the projection integral reduces to a weighted line-of
 the matter power spectrum. Auto-spectra are computed for both FRB survey configurations and both
 progenitor classes, as well as for each of the six tomographic galaxy bins.
 
-In contrast to the cross-spectra discussed below, auto-spectra receive an additive Poissonian
-shot-noise contribution from the discreteness of the tracer field, which is treated in
-\autoref{sec:shot_noise}. \autoref{fig:frb_cell_shotnoise} illustrates the relative importance of
-signal and noise for a representative FRB configuration, while \autoref{fig:frb_cell_comparison}
-shows the signal-only spectra for both progenitor classes. The
-galaxy auto-spectra of all six tomographic bins are shown in \autoref{fig:galaxy_cell_comparison}.
+In contrast to the cross-spectra discussed below, auto-spectra receive an additive Poissonian shot-noise 
+contribution from the discreteness of the tracer field, which is treated in \autoref{sec:shot_noise}. 
+For the representative shallow FRB configuration, the shot noise exceeds the clustering signal by 
+roughly three orders of magnitude across the entire multipole range, rendering the auto-correlation 
+strongly noise-dominated for a sample of only $\num{5e3}$ bursts. This illustrates the limited 
+constraining power of the FRB auto-spectrum alone and motivates its combination with a dense 
+galaxy sample in a cross-correlation analysis, as shown in \autoref{fig:frb_cell_shotnoise}.
 
-\begin{figure}
+The signal-only spectra further show that the shallow survey configuration produces a larger
+amplitude than the deep configuration. This results from its narrower redshift distribution, 
+which projects a smaller radial range onto a given angular scale and therefore leads to less 
+line-of-sight dilution, as illustrated in \autoref{fig:frb_cell_comparison}. The same qualitative behavior is found for the delayed neutron-star 
+population.
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/FRB_magnetar_Cell_shallow_shotnoise.pdf}
-    \caption{FRB auto-correlation angular power spectrum for the magnetar population in the shallow
-    survey configuration, shown with and without the Poissonian shot-noise contribution. The
-    clustering signal peaks at $\ell\approx20$ and falls off steeply thereafter, whereas the shot
-    noise is scale-independent and exceeds the signal by roughly three orders of magnitude across
-    the entire multipole range. For a burst sample of only $\num{5e3}$ events the FRB
-    auto-correlation is therefore completely noise-dominated, which is the central motivation for
-    combining it with a dense galaxy sample in a cross-correlation analysis.}
-    \label{fig:frb_cell_shotnoise}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/frb/FRB_magnetar_Cell_shallow_shotnoise.pdf}
+        \caption{Magnetar FRB auto-spectrum with and without shot noise for the shallow survey configuration.}
+        \label{fig:frb_cell_shotnoise}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/frb/FRB_magnetar_Cell_comparison.pdf}
+        \caption{Signal-only magnetar FRB auto-spectra for the shallow and deep survey configurations.}
+        \label{fig:frb_cell_comparison}
+    \end{subfigure}
+    \caption{FRB auto-correlation angular power spectra for the magnetar population.}
+    \label{fig:frb_cell}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/FRB_magnetar_Cell_comparison.pdf}
-    \caption{Signal-only FRB auto-correlation angular power spectra for the shallow and 
-    deep survey configurations, shown for the magnetar population. The shallow 
-    configuration yields a larger amplitude, as its narrower redshift distribution projects 
-    a smaller radial range onto the same angular scale and therefore experiences less line-of-sight 
-    dilution. A similar behavior is observed for the delayed neutron-star population.}
-    \label{fig:frb_cell_comparison}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/FRB_magnetar_Cell_shallow_shotnoise.pdf}
+%    \caption{FRB auto-correlation angular power spectrum for the magnetar population in the shallow
+%    survey configuration, shown with and without the Poissonian shot-noise contribution. The
+%    clustering signal peaks at $\ell\approx20$ and falls off steeply thereafter, whereas the shot
+%    noise is scale-independent and exceeds the signal by roughly three orders of magnitude across
+%    the entire multipole range. For a burst sample of only $\num{5e3}$ events the FRB
+%    auto-correlation is therefore completely noise-dominated, which is the central motivation for
+%    combining it with a dense galaxy sample in a cross-correlation analysis.}
+%    \label{fig:frb_cell_shotnoise}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/FRB_magnetar_Cell_comparison.pdf}
+%    \caption{Signal-only FRB auto-correlation angular power spectra for the shallow and 
+%    deep survey configurations, shown for the magnetar population. The shallow 
+%    configuration yields a larger amplitude, as its narrower redshift distribution projects 
+%    a smaller radial range onto the same angular scale and therefore experiences less line-of-sight 
+%    dilution. A similar behavior is observed for the delayed neutron-star population.}
+%    \label{fig:frb_cell_comparison}
+%\end{figure}
+
+The galaxy auto-spectra of all six tomographic bins are shown in \autoref{fig:galaxy_cell_comparison}. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/galaxy/Galaxy_Cell_comparison.pdf}
+\caption{Signal-only galaxy auto-correlation angular power spectra for the six KiDS-Legacy tomographic bins.}
+\label{fig:galaxy_cell_comparison}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/galaxy/Galaxy_Cell_comparison.pdf}
-    \caption{Signal-only galaxy auto-correlation angular power spectra of the six KiDS-Legacy
-    tomographic bins. The amplitude decreases systematically from the low-redshift to the
-    high-redshift bins: although the bias increases with redshift according to
-    \autoref{eq:galaxy_bias}, this is more than compensated by the broader radial extent of the
-    high-redshift bins and by the smaller amplitude of the matter power spectrum at earlier times.
-    In addition, the peak of the spectrum shifts toward higher multipoles for the higher bins,
-    since a fixed comoving scale subtends a smaller angle when viewed from a larger distance. 
-    HIER AUCH NOCHMAL ANGUCKEN UND BESSER VERSTEHEN}
-    \label{fig:galaxy_cell_comparison}
-\end{figure}
+The amplitude decreases systematically towards higher redshift, despite the increasing galaxy bias 
+given by \autoref{eq:galaxy_bias}. This is mainly due to the broader radial extent of the higher-redshift 
+tomographic bins, which leads to stronger line-of-sight projection and therefore a greater dilution of the 
+angular clustering signal. In addition, the matter power spectrum has a lower amplitude at higher redshift 
+because the matter perturbations have had less time to grow. Together, these effects more than compensate 
+for the increase in galaxy bias.
+
+The position of the spectral features also shifts towards higher multipoles for the higher-redshift bins. 
+This follows from the relation between angular and comoving scales: at larger comoving distances, a fixed 
+physical or comoving scale subtends a smaller angle and therefore corresponds to a larger multipole $\ell$. 
+The higher-redshift bins consequently probe the same underlying spatial scales at higher angular multipoles.
+
+DAS NOCHMAL ANSCHAUEN UND BESSER VERSTEHEN
 
 \subsection{Cross-Correlation Analysis} \label{sec:cross_correlation_analysis}
 The angular cross-power spectrum between the FRB sample and the $i$-th tomographic galaxy bin is
@@ -368,12 +447,6 @@ and \autoref{eq:weight_galaxy}. Cross-spectra are computed for all combinations 
 classes, two survey configurations and six tomographic bins, yielding $2\times2\times6 = 24$ spectra
 in total.
 
-Regarding shot-noise, FRBs reside
-in galaxies and a subset of their hosts may be contained in the KiDS sample, which would introduce a
-small residual Poisson term. Given the vast difference in number density between the two samples,
-this contribution is neglected here.
-
-DAS WIRD AUCH IN SUMMARY ERWAEHNT VIELLEICHT MUSS DAS DANN HIER WENIGER AUSFUEHRLICH SEIN
 %\autoref{fig:cross_bin_comparison} 
 %compares the six tomographic bins for a fixed progenitor class
 %and survey configuration, \autoref{fig:cross_population} contrasts the two progenitor classes, 
@@ -418,6 +491,12 @@ and contrasts the two progenitor classes.
     \label{fig:cross_survey}
 \end{figure}
 
+Regarding shot-noise, FRBs reside
+in galaxies and a subset of their hosts may be contained in the KiDS sample, which would introduce a
+small residual Poisson term. Given the vast difference in number density between the two samples,
+this contribution is neglected here.
+
+DAS WIRD AUCH IN SUMMARY ERWAEHNT VIELLEICHT MUSS DAS DANN HIER WENIGER AUSFUEHRLICH SEIN
 \section{Shot-Noise} \label{sec:shot_noise}
 Because both tracers are discrete point processes, the measured auto-spectra contain an additive
 Poissonian noise term. For a sample of mean projected number density $\bar{n}$ per steradian, this

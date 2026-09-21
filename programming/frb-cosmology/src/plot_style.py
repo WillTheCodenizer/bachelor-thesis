@@ -5,11 +5,11 @@ from matplotlib.font_manager import FontProperties, findfont
 
 
 # Adjust these values to change the appearance of every plot in one place.
-TICK_LABEL_SIZE = 11
-AXIS_LABEL_SIZE = 12
-TITLE_SIZE = 13
+TICK_LABEL_SIZE = 14
+AXIS_LABEL_SIZE = 15
+TITLE_SIZE = 17
 SUPTITLE_SIZE = 16
-LEGEND_SIZE = 10
+LEGEND_SIZE = 13
 
 
 def configure_matplotlib_fonts():
@@ -18,9 +18,16 @@ def configure_matplotlib_fonts():
     plt.rcParams.update({
         "font.family": "serif",
         "font.serif": ["Latin Modern Roman"],
+        "font.weight": "normal",
         "text.usetex": True,
-        "text.latex.preamble": r"\usepackage{lmodern}",
+        "text.latex.preamble": (
+            r"\usepackage[T1]{fontenc}"
+            r"\usepackage{lmodern}"
+            r"\usepackage{amsmath}"
+        ),
         "axes.unicode_minus": False,
+        "axes.labelweight": "normal",
+        "axes.titleweight": "normal",
         "xtick.labelsize": TICK_LABEL_SIZE,
         "ytick.labelsize": TICK_LABEL_SIZE,
         "axes.labelsize": AXIS_LABEL_SIZE,
