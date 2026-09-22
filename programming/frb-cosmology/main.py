@@ -952,18 +952,27 @@ def _run_fisher_pipeline(cfg, P_interp, k_min, k_max):
             cov_multi = invert_fisher(F_multi)
 
             # Print marginal 1σ constraints
+            from scipy.stats import chi2 as chi2_dist
+
+            # Chi²-Skalierungsfaktoren für marginale (1D!) Constraints
+            scale_1s = 1.0                                      # 1σ marginal → Faktor 1
+            scale_2s = np.sqrt(chi2_dist.ppf(0.9545, df=1))    # 2σ marginal → Faktor ≈ 2.00
+
+            # FRB-only
             sigma_b0_frb    = np.sqrt(cov_frb[0, 0])
             sigma_delta_frb = np.sqrt(cov_frb[1, 1])
+
+            # Multi-tracer
             sigma_b0_multi    = np.sqrt(cov_multi[0, 0])
             sigma_delta_multi = np.sqrt(cov_multi[1, 1])
-            print(
-                f"    FRB-only:     sigma_b0 = {sigma_b0_frb:.4f}, "
-                f"sigma_delta = {sigma_delta_frb:.4f}"
-            )
-            print(
-                f"    Multi-tracer ({cfg.label}): sigma_b0 = {sigma_b0_multi:.4f}, "
-                f"sigma_delta = {sigma_delta_multi:.4f}"
-            )
+
+            print(f"    FRB-only:")
+            print(f"      1σ: sigma_b0 = {scale_1s * sigma_b0_frb:.4f},  sigma_delta = {scale_1s * sigma_delta_frb:.4f}")
+            print(f"      2σ: sigma_b0 = {scale_2s * sigma_b0_frb:.4f},  sigma_delta = {scale_2s * sigma_delta_frb:.4f}")
+
+            print(f"    Multi-tracer ({cfg.label}):")
+            print(f"      1σ: sigma_b0 = {scale_1s * sigma_b0_multi:.4f},  sigma_delta = {scale_1s * sigma_delta_multi:.4f}")
+            print(f"      2σ: sigma_b0 = {scale_2s * sigma_b0_multi:.4f},  sigma_delta = {scale_2s * sigma_delta_multi:.4f}")
 
             _plot_fisher_ellipses(
                 cov_frb, cov_multi,

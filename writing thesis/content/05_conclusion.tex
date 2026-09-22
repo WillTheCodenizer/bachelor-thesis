@@ -8,23 +8,19 @@ Limber approximation. Poissonian shot noise was added to the auto-spectra of bot
 while the cross-spectrum was assumed to be free of shot noise. The resulting spectra were then 
 propagated into a Fisher forecast for the FRB host-bias amplitude $b_0$ and evolution exponent $\delta$.
 
-The central result is that the FRB auto-correlation is of no practical use on its own. For the burst
-numbers considered here the shot noise exceeds the clustering signal by two to three orders of
-magnitude at every multipole, and the resulting marginalized errors are one to two orders of
-magnitude larger than the parameters they are meant to constrain. Correlating the same burst sample
-with the KiDS galaxies changes this picture entirely: the marginalized errors shrink by factors of
-$17$ to $51$, and the figure of merit improves by factors of $61$ to $449$, achieved on a footprint
-roughly $27$ times smaller than the one assumed for the FRB-only case. At the same time, the
-KiDS footprint is not yet sufficient to distinguish a prompt magnetar channel from a delayed
-neutron-star channel, as the separation between the two fiducial models remains well inside the
-$1\sigma$ contours.
+The combination of the FRB sample with the KiDS galaxy survey yields strong constraints on the 
+parameters of interest. The marginalized errors are reduced by factors of $17$ to $51$, while 
+the figure of merit improves by factors of $61$ to $449$, despite using a footprint roughly $27$ 
+times smaller than that assumed for the FRB-only analysis. These results demonstrate the strong 
+constraining power gained from combining the FRB and galaxy samples. However, the current KiDS 
+footprint is not yet sufficient to distinguish between a prompt magnetar channel and a delayed 
+neutron-star channel, as the separation between the two fiducial models remains well within 
+the $1\sigma$ contours.
 
 \section{Limitations} \label{sec:limitations}
-The analysis rests on several simplifying assumptions that may affect the forecast.
+The analysis rests on some simplifying assumptions that may affect the forecast.
 
 \begin{itemize}
-    \item Both tracers are described by a linear, deterministic, scale-independent bias. On the
-    smaller scales included in the multipole range this description is known to break down.
     \item The Limber approximation restricts the analysis to $\ell \gtrsim \mathcal{O}(10)$,
     excluding precisely the large angular scales on which the radial kernels differ most strongly
     between the two progenitor models.
@@ -48,13 +44,13 @@ is to replace the KiDS field with a wider galaxy survey. The Legacy Survey of Sp
 (LSST) at the Vera C. Rubin Observatory will image about $\qty{18000}{\deg\squared}$ of the
 southern sky~\cite{Ivezic_2019}, corresponding to $f_{\mathrm{sky}} = 0.4363$, roughly thirteen
 times the KiDS area. Running the pipeline with the ten-bin LSST Dark Energy Science Collaboration
-Y10 lens sample~\cite{Mandelbaum_2018}
+Y10 lens sample~\cite{Zhang_2025_LSST}
 while keeping all other ingredients unchanged yields the contours shown in
 \autoref{fig:fisher_kids_vs_lsst} and the numbers listed in \autoref{tab:lsst_sigmas} and \autoref{tab:lsst_fom}.
 
 The improvement is substantial: for the deep magnetar configuration the error on $b_0$ drops from
 $1.27$ to $0.25$ and the figure of merit increases by a factor of $26$. Most of this gain follows
-directly from the larger footprint; the remainder comes from the finer tomographic resolution and
+directly from the larger footprint, while the remainder comes from the finer tomographic resolution and
 the deeper redshift coverage of the LSST lens sample. Physically, the separation between the two
 progenitor models, $\Delta b_0 = 0.5$ and $\Delta\delta = 0.6$, now lies outside the $1\sigma$
 contours of the deep configuration, meaning that a cross-correlation with an LSST-like sample
@@ -73,16 +69,18 @@ Beyond a wider footprint, several extensions of the analysis are conceivable:
     connecting the measured bias to host halo masses and extending the analysis to smaller scales.
 \end{itemize}
 
-Taken together, the results of this thesis show that the clustering of fast radio bursts becomes a
-usable cosmological observable as soon as it is not analyzed in isolation. The bursts themselves
-are far too sparse to support an auto-correlation measurement, but their cross-correlation with a
-dense photometric galaxy sample recovers most of the information lost to shot noise. With current
-survey footprints this suffices to constrain the host bias to order unity; with next-generation
-imaging surveys it should suffice to identify the progenitor population itself.
+Taken together, the results of this thesis demonstrate the strong 
+potential of FRB-galaxy cross-correlation as a cosmological observable. 
+Combining the FRB sample with a dense photometric galaxy sample efficiently 
+recovers clustering information and enables constraints on the host bias at 
+order unity with current survey footprints. With the larger and deeper imaging 
+surveys expected in the next generation, this approach could provide sufficient 
+precision to distinguish between different progenitor populations and shed light 
+on the astrophysical origin of fast radio bursts.
 
 MARKOV CHAIN BETTER FOR PRIORS:
 "A full Bayesian analysis with Markov Chain Monte Carlo sampling would be 
-required to accurately characterise the posterior in that regime and to assess 
+required to accurately characterize the posterior in that regime and to assess 
 potential biases from prior volume effects."
 
 DIE SCHRAEGE SCHRIFT IN BIBLIOGRAPHY FIXEN
