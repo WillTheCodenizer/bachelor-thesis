@@ -1,11 +1,10 @@
-"""Export and plot the local fisherA2Z default LSST Y10 lens sample.
+"""Export and plot the LSST Y10 lens curves in the Figure 3 convention.
 
 Run from any directory with ``py path/to/export_lsst_redshift.py``.
-This reproduces fisher_flex._default_lens_sample(10, y1=False), including
-its use of the dneff column, finite-grid Gaussian normalization, uniform
-photo-z filters, and relative bin weights. It needs no pyccl installation.
-The 48 arcmin^-2 total is the repository's forecast assumption, not a
-measurement. Existing LSST_Y10_nz.txt and pipeline settings are untouched.
+The curves use the local fisherA2Z dneff data and uniform bin filters,
+with Gaussian kernels evaluated and normalized on a dense output grid.
+They are neither unit-integral PDFs nor absolute galaxy number densities.
+Only the Figure 3 data table and PNG/PDF plots are written.
 """
 
 from pathlib import Path
@@ -28,93 +27,57 @@ SOURCE_PATH = REPOSITORY_DIR / "src" / "fisherA2Z" / "data" / "nzdist.txt"
 N_BINS = 10
 BIN_EDGES = np.linspace(0.2, 1.2, N_BINS + 1)
 SIGMA_Z = 0.03
-TOTAL_DENSITY_ARCMIN2 = 48.0
 OUTPUT_STEM = "LSST_Y10_fisherA2Z"
+FIGURE3_GRID_SIZE = 4001
 
 
-def build_lens_sample(source_path):
-    """Read source_path; return z_mid, unit-integral bin PDFs and arcmin^-2 densities."""
+def build_figure3_sample(source_path):
+    """Return a dense z grid and unnormalized Fisher lens curves from source_path.
+
+    Keep the original parent-distribution integration grid, but evaluate and
+    normalize the Gaussian kernels on a dense output grid. This avoids the
+    coarse-grid normalization error for kernels narrower than the input step.
+    """
     source = np.genfromtxt(source_path, names=True)
-    redshift = source["zmid"]
-    parent_pdf = source["dneff"] / trapezoid(source["dneff"], redshift)
-    scatter = SIGMA_Z * (1.0 + redshift)
-    core = norm.pdf((redshift[:, None] - redshift[None, :]) / scatter) / scatter
+    input_redshift = source["zmid"]
+    redshift = np.linspace(0.0, 4.0, FIGURE3_GRID_SIZE)
+    parent_pdf = source["dneff"] / trapezoid(source["dneff"], input_redshift)
+    scatter = SIGMA_Z * (1.0 + input_redshift)
+    core = norm.pdf((redshift[:, None] - input_redshift[None, :]) / scatter) / scatter
     core /= trapezoid(core, redshift, axis=0)
     distributions = []
-    weights = []
     for lower, upper in zip(BIN_EDGES[:-1], BIN_EDGES[1:]):
-        selection = uniform.pdf(redshift, loc=lower, scale=upper - lower)
+        selection = uniform.pdf(input_redshift, loc=lower, scale=upper - lower)
         joint = core * (parent_pdf * selection)[None, :]
-        distribution = trapezoid(joint, redshift, axis=1)
-        weight = trapezoid(distribution, redshift)
-        distributions.append(distribution / weight)
-        weights.append(weight)
-    densities = TOTAL_DENSITY_ARCMIN2 * np.asarray(weights) / np.sum(weights)
-    return redshift, np.asarray(distributions), densities
+        distributions.append(trapezoid(joint, input_redshift, axis=1))
+    return redshift, np.asarray(distributions)
 
 
-def export_tables(redshift, distributions, densities):
-    """Write the supplied grid, bin PDFs and densities to data/; return None."""
-    data_dir = PROJECT_DIR / "data"
-    provenance = (
-        "LSST Y10 lens forecast; fisherA2Z fisher_flex._default_lens_sample\n"
-        "Source: lsst_data_repo/fisherA2Z/src/fisherA2Z/data/nzdist.txt (dneff)\n"
-        "10 uniform photo-z bins: 0.2 to 1.2; sigma_z = 0.03 * (1 + z)\n"
-    )
-    np.savetxt(
-        data_dir / f"{OUTPUT_STEM}_nz.txt",
-        np.column_stack((redshift, distributions.T)),
-        fmt="%.12e",
-        delimiter="\t",
-        header=provenance + "Each BIN integrates to 1 over z_mid.\n"
-        + "Z_MID\t" + "\t".join(f"BIN{index}" for index in range(1, N_BINS + 1)),
-    )
-    np.savetxt(
-        data_dir / f"{OUTPUT_STEM}_Ngal.txt",
-        densities[None, :],
-        fmt="%.12e",
-        header=provenance
-        + "Number of galaxies per arcmin^2; repository total = 48.0\n"
-        + "Densities = 48 * bin weights / sum(bin weights); not equal-bin counts.\n"
-        + " ".join(f"NGAL_{index}" for index in range(1, N_BINS + 1)),
-    )
-
-
-def plot_sample(redshift, distributions, densities):
-    """Save PNG/PDF plots of the supplied PDFs and arcmin^-2 densities; return None."""
+def export_figure3_sample(redshift, distributions):
+    """Save supplied raw Fisher curves as an 11-column table and Figure-3-style plot."""
     configure_matplotlib_fonts()
     if shutil.which("latex") is None:
         plt.rcParams.update({"text.usetex": False, "font.serif": ["DejaVu Serif"]})
-    figure, (pdf_axes, density_axes) = plt.subplots(
-        2, 1, figsize=(11, 8), constrained_layout=True,
-        gridspec_kw={"height_ratios": [2.2, 1]},
-    )
-    colors = plt.get_cmap("tab10").colors
-    for index, distribution in enumerate(distributions):
-        pdf_axes.plot(
-            redshift, distribution, color=colors[index], linewidth=1.8,
-            label=f"{index + 1}: {BIN_EDGES[index]:.1f}-{BIN_EDGES[index + 1]:.1f}",
-        )
-    pdf_axes.set(
-        xlim=(0.0, 1.6), ylim=(0.0, None), xlabel=r"Redshift $z$",
-        ylabel=r"Normalized $p_i(z)$", title="LSST Y10: 10 tomographic lens bins",
-    )
-    pdf_axes.legend(title="Photo-z bin", ncol=5, fontsize=10, title_fontsize=11)
-    bin_numbers = np.arange(1, N_BINS + 1)
-    bars = density_axes.bar(bin_numbers, densities, color=colors, width=0.7)
-    density_axes.bar_label(bars, fmt="%.3f", padding=3, fontsize=10)
-    density_axes.set(
-        xticks=bin_numbers, xlabel="Tomographic bin", ylabel=r"$\bar{n}_i$ [arcmin$^{-2}$]",
-        ylim=(0, densities.max() * 1.22), title=r"Repository forecast: total 48 arcmin$^{-2}$",
-    )
-    for axes in (pdf_axes, density_axes):
-        axes.spines[["top", "right"]].set_visible(False)
-        axes.grid(axis="y", alpha=0.2)
-        axes.set_axisbelow(True)
     output_dir = PROJECT_DIR / "plots" / "galaxy_lsst"
     output_dir.mkdir(parents=True, exist_ok=True)
+    np.savetxt(
+        PROJECT_DIR / "data" / f"{OUTPUT_STEM}_figure3_nz.txt",
+        np.column_stack((redshift, distributions.T)), fmt="%.12e", delimiter="\t",
+        header="LSST Y10 lens curves; original Fisher._makeLensPZ convention\n"
+        "Reference: https://arxiv.org/abs/2507.01374 Figure 3\n"
+        "Source: fisherA2Z/data/nzdist.txt, dneff column\n"
+        "Original 40-point parent integration; dense Gaussian evaluation and normalization\n"
+        "Raw n_i(z), NOT unit-integral PDFs and NOT galaxies/arcmin^2/z\n"
+        + "Z_MID\t" + "\t".join(f"BIN{index}" for index in range(1, N_BINS + 1)),
+    )
+    figure, axes = plt.subplots(figsize=(10, 5), constrained_layout=True)
+    colors = plt.get_cmap("tab10").colors
+    for distribution, color in zip(distributions, colors):
+        axes.plot(redshift, distribution, color=color, linewidth=1.5)
+    axes.set(xlim=(0.0, 1.5), xlabel="redshift", ylabel=r"$n_i(z)$")
+    axes.grid(alpha=0.55)
     for extension in ("png", "pdf"):
-        output_path = output_dir / f"{OUTPUT_STEM}_tomography.{extension}"
+        output_path = output_dir / f"{OUTPUT_STEM}_figure3.{extension}"
         figure.savefig(output_path, dpi=180)
         print(output_path)
     plt.close(figure)
@@ -122,18 +85,14 @@ def plot_sample(redshift, distributions, densities):
 
 def main():
     """Build, validate, export and plot the local Y10 lens sample; return None."""
-    redshift, distributions, densities = build_lens_sample(SOURCE_PATH)
+    redshift, distributions = build_figure3_sample(SOURCE_PATH)
     assert distributions.shape == (N_BINS, redshift.size)
     assert np.all(np.diff(redshift) > 0)
     assert np.all(np.isfinite(distributions)) and np.all(distributions >= 0)
-    assert np.all(np.isfinite(densities)) and np.all(densities > 0)
-    np.testing.assert_allclose(trapezoid(distributions, redshift, axis=1), 1.0)
-    np.testing.assert_allclose(densities.sum(), TOTAL_DENSITY_ARCMIN2)
-    export_tables(redshift, distributions, densities)
-    plot_sample(redshift, distributions, densities)
+    assert np.all(trapezoid(distributions, redshift, axis=1) > 0)
+    export_figure3_sample(redshift, distributions)
+    print("Figure 3 peak heights:", distributions.max(axis=1))
     print(f"Rows: {redshift.size}; columns: {N_BINS + 1}")
-    print("Densities [arcmin^-2]:", np.array2string(densities, precision=6))
-    print(f"Total [arcmin^-2]: {densities.sum():.6f}")
 
 
 if __name__ == "__main__":

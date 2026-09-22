@@ -1,7 +1,0 @@
-# LSST Y10 lens forecast; fisherA2Z fisher_flex._default_lens_sample
-# Source: lsst_data_repo/fisherA2Z/src/fisherA2Z/data/nzdist.txt (dneff)
-# 10 uniform photo-z bins: 0.2 to 1.2; sigma_z = 0.03 * (1 + z)
-# Number of galaxies per arcmin^2; repository total = 48.0
-# Densities = 48 * bin weights / sum(bin weights); not equal-bin counts.
-# NGAL_1 NGAL_2 NGAL_3 NGAL_4 NGAL_5 NGAL_6 NGAL_7 NGAL_8 NGAL_9 NGAL_10
-2.273296322724e+00 4.537523676515e+00 5.598237541890e+00 5.947085432881e+00 6.044950381446e+00 5.765949923708e+00 4.523115339240e+00 4.977138539438e+00 4.262426848316e+00 4.070275993843e+00
