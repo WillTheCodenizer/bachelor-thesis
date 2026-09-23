@@ -103,16 +103,23 @@ GALAXY_NZ_FILE = (
 # =============================================================================
 LSST_N_BINS = 10                          # Number of LSST Y10 lens tomographic bins
 
-# Tomographic n(z) distributions for the LSST Y10 lens sample.
+# Tomographic n(z) distributions for the LSST Y10 lens sample (fisherA2Z Figure 3).
 LSST_NZ_FILE = (
-    Path(__file__).resolve().parents[1] / "data" / "LSST_Y10_nz.txt"
+    Path(__file__).resolve().parents[1] / "data" / "LSST_Y10_fisherA2Z_figure3_nz.txt"
 )
 
-# LSST Y10 lens number density [arcmin^-2], split equally across all bins.
-LSST_NGAL_TOTAL = 26.94                    # Total lens number density [arcmin^-2]
-LSST_NBAR_PER_BIN = (
-    np.full(LSST_N_BINS, LSST_NGAL_TOTAL / LSST_N_BINS) * ARCMIN2_PER_STERADIAN
+# LSST Y10 number-density input: one n_bar value per tomographic bin (same
+# handling as the KiDS ngal file above).
+LSST_NGAL_FILE = (
+    Path(__file__).resolve().parents[1] / "data" / "LSST_Y10_fisherA2Z_Ngal.txt"
 )
+LSST_NBAR_PER_BIN = np.loadtxt(LSST_NGAL_FILE, comments="#", ndmin=1) * ARCMIN2_PER_STERADIAN
+
+if LSST_NBAR_PER_BIN.size != LSST_N_BINS:
+    raise ValueError(
+        f"Expected {LSST_N_BINS} ngal values in LSST_Y10_fisherA2Z_Ngal.txt, "
+        f"got {LSST_NBAR_PER_BIN.size}."
+    )
 
 # Fisher forecast sky fraction: LSST Y10 footprint (18000 deg²)
 F_SKY_FISHER_LSST = 18000.0 / (4.0 * np.pi * (180.0 / np.pi) ** 2)

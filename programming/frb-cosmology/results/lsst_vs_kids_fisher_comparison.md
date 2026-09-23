@@ -15,7 +15,7 @@ with $\hat C_\ell = C_\ell + N_\ell$ the signal-plus-noise covariance. The **FRB
 | Survey | Tomographic bins | $f_{\rm sky}$ (Fisher) | Sky area [deg²] | $\bar n_{\rm tot}$ [arcmin⁻²] |
 |---|---|---|---|---|
 | KiDS | 6 | 0.0327 | 1347 | 8.38 |
-| LSST Y10 | 10 | 0.4363 | 18000 | 26.94 |
+| LSST Y10 | 10 | 0.4363 | 18000 | 48.00 |
 
 ## Marginal 1σ constraints
 
@@ -23,19 +23,19 @@ Multi-tracer marginal errors for each survey, with the shared FRB-only baseline.
 
 | Population | FRB survey | $\sigma_{b_0}$ FRB-only | $\sigma_{b_0}$ KiDS | $\sigma_{b_0}$ LSST | $\sigma_{\delta}$ FRB-only | $\sigma_{\delta}$ KiDS | $\sigma_{\delta}$ LSST |
 |---|---|---|---|---|---|---|---|
-| Magnetars | Deep | 23.48 | 1.274 | 0.25 | 31.07 | 1.876 | 0.3103 |
-| Magnetars | Shallow | 91.32 | 1.907 | 0.4831 | 190.6 | 3.762 | 0.9225 |
-| Neutron Stars | Deep | 33.04 | 1.702 | 0.3607 | 32.35 | 1.77 | 0.327 |
-| Neutron Stars | Shallow | 101 | 2.415 | 0.619 | 153 | 3.414 | 0.854 |
+| Magnetars | Deep | 23.45 | 1.273 | 0.4204 | 31.03 | 1.875 | 0.6834 |
+| Magnetars | Shallow | 91.27 | 1.906 | 0.5749 | 190.5 | 3.76 | 1.149 |
+| Neutron Stars | Deep | 33.01 | 1.701 | 0.5474 | 32.32 | 1.769 | 0.6182 |
+| Neutron Stars | Shallow | 100.9 | 2.414 | 0.7299 | 153 | 3.412 | 1.03 |
 
 ## Figure of merit and improvement
 
 | Population | FRB survey | FoM FRB-only | FoM KiDS | FoM LSST | LSST/KiDS FoM | KiDS gain vs FRB-only | LSST gain vs FRB-only |
 |---|---|---|---|---|---|---|---|
-| Magnetars | Deep | 0.02626 | 1.594 | 42.01 | 26.35× | 60.7× | 1599.7× |
-| Magnetars | Shallow | 0.0009179 | 0.4119 | 6.29 | 15.27× | 448.7× | 6852.4× |
-| Neutron Stars | Deep | 0.01601 | 1.154 | 25.72 | 22.28× | 72.1× | 1606.8× |
-| Neutron Stars | Shallow | 0.0009895 | 0.3447 | 5.129 | 14.88× | 348.3× | 5183.0× |
+| Magnetars | Deep | 0.02633 | 1.596 | 14.58 | 9.13× | 60.6× | 553.6× |
+| Magnetars | Shallow | 0.0009192 | 0.4123 | 4.888 | 11.85× | 448.6× | 5317.5× |
+| Neutron Stars | Deep | 0.01604 | 1.156 | 11.35 | 9.82× | 72.0× | 707.7× |
+| Neutron Stars | Shallow | 0.0009908 | 0.345 | 4.135 | 11.98× | 348.2× | 4173.4× |
 
 ## Discussion
 
@@ -52,5 +52,5 @@ Across all 4 FRB configurations, LSST Y10 delivers the tighter multi-tracer cons
 ## Caveats
 
 - The comparison uses each survey's **own footprint**; much of the LSST advantage is the larger sky area rather than intrinsic data quality. At matched $f_{\rm sky}$ the gap narrows to the tomographic/redshift terms.
-- LSST per-bin number density assumes the total $\bar n = 26.94$ arcmin⁻² is split **equally** across the 10 bins; the true DESC lens counts are not uniform per bin.
+- LSST per-bin number density assumes the total $\bar n = 48.00$ arcmin⁻² is split **equally** across the 10 bins; the true DESC lens counts are not uniform per bin.
 - Constraints are Gaussian Fisher forecasts (linear bias, Limber approximation, $\ell = 10$–$1000$); they neglect non-Gaussian covariance and systematics.

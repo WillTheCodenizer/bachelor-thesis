@@ -1,0 +1,6 @@
+# number of galaxies per Arcmin^2
+# Derived from data/LSST_Y10_fisherA2Z_figure3_nz.txt: each bin's raw n_i(z)
+# curve integrated over z, normalized to sum to 1, and scaled by the LSST Y10
+# SRD gold lens sample total of 48 arcmin^-2 (fisherA2Z.fisher_flex.NEFF_LENS_TOTAL_Y10).
+# NGAL_1 NGAL_2 NGAL_3 NGAL_4 NGAL_5 NGAL_6 NGAL_7 NGAL_8 NGAL_9 NGAL_10
+2.273296322724 4.537523676515 5.598237541890 5.947085432881 6.044950381446 5.765949923708 4.523115339240 4.977138539438 4.262426848316 4.070275993843
