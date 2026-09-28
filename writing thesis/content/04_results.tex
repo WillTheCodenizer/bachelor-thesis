@@ -40,7 +40,7 @@ The derivatives entering \autoref{eq:fisher} are evaluated by central finite dif
 
 with step sizes $h_i = 0.01\,\theta_i$. The two parameters considered here are the amplitude
 $b_0$ and the evolution exponent $\delta$ of the FRB host bias of \autoref{eq:frb_bias}. All
-cosmological parameters are held fixed at the values listed in \autoref{tab:fiducial_cosmology}.
+cosmological parameters are fixed to the values listed in \autoref{tab:fiducial_cosmology}.
 The fiducial values and corresponding step sizes are summarized in \autoref{tab:fisher_setup}.
 
 \begin{table}[H]
@@ -59,7 +59,7 @@ The fiducial values and corresponding step sizes are summarized in \autoref{tab:
         S[table-format=1.3]
         }
         \toprule
-        Progenitor class & {Parameter} & {Fiducial $\theta_i$} & {$\theta_i + h_i$} & {$\theta_i - h_i$} \\
+        Progenitor model & {Parameter} & {Fiducial $\theta_i$} & {$\theta_i + h_i$} & {$\theta_i - h_i$} \\
         \midrule
         Magnetars     & $b_{0}$     & 1.0 & 1.010 & 0.990 \\
         Magnetars     & $\delta$   & 0.8 & 0.808 & 0.792 \\
@@ -90,8 +90,8 @@ is used, which is inversely proportional to the area of the confidence ellipse, 
 values correspond to tighter constraints~\cite{Wang_2008}.
 
 \section{Forecast Constraints} \label{sec:forecast_constraints}
-The forecast is evaluated for all four combinations of the two progenitor classes of \autoref{tab:frb_bias} 
-and the two FRB survey configurations of \autoref{tab:frb_surveys}. The resulting confidence ellipses are 
+The forecast is evaluated for all four combinations of progenitor models (see \autoref{tab:frb_bias}) 
+and FRB survey configurations (see \autoref{tab:frb_surveys}). The resulting confidence ellipses are 
 shown in \autoref{fig:fisher_comparison}, while the marginalized errors and figures of merit are listed in 
 \autoref{tab:fisher_constraints}.
 
@@ -137,22 +137,22 @@ shown in \autoref{fig:fisher_comparison}, while the marginalized errors and figu
         Magnetars     & Deep
         & 23.48 & 1.27
         & 31.07 & 1.88
-        & 0.0263 & 1.59 & 60.7 \\
+        & 0.0263 & 1.59 & 60.5 \\
 
         Magnetars     & Shallow
         & 91.32 & 1.91
-        & 190.60 & 3.76
-        & 0.0009 & 0.41 & 448.7 \\
+        & 190.63 & 3.76
+        & 0.0009 & 0.41 & 455.6 \\
 
         Neutron stars & Deep
         & 33.04 & 1.70
         & 32.35 & 1.77
-        & 0.0160 & 1.15 & 72.1 \\
+        & 0.0160 & 1.15 & 71.9 \\
 
         Neutron stars & Shallow
-        & 101.0 & 2.42
-        & 153.00 & 3.41
-        & 0.0010 & 0.34 & 348.3 \\
+        & 100.97 & 2.42
+        & 153.05 & 3.42
+        & 0.0010 & 0.34 & 340.0 \\
 
         \bottomrule
     \end{tabular}
@@ -161,15 +161,15 @@ shown in \autoref{fig:fisher_comparison}, while the marginalized errors and figu
 The FRB auto-correlation alone does not constrain the host bias.
 Marginalized errors range 
 from $\sigma_{b_0} = 23.5$ to $101$ and therefore exceed the fiducial values by one to two orders of magnitude. 
-Adding the galaxy sample reduces these to $\sigma_{b_0} = 1.27$–$2.42$ and $\sigma_{\delta} = 1.77$–$3.76$. 
-This corresponds to improvements by factors of $17$–$51$ in the individual parameters and $61$–$449$ in the 
+Adding the galaxy sample reduces these to $\sigma_{b_0} = 1.27$-$2.42$ and $\sigma_{\delta} = 1.77$-$3.76$. 
+This corresponds to improvements by factors of around $17$-$51$ in the individual parameters and $60$-$455$ in the 
 figure of merit. The joint analysis is 
 therefore not a marginal refinement but the reason a measurement becomes feasible in the first place.
 
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher/fisher_comparison_2x2.pdf}
-\caption{Fisher forecast in the $b_0\,$--$\,\delta$ plane for the two progenitor classes and the two
+\caption{Fisher forecast in the $b_0\,$--$\,\delta$ plane for the two progenitor models and the two
     FRB survey configurations. Shown are the $1\sigma$ and $2\sigma$ contours obtained from the FRB
     auto-correlation alone in blue and from the joint analysis of the FRB sample with the six tomographic
     KiDS bins in orange. The black cross marks the fiducial parameter values. The FRB-only contours extend far
@@ -200,14 +200,17 @@ the gain is only about $1.4$--$1.5$. Once the constraint is no longer dominated 
 increasing the burst count becomes considerably less effective, and the radial overlap between the
 FRB and galaxy samples takes over as the limiting factor.
 
-A comparison of the two progenitor classes requires some care, as their fiducial values differ.
-In absolute terms the magnetar model yields smaller errors, but relative to the respective fiducial
-amplitudes both models are constrained equally well, with $\sigma_{b_0}/b_0 = 1.13$ and $1.27$
-for the deep configuration. The more consequential question is whether the two models can be
+A comparison of the two progenitor models requires some care, as their fiducial values differ.
+In absolute terms, the magnetar model yields tighter constraints. Relative to their respective 
+fiducial amplitudes, however, both models are constrained similarly well, 
+with $\sigma_{b_0}/b_0 = 1.27$ for the magnetar model and $1.13$ for the neutron-star 
+model in the deep configuration.
+
+The more consequential question is whether the two models can be
 distinguished: the fiducial separation of $\Delta b_0 = 0.5$ and $\Delta \delta = 0.6$ lies
 comfortably within the $1\sigma$ contours of the joint forecast, so the cross-correlation with
-KiDS improves the measurement by more than two orders of magnitude in the figure of merit but
-does not yet reach the precision required to discriminate between a prompt magnetar and a delayed
+KiDS improves the measurement by roughly one to three orders of magnitude in the figure of merit
+but does not yet reach the precision required to discriminate between a prompt magnetar and a delayed
 neutron-star origin. This is not a statement about the method but about sky area: the Fisher
 information of \autoref{eq:fisher} scales linearly with $f_{\mathrm{sky}}$, and the natural path
 to improvement is a wider galaxy survey, which is taken up in \autoref{sec:outlook}.

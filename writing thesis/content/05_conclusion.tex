@@ -1,10 +1,10 @@
 \chapter{Conclusion \& Outlook} \label{ch:conclusion}
-This thesis assessed whether the clustering of fast radio bursts can constrain the bias of their
-host population, and to what extent a cross-correlation with a photometric galaxy survey improves
-such a measurement. A complete forecasting pipeline was developed: the nonlinear matter power
-spectrum was combined with radial weight functions for a mock FRB sample and the six tomographic
-bins of the KiDS-Legacy data release to produce angular auto- and cross-power spectra via the
-Limber approximation. Poissonian shot noise was added to the auto-spectra of both tracer populations, 
+This thesis assessed whether the clustering of FRBs can constrain the bias of their
+host population, and to what extent cross-correlating them with a photometric galaxy survey can improve this measurement.
+A complete forecasting pipeline was developed by combining the nonlinear matter power spectrum with radial 
+weight functions for a mock FRB sample and the six tomographic bins of the KiDS-Legacy data release to 
+obtain angular auto- and cross-power spectra using the Limber approximation.
+Poissonian shot noise was added to the auto-spectra of both tracer populations, 
 while the cross-spectrum was assumed to be free of shot noise. The resulting spectra were then 
 propagated into a Fisher forecast for the FRB host-bias amplitude $b_0$ and evolution exponent $\delta$.
 
@@ -49,12 +49,13 @@ while keeping all other ingredients unchanged yields the contours shown in
 \autoref{fig:fisher_kids_vs_lsst} and the numbers listed in \autoref{tab:lsst_sigmas} and \autoref{tab:lsst_fom}.
 
 The improvement is substantial: for the deep magnetar configuration the error on $b_0$ drops from
-$1.27$ to $0.25$ and the figure of merit increases by a factor of $26$. Most of this gain follows
-directly from the larger footprint, while the remainder comes from the finer tomographic resolution and
-the deeper redshift coverage of the LSST lens sample. Physically, the separation between the two
-progenitor models, $\Delta b_0 = 0.5$ and $\Delta\delta = 0.6$, now lies outside the $1\sigma$
-contours of the deep configuration, meaning that a cross-correlation with an LSST-like sample
-would be sufficient to discriminate between a prompt and a delayed origin of the bursts.
+$1.27$ to $0.42$, while the figure of merit increases by a factor of
+about $9.2$. Most of this gain follows directly from the larger footprint, while the remainder comes
+from the finer tomographic resolution and the deeper redshift coverage of the LSST lens sample.
+Physically, the separation between the two progenitor models, $\Delta b_0 = 0.5$ and
+$\Delta\delta = 0.6$, becomes comparable to the marginalized $1\sigma$ uncertainties in the deep
+configuration, so a cross-correlation with an LSST-like sample would substantially improve the
+prospects for distinguishing a prompt and a delayed origin of the bursts.
 
 Beyond a wider footprint, several extensions of the analysis are conceivable:
 
@@ -69,14 +70,14 @@ Beyond a wider footprint, several extensions of the analysis are conceivable:
     connecting the measured bias to host halo masses and extending the analysis to smaller scales.
 \end{itemize}
 
-Taken together, the results of this thesis demonstrate the strong 
+In conclusion, the results of this thesis demonstrate the strong 
 potential of FRB-galaxy cross-correlation as a cosmological observable. 
 Combining the FRB sample with a dense photometric galaxy sample efficiently 
 recovers clustering information and enables constraints on the host bias at 
 order unity with current survey footprints. With the larger and deeper imaging 
 surveys expected in the next generation, this approach could provide sufficient 
 precision to distinguish between different progenitor populations and shed light 
-on the astrophysical origin of fast radio bursts.
+on the astrophysical origin of FRBs.
 
 MARKOV CHAIN BETTER FOR PRIORS:
 "A full Bayesian analysis with Markov Chain Monte Carlo sampling would be 
@@ -84,3 +85,10 @@ required to accurately characterize the posterior in that regime and to assess
 potential biases from prior volume effects."
 
 DIE SCHRAEGE SCHRIFT IN BIBLIOGRAPHY FIXEN
+
+AUCH HILDEBRANDT NENNEN AUF TITELBLATT
+
+DEN CUT FUER LMAX 
+ANSCHAUEN UND UEBERLEGEN OB 
+ES NICHT SINNVOLL WAERE EINEN l max wert fuer jeden bin anzuguecken. vielleicht auch sinnvoll
+generell nochmal zu schauen wie l und l max einfliesen in programmierung

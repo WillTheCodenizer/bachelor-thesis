@@ -136,7 +136,16 @@
                    % in the references.bib use langid={en} for english sources
 ]{biblatex}
 
+\renewcommand*{\bibfont}{%
+  \normalfont\normalsize
+}
+\newfontfamily\bibitalicsameheight{Latin Modern Roman}[FakeSlant=0.2]
+\DeclareFieldFormat{journaltitle}{{\bibitalicsameheight #1\isdot}}
+\DeclareFieldFormat{booktitle}{{\bibitalicsameheight #1}}
+\DeclareFieldFormat{maintitle}{{\bibitalicsameheight #1}}
+
 \addbibresource{references.bib}  % the bib file to use
+
 \DefineBibliographyStrings{german}{andothers = {{et\,al\adddot}}}  % replace u.a. with et al.
 
 
