@@ -1,9 +1,51 @@
-\chapter{Introduction}
+\chapter{Introduction} \label{ch:introduction}
 
-\begin{itemize}
- \item relevance
- \item emerging probes --> different papers cite
- \item whats plan: frb, galaxy survey --> combination of both
-\end{itemize}
+Fast Radio Bursts (FRBs) are bright radio transients with durations of the order of milliseconds
+that originate at cosmological distances~\cite{Petroff_2019}. Since the discovery of the first burst
+in archival pulsar survey data~\cite{Lorimer_2007}, the number of detections has grown rapidly. In
+particular, the Canadian Hydrogen Intensity Mapping Experiment (CHIME) has increased the known
+population by several orders of magnitude~\cite{Amiri2018}, and its second FRB catalog already
+contains more than $3600$ unique sources~\cite{CHIMEFRB2026}.
 
-Wenn hier schon Fast Radio Burst = FRB dann konsistent bleiben!
+Beyond the open questions regarding their nature, FRBs are emerging as a novel cosmological probe.
+Their radio signal is dispersed by free electrons along the line of sight, so that the observed
+dispersion measure traces the diffuse, ionized baryons, which are otherwise difficult to
+observe~\cite{McQuinn_2014}. Localized FRBs have already been used to measure the cosmic baryon
+density~\cite{Macquart_2020} and the Hubble constant~\cite{Hagstotz_2022}, while forecasts indicate
+that larger samples could constrain primordial non-Gaussianity~\cite{Reischke_2021} and baryonic
+feedback~\cite{Sharma_2025}.
+
+The astrophysical origin of FRBs, however, remains unresolved. The detection of an FRB-like burst
+from the Galactic magnetar SGR 1935+2154 established a direct link to magnetars~\cite{CHIMEFRB_2020},
+whereas FRBs localized in old stellar environments point toward additional, delayed formation
+channels~\cite{Wang_2020, Petroff_2022}. Associating individual bursts with their host galaxies
+requires arcsecond localizations, which are available only for a small fraction of the
+population~\cite{RafieiRavandi_2020}. A complementary, statistical approach exploits the fact that
+FRBs at cosmological distances trace the large-scale structure of the universe~\cite{MasuiSigurdson_2015}.
+Their angular clustering therefore encodes the bias of the host population, which in turn depends
+on the progenitor channel~\cite{Shirasaki_2017}. Because FRB samples are sparse compared with galaxy
+catalogs, their auto-correlation is strongly affected by shot noise. Cross-correlating FRBs with
+dense galaxy samples mitigates this limitation, and a statistically significant FRB-galaxy
+cross-correlation has already been detected in the first CHIME/FRB catalog~\cite{RafieiRavandi_2021}.
+
+Photometric galaxy surveys are particularly suited for such cross-correlations, as they provide
+dense galaxy samples that can be divided into tomographic redshift bins. The Kilo-Degree Survey
+(KiDS) has recently completed its fifth and final data release (DR5), referred to as KiDS-Legacy,
+which provides calibrated redshift distributions for six tomographic bins~\cite{Wright_2024, Wright_2025}.
+
+In this thesis, a forecasting pipeline is developed to assess how well the angular cross-correlation
+between FRBs and KiDS-Legacy galaxies can constrain the clustering bias of the FRB host population.
+Two progenitor scenarios are considered: young magnetars, whose formation closely follows the cosmic
+star formation history, and neutron stars formed through delayed channels, each described by a
+redshift-dependent linear bias. Both are combined with a shallow FRB survey resembling CHIME and a
+deep survey resembling the Square Kilometre Array (SKA)~\cite{Hashimoto_2020}. The angular auto- and
+cross-power spectra are computed in the Limber approximation and propagated into a Fisher forecast.
+This makes it possible to quantify the gain of the joint analysis over the FRB auto-correlation
+alone, as well as the prospects of distinguishing between the two progenitor scenarios.
+
+The structure of this thesis is as follows: \autoref{ch:theoretical_background} reviews the
+cosmological background, the properties and possible progenitors of FRBs, and the statistical
+description of the large-scale structure. \autoref{ch:methodology} describes the modeling of both
+tracer populations and the computation of the angular power spectra. The Fisher forecast is
+presented and discussed in \autoref{ch:results}, while \autoref{ch:conclusion} summarizes the
+findings and gives an outlook on future, wider galaxy surveys.
