@@ -5,11 +5,13 @@ Runs the full computation for FRB surveys and galaxy tomographic bins,
 then produces publication-quality diagnostic and comparison plots.
 """
 
+import argparse
 import os
 
 import numpy as np
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 
 from config.parameters import (
     COSMO,
@@ -91,6 +93,50 @@ RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
 
+def _save_thesis_plot_data(name, **arrays):
+    """Save numeric inputs for the named thesis plot; return None."""
+    np.savez_compressed(os.path.join(RESULTS_DIR, f"plot_{name}.npz"), **arrays)
+
+
+def _load_thesis_plot_data(name):
+    """Return cached arrays for name, or request a full run if missing."""
+    cache_path = os.path.join(RESULTS_DIR, f"plot_{name}.npz")
+    if not os.path.isfile(cache_path):
+        raise FileNotFoundError(
+            f"Missing thesis plot cache: {cache_path}. "
+            "Run python main.py once to compute and save all plot inputs."
+        )
+    with np.load(cache_path, allow_pickle=False) as cached:
+        return {key: cached[key] for key in cached.files}
+
+
+def _save_fisher_plot_data(fisher_data, cache_path):
+    """Save plot inputs to cache_path without pickled objects; return None."""
+    np.savez_compressed(
+        cache_path,
+        pop_label=np.array([data['pop_label'] for data in fisher_data]),
+        survey_label=np.array([data['survey_label'] for data in fisher_data]),
+        cov_frb=np.array([data['cov_frb'] for data in fisher_data]),
+        cov_multi=np.array([data['cov_multi'] for data in fisher_data]),
+        b0_fid=np.array([data['b0_fid'] for data in fisher_data]),
+        delta_fid=np.array([data['delta_fid'] for data in fisher_data]),
+    )
+
+
+def _load_fisher_plot_data(cache_path):
+    """Load cache_path and return the list of Fisher plot input dictionaries."""
+    if not os.path.isfile(cache_path):
+        raise FileNotFoundError(
+            f"Missing Fisher cache: {cache_path}. "
+            "Run python main.py once to compute and save the results."
+        )
+    with np.load(cache_path, allow_pickle=False) as cached:
+        return [
+            {key: cached[key][index] for key in cached.files}
+            for index in range(len(cached['pop_label']))
+        ]
+
+
 class SurveyConfig:
     """Bundle the survey-specific inputs and output paths for one galaxy survey."""
 
@@ -134,6 +180,68 @@ LSST_CONFIG = SurveyConfig(
     cross_plot_dir=CROSS_LSST_PLOT_DIR,
     fisher_plot_dir=FISHER_LSST_PLOT_DIR,
 )
+
+
+def run_plots_only():
+    """Redraw pipeline figures used in the thesis and all Fisher grids; return None."""
+    cache_names = ("pk", "frb_noise", "frb_comparison", "galaxy", "cross_survey")
+    cached = {name: _load_thesis_plot_data(name) for name in cache_names}
+    for slug in ("kids", "lsst"):
+        _load_fisher_plot_data(os.path.join(RESULTS_DIR, f"fisher_{slug}.npz"))
+
+    print("Using cached spectra; run the full pipeline after changing physical inputs.")
+    populations = [
+        ("Magnetars", "magnetar", MAGNETAR_B0, MAGNETAR_DELTA),
+        ("Neutron Stars", "neutron_star", NEUTRON_STAR_B0, NEUTRON_STAR_DELTA),
+    ]
+    _plot_frb_nz(FRB_PLOT_DIR)
+    _plot_frb_bias(populations, FRB_PLOT_DIR)
+    z_mid, nz_bins = load_galaxy_nz_data(KIDS_CONFIG.nz_file, KIDS_CONFIG.n_bins)
+    _plot_galaxy_nz(z_mid, nz_bins, GALAXY_PLOT_DIR)
+    _plot_pk_samples(**cached["pk"], plot_dir=PK_PLOT_DIR)
+    _plot_cell_with_noise(
+        **cached["frb_noise"], title="", filename="FRB_magnetar_Cell_shallow_shotnoise",
+        plot_dir=FRB_PLOT_DIR,
+    )
+    _plot_cell_comparison(**cached["frb_comparison"], plot_dir=FRB_PLOT_DIR)
+    _plot_galaxy_cell_comparison(**cached["galaxy"], plot_dir=GALAXY_PLOT_DIR)
+    cross = cached["cross_survey"]
+    cells = {
+        ("magnetar", survey_slug, bin_idx): cross[survey_slug][bin_idx]
+        for survey_slug in ("shallow", "deep")
+        for bin_idx in range(len(cross["shallow"]))
+    }
+    comp_dir = os.path.join(CROSS_PLOT_DIR, "comparisons")
+    os.makedirs(comp_dir, exist_ok=True)
+    _plot_cross_survey_comparison(
+        cross["ell_arr"], cells, "magnetar", "Magnetars", comp_dir,
+        n_bins=len(cross["shallow"]),
+    )
+    run_fisher_plots_only()
+
+
+def run_fisher_plots_only():
+    """Redraw all Fisher comparison figures from saved results; return None."""
+    kids_data = _load_fisher_plot_data(os.path.join(RESULTS_DIR, "fisher_kids.npz"))
+    lsst_data = _load_fisher_plot_data(os.path.join(RESULTS_DIR, "fisher_lsst.npz"))
+    print("Using saved Fisher results; changed physical inputs are not recomputed.")
+    for cfg, fisher_data in [(KIDS_CONFIG, kids_data), (LSST_CONFIG, lsst_data)]:
+        _plot_fisher_comparison_2x2(
+            fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
+        )
+        _plot_fisher_comparison_1x2(
+            fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
+        )
+    kids_by_combo = {
+        (data['pop_label'], data['survey_label']): data for data in kids_data
+    }
+    lsst_by_combo = {
+        (data['pop_label'], data['survey_label']): data for data in lsst_data
+    }
+    _plot_fisher_kids_vs_lsst(
+        kids_by_combo, lsst_by_combo, KIDS_CONFIG, LSST_CONFIG,
+        LSST_CONFIG.fisher_plot_dir,
+    )
 
 
 def run_pipeline():
@@ -347,6 +455,8 @@ def _plot_cell_with_noise(ell_arr, C_ell, N_shot, title, filename, plot_dir):
     filename : str
         Base filename (without extension) for saving.
     """
+    if filename == "FRB_magnetar_Cell_shallow_shotnoise":
+        _save_thesis_plot_data("frb_noise", ell_arr=ell_arr, C_ell=C_ell, N_shot=N_shot)
     fig, ax = plt.subplots(figsize=(7, 5))
     ax.loglog(ell_arr, C_ell, label="Signal only", linewidth=1.5)
     ax.loglog(ell_arr, C_ell + N_shot, label="Signal + Shot Noise",
@@ -382,6 +492,11 @@ def _plot_cell_comparison(
     C_ell_deep : ndarray
         C(ell) for the deep survey.
     """
+    if population_slug == "magnetar":
+        _save_thesis_plot_data(
+            "frb_comparison", ell_arr=ell_arr,
+            C_ell_shallow=C_ell_shallow, C_ell_deep=C_ell_deep,
+        )
     fig, ax = plt.subplots(figsize=(7, 5))
     ax.loglog(ell_arr, C_ell_shallow, label=r"Shallow ($\alpha=3.5$)", linewidth=1.5)
     ax.loglog(ell_arr, C_ell_deep, label=r"Deep ($\alpha=2.0$)", linewidth=1.5)
@@ -407,18 +522,27 @@ def _plot_pk(k_phys, P_interp, plot_dir):
     P_interp : callable
         2D interpolation function P_interp(k, chi) returning P(k, z(chi)) in Mpc^3.
     """
-    fig, ax = plt.subplots(figsize=(7, 4.5))
-    
     # Sample redshifts to display the evolution
     z_sample = np.array([0.0, 0.5, 1.0, 2.0, 3.0, 4.0 ])
     
     # Convert redshifts to comoving distances
     chi_sample = COSMO.comoving_distance(z_sample).value  # [Mpc]
-    
+    power_samples = np.array([
+        P_interp(k_phys, np.full_like(k_phys, chi)) for chi in chi_sample
+    ])
+    _save_thesis_plot_data(
+        "pk", k_phys=k_phys, z_sample=z_sample, power_samples=power_samples,
+    )
+    _plot_pk_samples(k_phys, z_sample, power_samples, plot_dir)
+
+
+def _plot_pk_samples(k_phys, z_sample, power_samples, plot_dir):
+    """Plot sampled P(k,z) arrays in plot_dir without recomputation; return None."""
+    fig, ax = plt.subplots(figsize=(7, 4.5))
+
     # Plot P(k) at each sampled redshift
     colors = plt.cm.viridis(np.linspace(0, 1, len(z_sample)))
-    for chi, z, color in zip(chi_sample, z_sample, colors):
-        P_at_z = P_interp(k_phys, np.full_like(k_phys, chi))
+    for P_at_z, z, color in zip(power_samples, z_sample, colors):
         ax.loglog(k_phys, P_at_z, linewidth=1.8, label=f"z = {z:.1f}", color=color)
     
     ax.set_xlabel(r"Wavenumber $k$ [1/Mpc]")
@@ -498,6 +622,8 @@ def _plot_galaxy_nz(z_mid, nz_bins, plot_dir, title_tag=""):
 
 def _plot_galaxy_cell_comparison(ell_arr, cell_bins, plot_dir, title_tag=""):
     """Overlay signal-only galaxy C(ell) curves for all tomographic bins."""
+    if not title_tag:
+        _save_thesis_plot_data("galaxy", ell_arr=ell_arr, cell_bins=np.array(cell_bins))
     fig, ax = plt.subplots(figsize=(8, 5))
     colors = plt.cm.tab10(np.linspace(0, 1, len(cell_bins)))
 
@@ -756,6 +882,12 @@ def _plot_cross_survey_comparison(
     title_tag : str
         Optional survey prefix for the plot title.
     """
+    if pop_slug == "magnetar" and not title_tag:
+        _save_thesis_plot_data(
+            "cross_survey", ell_arr=ell_arr,
+            shallow=np.array([cells[(pop_slug, "shallow", idx)] for idx in range(n_bins)]),
+            deep=np.array([cells[(pop_slug, "deep", idx)] for idx in range(n_bins)]),
+        )
     fig, ax = plt.subplots(figsize=(9, 6))
     colors = plt.cm.tab10(np.linspace(0, 1, n_bins))
 
@@ -996,8 +1128,13 @@ def _run_fisher_pipeline(cfg, P_interp, k_min, k_max):
                 'delta_fid': delta,
             })
     
+    _save_fisher_plot_data(
+        fisher_data, os.path.join(RESULTS_DIR, f"fisher_{cfg.slug}.npz")
+    )
+
     # Create 2x2 comparison plot
     _plot_fisher_comparison_2x2(fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag)
+    _plot_fisher_comparison_1x2(fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag)
 
     return fisher_data
 
@@ -1113,6 +1250,75 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
     fig.savefig(os.path.join(plot_dir, "fisher_comparison_2x2.png"), dpi=200)
     plt.close(fig)
     print(f"  Saved fisher_comparison_2x2.pdf / .png")
+
+
+def _plot_fisher_comparison_1x2(fisher_data, plot_dir, title_tag=""):
+    """Overlay both populations for Deep/Shallow using fisher_data; save to plot_dir.
+
+    title_tag prefixes the panel titles. Fiducial markers identify the population
+    colors, and line styles identify the forecast and confidence level. Return None.
+    """
+    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+    population_colors = {'Magnetars': 'C0', 'Neutron Stars': 'C1'}
+    contour_styles = (
+        ('cov_multi', 0.6827, '-', r'FRB$\times$Galaxy $1\sigma$'),
+        ('cov_multi', 0.9545, '--', r'FRB$\times$Galaxy $2\sigma$'),
+        ('cov_frb', 0.6827, ':', r'FRB-only $1\sigma$'),
+        ('cov_frb', 0.9545, '-.', r'FRB-only $2\sigma$'),
+    )
+    fiducial_handles = []
+    for ax, survey_label in zip(axes, ('Deep', 'Shallow')):
+        survey_data = [data for data in fisher_data if data['survey_label'] == survey_label]
+        x_bounds, y_bounds = [], []
+        for data in survey_data:
+            b0_fid, delta_fid = data['b0_fid'], data['delta_fid']
+            color = population_colors[data['pop_label']]
+            for covariance_key, confidence, linestyle, _label in contour_styles:
+                semi_major, semi_minor, angle = get_confidence_ellipse(
+                    data[covariance_key], confidence=confidence
+                )
+                ax.add_patch(mpatches.Ellipse(
+                    xy=(b0_fid, delta_fid), width=2.0 * semi_major,
+                    height=2.0 * semi_minor, angle=angle, edgecolor=color,
+                    facecolor='none', linestyle=linestyle, linewidth=1.8,
+                ))
+            marker, = ax.plot(
+                b0_fid, delta_fid, marker='x', linestyle='none', color=color,
+                markersize=10, markeredgewidth=2, zorder=5,
+                label=(f"{data['pop_label']}: "
+                       rf"$b_0={b0_fid:g}$, $\delta={delta_fid:g}$"),
+            )
+            if survey_label == 'Deep':
+                fiducial_handles.append(marker)
+            # Frame the union of both multi-tracer contours, as in the 2x2 plot.
+            semi_major, semi_minor, angle = get_confidence_ellipse(
+                data['cov_multi'], confidence=0.9545
+            )
+            angle_rad = np.radians(angle)
+            dx = np.hypot(semi_major * np.cos(angle_rad), semi_minor * np.sin(angle_rad))
+            dy = np.hypot(semi_major * np.sin(angle_rad), semi_minor * np.cos(angle_rad))
+            margin = 3.0
+            x_bounds.extend((b0_fid - margin * dx, b0_fid + margin * dx))
+            y_bounds.extend((delta_fid - margin * dy, delta_fid + margin * dy))
+        xlim, ylim = (min(x_bounds), max(x_bounds)), (min(y_bounds), max(y_bounds))
+        ax.set_xlim(xlim)
+        ax.set_ylim(ylim)
+        ax.set_xticks(_nice_half_ticks(0.0, xlim))
+        ax.set_yticks(_nice_half_ticks(0.0, ylim))
+        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE)
+        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE)
+        ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE, fontweight='bold')
+    contour_handles = [
+        Line2D([], [], color='black', linestyle=linestyle, linewidth=1.8, label=label)
+        for _key, _confidence, linestyle, label in contour_styles
+    ]
+    fig.legend(handles=fiducial_handles + contour_handles, loc='lower center',
+               ncol=3, fontsize=LEGEND_SIZE)
+    fig.tight_layout(rect=[0, 0.18, 1, 1])
+    fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2.pdf'))
+    fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2.png'), dpi=200)
+    plt.close(fig)
+    print('  Saved fisher_comparison_1x2.pdf / .png')
 
 
 def _plot_fisher_ellipses(
@@ -1430,6 +1636,33 @@ def _plot_fisher_kids_vs_lsst(kids_by_combo, lsst_by_combo, kids_cfg, lsst_cfg, 
     much larger FRB-only baseline is omitted here (see the per-survey plots).
     """
     combos = list(kids_by_combo.keys())
+    margin = 1.6
+    bounds = {'b0': [np.inf, -np.inf], 'delta': [np.inf, -np.inf]}
+    for combo in combos:
+        if combo not in lsst_by_combo:
+            continue
+        data = kids_by_combo[combo]
+        b0_fid = data['b0_fid']
+        delta_fid = data['delta_fid']
+        for cov in (data['cov_multi'], lsst_by_combo[combo]['cov_multi']):
+            wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov, confidence=0.9545)
+            ang_rad = np.radians(ang_2s)
+            dx = np.sqrt((wa_2s * np.cos(ang_rad)) ** 2 + (wb_2s * np.sin(ang_rad)) ** 2)
+            dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
+            bounds['b0'][0] = min(bounds['b0'][0], b0_fid - margin * dx)
+            bounds['b0'][1] = max(bounds['b0'][1], b0_fid + margin * dx)
+            bounds['delta'][0] = min(bounds['delta'][0], delta_fid - margin * dy)
+            bounds['delta'][1] = max(bounds['delta'][1], delta_fid + margin * dy)
+
+    def _shared_ticks(lim, step, anchor):
+        first = int(np.floor((lim[0] - anchor) / step))
+        last = int(np.ceil((lim[1] - anchor) / step))
+        ticks = anchor + np.arange(first, last + 1) * step
+        return (ticks[0], ticks[-1]), ticks
+
+    xlim, xticks = _shared_ticks(bounds['b0'], 0.5, 1.0)
+    ylim, yticks = _shared_ticks(bounds['delta'], 0.6, 0.2)
+
     fig, axes = plt.subplots(2, 2, figsize=(12, 10))
     axes = axes.flatten()
 
@@ -1468,18 +1701,10 @@ def _plot_fisher_kids_vs_lsst(kids_by_combo, lsst_by_combo, kids_cfg, lsst_cfg, 
 
         ax.plot(b0_fid, delta_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
 
-        # Axis limits: 1.6× the KiDS multi-tracer 2σ extent (the larger contour)
-        wa_2s, wb_2s, ang_2s = get_confidence_ellipse(d_kids['cov_multi'], confidence=0.9545)
-        ang_rad = np.radians(ang_2s)
-        dx = np.sqrt((wa_2s * np.cos(ang_rad)) ** 2 + (wb_2s * np.sin(ang_rad)) ** 2)
-        dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
-        margin = 1.6
-        xlim = (b0_fid - margin * dx, b0_fid + margin * dx)
-        ylim = (delta_fid - margin * dy, delta_fid + margin * dy)
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
-        ax.set_xticks(_nice_half_ticks(b0_fid, xlim))
-        ax.set_yticks(_nice_half_ticks(delta_fid, ylim))
+        ax.set_xticks(xticks)
+        ax.set_yticks(yticks)
 
         ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE)
         ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE)
@@ -1500,4 +1725,16 @@ def _plot_fisher_kids_vs_lsst(kids_by_combo, lsst_by_combo, kids_cfg, lsst_cfg, 
 
 
 if __name__ == "__main__":
-    run_pipeline()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--plots-only", action="store_true",
+        help="Redraw thesis pipeline figures and all Fisher 2x2 and 1x2 figures from cached spectra.",
+    )
+    args = parser.parse_args()
+    if args.plots_only:
+        try:
+            run_plots_only()
+        except FileNotFoundError as error:
+            parser.error(str(error))
+    else:
+        run_pipeline()
