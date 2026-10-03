@@ -226,9 +226,10 @@ def run_fisher_plots_only():
     lsst_data = _load_fisher_plot_data(os.path.join(RESULTS_DIR, "fisher_lsst.npz"))
     print("Using saved Fisher results; changed physical inputs are not recomputed.")
     for cfg, fisher_data in [(KIDS_CONFIG, kids_data), (LSST_CONFIG, lsst_data)]:
-        _plot_fisher_comparison_2x2(
-            fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
-        )
+        if cfg.slug == "kids":
+            _plot_fisher_comparison_2x2(
+                fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
+            )
         _plot_fisher_comparison_1x2(
             fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
         )
@@ -1132,8 +1133,10 @@ def _run_fisher_pipeline(cfg, P_interp, k_min, k_max):
         fisher_data, os.path.join(RESULTS_DIR, f"fisher_{cfg.slug}.npz")
     )
 
-    # Create 2x2 comparison plot
-    _plot_fisher_comparison_2x2(fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag)
+    if cfg.slug == "kids":
+        _plot_fisher_comparison_2x2(
+            fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
+        )
     _plot_fisher_comparison_1x2(fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag)
 
     return fisher_data
@@ -1176,8 +1179,14 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
     plot_dir : str
         Output directory for the figure.
     """
+    # Set the common axis limits and ticks for all four panels here.
+    xlim = (-11, 11)
+    ylim = (-11, 11)
+    xticks = [-10, -5, 0.0, 5, 10]
+    yticks = [-10, -5, 0, 5, 10]
+
     fig, axes = plt.subplots(2, 2, figsize=(12, 10))
-    axes = axes.flatten()
+    axes = axes.flatten() # flatten
 
     # Color and style scheme
     style = {
@@ -1218,20 +1227,10 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
         # Mark fiducial point
         ax.plot(b0_fid, delta_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
 
-        # Axis limits: 3.0× the FRB×Galaxy 2σ projected extents
-        wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov_multi, confidence=0.9545)
-        ang_rad = np.radians(ang_2s)
-        dx = np.sqrt((wa_2s * np.cos(ang_rad)) ** 2 + (wb_2s * np.sin(ang_rad)) ** 2)
-        dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
-        margin = 3.0
-        xlim = (b0_fid - margin * dx, b0_fid + margin * dx)
-        ylim = (delta_fid - margin * dy, delta_fid + margin * dy)
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
-
-        # Set ticks at .0 or .5 values, symmetric around fiducial
-        ax.set_xticks(_nice_half_ticks(b0_fid, xlim))
-        ax.set_yticks(_nice_half_ticks(delta_fid, ylim))
+        ax.set_xticks(xticks)
+        ax.set_yticks(yticks)
 
         ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE)
         ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE)
@@ -1635,33 +1634,13 @@ def _plot_fisher_kids_vs_lsst(kids_by_combo, lsst_by_combo, kids_cfg, lsst_cfg, 
     the KiDS multi-tracer ellipse so both multi-tracer contours are visible; the
     much larger FRB-only baseline is omitted here (see the per-survey plots).
     """
+    # Set the common axis limits and ticks for all four panels here.
+    xlim = (0.0, 2.5)
+    ylim = (-1.0, 2.0)
+    xticks = [0.0, 0.5, 1.0, 1.5, 2.0, 2.5]
+    yticks = [-1.0, -0.5, 0.0,0.5, 1.0, 1.5, 2.0]
+
     combos = list(kids_by_combo.keys())
-    margin = 1.6
-    bounds = {'b0': [np.inf, -np.inf], 'delta': [np.inf, -np.inf]}
-    for combo in combos:
-        if combo not in lsst_by_combo:
-            continue
-        data = kids_by_combo[combo]
-        b0_fid = data['b0_fid']
-        delta_fid = data['delta_fid']
-        for cov in (data['cov_multi'], lsst_by_combo[combo]['cov_multi']):
-            wa_2s, wb_2s, ang_2s = get_confidence_ellipse(cov, confidence=0.9545)
-            ang_rad = np.radians(ang_2s)
-            dx = np.sqrt((wa_2s * np.cos(ang_rad)) ** 2 + (wb_2s * np.sin(ang_rad)) ** 2)
-            dy = np.sqrt((wa_2s * np.sin(ang_rad)) ** 2 + (wb_2s * np.cos(ang_rad)) ** 2)
-            bounds['b0'][0] = min(bounds['b0'][0], b0_fid - margin * dx)
-            bounds['b0'][1] = max(bounds['b0'][1], b0_fid + margin * dx)
-            bounds['delta'][0] = min(bounds['delta'][0], delta_fid - margin * dy)
-            bounds['delta'][1] = max(bounds['delta'][1], delta_fid + margin * dy)
-
-    def _shared_ticks(lim, step, anchor):
-        first = int(np.floor((lim[0] - anchor) / step))
-        last = int(np.ceil((lim[1] - anchor) / step))
-        ticks = anchor + np.arange(first, last + 1) * step
-        return (ticks[0], ticks[-1]), ticks
-
-    xlim, xticks = _shared_ticks(bounds['b0'], 0.5, 1.0)
-    ylim, yticks = _shared_ticks(bounds['delta'], 0.6, 0.2)
 
     fig, axes = plt.subplots(2, 2, figsize=(12, 10))
     axes = axes.flatten()

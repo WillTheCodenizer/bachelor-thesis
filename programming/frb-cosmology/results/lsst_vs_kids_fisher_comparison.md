@@ -23,19 +23,19 @@ Multi-tracer marginal errors for each survey, with the shared FRB-only baseline.
 
 | Population | FRB survey | $\sigma_{b_0}$ FRB-only | $\sigma_{b_0}$ KiDS | $\sigma_{b_0}$ LSST | $\sigma_{\delta}$ FRB-only | $\sigma_{\delta}$ KiDS | $\sigma_{\delta}$ LSST |
 |---|---|---|---|---|---|---|---|
-| Magnetars | Deep | 24.43 | 1.626 | 0.5541 | 32.51 | 2.359 | 0.8984 |
-| Magnetars | Shallow | 91.77 | 2.479 | 0.7645 | 191.9 | 4.813 | 1.517 |
-| Neutron Stars | Deep | 33.95 | 2.183 | 0.7236 | 33.41 | 2.234 | 0.8142 |
-| Neutron Stars | Shallow | 101.3 | 3.15 | 0.972 | 153.7 | 4.379 | 1.36 |
+| Magnetars | Deep | 23.48 | 1.274 | 0.4206 | 31.07 | 1.876 | 0.6838 |
+| Magnetars | Shallow | 91.32 | 1.907 | 0.5752 | 190.6 | 3.762 | 1.15 |
+| Neutron Stars | Deep | 33.04 | 1.702 | 0.5477 | 32.35 | 1.77 | 0.6185 |
+| Neutron Stars | Shallow | 101 | 2.415 | 0.7302 | 153 | 3.414 | 1.03 |
 
 ## Figure of merit and improvement
 
 | Population | FRB survey | FoM FRB-only | FoM KiDS | FoM LSST | LSST/KiDS FoM | KiDS gain vs FRB-only | LSST gain vs FRB-only |
 |---|---|---|---|---|---|---|---|
-| Magnetars | Deep | 0.02358 | 1.006 | 8.528 | 8.48× | 42.7× | 361.7× |
-| Magnetars | Shallow | 0.0008687 | 0.249 | 2.826 | 11.35× | 286.7× | 3253.0× |
-| Neutron Stars | Deep | 0.01463 | 0.7212 | 6.619 | 9.18× | 49.3× | 452.5× |
-| Neutron Stars | Shallow | 0.0009395 | 0.2068 | 2.384 | 11.53× | 220.1× | 2537.3× |
+| Magnetars | Deep | 0.02626 | 1.594 | 14.56 | 9.13× | 60.7× | 554.5× |
+| Magnetars | Shallow | 0.0009179 | 0.4119 | 4.883 | 11.85× | 448.7× | 5319.4× |
+| Neutron Stars | Deep | 0.01601 | 1.154 | 11.34 | 9.82× | 72.1× | 708.5× |
+| Neutron Stars | Shallow | 0.0009895 | 0.3447 | 4.131 | 11.98× | 348.3× | 4174.6× |
 
 ## Discussion
 
@@ -53,4 +53,4 @@ Across all 4 FRB configurations, LSST Y10 delivers the tighter multi-tracer cons
 
 - The comparison uses each survey's **own footprint**; much of the LSST advantage is the larger sky area rather than intrinsic data quality. At matched $f_{\rm sky}$ the gap narrows to the tomographic/redshift terms.
 - LSST per-bin number density assumes the total $\bar n = 48.00$ arcmin⁻² is split **equally** across the 10 bins; the true DESC lens counts are not uniform per bin.
-- Constraints are Gaussian Fisher forecasts (linear bias, Limber approximation, $\ell = 10$–$500$); they neglect non-Gaussian covariance and systematics.
+- Constraints are Gaussian Fisher forecasts (linear bias, Limber approximation, $\ell = 10$–$1000$); they neglect non-Gaussian covariance and systematics.

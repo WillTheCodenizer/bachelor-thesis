@@ -63,6 +63,7 @@
   warnings-off={mathtools-colon,mathtools-overbracket}, % suppress some unnecessary warnings
 ]{unicode-math}
 \setmathfont{Latin Modern Math}
+\setmathfont[FakeSlant=0.2, version=bibslanted]{Latin Modern Math}
 
 % nice, small fracs for the text with \sfrac{}{}
 \usepackage{xfrac}
@@ -141,6 +142,7 @@
 }
 \newfontfamily\bibitalicsameheight{Latin Modern Roman}[FakeSlant=0.2]
 \DeclareFieldFormat{journaltitle}{{\bibitalicsameheight #1\isdot}}
+\DeclareFieldFormat[misc,dataset]{title}{{\mathversion{bibslanted}\bibitalicsameheight #1\isdot}}
 \DeclareFieldFormat{booktitle}{{\bibitalicsameheight #1}}
 \DeclareFieldFormat{maintitle}{{\bibitalicsameheight #1}}
 
