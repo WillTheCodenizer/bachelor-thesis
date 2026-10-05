@@ -211,10 +211,25 @@ with $\sigma_{b_0}/b_0 = 1.27$ for the magnetar model and $1.13$ for the neutron
 model in the deep configuration.
 
 The more consequential question is whether the two models can be
-distinguished: the fiducial separation of $\Delta b_0 = 0.5$ and $\Delta \delta = 0.6$ lies
-comfortably within the $1\sigma$ contours of the joint forecast, so the cross-correlation with
+distinguished. To address this, \autoref{fig:fisher_progenitor_overlap} overlays the joint
+contours of both progenitor models for each survey configuration. The fiducial separation of
+$\Delta b_0 = 0.5$ and $\Delta \delta = 0.6$ lies comfortably within the $1\sigma$ contours of the
+joint forecast: in both configurations, the fiducial point of each model falls well inside the
+$1\sigma$ region of the other, and the contours of the two models overlap almost entirely.
+Hence, the cross-correlation with
 KiDS improves the measurement by roughly one to three orders of magnitude in the figure of merit
 but does not yet reach the precision required to discriminate between a prompt magnetar and a delayed
 neutron star origin. This is not a statement about the method but about sky area: the Fisher
 information of \autoref{eq:fisher} scales linearly with $f_{\mathrm{sky}}$, and the natural path
 to improvement is a wider galaxy survey, which is taken up in \autoref{sec:outlook}.
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher/fisher_comparison_1x2.pdf}
+\caption{Joint FRB$\times$galaxy forecast in the $b_0\,$--$\,\delta$ plane for the deep (left) and
+    shallow (right) FRB survey configuration, combined with the six tomographic KiDS bins. The contours
+    of the magnetar model are shown in blue and those of the neutron-star model in orange, with solid
+    and dashed lines marking the $1\sigma$ and $2\sigma$ regions. The crosses indicate the respective
+    fiducial values.}
+\label{fig:fisher_progenitor_overlap}
+\end{figure}

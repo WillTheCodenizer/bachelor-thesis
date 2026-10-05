@@ -167,15 +167,18 @@ this work are drawn from DR5 (KiDS-Legacy), which achieves a $5\sigma$
 limiting magnitude of $\qty{24.8}{\mag}$ in the $r$-band with a median seeing of \qty{0.7}{\arcsec}~\cite{Wright_2024, KiDS_DR5}. 
 Photometric redshifts are calibrated using approximately $126000$ spectroscopically confirmed sources~\cite{Wright_2025}.
 
-For the subsequent analysis, the tabulated $n_i(z)$ are interpolated onto the common redshift grid
-and normalized to unit integral . The raw tabulated distributions
-are shown in \autoref{fig:galaxy_nz}.
+The resulting distributions are shown in \autoref{fig:galaxy_nz}.
 
+%In order to combine the galaxy distributions with the FRB distributions, the tabulated $n_i(z)$ are
+%linearly interpolated onto the common redshift grid of \autoref{sec:fiducial_cosmology}. Outside the
+%tabulated range the distributions are set to zero, reflecting the absence of calibrated sources
+%beyond the support of the published data. The resulting distributions are shown in
+%\autoref{fig:galaxy_nz}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/galaxy/Galaxy_nz_bins.pdf}
-    \caption{Raw, tabulated tomographic redshift distributions $n_i(z)$ of the six KiDS-Legacy
-    galaxy bins as published in~\cite{Wright_2025, KiDS_ScienceData}.}
+    \caption{Tomographic redshift distributions $n_i(z)$ of the six KiDS-Legacy galaxy bins as
+    published in~\cite{Wright_2025, KiDS_ScienceData}.}
     \label{fig:galaxy_nz}
 \end{figure}
 
@@ -383,17 +386,17 @@ PASST SO KANN ABER AUCH GEKUERZT WERDEN
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/frb/FRB_magnetar_Cell_shallow_shotnoise.pdf}
-        \caption{Magnetar FRB auto-spectrum with and without shot noise for the shallow survey configuration.}
+        \caption{Shallow survey, with and without shot noise.}
         \label{fig:frb_cell_shotnoise}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/frb/FRB_magnetar_Cell_comparison.pdf}
-        \caption{Signal-only magnetar FRB auto-spectra for the shallow and deep survey configurations.}
+        \caption{Shallow and deep surveys, signal only.}
         \label{fig:frb_cell_comparison}
     \end{subfigure}
-    \caption{FRB auto-correlation angular power spectra for the magnetar population.}
+    \caption{Auto-correlation angular power spectra of the magnetar FRB population.}
     \label{fig:frb_cell}
 \end{figure}
 
