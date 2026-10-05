@@ -8,7 +8,6 @@ Only the Figure 3 data table and PNG/PDF plots are written.
 """
 
 from pathlib import Path
-import shutil
 
 import matplotlib
 
@@ -40,7 +39,7 @@ def build_figure3_sample(source_path):
     """
     source = np.genfromtxt(source_path, names=True)
     input_redshift = source["zmid"]
-    redshift = np.linspace(0.0, 4.0, FIGURE3_GRID_SIZE)
+    redshift = np.linspace(0.0, 5.0, FIGURE3_GRID_SIZE)
     parent_pdf = source["dneff"] / trapezoid(source["dneff"], input_redshift)
     scatter = SIGMA_Z * (1.0 + input_redshift)
     core = norm.pdf((redshift[:, None] - input_redshift[None, :]) / scatter) / scatter
@@ -56,8 +55,6 @@ def build_figure3_sample(source_path):
 def export_figure3_sample(redshift, distributions):
     """Save supplied raw Fisher curves as an 11-column table and Figure-3-style plot."""
     configure_matplotlib_fonts()
-    if shutil.which("latex") is None:
-        plt.rcParams.update({"text.usetex": False, "font.serif": ["DejaVu Serif"]})
     output_dir = PROJECT_DIR / "plots" / "galaxy_lsst"
     output_dir.mkdir(parents=True, exist_ok=True)
     np.savetxt(
@@ -70,12 +67,22 @@ def export_figure3_sample(redshift, distributions):
         "Raw n_i(z), NOT unit-integral PDFs and NOT galaxies/arcmin^2/z\n"
         + "Z_MID\t" + "\t".join(f"BIN{index}" for index in range(1, N_BINS + 1)),
     )
-    figure, axes = plt.subplots(figsize=(10, 5), constrained_layout=True)
-    colors = plt.get_cmap("tab10").colors
-    for distribution, color in zip(distributions, colors):
-        axes.plot(redshift, distribution, color=color, linewidth=1.5)
-    axes.set(xlim=(0.0, 1.5), xlabel="redshift", ylabel=r"$n_i(z)$")
-    axes.grid(alpha=0.55)
+    figure, axes = plt.subplots(figsize=(8, 5))
+    colors = plt.cm.tab10(np.linspace(0, 1, distributions.shape[0]))
+    for index, (distribution, color) in enumerate(zip(distributions, colors), start=1):
+        axes.plot(
+            redshift,
+            distribution,
+            color=color,
+            linewidth=1.8,
+            label=f"BIN{index}",
+        )
+    axes.set_xlim(0.0, 1.5)
+    axes.set_xlabel(r"Redshift $z$")
+    axes.set_ylabel(r"$n_i(z)$")
+    axes.set_title("Galaxy Tomographic Redshift Distributions")
+    axes.legend(loc="best", ncol=2)
+    figure.tight_layout()
     for extension in ("png", "pdf"):
         output_path = output_dir / f"{OUTPUT_STEM}_figure3.{extension}"
         figure.savefig(output_path, dpi=180)

@@ -230,9 +230,13 @@ def run_fisher_plots_only():
             _plot_fisher_comparison_2x2(
                 fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
             )
-        _plot_fisher_comparison_1x2(
-            fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
-        )
+            _plot_fisher_comparison_1x2(
+                fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
+            )
+        else:
+            _plot_fisher_comparison_1x2_lsst(
+                fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
+            )
     kids_by_combo = {
         (data['pop_label'], data['survey_label']): data for data in kids_data
     }
@@ -609,7 +613,8 @@ def _plot_galaxy_nz(z_mid, nz_bins, plot_dir, title_tag=""):
     for idx in range(nz_bins.shape[1]):
         ax.plot(z_mid, nz_bins[:, idx], linewidth=1.8, color=colors[idx], label=f"BIN{idx + 1}")
 
-    ax.set_xlim(0, 5)
+    ax.set_xlim(0.0, 5)
+    #ax.set_xticks([0, 1, 2, 3, 4, 5])
     ax.set_xlabel(r"Redshift $z$")
     ax.set_ylabel(r"$n_i(z)$")
     ax.set_title(f"{title_tag}Galaxy Tomographic Redshift Distributions")
@@ -1180,18 +1185,25 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
         Output directory for the figure.
     """
     # Set the common axis limits and ticks for all four panels here.
-    xlim = (-11, 11)
-    ylim = (-11, 11)
-    xticks = [-10, -5, 0.0, 5, 10]
-    yticks = [-10, -5, 0, 5, 10]
+    #xlim = (-9, 11)
+    #ylim = (-9, 11)
+    #xticks = [-8, -5, -2, 1, 4, 7, 10 ]
+    #yticks = [-8, -5, -2, 1, 4, 7, 10 ]
 
+    xlim = (-7, 10)
+    ylim = (-7, 10)
+    xticks = [-6, -3, 0, 3, 6, 9 ]
+    yticks = [-6, -3, 0, 3, 6, 9 ]
+    
     fig, axes = plt.subplots(2, 2, figsize=(12, 10))
     axes = axes.flatten() # flatten
 
     # Color and style scheme
+    # for frb   HEX: #84B819
+
     style = {
-        'frb':   {'color': 'C0', 'label_1s': r'FRB-only $1\sigma$',          'label_2s': r'FRB-only $2\sigma$'},
-        'multi': {'color': 'C1', 'label_1s': r'FRB$\times$Galaxy $1\sigma$', 'label_2s': r'FRB$\times$Galaxy $2\sigma$'},
+        'frb':   {'color': '#84B819', 'label_1s': r'FRB-only $1\sigma$',          'label_2s': r'FRB-only $2\sigma$'},
+        'multi': {'color': 'C0', 'label_1s': r'FRB$\times$Galaxy $1\sigma$', 'label_2s': r'FRB$\times$Galaxy $2\sigma$'},
     }
 
     for idx, data in enumerate(fisher_data):
@@ -1224,21 +1236,24 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
                 )
                 ax.add_patch(ellipse)
 
-        # Mark fiducial point
-        ax.plot(b0_fid, delta_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
+        # Mark fiducial values with a small cross
+        ax.plot(b0_fid, delta_fid, 'x', markersize=8,
+            markeredgewidth=1.5, zorder=5, color = '#84B819' )
 
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
         ax.set_xticks(xticks)
-        ax.set_yticks(yticks)
+        ax.set_yticks(yticks )
+        ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
+    
 
-        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE)
-        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE)
-        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=TITLE_SIZE, fontweight='bold')
+        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
+        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
+        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=TITLE_SIZE+3, fontweight='bold')
         
         # Add legend only to the first subplot to avoid clutter
         if idx == 0:
-            ax.legend(loc="best", fontsize=LEGEND_SIZE)
+            ax.legend(loc="best", fontsize=LEGEND_SIZE+2)
 
     # Remove any unused subplots (if fisher_data has fewer than 4 items)
     for idx in range(len(fisher_data), 4):
@@ -1252,23 +1267,26 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
 
 
 def _plot_fisher_comparison_1x2(fisher_data, plot_dir, title_tag=""):
-    """Overlay both populations for Deep/Shallow using fisher_data; save to plot_dir.
+    """Overlay FRB x Galaxy constraints for Deep/Shallow; save to plot_dir.
 
     title_tag prefixes the panel titles. Fiducial markers identify the population
-    colors, and line styles identify the forecast and confidence level. Return None.
+    colors, and line styles identify the confidence level. Return None.
     """
+
+    xlim = (-1, 3)
+    ylim = (-2, 3)
+    xticks = [-0.5, 0, 0.5, 1, 1.5,2, 2.5]
+    yticks = [-1.6,-1.0,-0.4,0.2,0.8,1.4, 2.0, 2.6]
+
     fig, axes = plt.subplots(1, 2, figsize=(12, 6))
     population_colors = {'Magnetars': 'C0', 'Neutron Stars': 'C1'}
     contour_styles = (
         ('cov_multi', 0.6827, '-', r'FRB$\times$Galaxy $1\sigma$'),
         ('cov_multi', 0.9545, '--', r'FRB$\times$Galaxy $2\sigma$'),
-        ('cov_frb', 0.6827, ':', r'FRB-only $1\sigma$'),
-        ('cov_frb', 0.9545, '-.', r'FRB-only $2\sigma$'),
     )
     fiducial_handles = []
     for ax, survey_label in zip(axes, ('Deep', 'Shallow')):
         survey_data = [data for data in fisher_data if data['survey_label'] == survey_label]
-        x_bounds, y_bounds = [], []
         for data in survey_data:
             b0_fid, delta_fid = data['b0_fid'], data['delta_fid']
             color = population_colors[data['pop_label']]
@@ -1281,43 +1299,103 @@ def _plot_fisher_comparison_1x2(fisher_data, plot_dir, title_tag=""):
                     height=2.0 * semi_minor, angle=angle, edgecolor=color,
                     facecolor='none', linestyle=linestyle, linewidth=1.8,
                 ))
-            marker, = ax.plot(
+            ax.plot(
                 b0_fid, delta_fid, marker='x', linestyle='none', color=color,
-                markersize=10, markeredgewidth=2, zorder=5,
+                markersize=8, markeredgewidth=1.5, zorder=5,
+            )
+            marker = Line2D(
+                [], [], color=color, marker='x', linestyle='none',
+                markersize=8, markeredgewidth=1.5,
                 label=(f"{data['pop_label']}: "
                        rf"$b_0={b0_fid:g}$, $\delta={delta_fid:g}$"),
             )
             if survey_label == 'Deep':
                 fiducial_handles.append(marker)
-            # Frame the union of both multi-tracer contours, as in the 2x2 plot.
-            semi_major, semi_minor, angle = get_confidence_ellipse(
-                data['cov_multi'], confidence=0.9545
-            )
-            angle_rad = np.radians(angle)
-            dx = np.hypot(semi_major * np.cos(angle_rad), semi_minor * np.sin(angle_rad))
-            dy = np.hypot(semi_major * np.sin(angle_rad), semi_minor * np.cos(angle_rad))
-            margin = 3.0
-            x_bounds.extend((b0_fid - margin * dx, b0_fid + margin * dx))
-            y_bounds.extend((delta_fid - margin * dy, delta_fid + margin * dy))
-        xlim, ylim = (min(x_bounds), max(x_bounds)), (min(y_bounds), max(y_bounds))
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
-        ax.set_xticks(_nice_half_ticks(0.0, xlim))
-        ax.set_yticks(_nice_half_ticks(0.0, ylim))
-        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE)
-        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE)
-        ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE, fontweight='bold')
+        ax.set_xticks(xticks)
+        ax.set_yticks(yticks)
+        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
+        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
+        ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE+3, fontweight='bold')
+        ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
     contour_handles = [
         Line2D([], [], color='black', linestyle=linestyle, linewidth=1.8, label=label)
         for _key, _confidence, linestyle, label in contour_styles
     ]
-    fig.legend(handles=fiducial_handles + contour_handles, loc='lower center',
-               ncol=3, fontsize=LEGEND_SIZE)
+    fig.legend(handles=fiducial_handles + contour_handles, loc="lower center",
+               ncol=3, fontsize=LEGEND_SIZE+3)
     fig.tight_layout(rect=[0, 0.18, 1, 1])
     fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2.pdf'))
     fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2.png'), dpi=200)
     plt.close(fig)
     print('  Saved fisher_comparison_1x2.pdf / .png')
+
+
+def _plot_fisher_comparison_1x2_lsst(fisher_data, plot_dir, title_tag=""):
+    """Create the independently configurable LSST Y10 1x2 Fisher plot."""
+
+    xlim = (0.5, 2.5)
+    ylim = (-0.5, 1.5)
+    xticks = [0.5, 1.0, 1.5, 2.0, 2.5]
+    yticks = [-0.4, 0.2, 0.8,  1.4]
+
+    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+    population_colors = {'Magnetars': 'C0', 'Neutron Stars': 'C1'}
+    contour_styles = (
+        ('cov_multi', 0.6827, '-', r'FRB$\times$Galaxy $1\sigma$'),
+        ('cov_multi', 0.9545, ':', r'FRB$\times$Galaxy $2\sigma$'),
+    )
+    fiducial_handles = []
+    for ax, survey_label in zip(axes, ('Deep', 'Shallow')):
+        survey_data = [data for data in fisher_data if data['survey_label'] == survey_label]
+        for data in survey_data:
+            b0_fid, delta_fid = data['b0_fid'], data['delta_fid']
+            color = population_colors[data['pop_label']]
+            for covariance_key, confidence, linestyle, _label in contour_styles:
+                semi_major, semi_minor, angle = get_confidence_ellipse(
+                    data[covariance_key], confidence=confidence
+                )
+                ax.add_patch(mpatches.Ellipse(
+                    xy=(b0_fid, delta_fid), width=2.0 * semi_major,
+                    height=2.0 * semi_minor, angle=angle, edgecolor=color,
+                    facecolor='none', linestyle=linestyle, linewidth=1.8,
+                ))
+            ax.plot(
+                b0_fid, delta_fid, marker='x', linestyle='none', color=color,
+                markersize=8, markeredgewidth=1.5, zorder=5,
+            )
+            marker = Line2D(
+                [], [], color=color, marker='x', linestyle='none',
+                markersize=8, markeredgewidth=1.5,
+                label=(f"{data['pop_label']}: "
+                       rf"$b_0={b0_fid:g}$, $\delta={delta_fid:g}$"),
+            )
+            if survey_label == 'Deep':
+                fiducial_handles.append(marker)
+        ax.set_xlim(xlim)
+        ax.set_ylim(ylim)
+        ax.set_xticks(xticks)
+        ax.set_yticks(yticks)
+        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
+        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
+        ax.set_title(
+            f"{title_tag}{survey_label} Survey",
+            fontsize=TITLE_SIZE+3,
+            fontweight='bold',
+        )
+        ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
+    contour_handles = [
+        Line2D([], [], color='black', linestyle=linestyle, linewidth=1.8, label=label)
+        for _key, _confidence, linestyle, label in contour_styles
+    ]
+    fig.legend(handles=fiducial_handles + contour_handles, loc="lower center",
+               ncol=3, fontsize=LEGEND_SIZE+3)
+    fig.tight_layout(rect=[0, 0.18, 1, 1])
+    fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2_lsst.pdf'))
+    fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2_lsst.png'), dpi=200)
+    plt.close(fig)
+    print('  Saved fisher_comparison_1x2_lsst.pdf / .png')
 
 
 def _plot_fisher_ellipses(
@@ -1635,10 +1713,14 @@ def _plot_fisher_kids_vs_lsst(kids_by_combo, lsst_by_combo, kids_cfg, lsst_cfg, 
     much larger FRB-only baseline is omitted here (see the per-survey plots).
     """
     # Set the common axis limits and ticks for all four panels here.
-    xlim = (0.0, 2.5)
-    ylim = (-1.0, 2.0)
-    xticks = [0.0, 0.5, 1.0, 1.5, 2.0, 2.5]
-    yticks = [-1.0, -0.5, 0.0,0.5, 1.0, 1.5, 2.0]
+    #xlim = (-1, 3)
+    #ylim = (-2, 3)
+    a = (-1,3)
+    b = [-0.5, 0, 0.5, 1, 1.5,2, 2.5]
+    xlim = a
+    ylim = a
+    xticks = b
+    yticks = b
 
     combos = list(kids_by_combo.keys())
 
@@ -1678,24 +1760,24 @@ def _plot_fisher_kids_vs_lsst(kids_by_combo, lsst_by_combo, kids_cfg, lsst_cfg, 
                     linestyle=ls, linewidth=1.8, label=lbl,
                 ))
 
-        ax.plot(b0_fid, delta_fid, 'k+', markersize=10, markeredgewidth=1.5, zorder=5)
-
+        ax.plot(b0_fid, delta_fid, 'x', markersize=8, markeredgewidth=1.5, zorder=5)
+        ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
         ax.set_xlim(xlim)
         ax.set_ylim(ylim)
         ax.set_xticks(xticks)
         ax.set_yticks(yticks)
 
-        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE)
-        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE)
-        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=TITLE_SIZE, fontweight='bold')
+        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
+        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
+        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=TITLE_SIZE+3, fontweight='bold')
         if idx == 0:
-            ax.legend(loc="best", fontsize=LEGEND_SIZE)
+            ax.legend(loc="best", fontsize=LEGEND_SIZE+2)
 
     for idx in range(len(combos), len(axes)):
         fig.delaxes(axes[idx])
 
-    fig.suptitle("Multi-tracer Fisher Constraints: KiDS vs LSST Y10",
-                 fontsize=SUPTITLE_SIZE, fontweight='bold', y=0.995)
+    #fig.suptitle("Multi-tracer Fisher Constraints: KiDS vs LSST Y10",
+     #            fontsize=SUPTITLE_SIZE, fontweight='bold', y=0.995)
     fig.tight_layout(rect=[0, 0, 1, 0.99])
     fig.savefig(os.path.join(plot_dir, "fisher_kids_vs_lsst_2x2.pdf"))
     fig.savefig(os.path.join(plot_dir, "fisher_kids_vs_lsst_2x2.png"), dpi=200)
