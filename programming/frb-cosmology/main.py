@@ -1301,7 +1301,7 @@ def _plot_fisher_comparison_1x2_lsst(fisher_data, plot_dir, title_tag=""):
 
 
 def _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, contour_styles,
-                                   xlim, ylim, xticks, yticks, title_tag):
+                                   xlim, ylim, xticks, yticks):
     """Draw both progenitor models for one survey on ax; return fiducial legend handles."""
     population_colors = {'Magnetars': 'C0', 'Neutron Stars': 'C1'}
     fiducial_handles = []
@@ -1335,7 +1335,6 @@ def _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, contour_styles
     ax.set_yticks(yticks)
     ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
     ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
-    ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE+3)
     ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
     return fiducial_handles
 
@@ -1352,14 +1351,16 @@ def _save_progenitor_overlap_plots(fisher_data, plot_dir, stem, xlim, ylim,
         for _confidence, linestyle, label in contour_styles
     ]
     panel_kwargs = dict(contour_styles=contour_styles, xlim=xlim, ylim=ylim,
-                        xticks=xticks, yticks=yticks, title_tag=title_tag)
+                        xticks=xticks, yticks=yticks)
     survey_labels = ('Deep', 'Shallow')
 
     fig, axes = plt.subplots(1, 2, figsize=(12, 6))
-    panel_handles = [
-        _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, **panel_kwargs)
-        for ax, survey_label in zip(axes, survey_labels)
-    ]
+    panel_handles = []
+    for ax, survey_label in zip(axes, survey_labels):
+        panel_handles.append(
+            _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, **panel_kwargs)
+        )
+        ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE+3)
     fig.legend(handles=panel_handles[0] + contour_handles, loc="lower center",
                ncol=3, fontsize=LEGEND_SIZE+3)
     fig.tight_layout(rect=[0, 0.18, 1, 1])
@@ -1370,10 +1371,11 @@ def _save_progenitor_overlap_plots(fisher_data, plot_dir, stem, xlim, ylim,
 
     # Single panels: confidence-level line styles are explained in the thesis caption.
     for survey_label in survey_labels:
-        fig, ax = plt.subplots(figsize=(6, 5.5))
+        fig, ax = plt.subplots(figsize=(6, 4.5))
         fiducial_handles = _draw_progenitor_overlap_panel(
             ax, fisher_data, survey_label, **panel_kwargs
         )
+        #ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE+3)
         if survey_label == 'Deep':
             ax.legend(handles=fiducial_handles, loc="best", fontsize=LEGEND_SIZE+1)
         fig.tight_layout()
