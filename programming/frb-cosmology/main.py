@@ -1142,7 +1142,11 @@ def _run_fisher_pipeline(cfg, P_interp, k_min, k_max):
         _plot_fisher_comparison_2x2(
             fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
         )
-    _plot_fisher_comparison_1x2(fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag)
+        _plot_fisher_comparison_1x2(fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag)
+    else:
+        _plot_fisher_comparison_1x2_lsst(
+            fisher_data, cfg.fisher_plot_dir, title_tag=cfg.title_tag
+        )
 
     return fisher_data
 
@@ -1272,130 +1276,111 @@ def _plot_fisher_comparison_1x2(fisher_data, plot_dir, title_tag=""):
     title_tag prefixes the panel titles. Fiducial markers identify the population
     colors, and line styles identify the confidence level. Return None.
     """
-
-    xlim = (-1, 3)
-    ylim = (-2, 3)
-    xticks = [-0.5, 0, 0.5, 1, 1.5,2, 2.5]
-    yticks = [-1.6,-1.0,-0.4,0.2,0.8,1.4, 2.0, 2.6]
-
-    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
-    population_colors = {'Magnetars': 'C0', 'Neutron Stars': 'C1'}
-    contour_styles = (
-        ('cov_multi', 0.6827, '-', r'FRB$\times$Galaxy $1\sigma$'),
-        ('cov_multi', 0.9545, '--', r'FRB$\times$Galaxy $2\sigma$'),
+    _save_progenitor_overlap_plots(
+        fisher_data, plot_dir, 'fisher_comparison_1x2',
+        xlim=(-1, 3),
+        ylim=(-2, 3),
+        xticks=[-0.5, 0, 0.5, 1, 1.5, 2, 2.5],
+        yticks=[-1.6, -1.0, -0.4, 0.2, 0.8, 1.4, 2.0, 2.6],
+        linestyle_2s='--',
+        title_tag=title_tag,
     )
-    fiducial_handles = []
-    for ax, survey_label in zip(axes, ('Deep', 'Shallow')):
-        survey_data = [data for data in fisher_data if data['survey_label'] == survey_label]
-        for data in survey_data:
-            b0_fid, delta_fid = data['b0_fid'], data['delta_fid']
-            color = population_colors[data['pop_label']]
-            for covariance_key, confidence, linestyle, _label in contour_styles:
-                semi_major, semi_minor, angle = get_confidence_ellipse(
-                    data[covariance_key], confidence=confidence
-                )
-                ax.add_patch(mpatches.Ellipse(
-                    xy=(b0_fid, delta_fid), width=2.0 * semi_major,
-                    height=2.0 * semi_minor, angle=angle, edgecolor=color,
-                    facecolor='none', linestyle=linestyle, linewidth=1.8,
-                ))
-            ax.plot(
-                b0_fid, delta_fid, marker='x', linestyle='none', color=color,
-                markersize=8, markeredgewidth=1.5, zorder=5,
-            )
-            marker = Line2D(
-                [], [], color=color, marker='x', linestyle='none',
-                markersize=8, markeredgewidth=1.5,
-                label=(f"{data['pop_label']}: "
-                       rf"$b_0={b0_fid:g}$, $\delta={delta_fid:g}$"),
-            )
-            if survey_label == 'Deep':
-                fiducial_handles.append(marker)
-        ax.set_xlim(xlim)
-        ax.set_ylim(ylim)
-        ax.set_xticks(xticks)
-        ax.set_yticks(yticks)
-        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
-        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
-        ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE+3, fontweight='bold')
-        ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
-    contour_handles = [
-        Line2D([], [], color='black', linestyle=linestyle, linewidth=1.8, label=label)
-        for _key, _confidence, linestyle, label in contour_styles
-    ]
-    fig.legend(handles=fiducial_handles + contour_handles, loc="lower center",
-               ncol=3, fontsize=LEGEND_SIZE+3)
-    fig.tight_layout(rect=[0, 0.18, 1, 1])
-    fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2.pdf'))
-    fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2.png'), dpi=200)
-    plt.close(fig)
-    print('  Saved fisher_comparison_1x2.pdf / .png')
 
 
 def _plot_fisher_comparison_1x2_lsst(fisher_data, plot_dir, title_tag=""):
     """Create the independently configurable LSST Y10 1x2 Fisher plot."""
-
-    xlim = (0.5, 2.5)
-    ylim = (-0.5, 1.5)
-    xticks = [0.5, 1.0, 1.5, 2.0, 2.5]
-    yticks = [-0.4, 0.2, 0.8,  1.4]
-
-    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
-    population_colors = {'Magnetars': 'C0', 'Neutron Stars': 'C1'}
-    contour_styles = (
-        ('cov_multi', 0.6827, '-', r'FRB$\times$Galaxy $1\sigma$'),
-        ('cov_multi', 0.9545, ':', r'FRB$\times$Galaxy $2\sigma$'),
+    _save_progenitor_overlap_plots(
+        fisher_data, plot_dir, 'fisher_comparison_1x2_lsst',
+        xlim=(0.5, 2.5),
+        ylim=(-0.5, 1.5),
+        xticks=[0.5, 1.0, 1.5, 2.0, 2.5],
+        yticks=[-0.4, 0.2, 0.8, 1.4],
+        linestyle_2s=':',
+        title_tag=title_tag,
     )
+
+
+def _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, contour_styles,
+                                   xlim, ylim, xticks, yticks, title_tag):
+    """Draw both progenitor models for one survey on ax; return fiducial legend handles."""
+    population_colors = {'Magnetars': 'C0', 'Neutron Stars': 'C1'}
     fiducial_handles = []
-    for ax, survey_label in zip(axes, ('Deep', 'Shallow')):
-        survey_data = [data for data in fisher_data if data['survey_label'] == survey_label]
-        for data in survey_data:
-            b0_fid, delta_fid = data['b0_fid'], data['delta_fid']
-            color = population_colors[data['pop_label']]
-            for covariance_key, confidence, linestyle, _label in contour_styles:
-                semi_major, semi_minor, angle = get_confidence_ellipse(
-                    data[covariance_key], confidence=confidence
-                )
-                ax.add_patch(mpatches.Ellipse(
-                    xy=(b0_fid, delta_fid), width=2.0 * semi_major,
-                    height=2.0 * semi_minor, angle=angle, edgecolor=color,
-                    facecolor='none', linestyle=linestyle, linewidth=1.8,
-                ))
-            ax.plot(
-                b0_fid, delta_fid, marker='x', linestyle='none', color=color,
-                markersize=8, markeredgewidth=1.5, zorder=5,
+    for data in fisher_data:
+        if data['survey_label'] != survey_label:
+            continue
+        b0_fid, delta_fid = data['b0_fid'], data['delta_fid']
+        color = population_colors[data['pop_label']]
+        for confidence, linestyle, _label in contour_styles:
+            semi_major, semi_minor, angle = get_confidence_ellipse(
+                data['cov_multi'], confidence=confidence
             )
-            marker = Line2D(
-                [], [], color=color, marker='x', linestyle='none',
-                markersize=8, markeredgewidth=1.5,
-                label=(f"{data['pop_label']}: "
-                       rf"$b_0={b0_fid:g}$, $\delta={delta_fid:g}$"),
-            )
-            if survey_label == 'Deep':
-                fiducial_handles.append(marker)
-        ax.set_xlim(xlim)
-        ax.set_ylim(ylim)
-        ax.set_xticks(xticks)
-        ax.set_yticks(yticks)
-        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
-        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
-        ax.set_title(
-            f"{title_tag}{survey_label} Survey",
-            fontsize=TITLE_SIZE+3,
-            fontweight='bold',
+            ax.add_patch(mpatches.Ellipse(
+                xy=(b0_fid, delta_fid), width=2.0 * semi_major,
+                height=2.0 * semi_minor, angle=angle, edgecolor=color,
+                facecolor='none', linestyle=linestyle, linewidth=1.8,
+            ))
+        ax.plot(
+            b0_fid, delta_fid, marker='x', linestyle='none', color=color,
+            markersize=8, markeredgewidth=1.5, zorder=5,
         )
-        ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
+        fiducial_handles.append(Line2D(
+            [], [], color=color, marker='x', linestyle='none',
+            markersize=8, markeredgewidth=1.5,
+            label=(f"{data['pop_label']}: "
+                   rf"$b_0={b0_fid:g}$, $\delta={delta_fid:g}$"),
+        ))
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+    ax.set_xticks(xticks)
+    ax.set_yticks(yticks)
+    ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE+3)
+    ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
+    return fiducial_handles
+
+
+def _save_progenitor_overlap_plots(fisher_data, plot_dir, stem, xlim, ylim,
+                                   xticks, yticks, linestyle_2s, title_tag):
+    """Save the Deep/Shallow overlay as <stem> (1x2) and each panel as <stem>_<survey>."""
+    contour_styles = (
+        (0.6827, '-', r'FRB$\times$Galaxy $1\sigma$'),
+        (0.9545, linestyle_2s, r'FRB$\times$Galaxy $2\sigma$'),
+    )
     contour_handles = [
         Line2D([], [], color='black', linestyle=linestyle, linewidth=1.8, label=label)
-        for _key, _confidence, linestyle, label in contour_styles
+        for _confidence, linestyle, label in contour_styles
     ]
-    fig.legend(handles=fiducial_handles + contour_handles, loc="lower center",
+    panel_kwargs = dict(contour_styles=contour_styles, xlim=xlim, ylim=ylim,
+                        xticks=xticks, yticks=yticks, title_tag=title_tag)
+    survey_labels = ('Deep', 'Shallow')
+
+    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+    panel_handles = [
+        _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, **panel_kwargs)
+        for ax, survey_label in zip(axes, survey_labels)
+    ]
+    fig.legend(handles=panel_handles[0] + contour_handles, loc="lower center",
                ncol=3, fontsize=LEGEND_SIZE+3)
     fig.tight_layout(rect=[0, 0.18, 1, 1])
-    fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2_lsst.pdf'))
-    fig.savefig(os.path.join(plot_dir, 'fisher_comparison_1x2_lsst.png'), dpi=200)
+    fig.savefig(os.path.join(plot_dir, f'{stem}.pdf'))
+    fig.savefig(os.path.join(plot_dir, f'{stem}.png'), dpi=200)
     plt.close(fig)
-    print('  Saved fisher_comparison_1x2_lsst.pdf / .png')
+    print(f'  Saved {stem}.pdf / .png')
+
+    # Single panels: confidence-level line styles are explained in the thesis caption.
+    for survey_label in survey_labels:
+        fig, ax = plt.subplots(figsize=(6, 5.5))
+        fiducial_handles = _draw_progenitor_overlap_panel(
+            ax, fisher_data, survey_label, **panel_kwargs
+        )
+        ax.legend(handles=fiducial_handles, loc="best", fontsize=LEGEND_SIZE+1)
+        fig.tight_layout()
+        panel_stem = f'{stem}_{survey_label.lower()}'
+        fig.savefig(os.path.join(plot_dir, f'{panel_stem}.pdf'))
+        fig.savefig(os.path.join(plot_dir, f'{panel_stem}.png'), dpi=200)
+        plt.close(fig)
+        print(f'  Saved {panel_stem}.pdf / .png')
 
 
 def _plot_fisher_ellipses(
