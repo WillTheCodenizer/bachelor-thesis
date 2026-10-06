@@ -1,13 +1,13 @@
 \chapter{Introduction} \label{ch:introduction}
 
-Fast Radio Bursts (FRBs) are bright radio transients with millisecond durations that originate at
+Fast radio bursts (FRBs) are bright radio transients with millisecond durations that originate at
 cosmological distances~\cite{Petroff_2019}. Since the first burst was found in archival pulsar
 survey data~\cite{Lorimer_2007}, the number of detections has grown rapidly, driven largely by the
 Canadian Hydrogen Intensity Mapping Experiment (CHIME)~\cite{Amiri2018}, whose second catalog
 already contains more than $3600$ unique sources~\cite{CHIMEFRB2026}.
 
 Beyond the open questions regarding their nature, FRBs are emerging as a novel cosmological probe.
-Their dispersion measure traces the diffuse ionized baryons, which are otherwise difficult to
+Their dispersion measure (DM) traces the diffuse ionized baryons, which are otherwise difficult to
 observe~\cite{McQuinn_2014}, and has been used to measure the cosmic baryon
 density~\cite{Macquart_2020} and the Hubble constant~\cite{Hagstotz_2022}. Forecasts indicate that
 larger samples could also constrain primordial non-Gaussianity~\cite{Reischke_2021} and baryonic
@@ -21,16 +21,17 @@ fraction of the population~\cite{RafieiRavandi_2020}. A statistical alternative 
 trace the large-scale structure~\cite{MasuiSigurdson_2015}, so that their angular clustering encodes
 the bias of the host population and thereby the progenitor channel~\cite{Shirasaki_2017}. As FRB
 samples are sparse, their auto-correlation is dominated by shot noise, which cross-correlation with
-dense galaxy samples mitigates. Such an FRB-galaxy cross-correlation has already been detected in
+dense galaxy samples mitigates. Such an FRB$\times$galaxy cross-correlation has already been detected in
 the first CHIME/FRB catalog~\cite{RafieiRavandi_2021}. Photometric surveys like the Kilo-Degree
 Survey (KiDS), whose final data release KiDS-Legacy provides calibrated redshift distributions for
 six tomographic bins, are particularly well suited for this purpose~\cite{Wright_2025, Wright_2024}.
 
 In this thesis, a forecasting pipeline is developed to assess how well the angular cross-correlation
 between FRBs and KiDS-Legacy galaxies can constrain the clustering bias of the FRB host population.
-Two progenitor scenarios are considered, young magnetars following the cosmic star formation history
+Two progenitor scenarios are considered, young magnetars following the cosmic star-formation history
 and neutron stars formed through delayed channels, each described by a redshift-dependent linear
-bias. They are combined with a shallow, CHIME-like and a deep, SKA-like FRB survey~\cite{Hashimoto_2020}.
+bias. They are combined with a shallow, CHIME-like FRB survey and a deep FRB survey modeled on the
+Square Kilometre Array (SKA)~\cite{Hashimoto_2020}.
 Angular auto- and cross-power spectra are computed in the Limber approximation and propagated into a
 Fisher forecast, which quantifies the gain of the joint analysis over the FRB auto-correlation alone
 and the prospects of distinguishing the two progenitor scenarios.

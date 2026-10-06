@@ -75,12 +75,11 @@ def export_figure3_sample(redshift, distributions):
             distribution,
             color=color,
             linewidth=1.8,
-            label=f"BIN{index}",
+            label=f"Bin {index}",
         )
     axes.set_xlim(0.0, 1.5)
     axes.set_xlabel(r"Redshift $z$")
     axes.set_ylabel(r"$n_i(z)$")
-    axes.set_title("Galaxy Tomographic Redshift Distributions")
     axes.legend(loc="best", ncol=2)
     figure.tight_layout()
     for extension in ("png", "pdf"):

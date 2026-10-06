@@ -2,32 +2,61 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/galaxy_lsst/LSST_Y10_fisherA2Z_figure3.pdf}
-    \caption{Raw, tabulated tomographic redshift distributions $n_i(z)$ of the LSST Y10 lens sample as published in~\cite{Zhang_2025_LSST}.}
+    \caption{Raw, tabulated tomographic redshift distributions $n_i(z)$ of the LSST Y10 lens sample as published by Zhang et al.~\cite{Zhang_2025_LSST}.}
     \label{fig:lsst_y10_nz}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher_lsst/fisher_kids_vs_lsst_2x2.pdf}
-    \caption{Comparison of the joint FRB$\times$galaxy forecast for the KiDS-Legacy and LSST Y10
-    lens samples, shown for the two progenitor models and FRB survey configurations.}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher_lsst/fisher_kids_vs_lsst_2x2_magnetars_deep.pdf}
+        \caption{Magnetars, deep survey.}
+        \label{fig:fisher_kids_vs_lsst_magnetars_deep}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher_lsst/fisher_kids_vs_lsst_2x2_magnetars_shallow.pdf}
+        \caption{Magnetars, shallow survey.}
+        \label{fig:fisher_kids_vs_lsst_magnetars_shallow}
+    \end{subfigure}
+
+    \medskip
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher_lsst/fisher_kids_vs_lsst_2x2_neutron_stars_deep.pdf}
+        \caption{Neutron stars, deep survey.}
+        \label{fig:fisher_kids_vs_lsst_neutron_stars_deep}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher_lsst/fisher_kids_vs_lsst_2x2_neutron_stars_shallow.pdf}
+        \caption{Neutron stars, shallow survey.}
+        \label{fig:fisher_kids_vs_lsst_neutron_stars_shallow}
+    \end{subfigure}
+    \caption{Comparison of the joint FRB$\times$galaxy forecast for the KiDS-Legacy (blue) and LSST Y10
+    (red) lens samples, shown for the two progenitor models and FRB survey configurations. Solid and
+    dotted lines mark the $1\sigma$ and $2\sigma$ confidence regions, as given in the legend of panel~(a).
+    The blue cross marks the fiducial parameter values.}
     \label{fig:fisher_kids_vs_lsst}
 \end{figure}
 
 \begin{table}[H]
     \centering
     \small
-    \caption{Marginalized $1\sigma$ errors of the joint FRB$\times$galaxy
+    \caption{Marginalized uncertainties of the joint FRB$\times$galaxy
     forecast for the two galaxy surveys.}
     \label{tab:lsst_sigmas}
     \begin{tabular}{
         l@{\hspace{1.2em}}
         l@{\hspace{1.2em}}
-        S[table-format=1.2]
+        S[table-format=1.1]
         @{\hspace{1.4em}}
         S[table-format=1.2]
         @{\hspace{1.4em}}
-        S[table-format=1.2]
+        S[table-format=1.1]
         @{\hspace{1.2em}}
         S[table-format=1.2]
         }
@@ -39,10 +68,10 @@
         & {KiDS} & {LSST Y10}
         & {KiDS} & {LSST Y10} \\
         \midrule
-        Magnetars     & Deep    & 1.27 & 0.42 & 1.88 & 0.68 \\
-        Magnetars     & Shallow & 1.91 & 0.58 & 3.76 & 1.15 \\
-        Neutron stars & Deep    & 1.70 & 0.55 & 1.77 & 0.62 \\
-        Neutron stars & Shallow & 2.42 & 0.73 & 3.41 & 1.03 \\
+        Magnetars     & Deep    & 1.3 & 0.42 & 1.9 & 0.68 \\
+        Magnetars     & Shallow & 1.9 & 0.58 & 3.8 & 1.1 \\
+        Neutron stars & Deep    & 1.7 & 0.55 & 1.8 & 0.62 \\
+        Neutron stars & Shallow & 2.4 & 0.73 & 3.4 & 1.0 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -50,16 +79,16 @@
 \begin{table}[H]
     \centering
     \small
-    \caption{Figures of merit of the joint FRB$\times$galaxy
+    \caption{FoMs of the joint FRB$\times$galaxy
     forecast for the two galaxy surveys. The last column gives the ratio
-    of the two figures of merit.}
+    of the two FoMs, computed from unrounded values.}
     \label{tab:lsst_fom}
     \begin{tabular}{
         l@{\hspace{0.8em}}
         l@{\hspace{0.4em}}
         S[table-format=1.2]
         @{\hspace{0.2em}}
-        S[table-format=2.2]
+        S[table-format=2.1]
         @{\hspace{0.4em}}
         S[table-format=2.1]
         }
@@ -69,10 +98,10 @@
         Progenitor model & Configuration
         & {KiDS} & {LSST Y10} & {Ratio}\\
         \midrule
-        Magnetars     & Deep    & 1.59 & 14.56 & 9.2 \\
-        Magnetars     & Shallow & 0.41 &  4.88 & 11.9 \\
-        Neutron stars & Deep    & 1.15 & 11.34 & 9.9 \\
-        Neutron stars & Shallow & 0.34 &  4.13 & 12.1 \\
+        Magnetars     & Deep    & 1.6  & 15  & 9.1 \\
+        Magnetars     & Shallow & 0.41 & 4.9 & 11.9 \\
+        Neutron stars & Deep    & 1.2  & 11  & 9.8 \\
+        Neutron stars & Shallow & 0.34 & 4.1 & 12.0 \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -82,9 +111,9 @@
     \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher_lsst/fisher_comparison_1x2_lsst.pdf}
     \caption{Same as \autoref{fig:fisher_progenitor_overlap}, but for the joint FRB$\times$galaxy
     forecast with the ten tomographic bins of the LSST Y10 lens sample. Solid and dotted lines mark
-    the $1\sigma$ and $2\sigma$ regions. Note the narrower parameter range compared to
+    the $1\sigma$ and $2\sigma$ confidence regions. Note the narrower parameter range compared to
     \autoref{fig:fisher_progenitor_overlap}. In the deep configuration, the neutron-star fiducial lies
-    just outside the $1\sigma$ contour of the magnetar model.}
+    just outside the $1\sigma$ confidence contour of the magnetar model.}
     \label{fig:fisher_progenitor_overlap_lsst}
 \end{figure}
 
@@ -105,10 +134,10 @@
     \end{subfigure}
     \caption{Joint FRB$\times$galaxy forecast in the $b_0\,$--$\,\delta$ plane for the deep~(a) and
     shallow~(b) FRB survey configuration, combined with the ten tomographic bins of the LSST Y10 lens
-    sample. The contours of the magnetar model are shown in blue and those of the neutron-star model in
-    orange. Solid lines mark the $1\sigma$ and dotted lines the $2\sigma$ confidence regions of the joint
-    FRB$\times$galaxy forecast. The crosses indicate the fiducial values of each model as given in the
-    legend of panel~(a). In the deep configuration, the neutron-star fiducial lies just outside the $1\sigma$ contour
+    sample. The contours of the magnetar model are shown in blue and those of the neutron-star model in orange.
+    Solid lines mark the $1\sigma$ and dotted lines the $2\sigma$ confidence regions of the joint
+    FRB$\times$galaxy forecast. The crosses indicate the fiducial values of each model as given in the legend of panel~(a).
+    In the deep configuration, the neutron-star fiducial lies just outside the $1\sigma$ confidence contour
     of the magnetar model.}
     \label{fig:fisher_progenitor_overlap_lsst_split}
 \end{figure}

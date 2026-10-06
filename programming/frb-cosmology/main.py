@@ -548,11 +548,10 @@ def _plot_pk_samples(k_phys, z_sample, power_samples, plot_dir):
     # Plot P(k) at each sampled redshift
     colors = plt.cm.viridis(np.linspace(0, 1, len(z_sample)))
     for P_at_z, z, color in zip(power_samples, z_sample, colors):
-        ax.loglog(k_phys, P_at_z, linewidth=1.8, label=f"z = {z:.1f}", color=color)
+        ax.loglog(k_phys, P_at_z, linewidth=1.8, label=f"$z = {z:g}$", color=color)
     
-    ax.set_xlabel(r"Wavenumber $k$ [1/Mpc]")
+    ax.set_xlabel(r"Wavenumber $k$ [Mpc$^{-1}$]")
     ax.set_ylabel(r"$P(k, z)$ [Mpc$^3$]")
-    ax.set_title(r"Nonlinear Matter Power Spectrum")
     ax.legend(loc="best")
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "Pk_nonlinear.pdf"))
@@ -572,7 +571,6 @@ def _plot_frb_nz(plot_dir):
 
     ax.set_xlabel(r"Redshift $z$")
     ax.set_ylabel(r"$n(z)$")
-    ax.set_title("FRB Redshift Distributions: Shallow vs Deep Survey")
     ax.legend(loc="best")
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "FRB_nz_shallow_deep.pdf"))
@@ -611,13 +609,12 @@ def _plot_galaxy_nz(z_mid, nz_bins, plot_dir, title_tag=""):
     colors = plt.cm.tab10(np.linspace(0, 1, nz_bins.shape[1]))
 
     for idx in range(nz_bins.shape[1]):
-        ax.plot(z_mid, nz_bins[:, idx], linewidth=1.8, color=colors[idx], label=f"BIN{idx + 1}")
+        ax.plot(z_mid, nz_bins[:, idx], linewidth=1.8, color=colors[idx], label=f"Bin {idx + 1}")
 
     ax.set_xlim(0.0, 5)
     #ax.set_xticks([0, 1, 2, 3, 4, 5])
     ax.set_xlabel(r"Redshift $z$")
     ax.set_ylabel(r"$n_i(z)$")
-    ax.set_title(f"{title_tag}Galaxy Tomographic Redshift Distributions")
     ax.legend(loc="best", ncol=2)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "Galaxy_nz_bins.pdf"))
@@ -639,12 +636,11 @@ def _plot_galaxy_cell_comparison(ell_arr, cell_bins, plot_dir, title_tag=""):
             c_ell,
             linewidth=1.6,
             color=colors[idx],
-            label=f"Bin {idx + 1} x Bin {idx + 1}",
+            label=f"Bin {idx + 1}",
         )
 
     ax.set_xlabel(r"Multipole $\ell$")
     ax.set_ylabel(r"$C_\ell$")
-    ax.set_title(f"{title_tag}Galaxy Auto-Correlation Comparison (Signal Only)")
     ax.legend(loc="best", ncol=2)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "Galaxy_Cell_comparison.pdf"))
@@ -917,7 +913,6 @@ def _plot_cross_survey_comparison(
 
     ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+3)
     ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$", fontsize=AXIS_LABEL_SIZE+3)
-    ax.set_title(f"{title_tag}FRB x Galaxy Cross-Power Spectra ({pop_label}, all bins)", fontsize=TITLE_SIZE+3)
     ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE+3)
     ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
     fig.tight_layout()
@@ -1171,9 +1166,78 @@ def _nice_half_ticks(fiducial, lim, target_ticks=7):
     return ticks
 
 
+def _fisher_panel_title_and_slug(pop_label, survey_label):
+    """Return a sentence-case panel title and a file-name slug for one combination."""
+    title = f"{str(pop_label).capitalize()}, {str(survey_label).lower()} survey"
+    slug = f"{str(pop_label).lower().replace(' ', '_')}_{str(survey_label).lower()}"
+    return title, slug
+
+
+def _draw_fisher_ellipse_panel(ax, ellipse_sets, b0_fid, delta_fid,
+                               xlim, ylim, xticks, yticks,
+                               fiducial_color='#84B819'):
+    """Draw 68.3%/95.4% ellipses for each (cov, style) pair and a green fiducial cross on ax."""
+    for cov, style in ellipse_sets:
+        for confidence, linestyle, label in [
+            (0.6827, '-', style['label_1s']),
+            (0.9545, ':', style['label_2s']),
+        ]:
+            semi_major, semi_minor, angle = get_confidence_ellipse(cov, confidence=confidence)
+            ax.add_patch(mpatches.Ellipse(
+                xy=(b0_fid, delta_fid), width=2.0 * semi_major,
+                height=2.0 * semi_minor, angle=angle, edgecolor=style['color'],
+                facecolor='none', linestyle=linestyle, linewidth=1.8, label=label,
+            ))
+    ax.plot(b0_fid, delta_fid, 'x', color=fiducial_color, markersize=8,
+            markeredgewidth=1.5, zorder=5)
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+    ax.set_xticks(xticks)
+    ax.set_yticks(yticks)
+    ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
+    ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
+
+
+def _save_fisher_grid_and_panels(panels, stem, plot_dir, **panel_kwargs):
+    """Save panels as a titled 2x2 grid <stem> and as untitled single panels <stem>_<slug>.
+
+    Each panel is (title, slug, ellipse_sets, b0_fid, delta_fid). Only the first
+    panel carries the legend, and single panels use the grid cell size of 6 x 5 inches.
+    """
+    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+    axes = axes.flatten()
+    for idx, (title, _slug, ellipse_sets, b0_fid, delta_fid) in enumerate(panels):
+        ax = axes[idx]
+        _draw_fisher_ellipse_panel(ax, ellipse_sets, b0_fid, delta_fid, **panel_kwargs)
+        ax.set_title(title, fontsize=TITLE_SIZE+3)
+        if idx == 0:
+            ax.legend(loc="upper right", fontsize=LEGEND_SIZE+2)
+    for idx in range(len(panels), len(axes)):
+        fig.delaxes(axes[idx])
+    fig.tight_layout(rect=[0, 0, 1, 0.99])
+    fig.savefig(os.path.join(plot_dir, f"{stem}.pdf"))
+    fig.savefig(os.path.join(plot_dir, f"{stem}.png"), dpi=200)
+    plt.close(fig)
+    print(f"  Saved {stem}.pdf / .png")
+
+    for idx, (_title, slug, ellipse_sets, b0_fid, delta_fid) in enumerate(panels):
+        fig, ax = plt.subplots(figsize=(6, 5))
+        _draw_fisher_ellipse_panel(ax, ellipse_sets, b0_fid, delta_fid, **panel_kwargs)
+        if idx == 0:
+            ax.legend(loc="upper right", fontsize=LEGEND_SIZE+2)
+        fig.tight_layout()
+        panel_stem = f"{stem}_{slug}"
+        fig.savefig(os.path.join(plot_dir, f"{panel_stem}.pdf"))
+        fig.savefig(os.path.join(plot_dir, f"{panel_stem}.png"), dpi=200)
+        plt.close(fig)
+        print(f"  Saved {panel_stem}.pdf / .png")
+
+
 def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
     """
-    Create a 2x2 comparison plot of Fisher ellipses for all combinations.
+    Create a 2x2 comparison plot of Fisher ellipses for all combinations, plus
+    one untitled file per panel for use as LaTeX subfigures.
 
     Parameters
     ----------
@@ -1198,76 +1262,23 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
     ylim = (-7, 10)
     xticks = [-6, -3, 0, 3, 6, 9 ]
     yticks = [-6, -3, 0, 3, 6, 9 ]
-    
-    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
-    axes = axes.flatten() # flatten
 
-    # Color and style scheme
     # for frb   HEX: #84B819
-
     style = {
-        'frb':   {'color': '#84B819', 'label_1s': r'FRB-only $1\sigma$',          'label_2s': r'FRB-only $2\sigma$'},
+        'frb':   {'color': '#84B819', 'label_1s': r'FRB-only $1\sigma$', 'label_2s': r'FRB-only $2\sigma$'},
         'multi': {'color': 'C0', 'label_1s': r'FRB$\times$Galaxy $1\sigma$', 'label_2s': r'FRB$\times$Galaxy $2\sigma$'},
     }
 
-    for idx, data in enumerate(fisher_data):
-        ax = axes[idx]
-        cov_frb = data['cov_frb']
-        cov_multi = data['cov_multi']
-        b0_fid = data['b0_fid']
-        delta_fid = data['delta_fid']
-        pop_label = data['pop_label']
-        survey_label = data['survey_label']
+    panels = []
+    for data in fisher_data:
+        title, slug = _fisher_panel_title_and_slug(data['pop_label'], data['survey_label'])
+        ellipse_sets = [(data['cov_frb'], style['frb']), (data['cov_multi'], style['multi'])]
+        panels.append((title, slug, ellipse_sets, data['b0_fid'], data['delta_fid']))
 
-        # Plot ellipses
-        for cov, key in [(cov_frb, 'frb'), (cov_multi, 'multi')]:
-            color = style[key]['color']
-            for confidence, ls, lbl in [
-                (0.6827, '-',  style[key]['label_1s']),
-                (0.9545, '--', style[key]['label_2s']),
-            ]:
-                wa, wb, ang = get_confidence_ellipse(cov, confidence=confidence)
-                ellipse = mpatches.Ellipse(
-                    xy=(b0_fid, delta_fid),
-                    width=2.0 * wa,
-                    height=2.0 * wb,
-                    angle=ang,
-                    edgecolor=color,
-                    facecolor='none',
-                    linestyle=ls,
-                    linewidth=1.8,
-                    label=lbl,
-                )
-                ax.add_patch(ellipse)
-
-        # Mark fiducial values with a small cross
-        ax.plot(b0_fid, delta_fid, 'x', markersize=8,
-            markeredgewidth=1.5, zorder=5, color = '#84B819' )
-
-        ax.set_xlim(xlim)
-        ax.set_ylim(ylim)
-        ax.set_xticks(xticks)
-        ax.set_yticks(yticks )
-        ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
-    
-
-        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
-        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
-        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=TITLE_SIZE+3, fontweight='bold')
-        
-        # Add legend only to the first subplot to avoid clutter
-        if idx == 0:
-            ax.legend(loc="best", fontsize=LEGEND_SIZE+2)
-
-    # Remove any unused subplots (if fisher_data has fewer than 4 items)
-    for idx in range(len(fisher_data), 4):
-        fig.delaxes(axes[idx])
-
-    fig.tight_layout(rect=[0, 0, 1, 0.99])
-    fig.savefig(os.path.join(plot_dir, "fisher_comparison_2x2.pdf"))
-    fig.savefig(os.path.join(plot_dir, "fisher_comparison_2x2.png"), dpi=200)
-    plt.close(fig)
-    print(f"  Saved fisher_comparison_2x2.pdf / .png")
+    _save_fisher_grid_and_panels(
+        panels, "fisher_comparison_2x2", plot_dir,
+        xlim=xlim, ylim=ylim, xticks=xticks, yticks=yticks,
+    )
 
 
 def _plot_fisher_comparison_1x2(fisher_data, plot_dir, title_tag=""):
@@ -1282,7 +1293,7 @@ def _plot_fisher_comparison_1x2(fisher_data, plot_dir, title_tag=""):
         ylim=(-2, 3),
         xticks=[-0.5, 0, 0.5, 1, 1.5, 2, 2.5],
         yticks=[-1.6, -1.0, -0.4, 0.2, 0.8, 1.4, 2.0, 2.6],
-        linestyle_2s='--',
+        linestyle_2s=':',
         title_tag=title_tag,
     )
 
@@ -1326,7 +1337,7 @@ def _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, contour_styles
         fiducial_handles.append(Line2D(
             [], [], color=color, marker='x', linestyle='none',
             markersize=8, markeredgewidth=1.5,
-            label=(f"{data['pop_label']} "
+            label=(f"{str(data['pop_label']).capitalize()} "
                    rf"($b_0={b0_fid:g}$, $\delta={delta_fid:g}$)"),
         ))
     ax.set_xlim(xlim)
@@ -1343,8 +1354,8 @@ def _save_progenitor_overlap_plots(fisher_data, plot_dir, stem, xlim, ylim,
                                    xticks, yticks, linestyle_2s, title_tag):
     """Save the Deep/Shallow overlay as <stem> (1x2) and each panel as <stem>_<survey>."""
     contour_styles = (
-        (0.6827, '-', r'FRB$\times$Galaxy $1\sigma$'),
-        (0.9545, linestyle_2s, r'FRB$\times$Galaxy $2\sigma$'),
+        (0.6827, '-', r'FRB$\times$galaxy, $1\sigma$'),
+        (0.9545, linestyle_2s, r'FRB$\times$galaxy, $2\sigma$'),
     )
     contour_handles = [
         Line2D([], [], color='black', linestyle=linestyle, linewidth=1.8, label=label)
@@ -1360,7 +1371,8 @@ def _save_progenitor_overlap_plots(fisher_data, plot_dir, stem, xlim, ylim,
         panel_handles.append(
             _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, **panel_kwargs)
         )
-        ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE+3)
+        title = f"{title_tag}{survey_label.lower()} survey"
+        ax.set_title(title[0].upper() + title[1:], fontsize=TITLE_SIZE+3)
     fig.legend(handles=panel_handles[0] + contour_handles, loc="lower center",
                ncol=3, fontsize=LEGEND_SIZE+3)
     fig.tight_layout(rect=[0, 0.18, 1, 1])
@@ -1694,7 +1706,8 @@ def _write_fisher_comparison_markdown(rows, lsst_wins, kids_cfg, lsst_cfg, resul
 
 def _plot_fisher_kids_vs_lsst(kids_by_combo, lsst_by_combo, kids_cfg, lsst_cfg, plot_dir):
     """
-    Overlay KiDS vs LSST Y10 multi-tracer confidence ellipses in a 2×2 grid.
+    Overlay KiDS vs LSST Y10 multi-tracer confidence ellipses in a 2×2 grid,
+    plus one untitled file per panel for use as LaTeX subfigures.
 
     Each subplot is one (population, FRB survey) combination. Axes are zoomed to
     the KiDS multi-tracer ellipse so both multi-tracer contours are visible; the
@@ -1710,67 +1723,27 @@ def _plot_fisher_kids_vs_lsst(kids_by_combo, lsst_by_combo, kids_cfg, lsst_cfg, 
     xticks = b
     yticks = b
 
-    combos = list(kids_by_combo.keys())
-
-    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
-    axes = axes.flatten()
-
     style = {
-        'kids': {'color': 'C0',  'label_1s': r'KiDS $1\sigma$',          'label_2s': r'KiDS $2\sigma$'},
-        'lsst': {'color': 'C3',  'label_1s': r'LSST Y10 $1\sigma$',      'label_2s': r'LSST Y10 $2\sigma$'},
+        'kids': {'color': 'C0',  'label_1s': r'KiDS $1\sigma$', 'label_2s': r'KiDS $2\sigma$'},
+        'lsst': {'color': 'C3',  'label_1s': r'LSST Y10 $1\sigma$', 'label_2s': r'LSST Y10 $2\sigma$'},
     }
 
-    for idx, combo in enumerate(combos):
-        if idx >= len(axes) or combo not in lsst_by_combo:
+    panels = []
+    for combo, d_kids in kids_by_combo.items():
+        if combo not in lsst_by_combo or len(panels) == 4:
             continue
-        ax = axes[idx]
-        d_kids = kids_by_combo[combo]
-        d_lsst = lsst_by_combo[combo]
-        b0_fid = d_kids['b0_fid']
-        delta_fid = d_kids['delta_fid']
-        pop_label, survey_label = combo
-
+        title, slug = _fisher_panel_title_and_slug(*combo)
         ellipse_sets = [
-            (d_kids['cov_multi'], 'kids'),
-            (d_lsst['cov_multi'], 'lsst'),
+            (d_kids['cov_multi'], style['kids']),
+            (lsst_by_combo[combo]['cov_multi'], style['lsst']),
         ]
-        for cov, key in ellipse_sets:
-            color = style[key]['color']
-            for confidence, ls, lbl in [
-                (0.6827, '-',  style[key]['label_1s']),
-                (0.9545, '--', style[key]['label_2s']),
-            ]:
-                wa, wb, ang = get_confidence_ellipse(cov, confidence=confidence)
-                ax.add_patch(mpatches.Ellipse(
-                    xy=(b0_fid, delta_fid),
-                    width=2.0 * wa, height=2.0 * wb, angle=ang,
-                    edgecolor=color, facecolor='none',
-                    linestyle=ls, linewidth=1.8, label=lbl,
-                ))
+        panels.append((title, slug, ellipse_sets, d_kids['b0_fid'], d_kids['delta_fid']))
 
-        ax.plot(b0_fid, delta_fid, 'x', markersize=8, markeredgewidth=1.5, zorder=5)
-        ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
-        ax.set_xlim(xlim)
-        ax.set_ylim(ylim)
-        ax.set_xticks(xticks)
-        ax.set_yticks(yticks)
-
-        ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
-        ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
-        ax.set_title(f"{pop_label}, {survey_label} Survey", fontsize=TITLE_SIZE+3, fontweight='bold')
-        if idx == 0:
-            ax.legend(loc="best", fontsize=LEGEND_SIZE+2)
-
-    for idx in range(len(combos), len(axes)):
-        fig.delaxes(axes[idx])
-
-    #fig.suptitle("Multi-tracer Fisher Constraints: KiDS vs LSST Y10",
-     #            fontsize=SUPTITLE_SIZE, fontweight='bold', y=0.995)
-    fig.tight_layout(rect=[0, 0, 1, 0.99])
-    fig.savefig(os.path.join(plot_dir, "fisher_kids_vs_lsst_2x2.pdf"))
-    fig.savefig(os.path.join(plot_dir, "fisher_kids_vs_lsst_2x2.png"), dpi=200)
-    plt.close(fig)
-    print("  Saved fisher_kids_vs_lsst_2x2.pdf / .png")
+    _save_fisher_grid_and_panels(
+        panels, "fisher_kids_vs_lsst_2x2", plot_dir,
+        xlim=xlim, ylim=ylim, xticks=xticks, yticks=yticks,
+        fiducial_color='C0',
+    )
 
 
 if __name__ == "__main__":
