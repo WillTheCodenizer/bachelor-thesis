@@ -1326,8 +1326,8 @@ def _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, contour_styles
         fiducial_handles.append(Line2D(
             [], [], color=color, marker='x', linestyle='none',
             markersize=8, markeredgewidth=1.5,
-            label=(f"{data['pop_label']}: "
-                   rf"$b_0={b0_fid:g}$, $\delta={delta_fid:g}$"),
+            label=(f"{data['pop_label']} "
+                   rf"($b_0={b0_fid:g}$, $\delta={delta_fid:g}$)"),
         ))
     ax.set_xlim(xlim)
     ax.set_ylim(ylim)
@@ -1374,7 +1374,8 @@ def _save_progenitor_overlap_plots(fisher_data, plot_dir, stem, xlim, ylim,
         fiducial_handles = _draw_progenitor_overlap_panel(
             ax, fisher_data, survey_label, **panel_kwargs
         )
-        ax.legend(handles=fiducial_handles, loc="best", fontsize=LEGEND_SIZE+1)
+        if survey_label == 'Deep':
+            ax.legend(handles=fiducial_handles, loc="best", fontsize=LEGEND_SIZE+1)
         fig.tight_layout()
         panel_stem = f'{stem}_{survey_label.lower()}'
         fig.savefig(os.path.join(plot_dir, f'{panel_stem}.pdf'))
