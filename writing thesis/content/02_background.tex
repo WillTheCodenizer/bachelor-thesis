@@ -9,33 +9,33 @@ tested through observations. Current astronomical evidence strongly supports the
 largest observable scales~\cite{Scrimgeour_2012, Laurent_2016}.
 
 Based on the cosmological principle, the Universe can be described by the Friedmann--Lemaître--Robertson--Walker (FLRW) metric
-%
+
 \begin{equation}
     \mathrm{d}s^2 = -c^2 \mathrm{d}t^2 +a^2(t) \left[ \frac{\mathrm{d}r^2}{1 - k r^2} + r^2 (\mathrm{d}\theta^2 + \sin^2\theta \mathrm{d}\phi^2) \right] \,,
 \end{equation}
-%
+
 with the spatial comoving coordinates $(r, \theta, \phi)$, the speed of light $c$, and the cosmic time $t$~\cite{CervantesCota_2011}. The parameter $k$ describes the curvature of the Universe, 
 which can take values of $-1$, $0$, or $+1$ for open, flat, and closed geometries, respectively. 
 The scale factor $a(t)$ describes the relative expansion of the Universe and is conventionally normalized to its present value,
-%
+
 \begin{equation}
     a(t_0)=1 \,.
 \end{equation}
-%
+
 For earlier cosmic times, the scale factor satisfies $a(t)<1$, whereas in an expanding universe it increases with time and can exceed unity in the future. 
 A static universe would correspond to $\dot{a}(t)=0$, resulting in a vanishing Hubble parameter
-%
+
 \begin{equation}
     H(t)=\frac{\dot{a}(t)}{a(t)} \,,
 \end{equation}
-%
+
 which describes the relative change of the scale factor with cosmic time~\cite{Huterer_2018}. 
 At the present time
-%
+
 \begin{equation}
     H_0 = H(t_0)
 \end{equation}
-%
+
 is referred to as the Hubble constant~\cite{CervantesCota_2011}.
 
 The expansion of space introduces a distinction between physical distances and 
@@ -43,11 +43,11 @@ comoving distances. While the physical distance between two objects changes
 with time due to the expansion of the Universe, the comoving distance remains 
 constant for objects that follow the general expansion of space. The physical or so-called
 proper distance is related to the comoving distance $\chi$ by
-%
+
 \begin{equation}
     D(t)=a(t) \chi \,.
 \end{equation}
-%
+
 Thus, comoving coordinates account for
 the effect of the cosmic expansion and provide a convenient description of the 
 large-scale structure of the Universe~\cite{Ishak_2019}.
@@ -56,27 +56,27 @@ The expansion of the Universe can be observed through the cosmological
 redshift. Due to the expansion of space, the wavelength of photons emitted by 
 distant objects is stretched during their propagation. 
 The redshift is defined as
-%
+
 \begin{equation}
     z=\frac{\lambda-\lambda_0}{\lambda_0} \,,
 \end{equation}
-%
+
 where $\lambda_0$ is the emitted wavelength and $\lambda$ is the observed 
 wavelength. The redshift is directly related to the scale factor through
-%
+
 \begin{equation}\label{eq:scale_factor_redshift_relation}
     1+z = \frac{a(t_0)}{a(t_{\mathrm{e}})} \,,
 \end{equation}
-%
+
 with $t_{\mathrm{e}}$ denoting the time of emission.
 Consequently, the observed redshift provides information about the expansion 
 history of the Universe and can be used to determine cosmological distances. 
 The line-of-sight comoving distance to an object at redshift $z$ is given by
-%
+
 \begin{equation}
     \chi(z)= \chi_{\mathrm{H}} \int_0^z \frac{\mathrm{d}z'}{E(a(z'))} \,,
 \end{equation}
-%
+
 where $\chi_{\mathrm{H}} = c/H_0$ is the Hubble distance and $E(a)=H(a)/H_0$ is the dimensionless Hubble parameter~\cite{Hogg_2000}. 
 
 
@@ -84,40 +84,40 @@ where $\chi_{\mathrm{H}} = c/H_0$ is the Hubble distance and $E(a)=H(a)/H_0$ is 
 Following the cosmological principle, the matter and energy content of the Universe can be described by 
 a perfect-fluid energy-momentum tensor. In combination with the FLRW metric, Einstein's field equations 
 reduce to the Friedmann equations, which determine the evolution of the scale factor $a(t)$,
-%
+
 \begin{equation}
     H^2 = \frac{\dot{a}^2}{a^2} = \frac{8 \pi G}{3} \rho - \frac{k c^2}{a^2} + \frac{\symup{\Lambda}}{3} \,,
 \end{equation}
-%
+
 \begin{equation}
     \frac{\ddot{a}}{a} = -\frac{4 \pi G}{3} \left( \rho + \frac{3 p}{c^2} \right) + \frac{\symup{\Lambda}}{3} \,.
 \end{equation}
-%
+
 Here $\rho$ and $p$ denote the energy density and pressure of the cosmic fluid, 
 $\symup{\Lambda}$ is the cosmological constant, and $G$ is the gravitational constant~\cite{Huterer_2018}.
 
 The critical density at present time is defined as the total energy density for which the Universe is spatially flat ($k=0$) and is given by
-%
+
 \begin{equation}
     \rho_{\mathrm{c}}=\frac{3H_0^2}{8\pi G} \,.
 \end{equation}
-%
+
 The ratio between the density of a cosmological component and the critical 
 density defines the corresponding density parameter,
-%
+
 \begin{equation}
     \symup{\Omega}_i=\frac{\rho_i}{\rho_{\mathrm{c}}} \,,
 \end{equation}
-%
+
 with $\symup{\Omega}_{\mathrm{m}}$, $\symup{\Omega}_{\mathrm{r}}$, $\symup{\Omega}_{\symup{\Lambda}}$, and $\symup{\Omega}_k$ 
 denoting the density parameters of matter, radiation, vacuum (dark) energy, and curvature, respectively.
 
-Consequently, the Friedmann equation can be expressed in terms of the density parameters~\cite{BartelmannSchneider_2001} as
-%
+Consequently, the Friedmann equation can be expressed in terms of the density parameters as~\cite{BartelmannSchneider_2001} 
+
 \begin{equation}
     H^2 = H_0^2 \left[  \symup{\Omega}_{\mathrm{r}} a^{-4} + \symup{\Omega}_{\mathrm{m}} a^{-3} + \symup{\Omega}_{k} a^{-2} + \symup{\Omega}_{\symup{\Lambda}} \right] \,.
 \end{equation}
-%
+
 %Using \autoref{eq:scale_factor_redshift_relation}, the dimensionless Hubble parameter can also be written as
 %
 %\begin{equation}
@@ -139,7 +139,7 @@ agreement with a wide range of cosmological observations~\cite{PeeblesRatra_2003
 For the late-time Universe (low redshift) probed by extragalactic sources, the radiation density 
 is negligible and the expansion history can be approximated by the contributions from matter, 
 curvature, and dark energy. Assuming a spatially flat universe, the curvature term also vanishes, yielding~\cite{Gong_2011} 
-%
+
 \begin{equation}
     E(z)\approx
     \sqrt{
@@ -180,19 +180,19 @@ mobile phone located on Earth's Moon~\cite{SpaceCom_2018} [ZU POPULAERWISSENSCHA
 The signal from FRBs is dispersed as it propagates through the ionized interstellar and intergalactic medium,
 causing lower-frequency components to arrive later than higher-frequency components.
 This dispersion is quantified by the DM, which follows from the measured arrival-time delay as
-%
+
 \begin{equation}
 \mathrm{DM} = \frac{2\pi m_{\mathrm{e}} c}{e^2} \Delta t \left( \frac{1}{\nu_{\mathrm{low}}^2} - \frac{1}{\nu_{\mathrm{high}}^2} \right)^{-1} \,,
 \end{equation}
-%
+
 where $\nu_{\mathrm{low}}$ and $\nu_{\mathrm{high}}$ are the lower and higher observing frequencies, $\Delta t$ is the time delay 
 between the arrival of the two frequency components, $c$ is the speed of light, $e$ is the elementary charge, and $m_{\mathrm{e}}$ is the electron 
 mass. The DM measures the integrated column density of free electrons between the source and the observer,
-%
+
 \begin{equation}
 \mathrm{DM} \propto  \int_0^{L} \mathrm{d}s\, n_{\mathrm{e}}(s) \,,
 \end{equation}
-%
+
 where $n_{\mathrm{e}}$ represents the free electron density, $s$ the path length along the line of sight, and $L$ the distance between the source and the observer~\cite{Petroff_2019}.
 
 The origin of FRBs is inferred from their large DM values, which exceed the expected
@@ -283,22 +283,22 @@ correlation functions and their Fourier-space counterparts, the power spectra.
 The density contrast $\delta(\mathbf{x})$ is defined as the fractional
 deviation of the local matter density $\rho(\mathbf{x})$ from the mean
 cosmic matter density $\bar{\rho}$,
-%
+
 \begin{equation}
     \delta(\mathbf{x})
     := \frac{\rho(\mathbf{x}) - \bar{\rho}}{\bar{\rho}} \,.
 \end{equation}
-%
+
 The 2-point correlation function
 is defined as
-%
+
 \begin{equation}
     \xi(\mathbf{y})
     := \left\langle
     \delta(\mathbf{x})\,\delta(\mathbf{x}+\mathbf{y})
     \right\rangle \,,
 \end{equation}
-%
+
 where the angle brackets denote an ensemble average. Statistical
 homogeneity implies that $\xi$ depends only on the separation
 $\mathbf{y}$ and not on the absolute position $\mathbf{x}$, while
@@ -311,7 +311,7 @@ describing the excess probability of finding a pair of tracers at a
 given separation relative to an unclustered random distribution.
 The Fourier-transform pair of $\delta(\mathbf{x})$ and 
 $\hat{\delta}(\mathbf{k})$ is defined according to the convention
-%
+
 \begin{equation}
     \hat{\delta}(\mathbf{k})
     =
@@ -324,9 +324,9 @@ $\hat{\delta}(\mathbf{k})$ is defined according to the convention
     \hat{\delta}(\mathbf{k})\,
     \mathrm{e}^{\mathrm{i}\mathbf{k}\cdot\mathbf{x}} \,.
 \end{equation}
-%
+
 The 3-dimensional matter power spectrum is then defined through
-%
+
 \begin{equation}
     \left\langle
     \hat{\delta}(\mathbf{k})\,
@@ -337,7 +337,7 @@ The 3-dimensional matter power spectrum is then defined through
     \delta_{\mathrm{D}}(\mathbf{k}-\mathbf{k}')
     P(k) \,,
 \end{equation}
-%
+
 where $\delta_{\mathrm{D}}$ denotes the Dirac delta function, reflecting statistical homogeneity in Fourier space.
 The power spectrum depends only on the magnitude
 $k = |\mathbf{k}|$, implying that it is isotropic in Fourier space~\cite{BartelmannSchneider_2001}.
@@ -352,7 +352,7 @@ $a_{\ell m}=\int \mathrm{d}\Omega\,f(\hat{\mathbf{n}})Y_{\ell m}^{*}(\hat{\mathb
 Using the spherical-harmonic expansion together with the Fourier
 representation of the 3-dimensional fields, the full-sky angular
 cross-power spectrum can be written as
-%
+
 \begin{equation}
     C_{\ell}^{AB}
     =
@@ -366,13 +366,13 @@ cross-power spectrum can be written as
     j_{\ell}(k\chi')\,
     P_{AB}(k;\chi,\chi') \,,
 \end{equation}
-%
+
 where $j_{\ell}$ denotes the spherical Bessel function and
 $P_{AB}$ is the 3-dimensional cross-power spectrum of the two
 tracer fields. 
 The Limber approximation states that
 for multipoles of order 10 and larger, the double integral collapses to a single line-of-sight integral~\cite{Limber_1953},
-%
+
 \begin{equation}\label{eq:limber}
     C_{\ell}^{AB}
     \approx
@@ -385,7 +385,7 @@ for multipoles of order 10 and larger, the double integral collapses to a single
         z(\chi)
     \right) \,.
 \end{equation}
-%
+
 The use of $\ell+1/2$, rather than simply $\ell$, provides a more accurate
 version of the Limber approximation, particularly at moderately large
 multipoles~\cite{LoVerdeAfshordi_2008}.

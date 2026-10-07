@@ -9,14 +9,14 @@ All numerical operations are carried out using \texttt{NumPy}~\cite{numpy} and
 
 \section{Fiducial Cosmology and Numerical Grids} \label{sec:fiducial_cosmology}
 Throughout this thesis a spatially flat $\symup{\Lambda}$CDM cosmology as introduced in
-\autoref{sec:lcdm_model} is assumed. The fiducial parameter values are taken from the \textit{Planck} 2018
+\autoref{sec:lcdm_model} is assumed. The fiducial parameter values are taken from the Planck 2018
 baseline analysis of the combined \mbox{TT,TE,EE+lowE+lensing} likelihood~\cite{Planck2018} and are
 summarized in \autoref{tab:fiducial_cosmology}.
 
 \begin{table}[H]
     \centering
     \caption{Fiducial cosmological parameters assumed throughout this thesis. The values correspond to
-    the \textit{Planck} 2018 baseline \mbox{TT,TE,EE+lowE+lensing} results~\cite{Planck2018}.}
+    the Planck 2018 baseline \mbox{TT,TE,EE+lowE+lensing} results~\cite{Planck2018}.}
     \label{tab:fiducial_cosmology}
     \begin{tabular}{
         l@{\hspace{1.0em}}
@@ -96,11 +96,11 @@ Since the FRB population considered in this thesis is not associated with indivi
 redshifts, its radial selection function has to be modeled. Following
 Reischke, Hagstotz, and Lilow~\cite{Reischke_2021}, the normalized FRB redshift distribution is
 assumed to take the form
-%
+
 \begin{equation}\label{eq:frb_nz}
     n(z) \propto z^2 \exp(-\alpha z) \,,
 \end{equation}
-%
+
 where the parameter $\alpha$ controls the steepness of the high-redshift tail and thereby the
 effective depth of the survey. The $z^2$ prefactor reflects the growth of the comoving volume
 element at low redshift, whereas the exponential cutoff encodes the decreasing detectability of
@@ -146,11 +146,11 @@ near-all-sky coverage achievable by wide-field radio interferometers such as CHI
 
 The corresponding comoving distance distribution has to be transformed accordingly. Conservation of
 the number of sources, $n(\chi)\,\mathrm{d}\chi = n(z)\,\mathrm{d}z$, yields
-%
+
 \begin{equation}
     n(\chi) = n(z)\,\frac{\mathrm{d}z}{\mathrm{d}\chi} \,,
 \end{equation}
-%
+
 with the Jacobian $\mathrm{d}z/\mathrm{d}\chi = H(z)/c$ following from the definition of the
 comoving distance in \autoref{sec:cosmological_background}. 
 
@@ -162,7 +162,9 @@ a nine-band optical-to-near-infrared data set~\cite{deJong_2013, Wright_2024}. T
 this work are drawn from the fifth data release (DR5), KiDS-Legacy, which achieves a $5\,\sigma$ 
 limiting magnitude of $24.8$ in the $r$ band with a median seeing of \ang[angle-symbol-over-decimal]{;;0.7}~\cite{Wright_2024, KiDS_DR5}. 
 Photometric redshifts are calibrated using approximately \num{126000} spectroscopically confirmed sources~\cite{Wright_2025}.
-The redshift distributions of the six tomographic bins are shown in \autoref{fig:galaxy_nz}.
+For the subsequent analysis, the redshift distributions of the six tomographic bins are normalized
+to unit integral. The raw tabulated distributions are shown in
+\autoref{fig:galaxy_nz}.
 
 %In order to combine the galaxy distributions with the FRB distributions, the tabulated $n_i(z)$ are
 %linearly interpolated onto the common redshift grid of \autoref{sec:fiducial_cosmology}. Outside the
@@ -172,8 +174,8 @@ The redshift distributions of the six tomographic bins are shown in \autoref{fig
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/galaxy/Galaxy_nz_bins.pdf}
-    \caption{Tomographic redshift distributions $n_i(z)$ of the six KiDS-Legacy galaxy bins as
-    published by Wright et al.~\cite{Wright_2025} and the KiDS Collaboration~\cite{KiDS_ScienceData}.}
+    \caption{Raw, tabulated tomographic redshift distributions $n_i(z)$ of the six KiDS-Legacy
+    galaxy bins as published by Wright et al.~\cite{Wright_2025} and the KiDS Collaboration~\cite{KiDS_ScienceData}.}
     \label{fig:galaxy_nz}
 \end{figure}
 
@@ -194,11 +196,11 @@ The redshift distributions of the six tomographic bins are shown in \autoref{fig
 As motivated in \autoref{sec:progenitor_mechanisms}, the two dominant progenitor classes are expected
 to trace the underlying matter distribution differently. 
 This difference is encoded in a redshift-dependent linear bias of the power-law form
-%
+
 \begin{equation}\label{eq:frb_bias}
     b(z) = b_0 \, (1+z)^{\delta} \,,
 \end{equation}
-%
+
 where $b_0$ denotes the bias amplitude at $z=0$ and the exponent $\delta$ parameterizes its redshift
 evolution~\cite{Pan_2020}. The fiducial values adopted for the two progenitor classes are listed
 in \autoref{tab:frb_bias} and shown in \autoref{fig:frb_bias}.
@@ -251,11 +253,11 @@ VIELLEICHT HIER DOPPELT IN LEGEND UND IN TABELLE
 For the galaxy sample a constant-clustering bias model is adopted, in which the comoving clustering
 amplitude of the sample is assumed to remain constant over the redshift range spanned by each
 tomographic bin. Under this assumption the bias evolves inversely with the linear growth factor,
-%
+
 \begin{equation}\label{eq:galaxy_bias}
     b_{\mathrm{g}}^{\,i} = \frac{0.95}{D_+(\langle z \rangle_i)} \,,
 \end{equation}
-%
+
 which is the standard prescription used in photometric survey forecasts~\cite{Johnston_2025}. 
 Here $D_+(z)$ denotes the linear growth factor normalized to $D_+(0)=1$, evaluated with
 \texttt{hmf}~\cite{hmf}, and $\langle z \rangle_i$ is the mean redshift of the $i$-th tomographic
@@ -312,38 +314,38 @@ contribution to the radial kernel is proportional to the product of the bias and
 selection function~\cite{Khosravi_2016}.
 
 For the FRB sample the weight function is therefore constructed on the redshift grid as
-%
+
 \begin{equation}\label{eq:weight_frb}
     W_{\mathrm{FRB}}(z) = b(z) \, n(z) \,,
 \end{equation}
-%
+
 with $n(z)$ from \autoref{eq:frb_nz} and $b(z)$ from \autoref{eq:frb_bias}. 
 For the galaxy sample, the radial kernel of the $i$-th tomographic bin is given by
-%
+
 \begin{equation}\label{eq:weight_galaxy}
     W_{\mathrm{g}}^{\,i}(z) = b_{\mathrm{g}}^{\,i} \, n_i(z) \,,
 \end{equation}
-%
+
 where $b_{\mathrm{g}}^{\,i}$ is the galaxy bias and $n_i(z)$ is the normalized redshift
 distribution of the corresponding bin~\cite{Muir_2020}.
 Both kernels are subsequently transformed to comoving distance using the Jacobian introduced in \autoref{sec:frb_redshift_distribution},
-%
+
 \begin{equation}\label{eq:weight_chi}
     W(\chi) = W(z) \frac{H(z)}{c} \,,
 \end{equation}
-%
+
 which gives the radial kernels entering the projection integral.
 
 \section{Angular Power Spectrum Computation} \label{sec:angular_power_spectra}
 The angular power spectra are computed from the Limber-approximated projection integral of
 \autoref{eq:limber}.
 For each multipole the integrand
-%
+
 \begin{equation}
     \frac{W^{A}(\chi)\,W^{B}(\chi)}{\chi^2}\,
     P\!\left(k = \frac{\ell+1/2}{\chi},\, z(\chi)\right)
 \end{equation}
-%
+
 is evaluated on the comoving-distance grid corresponding to the redshift grid of
 \autoref{sec:fiducial_cosmology} and integrated with the composite trapezoidal rule. 
 
@@ -416,7 +418,6 @@ PASST SO KANN ABER AUCH GEKUERZT WERDEN
 %    dilution. A similar behavior is observed for the delayed neutron-star population.}
 %    \label{fig:frb_cell_comparison}
 %\end{figure}
-
 The galaxy auto-spectra of all six tomographic bins are shown in \autoref{fig:galaxy_cell_comparison}. 
 The amplitude decreases systematically towards higher redshift, despite the increasing galaxy bias 
 given by \autoref{eq:galaxy_bias}. This is mainly due to the broader radial extent of the higher-redshift 
@@ -483,16 +484,15 @@ in all six tomographic bins.
 Because both tracers are discrete point processes, the measured auto-spectra contain an additive
 Poissonian noise term. For a sample of mean projected number density $\bar{n}$ per steradian, this
 contribution is scale-independent and given by
-%
+
 \begin{equation}\label{eq:shot_noise}
     N_{\ell} = \frac{1}{\bar{n}} \,.
 \end{equation}
-%
+
 For the FRB samples the number density is given by 
-%
-\begin{equation}
+$
     \bar{n}_{\mathrm{FRB}} = \frac{N_{\mathrm{tot}}}{4\pi f_{\mathrm{sky}}} \,,
-\end{equation}
-%
+$
 following from the total number of detected bursts and the
-observed sky fraction in \autoref{tab:frb_surveys}~\cite{Reischke_2021}.
+observed sky fraction in \autoref{tab:frb_surveys}~\cite{Reischke_2021}. 
+HIER NOCHMAL SCHAUEN OB ES NICHT AUCH GEHT MIT BEGIN EQUATION

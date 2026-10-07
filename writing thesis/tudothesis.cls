@@ -62,6 +62,8 @@
 % initialize commands:
 \newcommand\thebirthplace{}
 \newcommand\thechair{}
+\newcommand\thesecondchair{}
+\newcommand\thechairfontsize{\normalsize}
 \newcommand\thedivision{}
 \newcommand\thethesisclass{}
 \newcommand\thesubmissiondate{}
@@ -71,6 +73,12 @@
 % new commands for information about the thesis
 \newcommand\birthplace[1]{\renewcommand\thebirthplace{born in #1}}
 \newcommand\chair[1]{\renewcommand\thechair{#1}}
+\newcommand\secondchair[1]{\renewcommand\thesecondchair{#1}}
+\newcommand\chairfontsize[1]{%
+  \renewcommand\thechairfontsize{%
+    \fontsize{#1}{\dimexpr #1 + #1/5\relax}\selectfont
+  }%
+}
 \newcommand\division[1]{\renewcommand\thedivision{#1}}
 \newcommand\thesisclass[1]{\renewcommand\thethesisclass{#1}}
 \newcommand\submissiondate[1]{\renewcommand\thesubmissiondate{#1}}
@@ -79,7 +87,22 @@
 
 % set title page elements
 \subject{Thesis for obtaining the academic degree\\ \thethesisclass}
-\publishers{\thechair \\ \thedivision \\ TU Dortmund University}
+\publishers{%
+  \thechairfontsize
+  \begin{tabular}{@{}c@{\qquad}c@{}}
+    \begin{tabular}{c}
+      \thechair \\
+      \thedivision \\
+      TU Dortmund University
+    \end{tabular}
+    &
+    \begin{tabular}{c}
+      \thesecondchair \\
+      Faculty of Physics and Astronomy \\
+      Ruhr University Bochum
+    \end{tabular}
+  \end{tabular}%
+}
 
 % page for the correctors
 \newcommand{\makecorrectorpage}{%
