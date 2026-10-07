@@ -80,7 +80,29 @@ order unity with current survey footprints. With the larger and deeper imaging
 surveys expected in the next generation, this approach could provide sufficient 
 precision to distinguish between different progenitor populations and shed light 
 on the astrophysical origin of FRBs.
-
+The power-law bias of \autoref{eq:frb_bias} is an effective description that holds only over a
+limited redshift range. Observationally, the fiducial values are anchored only at low redshift:
+the localized FRB hosts at $0.11 < z < 0.48$ are massive, moderately star-forming galaxies that are
+neither starbursts nor quiescent~\cite{Bhandari_2020}, and the detected FRB--galaxy cross-correlation
+is confined to $0.3 \lesssim z \lesssim 0.5$~\cite{RafieiRavandi_2021}. Since the large-scale halo
+bias is a nearly universal function of peak height over $0 \leq z \leq 2.5$~\cite{Tinker_2010}, the
+redshift evolution of a tracer bias is set by the mass of its host halos, and simulated bias
+relations of star-forming and stellar-mass-selected galaxies steepen to $(1+z)^{e}$ with
+$e \approx 1.6$--$2.2$ at high redshift~\cite{Pan_2020}. The magnetar model stays within about
+\qty{30}{\percent} of the bias of star-forming galaxies up to $z \approx 3$. The neutron-star model
+agrees with stellar-mass-selected galaxies to within about \qty{20}{\percent} up to $z \approx 1$ and
+lies below massive luminous red galaxies with $b \approx 2$--$2.3$ at
+$0.4 < z < 1$~\cite{Anderson_2012, IcazaLizaola_2020}, consistent with hosts that are not quiescent.
+However, $\delta = 0.2$ implies a slower evolution than even a passively evolving population with
+$b(z) = 1 + (b_0 - 1)/D_+(z)$~\cite{Fry_1996}, and the bias falls \qtyrange{15}{40}{\percent} below
+that of stellar-mass-selected galaxies at $z = 2$. The crossing of both models at $z \approx 1$,
+above which the delayed population would cluster more weakly than the prompt one, is therefore an
+artifact of the parameterization. In addition, the Universe is only about \qty{3.3}{Gyr} old at
+$z = 2$, so that delay times of several gigayears~\cite{Ruiter_2019} cannot be realized and the hosts
+of both channels are expected to become similar. Whereas \qty{97}{\percent} of the shallow sample
+lies below $z = 2$, this applies to only \qty{76}{\percent} of the deep sample. Because the KiDS bins
+reach only $\langle z \rangle = 1.22$, the cross-correlation constraints are nevertheless dominated
+by $z \lesssim 1.5$, where both models remain plausible.
 MARKOV CHAIN BETTER FOR PRIORS:
 "A full Bayesian analysis with Markov Chain Monte Carlo sampling would be 
 required to accurately characterize the posterior in that regime and to assess 
