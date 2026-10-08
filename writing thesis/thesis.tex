@@ -174,24 +174,70 @@
 %-------------------------    Angaben zur Arbeit   ----------------------------
 %------------------------------------------------------------------------------
 
-\author{Will Ruppert}
-\title{Probing Fast Radio Burst Environments: Cross-Correlating Deep and Shallow FRB Surveys with KiDS DR5}
-\date{2026}
+\newcommand{\titlepagesubjecttotitle}{0cm}
+\newcommand{\titlepagetitletoauthor}{0cm}
+\newcommand{\titlepagetitledatespacing}{0cm}
+
+\author{\vspace{\titlepagetitletoauthor}Will Ruppert}
+\title{\vspace{\titlepagesubjecttotitle}Probing Fast Radio Burst Environments: Cross-Correlating Deep and Shallow FRB Surveys with KiDS DR5}
+\date{\vspace{\titlepagetitledatespacing}2026}
 \birthplace{Herdecke}
 \chair{Research Group Rhode / Elsässer}
-\secondchair{Research Group Hildebrandt}
-\chairfontsize{16pt}
 \division{Faculty of Physics}
 \thesisclass{Bachelor of Science}
 \submissiondate{15th October 2026}
 \firstcorrector{PD~Dr.~Dominik Elsässer}
 \secondcorrector{Prof.~Dr.~Hendrik Hildebrandt}
 
-% logos on top of the titlepage
+% Titlepage-only spacing controls
+\newcommand{\titlepagelogostochairs}{1.5cm}
+\newcommand{\titlepagedatotochairs}{\titlepagelogostochairs}
+\newcommand{\titlepagelogoseparation}{1.0cm}
+\newcommand{\titlepagechairspacing}{0.25cm}
+\newcommand{\titlepageleftchairtofaculty}{\titlepagechairspacing}
+\newcommand{\titlepageleftfacultytoinstitution}{\titlepagechairspacing}
+\newcommand{\titlepagerightchairtofaculty}{\titlepagechairspacing}
+\newcommand{\titlepagerightfacultytoinstitution}{\titlepagechairspacing}
+\newcommand{\titlepagechairtobottom}{1.5cm}
+\newcommand{\titlepagechairfontsize}{\fontsize{16pt}{12pt}\selectfont}
+
+% Logos on top of the titlepage. The fixed-width box keeps the outer
+% distances identical even though the logos have different aspect ratios.
 \titlehead{%
-  \includegraphics[height=1.5cm]{logos/tu-logo.pdf}%
-  \hspace{0.5cm}%
-  \includegraphics[height=1.4cm]{logos/rub_logo.png}%
+  \makebox[\textwidth][c]{%
+    \includegraphics[height=1.5cm]{logos/tu-logo.pdf}%
+    \hspace{\titlepagelogoseparation}%
+    \includegraphics[height=1.4cm]{logos/rub_logo.png}%
+  }%
+}
+
+% Add both chairs to the publisher block on the titlepage. Equal-width
+% columns keep the two blocks and their outer margins symmetric.
+\publishers{%
+  \vspace{\titlepagedatotochairs}%
+  \noindent
+  \makebox[\textwidth][c]{%
+    \begin{minipage}[t]{0.5\textwidth}
+      \centering
+      \titlepagechairfontsize
+      Research Group Rhode / Elsässer\\
+      \vspace{\titlepageleftchairtofaculty}
+      Faculty of Physics\\
+      \vspace{\titlepageleftfacultytoinstitution}
+      TU Dortmund University
+    \end{minipage}%
+    \hspace{\titlepagelogoseparation}%
+    \begin{minipage}[t]{0.5\textwidth}
+      \centering
+      \titlepagechairfontsize
+      Research Group Hildebrandt\\
+      \vspace{\titlepagerightchairtofaculty}
+      Faculty of Physics and Astronomy\\
+      \vspace{\titlepagerightfacultytoinstitution}
+      Ruhr University Bochum
+    \end{minipage}%
+  }%
+  \vspace{\titlepagechairtobottom}%
 }
 
 \begin{document}
