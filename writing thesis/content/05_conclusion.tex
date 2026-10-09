@@ -1,7 +1,7 @@
 \chapter{Conclusion \& Outlook} \label{ch:conclusion}
 This thesis assessed whether the clustering of FRBs can constrain the bias of their
 host population, and to what extent cross-correlating them with a photometric galaxy survey can improve this measurement.
-A complete forecasting pipeline was developed by combining the nonlinear matter power spectrum with radial 
+A complete forecasting pipeline was developed that combines the nonlinear matter power spectrum with radial 
 weight functions for a mock FRB sample and the six tomographic bins of the KiDS-Legacy data release to 
 obtain angular auto- and cross-power spectra using the Limber approximation.
 Poissonian shot noise was added to the auto-spectra of both tracer populations, 
@@ -33,6 +33,16 @@ The analysis rests on some simplifying assumptions that may affect the forecast.
     through the $f_{\mathrm{sky}}$ prefactor, while a real analysis would require a full
     pseudo-spectrum treatment~\cite{Hivon_2002}.
 \end{itemize}
+
+We use a power law, $b = b_0(1+z)^{\delta}$, which provides a reasonable 
+description of the locally observed FRB host population at low redshift~\cite{Berti_2021}. 
+At higher redshift, the bias of galaxy populations is expected to evolve more strongly and to 
+depend on the host halo mass~\cite{Pan_2020,Tinker_2010}, making a simple power-law description 
+less accurate. A description valid over the full redshift range would require a halo occupation 
+distribution (HOD) model, which is beyond the scope of this work. For our purposes, however, the power 
+law provides an adequate approximation, as the constraints are dominated by $z \lesssim 1.5$.
+
+DAS SCHOENER EINPFLEGEN
 
 \section{Outlook} \label{sec:outlook}
 Since the Fisher information scales linearly with $f_{\mathrm{sky}}$, the most direct improvement
@@ -80,29 +90,8 @@ order unity with current survey footprints. With the larger and deeper imaging
 surveys expected in the next generation, this approach could provide sufficient 
 precision to distinguish between different progenitor populations and shed light 
 on the astrophysical origin of FRBs.
-The power-law bias of \autoref{eq:frb_bias} is an effective description that holds only over a
-limited redshift range. Observationally, the fiducial values are anchored only at low redshift:
-the localized FRB hosts at $0.11 < z < 0.48$ are massive, moderately star-forming galaxies that are
-neither starbursts nor quiescent~\cite{Bhandari_2020}, and the detected FRB--galaxy cross-correlation
-is confined to $0.3 \lesssim z \lesssim 0.5$~\cite{RafieiRavandi_2021}. Since the large-scale halo
-bias is a nearly universal function of peak height over $0 \leq z \leq 2.5$~\cite{Tinker_2010}, the
-redshift evolution of a tracer bias is set by the mass of its host halos, and simulated bias
-relations of star-forming and stellar-mass-selected galaxies steepen to $(1+z)^{e}$ with
-$e \approx 1.6$--$2.2$ at high redshift~\cite{Pan_2020}. The magnetar model stays within about
-\qty{30}{\percent} of the bias of star-forming galaxies up to $z \approx 3$. The neutron-star model
-agrees with stellar-mass-selected galaxies to within about \qty{20}{\percent} up to $z \approx 1$ and
-lies below massive luminous red galaxies with $b \approx 2$--$2.3$ at
-$0.4 < z < 1$~\cite{Anderson_2012, IcazaLizaola_2020}, consistent with hosts that are not quiescent.
-However, $\delta = 0.2$ implies a slower evolution than even a passively evolving population with
-$b(z) = 1 + (b_0 - 1)/D_+(z)$~\cite{Fry_1996}, and the bias falls \qtyrange{15}{40}{\percent} below
-that of stellar-mass-selected galaxies at $z = 2$. The crossing of both models at $z \approx 1$,
-above which the delayed population would cluster more weakly than the prompt one, is therefore an
-artifact of the parameterization. In addition, the Universe is only about \qty{3.3}{Gyr} old at
-$z = 2$, so that delay times of several gigayears~\cite{Ruiter_2019} cannot be realized and the hosts
-of both channels are expected to become similar. Whereas \qty{97}{\percent} of the shallow sample
-lies below $z = 2$, this applies to only \qty{76}{\percent} of the deep sample. Because the KiDS bins
-reach only $\langle z \rangle = 1.22$, the cross-correlation constraints are nevertheless dominated
-by $z \lesssim 1.5$, where both models remain plausible.
+
+
 MARKOV CHAIN BETTER FOR PRIORS:
 "A full Bayesian analysis with Markov Chain Monte Carlo sampling would be 
 required to accurately characterize the posterior in that regime and to assess 
@@ -111,13 +100,12 @@ potential biases from prior volume effects."
 
 AUCH HILDEBRANDT NENNEN AUF TITELBLATT + Rub logo schoener einarbeiten --> ruhr innovation lab? rab center?
 
-verlauf bias von frb --> ergaenzen in limitations
+verlauf bias von frb --> ergaenzen in limitations satz aus slcak von klara und kuerzen ?
 
-introduction
 
-abstract
-feedback von klara
+Checken der bibliography ob alle links gehen
 
+einmal durchlesen und nochmal alles verstehen
 
 
 Acknowledgements: LsstY10 frau , klara usw..
@@ -130,6 +118,7 @@ bei allen plots die groessen abchecken und ggf. anpassen
 
 ELsaesser:
 
+zu parameter wahl in methodology: groser abstand zwischen den values im parameter space eher fuer notes falls jemand im vortrag fragt
 
 
 Die populaerwissenschaftliche zitat sache --> ausgerechnet quelle oder rechnung in den anhang der BA packen, weil keine quelle gefunden
