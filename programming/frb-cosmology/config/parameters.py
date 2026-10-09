@@ -14,7 +14,7 @@ from pathlib import Path
 # =============================================================================
 H0 = 67.36              # Hubble constant [km/s/Mpc]
 OMEGA_M = 0.3153         # Total matter density parameter
-OMEGA_B = 0.02237         # Baryon density parameter
+OMEGA_B = 0.0493         # Baryon density parameter
 SIGMA_8 = 0.8111         # RMS matter fluctuations in 8 Mpc/h spheres
 N_S = 0.9649            # Scalar spectral index
 

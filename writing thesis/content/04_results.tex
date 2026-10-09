@@ -28,7 +28,7 @@ angular power spectra $C_\ell$ is given by~\cite{Tegmark_1997, Reischke_2021}
 \end{equation}
 
 where $\theta_i$ denotes the $i$-th model parameter, $C_\ell$ is the matrix of auto- and
-cross-power spectra over all tracer pairs, the trace runs over the tracer indices, and
+cross-power spectra over all tracer pairs, including the shot noise of \autoref{eq:shot_noise} in the auto-spectra. The trace runs over the tracer indices, and
 $f_{\mathrm{sky}}$ accounts for the fact that only a fraction of the celestial sphere is observed.
 
 The derivatives entering \autoref{eq:fisher} are evaluated by central finite differencing,
@@ -70,9 +70,9 @@ The fiducial values and corresponding step sizes are summarized in \autoref{tab:
     \end{tabular}
 \end{table}
 
-We adopt $f_{\mathrm{sky}} = 0.9$ for the FRB-only forecast, as given in \autoref{tab:frb_surveys}
-$f_{\mathrm{sky}} = 0.0327$ for the joint forecast, 
-corresponding to the overlap with the KiDS field an area of $\qty{1347}{\deg\squared}$ quoted in
+The FRB-only forecast adopts $f_{\mathrm{sky}} = 0.9$ as given in \autoref{tab:frb_surveys}, whereas
+the joint forecast uses $f_{\mathrm{sky}} = 0.0327$, 
+corresponding to the KiDS footprint of $\qty{1347}{\deg\squared}$ quoted in
 \autoref{sec:galaxy_redshift_distribution}.
 
 Inverting the Fisher matrix yields the parameter covariance $\mathrm{Cov} = F^{-1}$, whose
@@ -266,9 +266,9 @@ to improvement is a wider galaxy survey, which is taken up in \autoref{sec:outlo
         \label{fig:fisher_progenitor_overlap_shallow}
     \end{subfigure}
     \caption{Joint FRB$\times$galaxy forecast in the $b_0\,$--$\,\delta$ plane for the deep~(a) and
-        shallow~(b) FRB survey configuration, combined with the six tomographic KiDS bins. The contours
+        shallow~(b) FRB survey configurations, combined with the six tomographic KiDS bins. The contours
         of the magnetar model are shown in blue and those of the neutron-star model in orange. Solid
-        lines mark the $1\sigma$ and dashed lines the $2\sigma$ confidence regions of the joint
+        lines mark the $1\sigma$ and dotted lines the $2\sigma$ confidence regions of the joint
         FRB$\times$galaxy forecast. The crosses indicate the fiducial values of each model as given in
         the legend of panel~(a).}
     \label{fig:fisher_progenitor_overlap_split}

@@ -8,7 +8,7 @@ All numerical operations are carried out using \texttt{NumPy}~\cite{numpy} and
 \texttt{SciPy}~\cite{scipy}, while all figures are generated with \texttt{Matplotlib}~\cite{matplotlib}.
 
 \section{Fiducial Cosmology and Numerical Grids} \label{sec:fiducial_cosmology}
-Throughout this thesis a spatially flat $\symup{\Lambda}$CDM cosmology as introduced in
+Throughout this thesis, a spatially flat $\symup{\Lambda}$CDM cosmology as introduced in
 \autoref{sec:lcdm_model} is assumed. The fiducial parameter values are taken from the Planck 2018
 baseline analysis of the combined \mbox{TT,TE,EE+lowE+lensing} likelihood~\cite{Planck2018} and are
 summarized in \autoref{tab:fiducial_cosmology}.
@@ -28,7 +28,7 @@ summarized in \autoref{tab:fiducial_cosmology}.
         \midrule
         Hubble constant          & $H_0\ [\si{\kilo\metre\per\second\per\mega\parsec}]$ & 67.36 \\
         Total matter density     & $\symup{\Omega}_{\mathrm{m},0}$       & 0.3153 \\
-        Baryon density           & $\symup{\Omega}_{\mathrm{b},0}$       & 0.0224 \\
+        Baryon density           & $\symup{\Omega}_{\mathrm{b},0}$       & 0.0493 \\
         Fluctuation amplitude    & $\sigma_8$                           & 0.8111 \\
         Scalar spectral index    & $n_{\mathrm{s}}$                     & 0.9649 \\
         CMB temperature          & $T_{\symup{CMB},0}\ [\si{\kelvin}]$  & 2.7255 \\
@@ -142,7 +142,7 @@ near-all-sky coverage achievable by wide-field radio interferometers such as CHI
     \centering
     \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/FRB_nz_shallow_deep.pdf}
     \caption{Normalized FRB redshift distributions given in \autoref{eq:frb_nz} for the shallow
-    ($\alpha=3.5$) and deep ($\alpha=2.0$) survey configuration.}
+    ($\alpha=3.5$) and deep ($\alpha=2.0$) survey configurations.}
     \label{fig:frb_nz}
 \end{figure}
 
@@ -247,7 +247,7 @@ in \autoref{tab:frb_bias} and shown in \autoref{fig:frb_bias}.
     \centering
     \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/FRB_bias_bz.pdf}
     \caption{FRB host population linear bias models of \autoref{eq:frb_bias} for the two progenitor classes
-    considered listed in \autoref{tab:frb_bias}.}
+    listed in \autoref{tab:frb_bias}.}
     \label{fig:frb_bias}
 \end{figure}
 
@@ -261,7 +261,7 @@ tomographic bin. Under this assumption the bias evolves inversely with the linea
 \end{equation}
 
 which is the standard prescription used in photometric survey forecasts~\cite{Johnston_2025}. 
-Here $D_+(z)$ denotes the linear growth factor normalized to $D_+(0)=1$, evaluated with
+Here $D_+(z)$ denotes the linear growth factor of \autoref{eq:growth_factor}, evaluated with
 \texttt{hmf}~\cite{hmf}, and $\langle z \rangle_i$ is the mean redshift of the $i$-th tomographic
 bin. 
 %
@@ -311,7 +311,7 @@ The resulting mean redshifts and bias values are listed in
 \section{Radial Weight Functions} \label{sec:weight_functions}
 The radial kernels $W^A(\chi)$ and $W^B(\chi)$ introduced in \autoref{sec:correlation_functions} weight the
 3-dimensional density contrast along the line of sight. For a discrete tracer population whose 
-density contrast is related to the matter density contrast through a linear bias relation, the tracer 
+density contrast is related to the matter density contrast through the linear bias of \autoref{eq:linear_bias}, the tracer 
 contribution to the radial kernel is proportional to the product of the bias and the normalized radial 
 selection function~\cite{Khosravi_2016}.
 
@@ -440,7 +440,9 @@ in total.
 %and survey configuration, \autoref{fig:cross_population} contrasts the two progenitor classes, 
 %and
 \autoref{fig:cross_survey} contrasts the two survey configurations for the magnetar population
-in all six tomographic bins.
+in all six tomographic bins. The shallow configuration yields the larger cross-spectrum in every bin,
+by a factor of about three in the first bin and below two in the sixth, since its redshift
+distribution is concentrated at low redshift, whereas the deep one overlaps more evenly with all bins.
 
 %\begin{figure}
 %    \centering

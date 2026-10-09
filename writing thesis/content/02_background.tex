@@ -1,7 +1,7 @@
 \chapter{Theoretical Background} \label{ch:theoretical_background}
 
 \section{Cosmological Background} \label{sec:cosmological_background}
-The foundation of modern cosmology is based on the cosmological principle, which states that the Universe 
+Modern cosmology is founded on the cosmological principle, which states that the Universe 
 is homogeneous and isotropic on large scales. Homogeneity implies that the large-scale properties of the Universe 
 are statistically uniform across different locations, whereas isotropy means that no direction is preferred. Although 
 this principle is introduced as a fundamental assumption in modern cosmology, it also represents a hypothesis that can be 
@@ -22,7 +22,7 @@ The scale factor $a(t)$ describes the relative expansion of the Universe and is 
     a(t_0)=1 \,.
 \end{equation}
 
-For earlier cosmic times, the scale factor satisfies $a(t)<1$, whereas in an expanding universe it increases with time and can exceed unity in the future. 
+At earlier cosmic times, the scale factor satisfies $a(t)<1$, whereas in an expanding universe it increases with time and can exceed unity in the future. 
 A static universe would correspond to $\dot{a}(t)=0$, resulting in a vanishing Hubble parameter
 
 \begin{equation}
@@ -96,7 +96,7 @@ reduce to the Friedmann equations, which determine the evolution of the scale fa
 Here $\rho$ and $p$ denote the energy density and pressure of the cosmic fluid, 
 $\symup{\Lambda}$ is the cosmological constant, and $G$ is the gravitational constant~\cite{Huterer_2018}.
 
-The critical density at present time is defined as the total energy density for which the Universe is spatially flat ($k=0$) and is given by
+The critical density at the present time is defined as the total energy density for which the Universe is spatially flat ($k=0$) and is given by
 
 \begin{equation}
     \rho_{\mathrm{c}}=\frac{3H_0^2}{8\pi G} \,.
@@ -195,7 +195,7 @@ mass. The DM measures the integrated column density of free electrons between th
 
 where $n_{\mathrm{e}}$ represents the free electron density, $s$ the path length along the line of sight, and $L$ the distance between the source and the observer~\cite{Petroff_2019}.
 
-The origin of FRBs is inferred from their large DM values, which exceed the expected
+The extragalactic origin of FRBs is inferred from their large DM values, which exceed the expected
 contribution from the Galactic interstellar medium along the corresponding line of sight. 
 For a source located within the Milky Way, the values predicted by Galactic electron-density models typically 
 do not exceed about \qty{50}{\parsec\per\cubic\centi\metre}, whereas observed FRBs often exhibit considerably larger values 
@@ -206,7 +206,7 @@ in 2001 and published in 2007~\cite{Lorimer_2007}.
 
 Initially, only a small number of FRBs had been detected, leading to the assumption that they represented rare, 
 singular events. The situation changed decisively with the commissioning of CHIME in 2018, whose wide field of view 
-drove an explosive increase in detections and increased the known FRB population by several orders of magnitude~\cite{Amiri2018}. 
+drove an explosive increase in detections and increased the known FRB population by more than an order of magnitude~\cite{Amiri2018}. 
 The latest CHIME/FRB catalog contains $4539$ detected burst events originating from $3641$ unique FRB sources, 
 including $981$ bursts from 83 known repeating sources~\cite{CHIMEFRB2026}.
 As shown in~\autoref{fig:frb_sky_distribution}, the known FRB sources exhibit an approximately isotropic distribution across the sky, 
@@ -242,8 +242,8 @@ theoretical models and an increasing body of observational evidence~\cite{Petrof
 \textbf{Magnetars} are neutron stars distinguished by surface magnetic fields many orders of magnitude stronger than those of 
 ordinary radio pulsars, making them the most strongly magnetized stellar remnants known~\cite{Petroff_2019}. 
 They arise primarily through the core collapse of massive stars in supernova explosions and are therefore intrinsically young 
-objects whose formation rate is expected to closely mirror the cosmic star-formation history (SFH), preferentially found in or 
-near regions of active star formation~\cite{Pelliciari_2023}.
+objects that are preferentially found in or 
+near regions of active star formation and whose formation rate is expected to closely mirror the cosmic star-formation history (SFH)~\cite{Pelliciari_2023}.
 The landmark detection in April 2020 of an FRB-like burst from the Galactic magnetar SGR 1935+2154 provided the most direct empirical 
 link between magnetars and FRBs~\cite{CHIMEFRB_2020}.
 Population synthesis work using the CHIME/FRB catalog finds that the hypothesis of FRBs tracking the SFH is not ruled out by 
@@ -251,7 +251,7 @@ current data, with a small delay preferred, consistent with a scenario in which 
 serve as the dominant progenitor class~\cite{MengDeng_2025}.
 
 \textbf{Neutron star mergers} formed through delayed channels represent a second important progenitor class, motivated by FRBs 
-localized to environments inconsistent with active star formation. FRBs 180924 and 190523, found in massive, 
+localized to environments inconsistent with active star formation. FRB 20180924A and FRB 20190523A, found in massive, 
 low-star-formation-rate galaxies with large offsets from the host center, display environments similar to those of short 
 gamma-ray burst hosts associated with mergers of binary neutron stars or of neutron star--black hole binaries~\cite{Wang_2020}.
 The globular cluster localization of FRB 20200120E reinforces this point, as such an old environment is generally not associated with recent star formation.
@@ -273,14 +273,7 @@ emerged from the gravitational amplification of small primordial density perturb
 According to the gravitational instability paradigm, quantum fluctuations seeded during 
 an inflationary phase were stretched to cosmological scales and subsequently grew into 
 the filaments, voids, and galaxy clusters observed today~\cite{Bernardeau_2002, Riotto_2003}.
-The growth of perturbations depends sensitively on the cosmic expansion history, and 
-the overall amplitude of matter fluctuations at the present time is conventionally 
-parameterized by $\sigma_8$~\cite{BartelmannSchneider_2001}.
-
-\section{Correlation Functions and Angular Power Spectrum}\label{sec:correlation_functions}
-The statistical properties of the large-scale matter distribution are quantified through 
-correlation functions and their Fourier-space counterparts, the power spectra. 
-The density contrast $\delta(\mathbf{x})$ is defined as the fractional
+These perturbations are described by the density contrast, defined as the fractional
 deviation of the local matter density $\rho(\mathbf{x})$ from the mean
 cosmic matter density $\bar{\rho}$,
 
@@ -289,7 +282,42 @@ cosmic matter density $\bar{\rho}$,
     := \frac{\rho(\mathbf{x}) - \bar{\rho}}{\bar{\rho}} \,.
 \end{equation}
 
-The 2-point correlation function
+As long as $|\delta| \ll 1$, the evolution is linear and all Fourier modes grow at the same rate,
+
+\begin{equation}\label{eq:growth_factor}
+    \delta(\mathbf{x}, z) = D_+(z)\, \delta(\mathbf{x}, 0) \,,
+\end{equation}
+
+where the linear growth factor $D_+$ is the growing solution of
+
+\begin{equation}
+    \ddot{D}_+ + 2H\dot{D}_+ - 4\pi G \bar{\rho}\, D_+ = 0 \,,
+\end{equation}
+
+normalized to $D_+(0) = 1$~\cite{Bernardeau_2002}. The growth of perturbations therefore depends
+sensitively on the cosmic expansion history. The overall amplitude of matter fluctuations at the
+present time is conventionally parameterized by $\sigma_8$, the root-mean-square of the linear
+density contrast at $z=0$ smoothed with a spherical top-hat filter of radius
+$8\,h^{-1}\,\mathrm{Mpc}$, where $h = H_0/(\qty{100}{\kilo\metre\per\second\per\mega\parsec})$~\cite{BartelmannSchneider_2001}.
+
+Galaxies and other astrophysical tracers, such as the hosts of FRBs, do not trace the matter
+distribution one-to-one, since they form preferentially in the high-density peaks of the matter
+field. On large scales, the density contrast $\delta_{\mathrm{t}}$ of a tracer population is related
+to that of the matter by the linear bias $b$,
+
+\begin{equation}\label{eq:linear_bias}
+    \delta_{\mathrm{t}}(\mathbf{x}, z) = b(z)\, \delta(\mathbf{x}, z) \,,
+\end{equation}
+
+where $b>1$ indicates a tracer that is more strongly clustered than the matter~\cite{Desjacques_2018}.
+Since the bias increases with the mass of the host dark-matter halos~\cite{Tinker_2010}, it encodes
+information about the host environment of a population, which this thesis exploits to distinguish
+between FRB progenitor channels.
+
+\section{Correlation Functions and Angular Power Spectrum}\label{sec:correlation_functions}
+The statistical properties of the large-scale matter distribution are quantified through 
+correlation functions and their Fourier-space counterparts, the power spectra. 
+The 2-point correlation function of the density contrast
 is defined as
 
 \begin{equation}
@@ -339,8 +367,8 @@ The 3-dimensional matter power spectrum is then defined through
 \end{equation}
 
 where $\delta_{\mathrm{D}}$ denotes the Dirac delta function, reflecting statistical homogeneity in Fourier space.
-The power spectrum depends only on the magnitude
-$k = |\mathbf{k}|$, implying that it is isotropic in Fourier space~\cite{BartelmannSchneider_2001}.
+Statistical isotropy implies that the power spectrum depends only on the magnitude
+$k = |\mathbf{k}|$~\cite{BartelmannSchneider_2001}.
 
 For projected tracer fields on the celestial sphere, spherical harmonics provide 
 a natural description on large angular scales, where the flat-sky approximation is not 
@@ -387,10 +415,17 @@ for multipoles of order 10 and larger, the double integral collapses to a single
 \end{equation}
 
 The use of $\ell+1/2$, rather than simply $\ell$, provides a more accurate
-version of the Limber approximation, particularly at moderately large
+version of the Limber approximation, particularly at low
 multipoles~\cite{LoVerdeAfshordi_2008}.
 The characteristic angular scale associated with a given multipole $\ell$ is approximately $\theta \sim 1/\ell$~\cite{RafieiRavandi_2021}.
 
+For linearly biased tracers, \autoref{eq:linear_bias} implies
+
+\begin{equation}\label{eq:p_ab}
+    P_{AB}(k, z) = b_A(z)\, b_B(z)\, P(k, z) \,,
+\end{equation}
+
+so that the bias factors can be absorbed into the radial kernels $W^A$ and $W^B$~\cite{Desjacques_2018}.
 The angular cross-power spectrum therefore depends
 on the radial overlap of the two tracer populations, their relation to the
 underlying matter density field through their bias factors, and the shape
