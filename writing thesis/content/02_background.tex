@@ -273,32 +273,26 @@ emerged from the gravitational amplification of small primordial density perturb
 According to the gravitational instability paradigm, quantum fluctuations seeded during 
 an inflationary phase were stretched to cosmological scales and subsequently grew into 
 the filaments, voids, and galaxy clusters observed today~\cite{Bernardeau_2002, Riotto_2003}.
+
 These perturbations are described by the density contrast, defined as the fractional
-deviation of the local matter density $\rho(\mathbf{x})$ from the mean
-cosmic matter density $\bar{\rho}$,
+deviation of the local matter density $\rho(\mathbf{x})$ at comoving position
+$\mathbf{x}$ from the mean cosmic matter density $\bar{\rho}$,
 
 \begin{equation}
     \delta(\mathbf{x})
     := \frac{\rho(\mathbf{x}) - \bar{\rho}}{\bar{\rho}} \,.
 \end{equation}
 
-As long as $|\delta| \ll 1$, the evolution is linear and all Fourier modes grow at the same rate,
+As long as $|\delta| \ll 1$, the evolution is linear and all Fourier modes grow at the
+same rate,
 
 \begin{equation}\label{eq:growth_factor}
     \delta(\mathbf{x}, z) = D_+(z)\, \delta(\mathbf{x}, 0) \,,
 \end{equation}
 
-where the linear growth factor $D_+$ is the growing solution of
-
-\begin{equation}
-    \ddot{D}_+ + 2H\dot{D}_+ - 4\pi G \bar{\rho}\, D_+ = 0 \,,
-\end{equation}
-
-normalized to $D_+(0) = 1$~\cite{Bernardeau_2002}. The growth of perturbations therefore depends
-sensitively on the cosmic expansion history. The overall amplitude of matter fluctuations at the
-present time is conventionally parameterized by $\sigma_8$, the root-mean-square of the linear
-density contrast at $z=0$ smoothed with a spherical top-hat filter of radius
-$8\,h^{-1}\,\mathrm{Mpc}$, where $h = H_0/(\qty{100}{\kilo\metre\per\second\per\mega\parsec})$~\cite{BartelmannSchneider_2001}.
+where the linear growth factor is normalized to $D_+(0) = 1$~\cite{Bernardeau_2002}. The growth of perturbations depends sensitively on the cosmic expansion history, and 
+the overall amplitude of matter fluctuations at the present time is conventionally 
+parameterized by $\sigma_8$~\cite{BartelmannSchneider_2001}.
 
 Galaxies and other astrophysical tracers, such as the hosts of FRBs, do not trace the matter
 distribution one-to-one, since they form preferentially in the high-density peaks of the matter
@@ -310,9 +304,6 @@ to that of the matter by the linear bias $b$,
 \end{equation}
 
 where $b>1$ indicates a tracer that is more strongly clustered than the matter~\cite{Desjacques_2018}.
-Since the bias increases with the mass of the host dark-matter halos~\cite{Tinker_2010}, it encodes
-information about the host environment of a population, which this thesis exploits to distinguish
-between FRB progenitor channels.
 
 \section{Correlation Functions and Angular Power Spectrum}\label{sec:correlation_functions}
 The statistical properties of the large-scale matter distribution are quantified through 
