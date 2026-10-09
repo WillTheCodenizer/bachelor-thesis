@@ -1,30 +1,30 @@
 \chapter{Appendix}
 
 \section{FRB Signal Compared to a Mobile Phone on the Moon} \label{app:frb_phone_flux}
-To put the faintness of the received FRB signal into perspective, its spectral flux density is
-compared to that of a mobile phone transmitting from the Moon. A typical FRB has a peak spectral
-flux density of about $S_{\mathrm{FRB}}\approx\qty{1}{\jansky}=\qty{e-26}{\watt\per\square\metre\per\hertz}$,
-well within the observed range of \qtyrange{50}{100000}{\milli\jansky}~\cite{Petroff_2019}.
-A phone radiating a power $P\approx\qty{1}{\watt}$ isotropically from the lunar distance
-$d\approx\qty{3.84e8}{\metre}$ produces a power flux density at Earth of
+
+An order-of-magnitude comparison can be made using the peak flux density of an FRB and the
+transmitted signal of a GSM-900 mobile phone. The GSM specification gives a maximum mobile-station
+burst power of \qty{2}{\watt}; the GSM channel spacing is \qty{200}{\kilo\hertz}~\cite{ETSI_3GPP_45_005}.
+Assuming isotropic emission at the lunar distance $d\approx\qty{3.84e8}{\metre}$, the received
+power flux is
 
 \begin{equation}
-    F_{\mathrm{phone}} = \frac{P}{4\pi d^2} \approx \qty{5.4e-19}{\watt\per\square\metre} \,.
-    \label{eq:phone_flux}
+    F_{\mathrm{phone}} = \frac{P}{4\pi d^2}
+    \approx \qty{1.08e-18}{\watt\per\square\metre} \,.
 \end{equation}
 
-Spreading this power over a representative mobile channel bandwidth $B\approx\qty{10}{\mega\hertz}$
-yields a spectral flux density of
+If this power is distributed over one GSM channel, the phone's spectral flux density is
 
 \begin{equation}
-    S_{\mathrm{phone}} = \frac{F_{\mathrm{phone}}}{B} \approx \qty{5}{\jansky} \,.
-    \label{eq:phone_flux_density}
+    S_{\mathrm{phone}} = \frac{F_{\mathrm{phone}}}{B}
+    \approx \qty{540}{\jansky} \,.
 \end{equation}
 
-The received FRB signal is therefore of the same order of magnitude as the phone signal, with
-$S_{\mathrm{phone}}/S_{\mathrm{FRB}}$ of order unity. The exact ratio depends sensitively on the
-assumed transmit power and bandwidth as well as on the FRB flux density, so that only an
-order-of-magnitude comparison is meaningful.
+For an FRB with $S_{\mathrm{FRB}}\approx\qty{0.54}{\jansky}$, which lies within the observed
+range~\cite{Petroff_2019}, the ratio is therefore
+$S_{\mathrm{phone}}/S_{\mathrm{FRB}}\approx 10^3$.
+This is an illustrative comparison based on the stated GSM and isotropic-emission assumptions;
+other phone standards, transmit powers, and FRB flux densities yield different ratios.
 
 \begin{figure}[H]
     \centering
