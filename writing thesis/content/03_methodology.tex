@@ -115,9 +115,11 @@ near-all-sky coverage achievable by wide-field radio interferometers such as CHI
 
 \begin{table}
     \centering
-    \caption{FRB survey configurations adopted in this thesis, following Reischke et al.~\cite{Reischke_2021}. The
+    \caption{FRB survey configurations adopted in this thesis. 
+    The
     parameters $\alpha$ and $N_{\mathrm{tot}}$ determine the redshift distribution and shot-noise
-    level according to \autoref{eq:frb_nz} and \autoref{eq:shot_noise}, respectively.}
+    level according to \autoref{eq:frb_nz} and \autoref{eq:shot_noise}, respectively.
+    }
     \label{tab:frb_surveys}
     \begin{tabular}{
         l@{\hspace{1.0em}}
@@ -180,6 +182,7 @@ to unit integral. The raw tabulated distributions are shown in
 \end{figure}
 
 \section{Tracer Bias Models} \label{sec:bias_models}
+
 \subsection{FRB Host Population Bias} \label{sec:frb_bias}
 
 %\begin{wrapfigure}[15] % 20 stands for the number of lines the figure should span
@@ -225,7 +228,6 @@ in \autoref{tab:frb_bias} and shown in \autoref{fig:frb_bias}.
     \end{tabular}
 \end{table}
 
-VIELLEICHT HIER DOPPELT IN LEGEND UND IN TABELLE
 %\begin{table}[H]
 %    \centering
 %    \caption{Fiducial parameters of the FRB host population bias model of
@@ -245,7 +247,7 @@ VIELLEICHT HIER DOPPELT IN LEGEND UND IN TABELLE
     \centering
     \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/FRB_bias_bz.pdf}
     \caption{FRB host population linear bias models of \autoref{eq:frb_bias} for the two progenitor classes
-    considered in this thesis.}
+    considered listed in \autoref{tab:frb_bias}.}
     \label{fig:frb_bias}
 \end{figure}
 
@@ -355,27 +357,6 @@ coincide, $W^A = W^B$, and the projection integral reduces to a weighted line-of
 the matter power spectrum. Auto-spectra are computed for both FRB survey configurations and both
 progenitor classes, as well as for each of the six tomographic galaxy bins.
 
-In contrast to the cross-spectra discussed below, auto-spectra receive an additive Poissonian shot-noise 
-contribution from the discreteness of the tracer field, which is treated in \autoref{sec:shot_noise}. 
-For the representative shallow FRB configuration, the shot noise exceeds the clustering signal by 
-roughly three orders of magnitude across the entire multipole range, rendering the auto-correlation 
-strongly noise-dominated for a sample of only $\num{5e3}$ bursts. This illustrates the limited 
-constraining power of the FRB auto-spectrum alone 
-with current survey number densities
-and motivates its combination with a dense 
-galaxy sample in a cross-correlation analysis, as shown in \autoref{fig:frb_cell_shotnoise}.
-
-The signal-only spectra show that the deep survey configuration yields a lower
-amplitude than the shallow one, as illustrated in \autoref{fig:frb_cell_comparison}.
-This is a consequence of its broader redshift distribution, which projects a
-larger radial range onto a given angular scale and thereby dilutes the signal.
-In addition, structure growth is less advanced at higher redshift, so the matter
-power spectrum has a lower amplitude there, and the geometric factor $\chi^{-2}$
-further suppresses the contribution of distant sources. The same qualitative
-behavior is found for the delayed neutron-star population.
-
-PASST SO KANN ABER AUCH GEKUERZT WERDEN
-
 \begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
@@ -394,6 +375,24 @@ PASST SO KANN ABER AUCH GEKUERZT WERDEN
     \caption{Auto-correlation angular power spectra of the magnetar FRB population.}
     \label{fig:frb_cell}
 \end{figure}
+
+In contrast to the cross-spectra discussed below, auto-spectra receive an additive Poissonian shot-noise 
+contribution from the discreteness of the tracer field, which is treated in \autoref{sec:shot_noise}. 
+For the representative shallow FRB configuration, the shot noise exceeds the clustering signal by 
+roughly three orders of magnitude across the entire multipole range, rendering the auto-correlation 
+strongly noise-dominated for a sample of only $\num{5e3}$ bursts. This illustrates the limited 
+constraining power of the FRB auto-spectrum alone 
+with current survey number densities
+and motivates its combination with a dense 
+galaxy sample in a cross-correlation analysis, as shown in \autoref{fig:frb_cell_shotnoise}.
+
+The signal-only spectra show that the deep survey configuration yields a lower
+amplitude than the shallow one, as illustrated in \autoref{fig:frb_cell_comparison}.
+At higher redshifts, structure growth is less advanced, resulting in a matter power 
+spectrum with a lower amplitude. Moreover, the geometric factor $\chi^{-2}$ 
+in \autoref{eq:limber}
+suppresses the contribution from sources at larger comoving distances. 
+The same qualitative behavior is found for the delayed neutron-star population.
 
 %\begin{figure}[H]
 %    \centering
@@ -490,9 +489,10 @@ contribution is scale-independent and given by
 \end{equation}
 
 For the FRB samples the number density is given by 
-$
+
+\begin{equation}
     \bar{n}_{\mathrm{FRB}} = \frac{N_{\mathrm{tot}}}{4\pi f_{\mathrm{sky}}} \,,
-$
+\end{equation}
+
 following from the total number of detected bursts and the
 observed sky fraction in \autoref{tab:frb_surveys}~\cite{Reischke_2021}. 
-HIER NOCHMAL SCHAUEN OB ES NICHT AUCH GEHT MIT BEGIN EQUATION
