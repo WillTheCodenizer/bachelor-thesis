@@ -1,0 +1,403 @@
+\chapter{Theoretical Background} \label{ch:theoretical_background}
+
+\section{Cosmological Background} \label{sec:cosmological_background}
+The foundation of modern cosmology is based on the cosmological principle, which states that the Universe 
+is homogeneous and isotropic on large scales. Homogeneity implies that the large-scale properties of the Universe 
+are statistically uniform across different locations, whereas isotropy means that no direction is preferred. Although 
+this principle is introduced as a fundamental assumption in modern cosmology, it also represents a hypothesis that can be 
+tested through observations. Current astronomical evidence strongly supports the validity of the cosmological principle on the 
+largest observable scales~\cite{Scrimgeour_2012, Laurent_2016}.
+
+Based on the cosmological principle, the Universe can be described by the Friedmann--Lemaître--Robertson--Walker (FLRW) metric
+
+\begin{equation}
+    \mathrm{d}s^2 = -c^2 \mathrm{d}t^2 +a^2(t) \left[ \frac{\mathrm{d}r^2}{1 - k r^2} + r^2 (\mathrm{d}\theta^2 + \sin^2\theta \mathrm{d}\phi^2) \right] \,,
+\end{equation}
+
+with the spatial comoving coordinates $(r, \theta, \phi)$, the speed of light $c$, and the cosmic time $t$~\cite{CervantesCota_2011}. The parameter $k$ describes the curvature of the Universe, 
+which can take values of $-1$, $0$, or $+1$ for open, flat, and closed geometries, respectively. 
+The scale factor $a(t)$ describes the relative expansion of the Universe and is conventionally normalized to its present value,
+
+\begin{equation}
+    a(t_0)=1 \,.
+\end{equation}
+
+For earlier cosmic times, the scale factor satisfies $a(t)<1$, whereas in an expanding universe it increases with time and can exceed unity in the future. 
+A static universe would correspond to $\dot{a}(t)=0$, resulting in a vanishing Hubble parameter
+
+\begin{equation}
+    H(t)=\frac{\dot{a}(t)}{a(t)} \,,
+\end{equation}
+
+which describes the relative change of the scale factor with cosmic time~\cite{Huterer_2018}. 
+At the present time
+
+\begin{equation}
+    H_0 = H(t_0)
+\end{equation}
+
+is referred to as the Hubble constant~\cite{CervantesCota_2011}.
+
+The expansion of space introduces a distinction between physical distances and 
+comoving distances. While the physical distance between two objects changes 
+with time due to the expansion of the Universe, the comoving distance remains 
+constant for objects that follow the general expansion of space. The physical or so-called
+proper distance is related to the comoving distance $\chi$ by
+
+\begin{equation}
+    D(t)=a(t) \chi \,.
+\end{equation}
+
+Thus, comoving coordinates account for
+the effect of the cosmic expansion and provide a convenient description of the 
+large-scale structure of the Universe~\cite{Ishak_2019}.
+
+The expansion of the Universe can be observed through the cosmological 
+redshift. Due to the expansion of space, the wavelength of photons emitted by 
+distant objects is stretched during their propagation. 
+The redshift is defined as
+
+\begin{equation}
+    z=\frac{\lambda-\lambda_0}{\lambda_0} \,,
+\end{equation}
+
+where $\lambda_0$ is the emitted wavelength and $\lambda$ is the observed 
+wavelength. The redshift is directly related to the scale factor through
+
+\begin{equation}\label{eq:scale_factor_redshift_relation}
+    1+z = \frac{a(t_0)}{a(t_{\mathrm{e}})} \,,
+\end{equation}
+
+with $t_{\mathrm{e}}$ denoting the time of emission.
+Consequently, the observed redshift provides information about the expansion 
+history of the Universe and can be used to determine cosmological distances. 
+The line-of-sight comoving distance to an object at redshift $z$ is given by
+
+\begin{equation}
+    \chi(z)= \chi_{\mathrm{H}} \int_0^z \frac{\mathrm{d}z'}{E(a(z'))} \,,
+\end{equation}
+
+where $\chi_{\mathrm{H}} = c/H_0$ is the Hubble distance and $E(a)=H(a)/H_0$ is the dimensionless Hubble parameter~\cite{Hogg_2000}. 
+
+
+\section{Friedmann Equations and Cosmic Expansion} \label{sec:friedmann_equations_and_cosmic_expansion}
+Following the cosmological principle, the matter and energy content of the Universe can be described by 
+a perfect-fluid energy-momentum tensor. In combination with the FLRW metric, Einstein's field equations 
+reduce to the Friedmann equations, which determine the evolution of the scale factor $a(t)$,
+
+\begin{equation}
+    H^2 = \frac{\dot{a}^2}{a^2} = \frac{8 \pi G}{3} \rho - \frac{k c^2}{a^2} + \frac{\symup{\Lambda}}{3} \,,
+\end{equation}
+
+\begin{equation}
+    \frac{\ddot{a}}{a} = -\frac{4 \pi G}{3} \left( \rho + \frac{3 p}{c^2} \right) + \frac{\symup{\Lambda}}{3} \,.
+\end{equation}
+
+Here $\rho$ and $p$ denote the energy density and pressure of the cosmic fluid, 
+$\symup{\Lambda}$ is the cosmological constant, and $G$ is the gravitational constant~\cite{Huterer_2018}.
+
+The critical density at present time is defined as the total energy density for which the Universe is spatially flat ($k=0$) and is given by
+
+\begin{equation}
+    \rho_{\mathrm{c}}=\frac{3H_0^2}{8\pi G} \,.
+\end{equation}
+
+The ratio between the density of a cosmological component and the critical 
+density defines the corresponding density parameter,
+
+\begin{equation}
+    \symup{\Omega}_i=\frac{\rho_i}{\rho_{\mathrm{c}}} \,,
+\end{equation}
+
+with $\symup{\Omega}_{\mathrm{m}}$, $\symup{\Omega}_{\mathrm{r}}$, $\symup{\Omega}_{\symup{\Lambda}}$, and $\symup{\Omega}_k$ 
+denoting the density parameters of matter, radiation, vacuum (dark) energy, and curvature, respectively.
+
+Consequently, the Friedmann equation can be expressed in terms of the density parameters as~\cite{BartelmannSchneider_2001} 
+
+\begin{equation}
+    H^2 = H_0^2 \left[  \symup{\Omega}_{\mathrm{r}} a^{-4} + \symup{\Omega}_{\mathrm{m}} a^{-3} + \symup{\Omega}_{k} a^{-2} + \symup{\Omega}_{\symup{\Lambda}} \right] \,.
+\end{equation}
+
+%Using \autoref{eq:scale_factor_redshift_relation}, the dimensionless Hubble parameter can also be written as
+%
+%\begin{equation}
+%    E(z)=
+%    \sqrt{
+%    \symup{\Omega}_{r,0}(1+z)^4+
+%    \symup{\Omega}_{m,0}(1+z)^3+
+%    \symup{\Omega}_{k,0}(1+z)^2+
+%    \symup{\Omega}_{\symup{\Lambda},0}
+%    }.
+%\end{equation}
+
+\section{\texorpdfstring{The $\symup{\Lambda}$CDM Model}{The Lambda CDM Model}} \label{sec:lcdm_model}
+The current standard model of cosmology is the so-called $\symup{\Lambda}$CDM model. 
+It describes the evolution of the Universe assuming the presence of cold dark 
+matter (CDM) and a cosmological constant $\symup{\Lambda}$, which is associated with 
+dark energy and the accelerated expansion of the Universe. The model is in good 
+agreement with a wide range of cosmological observations~\cite{PeeblesRatra_2003}.
+For the late-time Universe (low redshift) probed by extragalactic sources, the radiation density 
+is negligible and the expansion history can be approximated by the contributions from matter, 
+curvature, and dark energy. Assuming a spatially flat universe, the curvature term also vanishes, yielding~\cite{Gong_2011} 
+
+\begin{equation}
+    E(z)\approx
+    \sqrt{
+    \symup{\Omega}_{\mathrm{m},0}(1+z)^3+
+    \symup{\Omega}_{\symup{\Lambda},0}
+    } \,.
+\end{equation}
+
+\section{Fast Radio Bursts} \label{sec:fast_radio_bursts}
+FRBs are bright, transient radio pulses with durations of milliseconds or less and peak 
+flux densities ranging from \qty{50}{\milli\jansky} to \qty{100}{\jansky}~\cite{Petroff_2019}.
+They have been detected across a frequency range of \qty{110}{\mega\hertz}~\cite{Pleunis_2021}
+to \qty{8}{\giga\hertz}~\cite{Zhang_2018}.
+
+%The isotropic-equivalent energy distribution of the observed FRB population follows a power-law 
+%distribution described by
+%
+%\begin{equation}
+%N(E_{\mathrm{iso}}) \propto E_{\mathrm{iso}}^{-1.8},
+%\end{equation}
+%
+%indicating that high-energy bursts are increasingly rare compared to lower-energy events. 
+%The negative power-law index of approximately $-1.8$ describes the decrease in the occurrence rate 
+%with increasing isotropic-equivalent energy.
+
+Furthermore, the implied isotropic energies of FRBs are within a few orders of magnitude of those released in gamma-ray bursts 
+and supernova explosions, suggesting that FRBs may originate from highly energetic astrophysical processes 
+\cite{Petroff_2019,Zhang_2021}. 
+Consequently, a broad range of progenitor models has been proposed, 
+including neutron stars, magnetars, white dwarfs, black holes,
+ultra-luminous X-ray sources, active galactic nuclei, and more exotic scenarios such as superconducting cosmic strings~\cite{Petroff_2022}.
+
+Despite releasing within a single millisecond an amount of energy comparable to what the Sun radiates over three days~\cite{Petroff_2019}, 
+FRBs are typically located at cosmological distances. As their radio emission propagates across the expanding Universe, 
+it spreads over an immense area, so that the signal received on Earth is roughly a thousand times weaker than that of a 
+mobile phone located on Earth's Moon~\cite{SpaceCom_2018}, as estimated in \autoref{app:frb_phone_flux}.
+
+The signal from FRBs is dispersed as it propagates through the ionized interstellar and intergalactic medium,
+causing lower-frequency components to arrive later than higher-frequency components.
+This dispersion is quantified by the DM, which follows from the measured arrival-time delay as
+
+\begin{equation}
+\mathrm{DM} = \frac{2\pi m_{\mathrm{e}} c}{e^2} \Delta t \left( \frac{1}{\nu_{\mathrm{low}}^2} - \frac{1}{\nu_{\mathrm{high}}^2} \right)^{-1} \,,
+\end{equation}
+
+where $\nu_{\mathrm{low}}$ and $\nu_{\mathrm{high}}$ are the lower and higher observing frequencies, $\Delta t$ is the time delay 
+between the arrival of the two frequency components, $c$ is the speed of light, $e$ is the elementary charge, and $m_{\mathrm{e}}$ is the electron 
+mass. The DM measures the integrated column density of free electrons between the source and the observer,
+
+\begin{equation}
+\mathrm{DM} \propto  \int_0^{L} \mathrm{d}s\, n_{\mathrm{e}}(s) \,,
+\end{equation}
+
+where $n_{\mathrm{e}}$ represents the free electron density, $s$ the path length along the line of sight, and $L$ the distance between the source and the observer~\cite{Petroff_2019}.
+
+The origin of FRBs is inferred from their large DM values, which exceed the expected
+contribution from the Galactic interstellar medium along the corresponding line of sight. 
+For a source located within the Milky Way, the values predicted by Galactic electron-density models typically 
+do not exceed about \qty{50}{\parsec\per\cubic\centi\metre}, whereas observed FRBs often exhibit considerably larger values 
+of \qty{1000}{\parsec\per\cubic\centi\metre} and more~\cite{Reischke_2021}.
+
+The first FRB, later named the Lorimer Burst, was identified in archival pulsar survey data acquired 
+in 2001 and published in 2007~\cite{Lorimer_2007}.
+
+Initially, only a small number of FRBs had been detected, leading to the assumption that they represented rare, 
+singular events. The situation changed decisively with the commissioning of CHIME in 2018, whose wide field of view 
+drove an explosive increase in detections and increased the known FRB population by several orders of magnitude~\cite{Amiri2018}. 
+The latest CHIME/FRB catalog contains $4539$ detected burst events originating from $3641$ unique FRB sources, 
+including $981$ bursts from 83 known repeating sources~\cite{CHIMEFRB2026}.
+As shown in~\autoref{fig:frb_sky_distribution}, the known FRB sources exhibit an approximately isotropic distribution across the sky, 
+consistent with an extragalactic population and suggesting no preferred spatial direction.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/frb_sky_distribution_petroff.png}
+    \caption{Aitoff projection of the known FRB population in Galactic coordinates based on observations available up to 2022. 
+    The sample is predominantly 
+    composed of CHIME/FRB detections, whose non-uniform sensitivity and sky coverage influence the observed distribution. After 
+    correcting for these observational biases, the underlying FRB population is consistent with an isotropic distribution expected for 
+    a cosmological source population~\cite{Petroff_2022}.}
+    \label{fig:frb_sky_distribution}
+\end{figure}
+
+While the majority of FRBs have been observed as one-off events, a subset of sources has been found to emit multiple bursts over time.
+The existence of so-called repeaters immediately places a fundamental constraint on emission physics: 
+any cataclysmic, single-event progenitor mechanism is directly ruled out for these sources, since the 
+central engine must be capable of sustaining burst activity over timescales of years~\cite{Petroff_2019}.
+
+Some repeating FRBs also exhibit periodic modulation of their activity windows, as observed in FRB 20180916B~\cite{Ng_2023},
+suggesting either a binary system geometry or precession of the emitting object. Whether all FRBs are intrinsically 
+capable of repeating remains an open question~\cite{Petroff_2022}.
+
+\section{Progenitor Mechanisms} \label{sec:progenitor_mechanisms}
+A broad classification of proposed FRB progenitor models distinguishes between two main categories: catastrophic, 
+one-off events and non-catastrophic scenarios involving long-lived central engines. Catastrophic models can account 
+only for non-repeating FRBs and are therefore incompatible with the observed behavior of repeating sources. In contrast, 
+non-catastrophic models allow for multiple burst episodes over extended periods. Among the proposed progenitors, compact stellar 
+remnants are considered the most promising candidates. In particular, neutron stars and magnetars are strongly supported by both 
+theoretical models and an increasing body of observational evidence~\cite{Petroff_2019}.
+
+\textbf{Magnetars} are neutron stars distinguished by surface magnetic fields many orders of magnitude stronger than those of 
+ordinary radio pulsars, making them the most strongly magnetized stellar remnants known~\cite{Petroff_2019}. 
+They arise primarily through the core collapse of massive stars in supernova explosions and are therefore intrinsically young 
+objects whose formation rate is expected to closely mirror the cosmic star-formation history (SFH), preferentially found in or 
+near regions of active star formation~\cite{Pelliciari_2023}.
+The landmark detection in April 2020 of an FRB-like burst from the Galactic magnetar SGR 1935+2154 provided the most direct empirical 
+link between magnetars and FRBs~\cite{CHIMEFRB_2020}.
+Population synthesis work using the CHIME/FRB catalog finds that the hypothesis of FRBs tracking the SFH is not ruled out by 
+current data, with a small delay preferred, consistent with a scenario in which young magnetars formed through core-collapse supernovae 
+serve as the dominant progenitor class~\cite{MengDeng_2025}.
+
+\textbf{Neutron star mergers} formed through delayed channels represent a second important progenitor class, motivated by FRBs 
+localized to environments inconsistent with active star formation. FRBs 180924 and 190523, found in massive, 
+low-star-formation-rate galaxies with large offsets from the host center, display environments similar to those of short 
+gamma-ray burst hosts associated with mergers of binary neutron stars or of neutron star--black hole binaries~\cite{Wang_2020}.
+The globular cluster localization of FRB 20200120E reinforces this point, as such an old environment is generally not associated with recent star formation.
+Isolated core-collapse supernovae occur within 3--48\,\unit{\Myr} after a burst of star formation, 
+whereas binary interactions can delay some core-collapse events to about $\qty{200}{\Myr}$~\cite{Zapartas_2017}. 
+Accretion-induced collapse and compact-object merger channels exhibit much broader delay-time distributions 
+extending to several gigayears~\cite{Ruiter_2019}.
+As a consequence, this progenitor population does not closely track the cosmic SFH but evolves 
+more slowly with redshift~\cite{Lin_2022}.
+
+Although the two classes also predict distinct redshift distributions~\cite{Lin_2022}, this work encodes 
+their difference solely in a redshift-dependent bias $b(z)$, which reflects the host environments described 
+above. 
+The parameterization and specific values are detailed in \autoref{sec:bias_models}.
+
+\section{Structure Formation} \label{sec:structure_formation}
+Within the $\symup{\Lambda}$CDM framework, the large-scale structure of the Universe 
+emerged from the gravitational amplification of small primordial density perturbations. 
+According to the gravitational instability paradigm, quantum fluctuations seeded during 
+an inflationary phase were stretched to cosmological scales and subsequently grew into 
+the filaments, voids, and galaxy clusters observed today~\cite{Bernardeau_2002, Riotto_2003}.
+The growth of perturbations depends sensitively on the cosmic expansion history, and 
+the overall amplitude of matter fluctuations at the present time is conventionally 
+parameterized by $\sigma_8$~\cite{BartelmannSchneider_2001}.
+
+\section{Correlation Functions and Angular Power Spectrum}\label{sec:correlation_functions}
+The statistical properties of the large-scale matter distribution are quantified through 
+correlation functions and their Fourier-space counterparts, the power spectra. 
+The density contrast $\delta(\mathbf{x})$ is defined as the fractional
+deviation of the local matter density $\rho(\mathbf{x})$ from the mean
+cosmic matter density $\bar{\rho}$,
+
+\begin{equation}
+    \delta(\mathbf{x})
+    := \frac{\rho(\mathbf{x}) - \bar{\rho}}{\bar{\rho}} \,.
+\end{equation}
+
+The 2-point correlation function
+is defined as
+
+\begin{equation}
+    \xi(\mathbf{y})
+    := \left\langle
+    \delta(\mathbf{x})\,\delta(\mathbf{x}+\mathbf{y})
+    \right\rangle \,,
+\end{equation}
+
+where the angle brackets denote an ensemble average. Statistical
+homogeneity implies that $\xi$ depends only on the separation
+$\mathbf{y}$ and not on the absolute position $\mathbf{x}$, while
+statistical isotropy further implies that it depends only on the
+magnitude $y = |\mathbf{y}|$. 
+
+For a discrete tracer population,
+the 2-point correlation function can be interpreted as
+describing the excess probability of finding a pair of tracers at a
+given separation relative to an unclustered random distribution.
+The Fourier-transform pair of $\delta(\mathbf{x})$ and 
+$\hat{\delta}(\mathbf{k})$ is defined according to the convention
+
+\begin{equation}
+    \hat{\delta}(\mathbf{k})
+    =
+    \int \mathrm{d}^3 x\,
+    \delta(\mathbf{x})\,
+    \mathrm{e}^{-\mathrm{i}\mathbf{k}\cdot\mathbf{x}} \,; \qquad
+    \delta(\mathbf{x})
+    =
+    \int \frac{\mathrm{d}^3 k}{(2\pi)^3}\,
+    \hat{\delta}(\mathbf{k})\,
+    \mathrm{e}^{\mathrm{i}\mathbf{k}\cdot\mathbf{x}} \,.
+\end{equation}
+
+The 3-dimensional matter power spectrum is then defined through
+
+\begin{equation}
+    \left\langle
+    \hat{\delta}(\mathbf{k})\,
+    \hat{\delta}^{*}(\mathbf{k}')
+    \right\rangle
+    =
+    (2\pi)^3
+    \delta_{\mathrm{D}}(\mathbf{k}-\mathbf{k}')
+    P(k) \,,
+\end{equation}
+
+where $\delta_{\mathrm{D}}$ denotes the Dirac delta function, reflecting statistical homogeneity in Fourier space.
+The power spectrum depends only on the magnitude
+$k = |\mathbf{k}|$, implying that it is isotropic in Fourier space~\cite{BartelmannSchneider_2001}.
+
+For projected tracer fields on the celestial sphere, spherical harmonics provide 
+a natural description on large angular scales, where the flat-sky approximation is not 
+generally adequate. A scalar field $f(\hat{\mathbf{n}})$, where $\hat{\mathbf{n}}$ denotes the line-of-sight direction, can be expanded
+as $f(\hat{\mathbf{n}})=\sum_{\ell m} a_{\ell m}Y_{\ell m}(\hat{\mathbf{n}})$, 
+with harmonic coefficients 
+$a_{\ell m}=\int \mathrm{d}\Omega\,f(\hat{\mathbf{n}})Y_{\ell m}^{*}(\hat{\mathbf{n}})$~\cite{RafieiRavandi_2021}.
+
+Using the spherical-harmonic expansion together with the Fourier
+representation of the 3-dimensional fields, the full-sky angular
+cross-power spectrum can be written as
+
+\begin{equation}
+    C_{\ell}^{AB}
+    =
+    \frac{2}{\pi}
+    \int_0^\infty k^2\,\mathrm{d}k
+    \int \mathrm{d}\chi\,
+    W^{A}(\chi)\,
+    j_{\ell}(k\chi)
+    \int \mathrm{d}\chi'\,
+    W^{B}(\chi')\,
+    j_{\ell}(k\chi')\,
+    P_{AB}(k;\chi,\chi') \,,
+\end{equation}
+
+where $j_{\ell}$ denotes the spherical Bessel function and
+$P_{AB}$ is the 3-dimensional cross-power spectrum of the two
+tracer fields. 
+The Limber approximation states that
+for multipoles of order 10 and larger, the double integral collapses to a single line-of-sight integral~\cite{Limber_1953},
+
+\begin{equation}\label{eq:limber}
+    C_{\ell}^{AB}
+    \approx
+    \int \frac{\mathrm{d}\chi}{\chi^2}\,
+    W^{A}(\chi)\,
+    W^{B}(\chi)\,
+    P_{AB}
+    \left(
+        k = \frac{\ell+1/2}{\chi},
+        z(\chi)
+    \right) \,.
+\end{equation}
+
+The use of $\ell+1/2$, rather than simply $\ell$, provides a more accurate
+version of the Limber approximation, particularly at moderately large
+multipoles~\cite{LoVerdeAfshordi_2008}.
+The characteristic angular scale associated with a given multipole $\ell$ is approximately $\theta \sim 1/\ell$~\cite{RafieiRavandi_2021}.
+
+The angular cross-power spectrum therefore depends
+on the radial overlap of the two tracer populations, their relation to the
+underlying matter density field through their bias factors, and the shape
+and redshift evolution of the underlying matter power spectrum.
+
+Consequently, the FRB$\times$galaxy angular cross-power spectrum provides a
+sensitive probe of the spatial relation between FRBs and galaxies and can
+be used to constrain the redshift distribution, clustering properties,
+and host-population characteristics of FRBs~\cite{RafieiRavandi_2021,
+Shirasaki_2017}.
