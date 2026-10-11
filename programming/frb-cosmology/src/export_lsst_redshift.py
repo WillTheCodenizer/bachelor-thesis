@@ -78,9 +78,10 @@ def export_figure3_sample(redshift, distributions):
             label=f"Bin {index}",
         )
     axes.set_xlim(0.0, 1.5)
-    axes.set_xlabel(r"Redshift $z$")
-    axes.set_ylabel(r"$n_i(z)$")
-    axes.legend(loc="best", ncol=2)
+    axes.set_xlabel(r"Redshift $z$", fontsize=18)
+    axes.set_ylabel(r"$n_i(z)$", fontsize=18)
+    axes.legend(loc="best", ncol=2, fontsize=15)
+    axes.tick_params(axis="both",labelsize=17)
     figure.tight_layout()
     for extension in ("png", "pdf"):
         output_path = output_dir / f"{OUTPUT_STEM}_figure3.{extension}"

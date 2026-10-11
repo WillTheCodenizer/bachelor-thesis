@@ -23,19 +23,19 @@ Multi-tracer marginal errors for each survey, with the shared FRB-only baseline.
 
 | Population | FRB survey | $\sigma_{b_0}$ FRB-only | $\sigma_{b_0}$ KiDS | $\sigma_{b_0}$ LSST | $\sigma_{\delta}$ FRB-only | $\sigma_{\delta}$ KiDS | $\sigma_{\delta}$ LSST |
 |---|---|---|---|---|---|---|---|
-| Magnetars | Deep | 23.48 | 1.274 | 0.4206 | 31.07 | 1.876 | 0.6838 |
-| Magnetars | Shallow | 91.32 | 1.907 | 0.5752 | 190.6 | 3.762 | 1.15 |
-| Neutron Stars | Deep | 33.04 | 1.702 | 0.5477 | 32.35 | 1.77 | 0.6185 |
-| Neutron Stars | Shallow | 101 | 2.415 | 0.7302 | 153 | 3.414 | 1.03 |
+| Magnetars | Deep | 20.98 | 1.261 | 0.4183 | 27.7 | 1.848 | 0.6789 |
+| Magnetars | Shallow | 82.63 | 1.896 | 0.573 | 171.9 | 3.727 | 1.143 |
+| Neutron Stars | Deep | 29.59 | 1.686 | 0.5451 | 28.9 | 1.746 | 0.6143 |
+| Neutron Stars | Shallow | 91.83 | 2.405 | 0.7277 | 138.6 | 3.385 | 1.024 |
 
 ## Figure of merit and improvement
 
 | Population | FRB survey | FoM FRB-only | FoM KiDS | FoM LSST | LSST/KiDS FoM | KiDS gain vs FRB-only | LSST gain vs FRB-only |
 |---|---|---|---|---|---|---|---|
-| Magnetars | Deep | 0.02626 | 1.594 | 14.56 | 9.13× | 60.7× | 554.5× |
-| Magnetars | Shallow | 0.0009179 | 0.4119 | 4.883 | 11.85× | 448.7× | 5319.4× |
-| Neutron Stars | Deep | 0.01601 | 1.154 | 11.34 | 9.82× | 72.1× | 708.5× |
-| Neutron Stars | Shallow | 0.0009895 | 0.3447 | 4.131 | 11.98× | 348.3× | 4174.6× |
+| Magnetars | Deep | 0.03241 | 1.641 | 14.8 | 9.02× | 50.6× | 456.7× |
+| Magnetars | Shallow | 0.001111 | 0.4186 | 4.943 | 11.81× | 376.8× | 4449.1× |
+| Neutron Stars | Deep | 0.01968 | 1.185 | 11.52 | 9.72× | 60.2× | 585.1× |
+| Neutron Stars | Shallow | 0.001189 | 0.3495 | 4.177 | 11.95× | 293.8× | 3512.1× |
 
 ## Discussion
 

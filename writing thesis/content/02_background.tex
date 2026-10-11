@@ -3,10 +3,9 @@
 \section{Cosmological Background} \label{sec:cosmological_background}
 Modern cosmology is founded on the cosmological principle, which states that the Universe 
 is homogeneous and isotropic on large scales. Homogeneity implies that the large-scale properties of the Universe 
-are statistically uniform across different locations, whereas isotropy means that no direction is preferred. Although 
-this principle is introduced as a fundamental assumption in modern cosmology, it also represents a hypothesis that can be 
-tested through observations. Current astronomical evidence strongly supports the validity of the cosmological principle on the 
-largest observable scales~\cite{Scrimgeour_2012, Laurent_2016}.
+are statistically uniform across different locations, whereas isotropy means that no direction is preferred. 
+Although introduced as an assumption, the principle is testable, and current evidence strongly supports it on the largest 
+observable scales~\cite{Scrimgeour_2012, Laurent_2016}.
 
 Based on the cosmological principle, the Universe can be described by the Friedmann--Lemaître--Robertson--Walker (FLRW) metric
 
@@ -17,10 +16,8 @@ Based on the cosmological principle, the Universe can be described by the Friedm
 with the spatial comoving coordinates $(r, \theta, \phi)$, the speed of light $c$, and the cosmic time $t$~\cite{CervantesCota_2011}. The parameter $k$ describes the curvature of the Universe, 
 which can take values of $-1$, $0$, or $+1$ for open, flat, and closed geometries, respectively. 
 The scale factor $a(t)$ describes the relative expansion of the Universe and is conventionally normalized to its present value,
-
-\begin{equation}
-    a(t_0)=1 \,.
-\end{equation}
+$
+    a(t_0)=1$.
 
 At earlier cosmic times, the scale factor satisfies $a(t)<1$, whereas in an expanding universe it increases with time and can exceed unity in the future. 
 A static universe would correspond to $\dot{a}(t)=0$, resulting in a vanishing Hubble parameter
@@ -31,11 +28,9 @@ A static universe would correspond to $\dot{a}(t)=0$, resulting in a vanishing H
 
 which describes the relative change of the scale factor with cosmic time~\cite{Huterer_2018}. 
 At the present time
-
-\begin{equation}
+$
     H_0 = H(t_0)
-\end{equation}
-
+$
 is referred to as the Hubble constant~\cite{CervantesCota_2011}.
 
 The expansion of space introduces a distinction between physical distances and 
@@ -172,8 +167,8 @@ Consequently, a broad range of progenitor models has been proposed,
 including neutron stars, magnetars, white dwarfs, black holes,
 ultra-luminous X-ray sources, active galactic nuclei, and more exotic scenarios such as superconducting cosmic strings~\cite{Petroff_2022}.
 
-Although FRBs release an amount of energy within a single millisecond comparable to that radiated by the Sun over three days~\cite{Petroff_2019}, 
-the received signal is extremely faint because the sources are typically located at cosmological distances. 
+Although a single millisecond burst releases as much energy as the Sun radiates in three days~\cite{Petroff_2019}, the 
+signal is extremely faint at Earth because the sources lie at cosmological distances.
 As their radio emission propagates across the expanding Universe, 
 it spreads over an immense area, so that the signal received on Earth is roughly a thousand times weaker than that of a 
 mobile phone located on Earth's Moon~\cite{SpaceCom_2018}, as estimated in \autoref{app:frb_phone_flux}.
@@ -217,28 +212,25 @@ consistent with an extragalactic population and suggesting no preferred spatial 
     \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/frb/frb_sky_distribution_petroff.png}
     \caption{Aitoff projection of the known FRB population in Galactic coordinates based on observations available up to 2022. 
     The sample is predominantly 
-    composed of CHIME/FRB detections, whose non-uniform sensitivity and sky coverage influence the observed distribution. After 
-    correcting for these observational biases, the underlying FRB population is consistent with an isotropic distribution expected for 
-    a cosmological source population. Adapted from~\cite{Petroff_2022}.}
+    composed of CHIME/FRB detections, whose non-uniform sensitivity and sky coverage influence the observed distribution. Adapted from~\cite{Petroff_2022}.}
     \label{fig:frb_sky_distribution}
 \end{figure}
 
+\section{Progenitor Mechanisms} \label{sec:progenitor_mechanisms}
+
 While the majority of FRBs have been observed as one-off events, a subset of sources has been found to emit multiple bursts over time.
-The existence of so-called repeaters immediately places a fundamental constraint on emission physics: 
-any cataclysmic, single-event progenitor mechanism is directly ruled out for these sources, since the 
-central engine must be capable of sustaining burst activity over timescales of years~\cite{Petroff_2019}.
+The existence of these so-called repeaters places a fundamental constraint on emission physics: 
+the central engine must be capable of sustaining burst activity over timescales of years, which directly rules out 
+any cataclysmic, single-event progenitor mechanism for these sources. 
+Proposed progenitor models can therefore be broadly divided into catastrophic, one-off events, which can account 
+only for non-repeating FRBs, and non-catastrophic scenarios involving long-lived central engines, which allow for 
+multiple burst episodes over extended periods~\cite{Petroff_2019}.
 
 Some repeating FRBs also exhibit periodic modulation of their activity windows, as observed in FRB 20180916B~\cite{Ng_2023},
-suggesting either a binary system geometry or precession of the emitting object. Whether all FRBs are intrinsically 
-capable of repeating remains an open question~\cite{Petroff_2022}.
-
-\section{Progenitor Mechanisms} \label{sec:progenitor_mechanisms}
-A broad classification of proposed FRB progenitor models distinguishes between two main categories: catastrophic, 
-one-off events and non-catastrophic scenarios involving long-lived central engines. Catastrophic models can account 
-only for non-repeating FRBs and are therefore incompatible with the observed behavior of repeating sources. In contrast, 
-non-catastrophic models allow for multiple burst episodes over extended periods. Among the proposed progenitors, compact stellar 
-remnants are considered the most promising candidates. In particular, neutron stars and magnetars are strongly supported by both 
-theoretical models and an increasing body of observational evidence~\cite{Petroff_2019}.
+suggesting either a binary system geometry or precession of the emitting object. Among the non-catastrophic scenarios, 
+compact stellar remnants, in particular neutron stars and magnetars, are considered the most promising candidates, 
+supported by both theoretical models and an increasing body of observational evidence~\cite{Petroff_2019}. 
+Whether all FRBs are intrinsically capable of repeating remains an open question~\cite{Petroff_2022}.
 
 \textbf{Magnetars} are neutron stars distinguished by surface magnetic fields many orders of magnitude stronger than those of 
 ordinary radio pulsars, making them the most strongly magnetized stellar remnants known~\cite{Petroff_2019}. 
@@ -291,8 +283,8 @@ same rate,
     \delta(\mathbf{x}, z) = D_+(z)\, \delta(\mathbf{x}, 0) \,,
 \end{equation}
 
-where the linear growth factor is normalized to $D_+(0) = 1$~\cite{Bernardeau_2002}. The growth of perturbations depends sensitively on the cosmic expansion history, and 
-the overall amplitude of matter fluctuations at the present time is conventionally 
+where the linear growth factor is normalized to $D_+(0) = 1$. 
+The overall amplitude of matter fluctuations at the present time is conventionally 
 parameterized by $\sigma_8$~\cite{BartelmannSchneider_2001}.
 
 Galaxies and other astrophysical tracers, such as the hosts of FRBs, do not trace the matter
@@ -417,7 +409,7 @@ For linearly biased tracers, \autoref{eq:linear_bias} implies
     P_{AB}(k, z) = b_A(z)\, b_B(z)\, P(k, z) \,,
 \end{equation}
 
-so that the bias factors can be absorbed into the radial kernels $W^A$ and $W^B$~\cite{Desjacques_2018}.
+so that the bias factors can be absorbed into the radial kernels $W^A$ and $W^B$.
 The angular cross-power spectrum therefore depends
 on the radial overlap of the two tracer populations, their relation to the
 underlying matter density field through their bias factors, and the shape

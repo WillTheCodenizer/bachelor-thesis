@@ -466,10 +466,12 @@ def _plot_cell_with_noise(ell_arr, C_ell, N_shot, title, filename, plot_dir):
     ax.loglog(ell_arr, C_ell, label="Signal only", linewidth=1.5)
     ax.loglog(ell_arr, C_ell + N_shot, label="Signal + Shot Noise",
               linewidth=1.5, linestyle="--")
-    ax.set_xlabel(r"Multipole $\ell$")
-    ax.set_ylabel(r"$C_\ell$")
+    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+7)
+    ax.set_ylabel(r"$C_\ell$", fontsize=AXIS_LABEL_SIZE+7)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+7)
+    ax.set_yticks([10e-8, 10e-6, 10e-4])
     #ax.set_title(title)
-    ax.legend()
+    ax.legend(fontsize=LEGEND_SIZE+7)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, f"{filename}.pdf"))
     fig.savefig(os.path.join(plot_dir, f"{filename}.png"), dpi=200)
@@ -504,11 +506,12 @@ def _plot_cell_comparison(
         )
     fig, ax = plt.subplots(figsize=(7, 5))
     ax.loglog(ell_arr, C_ell_shallow, label=r"Shallow ($\alpha=3.5$)", linewidth=1.5)
-    ax.loglog(ell_arr, C_ell_deep, label=r"Deep ($\alpha=2.0$)", linewidth=1.5)
-    ax.set_xlabel(r"Multipole $\ell$")
-    ax.set_ylabel(r"$C_\ell$")
+    ax.loglog(ell_arr, C_ell_deep, label=r"Deep ($\alpha=2.0$)",linewidth=1.5)
+    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+7)
+    ax.set_ylabel(r"$C_\ell$", fontsize=AXIS_LABEL_SIZE+7)
     #ax.set_title(f"FRB Auto-Correlation: Shallow vs Deep Survey for {population_label}")
-    ax.legend()
+    ax.legend(fontsize=LEGEND_SIZE+7)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+7)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, f"FRB_{population_slug}_Cell_comparison.pdf"))
     fig.savefig(os.path.join(plot_dir, f"FRB_{population_slug}_Cell_comparison.png"), dpi=200)
@@ -550,9 +553,10 @@ def _plot_pk_samples(k_phys, z_sample, power_samples, plot_dir):
     for P_at_z, z, color in zip(power_samples, z_sample, colors):
         ax.loglog(k_phys, P_at_z, linewidth=1.8, label=f"$z = {z:g}$", color=color)
     
-    ax.set_xlabel(r"Wavenumber $k$ [Mpc$^{-1}$]")
-    ax.set_ylabel(r"$P(k, z)$ [Mpc$^3$]")
-    ax.legend(loc="best")
+    ax.set_xlabel(r"Wavenumber $k$ [Mpc$^{-1}$]", fontsize=AXIS_LABEL_SIZE+1)
+    ax.set_ylabel(r"$P(k, z)$ [Mpc$^3$]", fontsize=AXIS_LABEL_SIZE+1)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+1)
+    ax.legend(loc="best", fontsize=LEGEND_SIZE+1)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "Pk_nonlinear.pdf"))
     fig.savefig(os.path.join(plot_dir, "Pk_nonlinear.png"), dpi=200)
@@ -569,9 +573,10 @@ def _plot_frb_nz(plot_dir):
     ax.plot(Z_ARR, n_z(Z_ARR, ALPHA_DEEP), linewidth=1.8, linestyle="--",
             label=rf"Deep ($\alpha={ALPHA_DEEP}$)")
 
-    ax.set_xlabel(r"Redshift $z$")
-    ax.set_ylabel(r"$n(z)$")
-    ax.legend(loc="best")
+    ax.set_xlabel(r"Redshift $z$", fontsize=AXIS_LABEL_SIZE+1)
+    ax.set_ylabel(r"$n(z)$", fontsize=AXIS_LABEL_SIZE+1)
+    ax.legend(loc="best", fontsize=LEGEND_SIZE+1)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+1)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "FRB_nz_shallow_deep.pdf"))
     fig.savefig(os.path.join(plot_dir, "FRB_nz_shallow_deep.png"), dpi=200)
@@ -592,10 +597,11 @@ def _plot_frb_bias(populations, plot_dir):
             label=rf"{population_label} ($b_0={b0}$, $\delta={delta}$)",
         )
 
-    ax.set_xlabel(r"Redshift $z$")
-    ax.set_ylabel(r"$b(z)$")
+    ax.set_xlabel(r"Redshift $z$", fontsize=AXIS_LABEL_SIZE+1)
+    ax.set_ylabel(r"$b(z)$", fontsize=AXIS_LABEL_SIZE+1)
     #ax.set_title("FRB Host Population Bias Models")
-    ax.legend(loc="best")
+    ax.legend(loc="best", fontsize=LEGEND_SIZE+1)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+1)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "FRB_bias_bz.pdf"))
     fig.savefig(os.path.join(plot_dir, "FRB_bias_bz.png"), dpi=200)
@@ -613,9 +619,10 @@ def _plot_galaxy_nz(z_mid, nz_bins, plot_dir, title_tag=""):
 
     ax.set_xlim(0.0, 5)
     #ax.set_xticks([0, 1, 2, 3, 4, 5])
-    ax.set_xlabel(r"Redshift $z$")
-    ax.set_ylabel(r"$n_i(z)$")
-    ax.legend(loc="best", ncol=2)
+    ax.set_xlabel(r"Redshift $z$", fontsize=AXIS_LABEL_SIZE+1)
+    ax.set_ylabel(r"$n_i(z)$", fontsize=AXIS_LABEL_SIZE+1)
+    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE+1)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+1)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "Galaxy_nz_bins.pdf"))
     fig.savefig(os.path.join(plot_dir, "Galaxy_nz_bins.png"), dpi=200)
@@ -639,9 +646,10 @@ def _plot_galaxy_cell_comparison(ell_arr, cell_bins, plot_dir, title_tag=""):
             label=f"Bin {idx + 1}",
         )
 
-    ax.set_xlabel(r"Multipole $\ell$")
-    ax.set_ylabel(r"$C_\ell$")
-    ax.legend(loc="best", ncol=2)
+    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_ylabel(r"$C_\ell$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE+3)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+3)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "Galaxy_Cell_comparison.pdf"))
     fig.savefig(os.path.join(plot_dir, "Galaxy_Cell_comparison.png"), dpi=200)
@@ -789,9 +797,10 @@ def _plot_cross_cell(ell_arr, c_ell, title, filename, plot_dir):
     """
     fig, ax = plt.subplots(figsize=(7, 5))
     ax.loglog(ell_arr, c_ell, linewidth=1.5, color="C0")
-    ax.set_xlabel(r"Multipole $\ell$")
-    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
-    ax.set_title(title)
+    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_title(title, fontsize=TITLE_SIZE+3)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+3)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, f"{filename}.pdf"))
     fig.savefig(os.path.join(plot_dir, f"{filename}.png"), dpi=200)
@@ -846,10 +855,11 @@ def _plot_cross_population_comparison(
             label=f"Neutron Stars Bin {bin_idx + 1}",
         )
 
-    ax.set_xlabel(r"Multipole $\ell$")
-    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$")
-    ax.set_title(f"{title_tag}FRB Population Comparison ({survey_label} Survey, all bins)")
-    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE)
+    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_title(f"{title_tag}FRB Population Comparison ({survey_label} Survey, all bins)", fontsize=TITLE_SIZE+3)
+    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE+3)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+3)
     fig.tight_layout()
     fname = f"population_{survey_slug}_all_bins"
     fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
@@ -911,10 +921,10 @@ def _plot_cross_survey_comparison(
             label=f"Deep Bin {bin_idx + 1}",
         )
 
-    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+3)
-    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+4)
+    ax.set_ylabel(r"$C_\ell^{\rm FRB \times gal}$", fontsize=AXIS_LABEL_SIZE+4)
     ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE+3)
-    ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
+    ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+4)
     fig.tight_layout()
     fname = f"survey_{pop_slug}_all_bins"
     fig.savefig(os.path.join(comp_dir, f"{fname}.pdf"))
@@ -1194,9 +1204,9 @@ def _draw_fisher_ellipse_panel(ax, ellipse_sets, b0_fid, delta_fid,
     ax.set_ylim(ylim)
     ax.set_xticks(xticks)
     ax.set_yticks(yticks)
-    ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
-    ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
-    ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
+    ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+6)
+    ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+6)
+    ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+6)
 
 
 def _save_fisher_grid_and_panels(panels, stem, plot_dir, **panel_kwargs):
@@ -1212,7 +1222,7 @@ def _save_fisher_grid_and_panels(panels, stem, plot_dir, **panel_kwargs):
         _draw_fisher_ellipse_panel(ax, ellipse_sets, b0_fid, delta_fid, **panel_kwargs)
         ax.set_title(title, fontsize=TITLE_SIZE+3)
         if idx == 0:
-            ax.legend(loc="upper right", fontsize=LEGEND_SIZE+2)
+            ax.legend(loc="upper right", fontsize=LEGEND_SIZE+10)
     for idx in range(len(panels), len(axes)):
         fig.delaxes(axes[idx])
     fig.tight_layout(rect=[0, 0, 1, 0.99])
@@ -1225,7 +1235,7 @@ def _save_fisher_grid_and_panels(panels, stem, plot_dir, **panel_kwargs):
         fig, ax = plt.subplots(figsize=(6, 5))
         _draw_fisher_ellipse_panel(ax, ellipse_sets, b0_fid, delta_fid, **panel_kwargs)
         if idx == 0:
-            ax.legend(loc="upper right", fontsize=LEGEND_SIZE+2)
+            ax.legend(loc="upper right", fontsize=LEGEND_SIZE+4)
         fig.tight_layout()
         panel_stem = f"{stem}_{slug}"
         fig.savefig(os.path.join(plot_dir, f"{panel_stem}.pdf"))
@@ -1266,7 +1276,7 @@ def _plot_fisher_comparison_2x2(fisher_data, plot_dir, title_tag=""):
     # for frb   HEX: #84B819
     style = {
         'frb':   {'color': '#84B819', 'label_1s': r'FRB-only $1\sigma$', 'label_2s': r'FRB-only $2\sigma$'},
-        'multi': {'color': 'C0', 'label_1s': r'FRB$\times$Galaxy $1\sigma$', 'label_2s': r'FRB$\times$Galaxy $2\sigma$'},
+        'multi': {'color': 'C0', 'label_1s': r'FRB$\times$galaxy $1\sigma$', 'label_2s': r'FRB$\times$galaxy $2\sigma$'},
     }
 
     panels = []
@@ -1293,6 +1303,11 @@ def _plot_fisher_comparison_1x2(fisher_data, plot_dir, title_tag=""):
         ylim=(-2, 3),
         xticks=[-0.5, 0, 0.5, 1, 1.5, 2, 2.5],
         yticks=[-1.6, -1.0, -0.4, 0.2, 0.8, 1.4, 2.0, 2.6],
+        #xlim=(-0.5, 2.5),
+        #ylim=(-2, 3),
+        #xticks=[0, 0.5, 1, 1.5, 2,],
+        #yticks=[-1.6, -1.0, -0.4, 0.2, 0.8, 1.4, 2.0, 2.6],
+
         linestyle_2s=':',
         title_tag=title_tag,
     )
@@ -1302,9 +1317,9 @@ def _plot_fisher_comparison_1x2_lsst(fisher_data, plot_dir, title_tag=""):
     """Create the independently configurable LSST Y10 1x2 Fisher plot."""
     _save_progenitor_overlap_plots(
         fisher_data, plot_dir, 'fisher_comparison_1x2_lsst',
-        xlim=(0.5, 2.5),
+        xlim=(0.5, 2.0),
         ylim=(-0.5, 1.5),
-        xticks=[0.5, 1.0, 1.5, 2.0, 2.5],
+        xticks=[0.5, 1.0, 1.5, 2.0 ],
         yticks=[-0.4, 0.2, 0.8, 1.4],
         linestyle_2s=':',
         title_tag=title_tag,
@@ -1344,9 +1359,9 @@ def _draw_progenitor_overlap_panel(ax, fisher_data, survey_label, contour_styles
     ax.set_ylim(ylim)
     ax.set_xticks(xticks)
     ax.set_yticks(yticks)
-    ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+3)
-    ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+3)
-    ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+3)
+    ax.set_xlabel(r"$b_0$", fontsize=AXIS_LABEL_SIZE+7)
+    ax.set_ylabel(r"$\delta$", fontsize=AXIS_LABEL_SIZE+7)
+    ax.tick_params(axis="both", labelsize=TICK_LABEL_SIZE+6)
     return fiducial_handles
 
 
@@ -1365,7 +1380,7 @@ def _save_progenitor_overlap_plots(fisher_data, plot_dir, stem, xlim, ylim,
                         xticks=xticks, yticks=yticks)
     survey_labels = ('Deep', 'Shallow')
 
-    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+    fig, axes = plt.subplots(1, 2, figsize=(9, 6))
     panel_handles = []
     for ax, survey_label in zip(axes, survey_labels):
         panel_handles.append(
@@ -1389,7 +1404,7 @@ def _save_progenitor_overlap_plots(fisher_data, plot_dir, stem, xlim, ylim,
         )
         #ax.set_title(f"{title_tag}{survey_label} Survey", fontsize=TITLE_SIZE+3)
         if survey_label == 'Deep':
-            ax.legend(handles=fiducial_handles, loc="best", fontsize=LEGEND_SIZE+1)
+            ax.legend(handles=fiducial_handles, loc="best", fontsize=LEGEND_SIZE+3)
         fig.tight_layout()
         panel_stem = f'{stem}_{survey_label.lower()}'
         fig.savefig(os.path.join(plot_dir, f'{panel_stem}.pdf'))
@@ -1432,7 +1447,7 @@ def _plot_fisher_ellipses(
     # Color and style scheme
     style = {
         'frb':   {'color': 'C0', 'label_1s': r'FRB-only $1\sigma$',          'label_2s': r'FRB-only $2\sigma$'},
-        'multi': {'color': 'C1', 'label_1s': r'FRB$\times$Galaxy $1\sigma$', 'label_2s': r'FRB$\times$Galaxy $2\sigma$'},
+        'multi': {'color': 'C1', 'label_1s': r'FRB$\times$galaxy $1\sigma$', 'label_2s': r'FRB$\times$galaxy $2\sigma$'},
     }
 
     for cov, key in [(cov_frb, 'frb'), (cov_multi, 'multi')]:

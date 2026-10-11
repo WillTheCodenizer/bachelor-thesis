@@ -3,8 +3,7 @@ The angular power spectra derived in \autoref{ch:methodology} represent theoreti
 for a specific set of model parameters. To assess how well these parameters could be recovered 
 from an actual measurement, the likelihood is assumed to be Gaussian around the fiducial model. 
 Under this assumption, the expected parameter covariance follows directly from the Fisher 
-information matrix. Since the true posterior may be broader and non-Gaussian, the uncertainties 
-quoted here should be regarded as optimistic estimates of the achievable constraints.
+information matrix. 
 
 \section{Fisher Matrix} \label{sec:fisher_matrix}
 The Fisher matrix quantifies how sensitively the observables respond to variations in the model
@@ -39,36 +38,36 @@ The derivatives entering \autoref{eq:fisher} are evaluated by central finite dif
     \frac{C_{\ell}(\theta_i + h_i) - C_{\ell}(\theta_i - h_i)}{2 h_i} \,,
 \end{equation}
 
-with step sizes $h_i = 0.01\,\theta_i$. The two parameters considered here are the amplitude
-$b_0$ and the evolution exponent $\delta$ of the FRB host bias of \autoref{eq:frb_bias}. All
-cosmological parameters are fixed to the values listed in \autoref{tab:fiducial_cosmology}.
-The fiducial values and corresponding step sizes are summarized in \autoref{tab:fisher_setup}.
-
-\begin{table}[H]
-    \centering
-    \caption{Fiducial values of the FRB bias parameters of \autoref{eq:frb_bias} and the
-    corresponding displacements used in the central finite difference of
-    \autoref{eq:finite_difference}. The step size is 1\% of the respective fiducial value.}
-    \label{tab:fisher_setup}
-    \begin{tabular}{
-        l@{\hspace{1.2em}}
-        S[table-format=1.0]
-        S[table-format=1.1]
-        @{\hspace{1.2em}}
-        S[table-format=1.3]
-        @{\hspace{1.2em}}
-        S[table-format=1.3]
-        }
-        \toprule
-        Progenitor model & {Parameter} & {Fiducial $\theta_i$} & {$\theta_i + h_i$} & {$\theta_i - h_i$} \\
-        \midrule
-        Magnetars     & $b_{0}$     & 1.0 & 1.010 & 0.990 \\
-        Magnetars     & $\delta$   & 0.8 & 0.808 & 0.792 \\
-        Neutron stars & $b_{0}$      & 1.5 & 1.515 & 1.485 \\
-        Neutron stars & $\delta$   & 0.2 & 0.202 & 0.198 \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+with step sizes $h_i = 0.01\,\theta_i$. 
+The two parameters considered here are the amplitude
+$b_0$ and the evolution exponent $\delta$ of the FRB host bias of \autoref{eq:frb_bias},
+with fiducial choices given in \autoref{tab:frb_bias}. All
+cosmological parameters are fixed to those listed in \autoref{tab:fiducial_cosmology}.
+%\begin{table}[H]
+%    \centering
+%    \caption{Fiducial values of the FRB bias parameters of \autoref{eq:frb_bias} and the
+%    corresponding displacements used in the central finite difference of
+%    \autoref{eq:finite_difference}. The step size is 1\% of the respective fiducial value.}
+%    \label{tab:fisher_setup}
+%    \begin{tabular}{
+%        l@{\hspace{1.2em}}
+%        S[table-format=1.0]
+%        S[table-format=1.1]
+%        @{\hspace{1.2em}}
+%        S[table-format=1.3]
+%        @{\hspace{1.2em}}
+%        S[table-format=1.3]
+%        }
+%        \toprule
+%        Progenitor model & {Parameter} & {Fiducial $\theta_i$} & {$\theta_i + h_i$} & {$\theta_i - h_i$} \\
+%        \midrule
+%        Magnetars     & $b_{0}$     & 1.0 & 1.010 & 0.990 \\
+%        Magnetars     & $\delta$   & 0.8 & 0.808 & 0.792 \\
+%        Neutron stars & $b_{0}$      & 1.5 & 1.515 & 1.485 \\
+%        Neutron stars & $\delta$   & 0.2 & 0.202 & 0.198 \\
+%        \bottomrule
+%    \end{tabular}
+%\end{table}
 
 The FRB-only forecast adopts $f_{\mathrm{sky}} = 0.9$ as given in \autoref{tab:frb_surveys}, whereas
 the joint forecast uses $f_{\mathrm{sky}} = 0.0327$, 
@@ -92,7 +91,7 @@ and FRB survey configurations (see \autoref{tab:frb_surveys}). The resulting con
 shown in \autoref{fig:fisher_comparison}, while the marginalized uncertainties and FoMs are listed in 
 \autoref{tab:fisher_constraints}.
 
-\begin{table}
+\begin{table}[H]
     \centering
     \small
     %\setlength{\tabcolsep}{1pt}
@@ -165,7 +164,7 @@ This corresponds to improvements by factors of $17$--$51$ in the individual para
 FoM. The joint analysis is 
 therefore not a marginal refinement but the reason a measurement becomes feasible in the first place.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
@@ -195,7 +194,8 @@ therefore not a marginal refinement but the reason a measurement becomes feasibl
         \caption{Neutron stars, shallow survey.}
         \label{fig:fisher_comparison_neutron_stars_shallow}
     \end{subfigure}
-    \caption{Fisher forecast in the $b_0\,$--$\,\delta$ plane for the two progenitor models and the two
+    \caption{
+    Fisher forecast in the $b_0\,$--$\,\delta$ plane for the two progenitor models and the two
     FRB survey configurations. Solid and dotted lines mark the $1\sigma$ and $2\sigma$ confidence regions
     obtained from the FRB auto-correlation alone (green) and from the joint analysis of the FRB sample
     with the six tomographic KiDS bins (blue), as given in the legend of panel~(a). The green cross
@@ -239,10 +239,10 @@ model in the deep configuration.
 
 The more consequential question is whether the two models can be
 distinguished. To address this, \autoref{fig:fisher_progenitor_overlap_split} overlays the joint
-contours of both progenitor models for each survey configuration. The fiducial separation of
-$\Delta b_0 = 0.5$ and $\Delta \delta = 0.6$ lies comfortably within the $1\sigma$ contours of the
-joint forecast. In both configurations, the fiducial point of each model falls well inside the
-$1\sigma$ region of the other, and the contours of the two models overlap almost entirely.
+contours of both progenitor models for each survey configuration. 
+The fiducial separation of $\Delta b_0 = 0.5$ and $\Delta \delta = 0.6$ 
+lies well within the $1\sigma$ contours of the joint forecast, so the 
+contours overlap almost entirely.
 Hence, the cross-correlation with
 KiDS improves the measurement by roughly two orders of magnitude in the FoM
 but does not yet reach the precision required to discriminate between a prompt magnetar and a delayed
@@ -268,8 +268,7 @@ to improvement is a wider galaxy survey, which is taken up in \autoref{sec:outlo
     \caption{Joint FRB$\times$galaxy forecast in the $b_0\,$--$\,\delta$ plane for the deep~(a) and
         shallow~(b) FRB survey configurations, combined with the six tomographic KiDS bins. The contours
         of the magnetar model are shown in blue and those of the neutron-star model in orange. Solid
-        lines mark the $1\sigma$ and dotted lines the $2\sigma$ confidence regions of the joint
-        FRB$\times$galaxy forecast. The crosses indicate the fiducial values of each model as given in
+        lines mark the $1\sigma$ and dotted lines the $2\sigma$ confidence regions of the forecast. The crosses indicate the fiducial values of each model as given in
         the legend of panel~(a).}
     \label{fig:fisher_progenitor_overlap_split}
 \end{figure}
