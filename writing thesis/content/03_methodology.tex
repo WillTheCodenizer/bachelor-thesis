@@ -2,7 +2,7 @@
 
 This chapter describes the analysis pipeline developed in this thesis to model the angular auto- and
 cross-power spectra of FRBs and photometrically selected galaxies. The pipeline is
-implemented in \texttt{Python} and follows the theoretical formalism established in
+implemented in \texttt{Python}~\cite{python} and follows the theoretical formalism established in
 \autoref{ch:theoretical_background}. 
 All numerical operations are carried out using \texttt{NumPy}~\cite{numpy} and
 \texttt{SciPy}~\cite{scipy}, while all figures are generated with \texttt{Matplotlib}~\cite{matplotlib}.
@@ -84,7 +84,7 @@ resulting interpolator is shown in \autoref{fig:pk_nonlinear}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{../programming/frb-cosmology/plots/power_spectrum/Pk_nonlinear.pdf}
-    \caption{Nonlinear matter power spectrum $P(k,z)$ evaluated from the bicubic spline interpolator
+    \caption{Nonlinear matter power spectrum $P(k,z)$ evaluated
     at six representative redshifts.}
     \label{fig:pk_nonlinear}
 \end{figure}
@@ -329,10 +329,10 @@ with $n(z)$ from \autoref{eq:frb_nz} and $b(z)$ from \autoref{eq:frb_bias}.
 For the galaxy sample, the radial kernel of the $i$-th tomographic bin is given by
 
 \begin{equation}\label{eq:weight_galaxy}
-    W_{\mathrm{g}}^{\,i}(z) = b_{\mathrm{g}}^{\,i} \, n_i(z) \,,
+    W_{\mathrm{gal}}^{\,i}(z) = b_{\mathrm{gal}}^{\,i} \, n_i(z) \,,
 \end{equation}
 
-where $b_{\mathrm{g}}^{\,i}$ is the galaxy bias and $n_i(z)$ is the normalized redshift
+where $b_{\mathrm{gal}}^{\,i}$ is the galaxy bias and $n_i(z)$ is the normalized redshift
 distribution of the corresponding bin~\cite{Muir_2020}.
 Both kernels are subsequently transformed to comoving distance using the Jacobian introduced in \autoref{sec:frb_redshift_distribution},
 
@@ -418,7 +418,7 @@ The galaxy auto-spectra of all six tomographic bins are shown in
 The amplitude decreases systematically towards higher
 redshift, despite the increasing galaxy bias given by \autoref{eq:galaxy_bias}. 
 
-\begin{figure}[H]
+\begin{figure}
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
@@ -459,8 +459,8 @@ in all six tomographic bins. Although the deep configuration has a larger
 FRB contribution at the highest redshifts, the sixth galaxy bin remains 
 broad and receives substantial weight below the crossing redshift of the 
 shallow and deep FRB distributions. Together with the low-redshift 
-weighting of the Limber kernel, this can leave the shallow cross-spectrum 
-larger even in the highest tomographic bin.
+weighting of the Limber kernel, this allows the shallow cross-spectrum 
+to remain larger even in the highest tomographic bin.
 
 %\begin{figure}
 %    \centering
