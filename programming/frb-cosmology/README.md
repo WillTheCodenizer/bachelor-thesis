@@ -37,8 +37,10 @@ python main.py --plots-only
 
 This regenerates PDF and PNG files for the pipeline figures currently used in
 the thesis: P(k,z), FRB n(z) and bias, KiDS n(z), magnetar shallow auto-spectrum
-with shot noise, magnetar shallow/deep comparison, KiDS all-bin auto-spectrum,
-and magnetar shallow/deep cross-spectrum. It also redraws all three Fisher
+with shot noise, the six KiDS galaxy-bin auto-spectra with shot noise,
+magnetar shallow/deep comparison, KiDS all-bin auto-spectrum, and magnetar
+shallow/deep cross-spectrum. The FRB and galaxy shot-noise plots are drawn
+independently and use their own y-axis ticks. It also redraws all three Fisher
 2x2 comparisons, including KiDS versus LSST. Output paths remain unchanged,
 so the thesis uses the updated figures on its next compilation.
 

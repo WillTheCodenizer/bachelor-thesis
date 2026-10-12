@@ -88,6 +88,11 @@ GALAXY_LSST_PLOT_DIR = _make_plot_dir("galaxy_lsst")
 CROSS_LSST_PLOT_DIR = _make_plot_dir("frb_x_galaxy_lsst")
 FISHER_LSST_PLOT_DIR = _make_plot_dir("fisher_lsst")
 
+# Keep the axis choices local to each tracer: their shot-noise levels differ
+# substantially, so a shared tick configuration is not useful.
+FRB_SHOT_NOISE_YTICKS = [1e-7, 1e-5, 1e-3]
+GALAXY_SHOT_NOISE_YTICKS = [1e-7, 1e-6, 1e-5]
+
 # Directory for generated result reports (Fisher comparison markdown).
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
 os.makedirs(RESULTS_DIR, exist_ok=True)
@@ -201,10 +206,27 @@ def run_plots_only():
     _plot_pk_samples(**cached["pk"], plot_dir=PK_PLOT_DIR)
     _plot_cell_with_noise(
         **cached["frb_noise"], title="", filename="FRB_magnetar_Cell_shallow_shotnoise",
-        plot_dir=FRB_PLOT_DIR,
+        plot_dir=FRB_PLOT_DIR, yticks=FRB_SHOT_NOISE_YTICKS,
     )
+    galaxy = cached["galaxy"]
+    galaxy_shot_noise = [
+        compute_shot_noise_from_density(nbar)
+        for nbar in KIDS_CONFIG.nbar_per_bin
+    ]
+    for idx, (c_ell, n_shot) in enumerate(
+        zip(galaxy["cell_bins"], galaxy_shot_noise)
+    ):
+        _plot_cell_with_noise(
+            galaxy["ell_arr"],
+            c_ell,
+            n_shot,
+            title="",
+            filename=f"Galaxy_Cell_bin{idx + 1}_shotnoise",
+            plot_dir=GALAXY_PLOT_DIR,
+            yticks=GALAXY_SHOT_NOISE_YTICKS,
+        )
     _plot_cell_comparison(**cached["frb_comparison"], plot_dir=FRB_PLOT_DIR)
-    _plot_galaxy_cell_comparison(**cached["galaxy"], plot_dir=GALAXY_PLOT_DIR)
+    _plot_galaxy_cell_comparison(**galaxy, plot_dir=GALAXY_PLOT_DIR)
     cross = cached["cross_survey"]
     cells = {
         ("magnetar", survey_slug, bin_idx): cross[survey_slug][bin_idx]
@@ -433,6 +455,7 @@ def _run_galaxy_pipeline(cfg, P_interp, k_min, k_max):
             ),
             filename=f"Galaxy_Cell_bin{idx + 1}_shotnoise",
             plot_dir=cfg.galaxy_plot_dir,
+            yticks=GALAXY_SHOT_NOISE_YTICKS,
         )
 
     _plot_galaxy_cell_comparison(ell_arr, cell_bins, cfg.galaxy_plot_dir,
@@ -443,7 +466,10 @@ def _run_galaxy_pipeline(cfg, P_interp, k_min, k_max):
 # Plotting helpers
 # =============================================================================
 
-def _plot_cell_with_noise(ell_arr, C_ell, N_shot, title, filename, plot_dir):
+def _plot_cell_with_noise(
+    ell_arr, C_ell, N_shot, title, filename, plot_dir,
+    yticks=FRB_SHOT_NOISE_YTICKS,
+):
     """
     Log-log plot of C(ell) with and without shot noise.
 
@@ -469,7 +495,8 @@ def _plot_cell_with_noise(ell_arr, C_ell, N_shot, title, filename, plot_dir):
     ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+7)
     ax.set_ylabel(r"$C_\ell$", fontsize=AXIS_LABEL_SIZE+7)
     ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+7)
-    ax.set_yticks([10e-8, 10e-6, 10e-4])
+    if yticks is not None:
+        ax.set_yticks(yticks)
     #ax.set_title(title)
     ax.legend(fontsize=LEGEND_SIZE+7)
     fig.tight_layout()
@@ -634,7 +661,7 @@ def _plot_galaxy_cell_comparison(ell_arr, cell_bins, plot_dir, title_tag=""):
     """Overlay signal-only galaxy C(ell) curves for all tomographic bins."""
     if not title_tag:
         _save_thesis_plot_data("galaxy", ell_arr=ell_arr, cell_bins=np.array(cell_bins))
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(7, 5))
     colors = plt.cm.tab10(np.linspace(0, 1, len(cell_bins)))
 
     for idx, c_ell in enumerate(cell_bins):
@@ -646,10 +673,10 @@ def _plot_galaxy_cell_comparison(ell_arr, cell_bins, plot_dir, title_tag=""):
             label=f"Bin {idx + 1}",
         )
 
-    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+3)
-    ax.set_ylabel(r"$C_\ell$", fontsize=AXIS_LABEL_SIZE+3)
-    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE+3)
-    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+3)
+    ax.set_xlabel(r"Multipole $\ell$", fontsize=AXIS_LABEL_SIZE+7)
+    ax.set_ylabel(r"$C_\ell$", fontsize=AXIS_LABEL_SIZE+7)
+    ax.legend(loc="best", ncol=2, fontsize=LEGEND_SIZE+7)
+    ax.tick_params(axis='both', labelsize=TICK_LABEL_SIZE+7)
     fig.tight_layout()
     fig.savefig(os.path.join(plot_dir, "Galaxy_Cell_comparison.pdf"))
     fig.savefig(os.path.join(plot_dir, "Galaxy_Cell_comparison.png"), dpi=200)
