@@ -8,9 +8,15 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
-\usepackage{siunitx}
+\usepackage[
+  locale=US,
+  separate-uncertainty=true,
+  per-mode=power,
+  group-separator={\,},
+]{siunitx}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{appendixnumberbeamer}
 
 \usepackage{hyperref}
 \usepackage{bookmark}
@@ -28,208 +34,804 @@
   mathrm=sym,
 }
 
-\DeclareSIUnit\parsec{pc}
+\setbeamerfont{title}{size=\LARGE, series=\bfseries}
+\setbeamerfont{caption}{size=\scriptsize}
 
-\title{Probing Fast Radio Burst Environments}
-\subtitle{Cross-Correlating Deep and Shallow FRB Surveys with KiDS DR5}
+\DeclareSIUnit\parsec{pc}
+\DeclareSIUnit\jansky{Jy}
+\DeclareSIUnit{\Myr}{Myr}
+\DeclareSIUnit{\deg}{deg}
+
+\graphicspath{{../programming/frb-cosmology/plots/}}
+
+\newcommand{\source}[1]{{\par\hfill\tiny\textcolor{gray}{#1}\par}}
+\newcommand{\plotlabel}[1]{{\par\centering\scriptsize #1\par}}
+
+\title[Probing FRB Environments]{Probing Fast Radio Burst Environments: Cross-Correlating Deep and Shallow FRB Surveys with KiDS DR5}
+\subtitle{Bachelor Thesis Defense}
 \author[W.~Ruppert]{Will Ruppert}
-\institute[Astroparticle Physics]{Faculty of Physics, TU Dortmund}
-\date{2026}
-\titlegraphic{\includegraphics[width=0.55\textwidth]{images/tudo-title-2.jpg}}
+\institute[Faculty of Physics, TU Dortmund]{%
+  {\normalsize Research Group Rhode / Elsässer, TU Dortmund University\\
+  Research Group Hildebrandt, Ruhr University Bochum\\[1ex]
+  Supervisors: PD~Dr.~Dominik Elsässer \quad Prof.~Dr.~Hendrik Hildebrandt}}
+\date[October 27, 2026]{October 27, 2026}
+\titlegraphic{\includegraphics[height=1.1cm]{logos/rub_logo.png}}
 
 \begin{document}
 
 \maketitle
 
-% ---------------------------------------------------------------
-\begin{frame}{Motivation}
-  \begin{itemize}
-    \item Fast Radio Bursts (FRBs) are millisecond-duration radio transients of cosmological origin
-    \item Thousands now known (CHIME/FRB: 4539 bursts, 3641 sources), but individual redshifts are rarely measured
-    \item Their true progenitors are still unknown -- magnetars vs. delayed neutron-star channels
-    \item \textbf{Idea:} cross-correlate the FRB sky distribution with a galaxy survey to statistically infer the FRB redshift distribution and host bias
-    \item \textbf{Goal of this thesis:} forecast how well an FRB $\times$ galaxy cross-correlation with KiDS-Legacy can constrain the FRB host-population bias
-  \end{itemize}
+\begin{frame}{Outline}
+  \tableofcontents[hideallsubsections]
 \end{frame}
 
-% ---------------------------------------------------------------
-\begin{frame}{Fast Radio Bursts}
-  \begin{columns}[T]
-    \begin{column}{0.55\textwidth}
+%==============================================================================
+\section{Introduction}
+%==============================================================================
+
+\subsection{Fast Radio Bursts}
+\begin{frame}{Fast radio bursts: bright millisecond flashes from far away}
+  \begin{columns}[c]
+    \begin{column}{0.44\textwidth}
       \begin{itemize}
-        \item Bright, ms-duration radio pulses, first discovered in 2007 (Lorimer Burst)
-        \item Dispersion measure $DM \propto \int n_e\, \mathrm{d}l$ reveals cosmological (extragalactic) distances
-        \item Some sources repeat, others appear as one-off events
-        \item Sky distribution consistent with an isotropic, extragalactic population
+        \item Radio pulses lasting $\lesssim\,$ms
+        \item Peak flux densities from \qty{50}{\milli\jansky} to \qty{100}{\jansky}
+        \item Detected from \qty{110}{\mega\hertz} to \qty{8}{\giga\hertz}
+        \item One burst releases as much energy as the Sun in \alert{three days}
+        \item Received signal $\approx 10^{3}\times$ weaker than a \alert{mobile phone on the Moon}
+        \item First detection: Lorimer Burst (2007)
+        \item Second CHIME/FRB catalog: \num{4539} bursts from \num{3641} sources, 83 repeaters
       \end{itemize}
     \end{column}
-    \begin{column}{0.45\textwidth}
-      \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/frb/frb_sky_distribution_petroff.png}
+    \begin{column}{0.54\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{frb/frb_sky_distribution_petroff.png}
+      \plotlabel{Known FRBs in Galactic coordinates (Aitoff projection), up to 2022}
+      \source{Adapted from Petroff et al.\ 2022; Petroff et al.\ 2019; Lorimer et al.\ 2007; CHIME/FRB Collaboration 2026}
     \end{column}
   \end{columns}
 \end{frame}
 
-% ---------------------------------------------------------------
-\begin{frame}{Progenitor Models \& Host Bias}
-  \begin{columns}[T]
-    \begin{column}{0.55\textwidth}
-      \begin{itemize}
-        \item \textbf{Magnetars}: young neutron stars from core-collapse supernovae, tracking the cosmic star-formation history
-        \item \textbf{Delayed neutron stars}: formed via mergers/AIC, with broad delay-time distributions
-        \item The two classes predict distinct redshift evolutions, encoded as a linear bias
-        \[ b(z) = b_0\,(1+z)^{\delta} \]
-        \item Distinguishing them is a key open question in FRB astrophysics
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/frb/FRB_bias_bz.png}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ---------------------------------------------------------------
-\begin{frame}{Angular Power Spectra \& the Limber Approximation}
-  \begin{itemize}
-    \item Clustering of a tracer field is quantified by the angular power spectrum $C_\ell^{AB}$
-    \item Full projection integral reduces, for $\ell \gtrsim \mathcal{O}(10)$, to the Limber approximation
-    \[
-      C_{\ell}^{AB} \approx \int \frac{\mathrm{d}\chi}{\chi^2}\, W^{A}(\chi)\, W^{B}(\chi)\, P\!\left(k=\frac{\ell+1/2}{\chi},\, z(\chi)\right)
-    \]
-    \item Radial weight functions $W(\chi) = b(z)\,n(z)\,H(z)/c$ combine the tracer's redshift distribution and bias
-    \item Auto-spectra ($A=B$) receive an additive Poisson shot-noise term $N_\ell = 1/\bar{n}$; cross-spectra are shot-noise free
-  \end{itemize}
-\end{frame}
-
-% ---------------------------------------------------------------
-\begin{frame}{Data \& Fiducial Model}
-  \begin{columns}[T]
-    \begin{column}{0.5\textwidth}
-      \textbf{FRB mock samples}
-      \begin{itemize}
-        \item $n(z) \propto z^2 e^{-\alpha z}$
-        \item Shallow: $\alpha=3.5$, $N=5000$
-        \item Deep: $\alpha=2.0$, $N=50\,000$
-        \item $f_{\mathrm{sky}}=0.9$ for both
-      \end{itemize}
-      \textbf{Galaxy sample}
-      \begin{itemize}
-        \item KiDS-Legacy (DR5), $\qty{1347}{\deg\squared}$
-        \item 6 tomographic redshift bins
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/frb/FRB_nz_shallow_deep.png}\\
-      \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/galaxy/Galaxy_nz_bins.png}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ---------------------------------------------------------------
-\begin{frame}{FRB Auto-Correlation is Shot-Noise Dominated}
-  \begin{columns}[T]
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-        \item Planck 2018 flat $\Lambda$CDM cosmology, nonlinear $P(k,z)$ from \texttt{hmf}
-        \item For a shallow sample of $N=5000$ bursts, shot noise exceeds the clustering signal by $\sim 3$ orders of magnitude at all multipoles
-        \item The FRB auto-spectrum alone carries essentially \emph{no} bias information
-        \item[$\Rightarrow$] motivates cross-correlating with a dense galaxy sample
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/frb/FRB_magnetar_Cell_shallow_shotnoise.png}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ---------------------------------------------------------------
-\begin{frame}{FRB $\times$ Galaxy Cross-Spectra}
-  \begin{columns}[T]
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-        \item Cross-spectra computed for both progenitor classes, both survey depths, and all 6 tomographic bins (24 spectra total)
-        \item No shot-noise contamination -- signal set by the radial overlap of FRB and galaxy kernels
-        \item Amplitude and shape trace the tomographic bin index and survey depth
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/frb_x_galaxy/comparisons/survey_magnetar_all_bins.png}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ---------------------------------------------------------------
-\begin{frame}{Fisher Forecast Formalism}
-  \begin{itemize}
-    \item Gaussian likelihood $\Rightarrow$ parameter covariance from the Fisher matrix
-    \[
-      F_{ij} = f_{\mathrm{sky}} \sum_{\ell} \frac{2\ell+1}{2}\,
-      \operatorname{Tr}\!\left[ C_{\ell}^{-1} \frac{\partial C_{\ell}}{\partial \theta_i} C_{\ell}^{-1} \frac{\partial C_{\ell}}{\partial \theta_j} \right]
-    \]
-    \item Parameters of interest: FRB bias amplitude $b_0$ and evolution exponent $\delta$
-    \item Marginalized errors $\sigma_i = \sqrt{(F^{-1})_{ii}}$; figure of merit $\mathrm{FoM} = 1/\sqrt{\det \mathrm{Cov}}$
-    \item Compared: FRB-only ($f_{\mathrm{sky}}=0.9$) vs. joint FRB $\times$ KiDS ($f_{\mathrm{sky}}=0.0327$)
-  \end{itemize}
-\end{frame}
-
-% ---------------------------------------------------------------
-\begin{frame}{Forecast Constraints}
-  \begin{columns}[T]
+\begin{frame}{The dispersion measure reveals an extragalactic origin}
+  Lower frequencies arrive later; the delay defines the dispersion measure (DM)
+  \begin{equation*}
+    \mathrm{DM} = \frac{2\pi m_{\mathrm{e}} c}{e^2}\, \Delta t
+    \left( \frac{1}{\nu_{\mathrm{low}}^2} - \frac{1}{\nu_{\mathrm{high}}^2} \right)^{-1}
+    \qquad
+    \mathrm{DM} \propto \int_0^{L} \mathrm{d}s\, n_{\mathrm{e}}(s)
+  \end{equation*}
+  \begin{columns}[t]
     \begin{column}{0.48\textwidth}
+      \begin{block}{Milky Way}
+        Galactic electron-density models: \\
+        $\mathrm{DM} \lesssim \qty{50}{\parsec\per\cubic\centi\metre}$
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Observed FRBs}
+        Often \\
+        $\mathrm{DM} \gtrsim \qty{1000}{\parsec\per\cubic\centi\metre}$
+      \end{block}
+    \end{column}
+  \end{columns}
+  \bigskip
+  \begin{itemize}
+    \item Excess DM $\Rightarrow$ sources at \alert{cosmological distances}
+    \item Approximately isotropic on the sky $\Rightarrow$ extragalactic population
+    \item FRBs therefore trace the \alert{large-scale structure} of the Universe
+  \end{itemize}
+  \source{Petroff et al.\ 2019; Reischke et al.\ 2021}
+\end{frame}
+
+\subsection{Progenitor Mechanisms}
+\begin{frame}{Two competing progenitor channels}
+  Repeating sources rule out a purely cataclysmic origin for at least part of the population.
+  \medskip
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Young magnetars \hfill (prompt)}
+        \small
+        \begin{itemize}
+          \item Neutron stars with extreme magnetic fields
+          \item Born in core-collapse supernovae, \qtyrange{3}{48}{\Myr} after star formation
+          \item Formation rate follows the cosmic star-formation history
+          \item FRB-like burst from Galactic magnetar SGR~1935+2154 (2020)
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Neutron star mergers \hfill (delayed)}
+        \small
+        \begin{itemize}
+          \item FRB~20180924A, FRB~20190523A: massive, low-SFR hosts, large offsets
+          \item FRB~20200120E in a globular cluster
+          \item Delay times up to several Gyr
+          \item Population evolves slowly with redshift
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \bigskip
+  \centering
+  This work: the difference is encoded in a \alert{redshift-dependent bias $b(z)$}
+  \source{Petroff et al.\ 2019; CHIME/FRB Collaboration 2020; Wang et al.\ 2020; Zapartas et al.\ 2017; Ruiter et al.\ 2019; Lin et al.\ 2022}
+\end{frame}
+
+\subsection{Research Question}
+\begin{frame}{Idea: let the clustering tell us where FRBs live}
+  \begin{itemize}
+    \item Host identification of single FRBs needs arcsecond localizations $\Rightarrow$ rare
+    \item FRBs trace the large-scale structure $\Rightarrow$ their \alert{angular clustering} encodes the
+      bias of the host population
+    \item Host bias depends on the progenitor channel
+    \item Problem: FRB samples are sparse $\Rightarrow$ strong \alert{shot noise}
+    \item Solution: cross-correlate with a \alert{dense photometric galaxy sample} (KiDS-Legacy)
+  \end{itemize}
+  \bigskip
+  \begin{block}{Research question}
+    How well can the FRB host bias be constrained by cross-correlating FRBs with KiDS-Legacy,
+    and can a prompt magnetar origin be distinguished from a delayed neutron-star origin?
+  \end{block}
+  \medskip
+  Shallow, CHIME-like and deep, SKA-like FRB survey $\times$ two progenitor models $\to$ Fisher forecast
+  \source{Rafiei-Ravandi et al.\ 2021; Reischke et al.\ 2021}
+\end{frame}
+
+%==============================================================================
+\section{Theoretical Background}
+%==============================================================================
+
+\subsection{Cosmological Background}
+\begin{frame}{A flat $\symup{\Lambda}$CDM universe sets the distance scale}
+  \begin{equation*}
+    \mathrm{d}s^2 = -c^2 \mathrm{d}t^2 + a^2(t) \left[ \frac{\mathrm{d}r^2}{1 - k r^2}
+    + r^2 \left(\mathrm{d}\theta^2 + \sin^2\theta\, \mathrm{d}\phi^2\right) \right]
+    \qquad
+    1+z = \frac{a(t_0)}{a(t_{\mathrm{e}})}
+  \end{equation*}
+  \begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+      Late-time expansion rate (flat $\symup{\Lambda}$CDM)
+      \begin{equation*}
+        E(z) \approx \sqrt{\symup{\Omega}_{\mathrm{m},0}(1+z)^3 + \symup{\Omega}_{\symup{\Lambda},0}}
+      \end{equation*}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      Line-of-sight comoving distance
+      \begin{equation*}
+        \chi(z) = \chi_{\mathrm{H}} \int_0^z \frac{\mathrm{d}z'}{E(z')}
+      \end{equation*}
+    \end{column}
+  \end{columns}
+  \bigskip
+  \begin{itemize}
+    \item $\chi(z)$ maps redshift distributions onto the line of sight
+    \item $H(z)/c = \mathrm{d}z/\mathrm{d}\chi$ converts kernels from redshift to comoving distance
+  \end{itemize}
+  \source{Hogg 2000; Planck Collaboration 2018}
+\end{frame}
+
+\subsection{Structure Formation}
+\begin{frame}{Tracers are biased versions of the matter field}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}
+      Density contrast and linear growth
+      \begin{equation*}
+        \delta(\mathbf{x}) := \frac{\rho(\mathbf{x}) - \bar{\rho}}{\bar{\rho}}
+        \qquad
+        \delta(\mathbf{x}, z) = D_+(z)\, \delta(\mathbf{x}, 0)
+      \end{equation*}
+      Power spectrum
+      \begin{equation*}
+        \left\langle \hat{\delta}(\mathbf{k})\, \hat{\delta}^{*}(\mathbf{k}') \right\rangle
+        = (2\pi)^3 \delta_{\mathrm{D}}(\mathbf{k}-\mathbf{k}')\, P(k)
+      \end{equation*}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \begin{block}{Linear bias}
+        \begin{equation*}
+          \delta_{\mathrm{t}}(\mathbf{x}, z) = b(z)\, \delta(\mathbf{x}, z)
+        \end{equation*}
+      \end{block}
+      \begin{itemize}
+        \item Tracers form in density peaks
+        \item $b > 1$: more strongly clustered than matter
+        \item $b(z)$ tells us \alert{which halos host the FRBs}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \source{Bernardeau et al.\ 2002; Desjacques et al.\ 2018}
+\end{frame}
+
+\subsection{Angular Power Spectrum}
+\begin{frame}{Projecting onto the sky: the angular power spectrum}
+  Limber approximation for two tracers $A$, $B$ (valid for $\ell \gtrsim 10$)
+  \begin{equation*}
+    C_{\ell}^{AB} \approx \int \frac{\mathrm{d}\chi}{\chi^2}\, W^{A}(\chi)\, W^{B}(\chi)\,
+    P_{AB}\!\left(k = \frac{\ell+1/2}{\chi},\, z(\chi)\right)
+    \qquad
+    P_{AB}(k, z) = b_A(z)\, b_B(z)\, P(k, z)
+  \end{equation*}
+  Radial weight functions
+  \begin{equation*}
+    W_{\mathrm{FRB}}(z) = b(z)\, n(z)
+    \qquad
+    W_{\mathrm{gal}}^{\,i}(z) = b_{\mathrm{g}}^{\,i}\, n_i(z)
+    \qquad
+    W(\chi) = W(z)\, \frac{H(z)}{c}
+  \end{equation*}
+  \begin{block}{Key point}
+    The FRB$\times$galaxy cross-spectrum measures $b_{\mathrm{FRB}}\, b_{\mathrm{g}}^{\,i}$ where the two
+    radial kernels overlap $\Rightarrow$ each tomographic bin probes the FRB bias at a different redshift.
+  \end{block}
+  \source{Limber 1953; LoVerde \& Afshordi 2008; Khosravi et al.\ 2016}
+\end{frame}
+
+%==============================================================================
+\section{Methodology}
+%==============================================================================
+
+\subsection{Fiducial Cosmology and Power Spectrum}
+\begin{frame}{Pipeline ingredients: Planck 2018 cosmology and nonlinear $P(k,z)$}
+  \begin{columns}[c]
+    \begin{column}{0.42\textwidth}
+      \centering
+      \small
+      \begin{tabular}{l S[table-format=2.4]}
+        \toprule
+        Parameter & {Value} \\
+        \midrule
+        $H_0\ [\si{\kilo\metre\per\second\per\mega\parsec}]$ & 67.36 \\
+        $\symup{\Omega}_{\mathrm{m},0}$ & 0.3153 \\
+        $\symup{\Omega}_{\mathrm{b},0}$ & 0.0493 \\
+        $\sigma_8$ & 0.8111 \\
+        $n_{\mathrm{s}}$ & 0.9649 \\
+        \bottomrule
+      \end{tabular}
+      \medskip
+      \begin{itemize}
+        \item Python pipeline: NumPy, SciPy, astropy, \texttt{hmf}
+        \item $z \in [0.01, 5]$, 1000 log-spaced points
+        \item $\ell \in [10, 1000]$
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.56\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.62\textheight, keepaspectratio]{power_spectrum/Pk_nonlinear.pdf}
+      \plotlabel{Nonlinear matter power spectrum at six redshifts}
+      \source{Planck Collaboration 2018; Murray et al.\ 2013 (\texttt{hmf})}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Redshift Distributions}
+\begin{frame}{Two FRB survey configurations: shallow and deep}
+  \begin{columns}[c]
+    \begin{column}{0.44\textwidth}
+      \begin{equation*}
+        n(z) \propto z^2 \exp(-\alpha z)
+      \end{equation*}
+      \centering
+      \small
+      \begin{tabular}{l S[table-format=1.1] S[table-format=5.0] S[table-format=1.1]}
+        \toprule
+        Configuration & {$\alpha$} & {$N_{\mathrm{tot}}$} & {$f_{\mathrm{sky}}$} \\
+        \midrule
+        Shallow & 3.5 & 5000  & 0.9 \\
+        Deep    & 2.0 & 50000 & 0.9 \\
+        \bottomrule
+      \end{tabular}
+      \raggedright
+      \begin{itemize}
+        \item Shallow: CHIME-like
+        \item Deep: SKA-like, $10\times$ more bursts
+        \item Deep: $\approx \qty{40}{\percent}$ of bursts at $z > 1.5$
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.54\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.62\textheight, keepaspectratio]{frb/FRB_nz_shallow_deep.pdf}
+      \plotlabel{Normalized FRB redshift distributions}
+      \source{Reischke et al.\ 2021; CHIME/FRB Collaboration 2026; Hashimoto et al.\ 2020}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{KiDS-Legacy provides six tomographic galaxy bins}
+  \begin{columns}[c]
+    \begin{column}{0.44\textwidth}
+      \begin{itemize}
+        \item \qty{2.6}{\metre} VLT Survey Telescope, Paranal
+        \item \qty{1347}{\deg\squared}, i.e.\ $f_{\mathrm{sky}} = 0.0327$
+        \item Nine bands with VIKING
+        \item $r$-band limit 24.8 ($5\sigma$), seeing \ang{;;0.7}
+        \item Photo-$z$ calibrated with \num{126000} spectra
+      \end{itemize}
+      Galaxy bias (constant clustering)
+      \begin{equation*}
+        b_{\mathrm{g}}^{\,i} = \frac{0.95}{D_+(\langle z \rangle_i)}
+      \end{equation*}
+      from $1.14$ (bin~1, $\langle z\rangle = 0.34$) \\
+      to $1.72$ (bin~6, $\langle z\rangle = 1.22$)
+    \end{column}
+    \begin{column}{0.54\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.62\textheight, keepaspectratio]{galaxy/Galaxy_nz_bins.pdf}
+      \plotlabel{Tomographic redshift distributions of KiDS-Legacy}
+      \source{de Jong et al.\ 2013; Wright et al.\ 2024, 2025; Johnston et al.\ 2025}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Tracer Bias Models}
+\begin{frame}{The progenitor models differ in their bias evolution}
+  \begin{columns}[c]
+    \begin{column}{0.44\textwidth}
+      \begin{equation*}
+        b(z) = b_0\, (1+z)^{\delta}
+      \end{equation*}
+      \centering
+      \small
+      \begin{tabular}{l S[table-format=1.1] S[table-format=1.1]}
+        \toprule
+        Progenitor class & {$b_0$} & {$\delta$} \\
+        \midrule
+        Magnetars     & 1.0 & 0.8 \\
+        Neutron stars & 1.5 & 0.2 \\
+        \bottomrule
+      \end{tabular}
+      \raggedright
+      \begin{itemize}
+        \item Magnetars: low amplitude, strong evolution (star-forming hosts)
+        \item Neutron stars: high amplitude, weak evolution (massive, old hosts)
+        \item Parameters of interest: $\theta = (b_0, \delta)$
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.54\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.62\textheight, keepaspectratio]{frb/FRB_bias_bz.pdf}
+      \plotlabel{FRB host population bias models}
+      \source{Pan et al.\ 2020}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Angular Power Spectrum Computation}
+\begin{frame}{The FRB auto-correlation alone is shot-noise dominated}
+  \vspace{-0.5ex}
+  \begin{equation*}
+    N_{\ell} = \frac{1}{\bar{n}}
+    \qquad
+    \bar{n}_{\mathrm{FRB}} = \frac{N_{\mathrm{tot}}}{4\pi f_{\mathrm{sky}}}
+  \end{equation*}
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.47\textheight, keepaspectratio]{frb/FRB_magnetar_Cell_shallow_shotnoise.pdf}
+      \plotlabel{Shallow survey, with and without shot noise}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.47\textheight, keepaspectratio]{frb/FRB_magnetar_Cell_comparison.pdf}
+      \plotlabel{Shallow and deep surveys, signal only}
+    \end{column}
+  \end{columns}
+  \medskip
+  \centering
+  Shallow survey: shot noise exceeds the signal by \alert{$\sim 3$ orders of magnitude} at all $\ell$
+\end{frame}
+
+\begin{frame}{Galaxy auto-spectra: a dense sample with high signal-to-noise}
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{galaxy/Galaxy_Cell_comparison.pdf}
+      \plotlabel{Signal-only spectra, six tomographic bins}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{galaxy/Galaxy_Cell_bin5_shotnoise.pdf}
+      \plotlabel{Signal and shot noise, bin 5}
+    \end{column}
+  \end{columns}
+  \medskip
+  \begin{itemize}
+    \item Amplitude decreases toward higher bins despite rising bias: broader radial extent, $\chi^{-2}$
+    \item Signal dominates over shot noise except toward the highest multipoles
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cross-correlation: no shot noise and tomographic leverage}
+  \begin{columns}[c]
+    \begin{column}{0.58\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.68\textheight, keepaspectratio]{frb_x_galaxy/comparisons/survey_magnetar_all_bins.pdf}
+      \plotlabel{FRB$\times$galaxy cross-spectra, magnetar model}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \begin{itemize}
+        \item $2 \times 2 \times 6 = 24$ cross-spectra
+        \item Independent samples \\ $\Rightarrow$ \alert{no shot-noise term}
+        \item Six bins probe the FRB bias at six effective redshifts
+        \item Shallow survey stronger in every bin: low-$z$ weighting of the Limber kernel, broad bin~6
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%==============================================================================
+\section{Results}
+%==============================================================================
+
+\subsection{Fisher Matrix}
+\begin{frame}{Fisher forecast for the FRB host bias}
+  \begin{equation*}
+    F_{ij} = f_{\mathrm{sky}} \sum_{\ell=\ell_{\mathrm{min}}}^{\ell_{\mathrm{max}}} \frac{2\ell+1}{2}\,
+    \operatorname{Tr}\left[ C_{\ell}^{-1}\, \frac{\partial C_{\ell}}{\partial \theta_i}\,
+    C_{\ell}^{-1}\, \frac{\partial C_{\ell}}{\partial \theta_j} \right]
+  \end{equation*}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \vspace{-2ex}
+      \begin{equation*}
+        \frac{\partial C_{\ell}}{\partial \theta_i} = \frac{C_{\ell}(\theta_i + h_i) - C_{\ell}(\theta_i - h_i)}{2 h_i}
+      \end{equation*}
+      \begin{itemize}
+        \item $C_\ell$: matrix of all auto- and cross-spectra, shot noise in the auto-spectra
+        \item $\theta = (b_0, \delta)$, step $h_i = 0.01\,\theta_i$
+        \item Cosmology fixed to Planck 2018
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \vspace{-2ex}
+      \begin{equation*}
+        \mathrm{Cov} = F^{-1}
+        \qquad
+        \sigma_i = \sqrt{\mathrm{Cov}_{ii}}
+      \end{equation*}
+      \begin{equation*}
+        \mathrm{FoM} = \frac{1}{\sqrt{\det \mathrm{Cov}}}
+      \end{equation*}
+    \end{column}
+  \end{columns}
+  \medskip
+  \begin{block}{Sky fractions}
+    FRB-only: $f_{\mathrm{sky}} = 0.9$ \qquad
+    FRB$\times$galaxy: $f_{\mathrm{sky}} = 0.0327$ (KiDS) $\Rightarrow$ \alert{$\approx 28\times$ smaller area}
+  \end{block}
+  \source{Tegmark et al.\ 1997; Reischke et al.\ 2021; Coe 2009; Wang 2008}
+\end{frame}
+
+\subsection{Forecast Constraints}
+\begin{frame}{Adding galaxies turns a non-detection into a measurement}
+  \begin{columns}[c]
+    \begin{column}{0.64\textwidth}
+      \centering
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher/fisher_comparison_2x2_magnetars_deep.pdf}\\[-0.5ex]
+        {\scriptsize (a) Magnetars, deep}
+      \end{minipage}\hfill
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher/fisher_comparison_2x2_magnetars_shallow.pdf}\\[-0.5ex]
+        {\scriptsize (b) Magnetars, shallow}
+      \end{minipage}\\[0.5ex]
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher/fisher_comparison_2x2_neutron_stars_deep.pdf}\\[-0.5ex]
+        {\scriptsize (c) Neutron stars, deep}
+      \end{minipage}\hfill
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher/fisher_comparison_2x2_neutron_stars_shallow.pdf}\\[-0.5ex]
+        {\scriptsize (d) Neutron stars, shallow}
+      \end{minipage}
+    \end{column}
+    \begin{column}{0.34\textwidth}
+      \begin{itemize}
+        \item Green: FRB auto-correlation only
+        \item Blue: FRB $\times$ six KiDS bins
+        \item Solid: $1\sigma$, dotted: $2\sigma$
+        \item Cross: fiducial values
+      \end{itemize}
+      \medskip
+      FRB-only contours extend \alert{far beyond} the plotted range
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Constraints improve by more than an order of magnitude}
+  \centering
+  \small
+  \begin{tabular}{
+      l l
+      S[table-format=3.0] S[table-format=1.2]
+      S[table-format=3.0] S[table-format=1.2]
+      S[table-format=1.3] S[table-format=1.1] S[table-format=3.0]}
+    \toprule
+    & & \multicolumn{2}{c}{$\sigma_{b_0}$} & \multicolumn{2}{c}{$\sigma_{\delta}$} & \multicolumn{3}{c}{FoM} \\
+    \cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-9}
+    Progenitor & Config.\ & {FRB} & {FRB$\times$gal} & {FRB} & {FRB$\times$gal} & {FRB} & {FRB$\times$gal} & {Gain} \\
+    \midrule
+    Magnetars     & Deep    & 21 & 1.26 & 28  & 1.85 & 0.032 & 1.6 & 51  \\
+    Magnetars     & Shallow & 83 & 1.90 & 172 & 3.73 & 0.001 & 0.4 & 377 \\
+    Neutron stars & Deep    & 30 & 1.69 & 29  & 1.75 & 0.020 & 1.1 & 60  \\
+    Neutron stars & Shallow & 92 & 2.41 & 139 & 3.39 & 0.001 & 0.3 & 294 \\
+    \bottomrule
+  \end{tabular}
+  \normalsize
+  \raggedright
+  \medskip
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Joint vs.\ FRB-only}
+        $\sigma$ reduced by factors \alert{15--46}\\
+        FoM increased by factors \alert{51--377}\\
+        despite $\approx 28\times$ smaller sky area
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Deep vs.\ shallow}
+        FRB-only: $\sigma_{b_0}$ improves $3$--$4\times$\\
+        Joint: only $1.4$--$1.5\times$\\
+        $\approx \qty{40}{\percent}$ of deep bursts at $z > 1.5$, beyond most KiDS galaxies
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Discussion}
+\begin{frame}{KiDS cannot yet distinguish the progenitor channels}
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{fisher/fisher_comparison_1x2_deep.pdf}
+      \plotlabel{(a) Deep survey configuration}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{fisher/fisher_comparison_1x2_shallow.pdf}
+      \plotlabel{(b) Shallow survey configuration}
+    \end{column}
+  \end{columns}
+  \medskip
+  \begin{itemize}
+    \item Fiducial separation $\Delta b_0 = 0.5$, $\Delta\delta = 0.6$ lies \alert{well within $1\sigma$}
+    \item Relative precision similar: $\sigma_{b_0}/b_0 = 1.3$ (magnetars), $1.1$ (neutron stars), deep
+  \end{itemize}
+\end{frame}
+
+%==============================================================================
+\section{Conclusion \& Outlook}
+%==============================================================================
+
+\subsection{Limitations}
+\begin{frame}{Limitations}
+  \begin{itemize}
+    \item Limber approximation restricts the analysis to $\ell \geq 10$, excluding the largest scales
+    \item Gaussian likelihood and covariance neglect non-Gaussian contributions \\
+      $\Rightarrow$ uncertainties are \alert{optimistic lower bounds}
+    \item Power-law bias adequate for $z \lesssim 1.5$, where the constraints come from;
+      at higher $z$ the bias evolves more strongly and depends on halo mass
+    \item FRB redshift distribution and fiducial bias values are model assumptions, not measurements
+    \item Survey geometry only through $f_{\mathrm{sky}}$; a real analysis needs pseudo-spectra
+  \end{itemize}
+  \source{Berti et al.\ 2021; Pan et al.\ 2020; Tinker et al.\ 2010; Hivon et al.\ 2002}
+\end{frame}
+
+\subsection{Outlook}
+\begin{frame}{Outlook: LSST Y10 brings discrimination within reach}
+  \begin{columns}[c]
+    \begin{column}{0.30\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.42\textheight, keepaspectratio]{fisher_lsst/fisher_comparison_1x2_lsst_deep.pdf}
+      \plotlabel{(a) Deep}
+    \end{column}
+    \begin{column}{0.30\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.42\textheight, keepaspectratio]{fisher_lsst/fisher_comparison_1x2_lsst_shallow.pdf}
+      \plotlabel{(b) Shallow}
+    \end{column}
+    \begin{column}{0.36\textwidth}
       \small
       \begin{itemize}
-        \item FRB-only: $\sigma_{b_0} \approx 23$--$101$ (uninformative)
-        \item Joint FRB $\times$ galaxy: $\sigma_{b_0} \approx 1.3$--$2.4$
-        \item Improvement: factor $17$--$51$ in $\sigma$, factor $61$--$449$ in FoM
-        \item Deep configuration always outperforms shallow, but gains saturate once shot noise no longer dominates
+        \item \qty{18000}{\deg\squared}, $f_{\mathrm{sky}} = 0.4363$, $\approx 13\times$ KiDS
+        \item Ten-bin Y10 lens sample
+        \item FoM $\times$ \alert{9--12}
+        \item $\sigma_{b_0}$: $1.26 \to 0.42$ \\ (deep, magnetars)
       \end{itemize}
     \end{column}
-    \begin{column}{0.52\textwidth}
-      \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher/fisher_comparison_2x2.png}
-    \end{column}
   \end{columns}
-\end{frame}
-
-% ---------------------------------------------------------------
-\begin{frame}{Discussion}
+  \medskip
   \begin{itemize}
-    \item Cross-correlation turns an uninformative FRB auto-spectrum into a competitive bias measurement
-    \item The two progenitor models ($\Delta b_0 = 0.5$, $\Delta \delta = 0.6$) are \emph{not} yet distinguishable: their fiducial separation lies within the $1\sigma$ joint contour
-    \item Fisher information scales linearly with $f_{\mathrm{sky}}$ $\Rightarrow$ sky area is the limiting factor, not burst count
+    \item Deep: neutron-star fiducial \alert{just outside} the magnetar $1\sigma$ contour; both within $2\sigma$
+    \item Shallow: models still overlap at $1\sigma$
+    \item FoM gain below $13$: LSST lens bins end at $z \approx 1.2$, KiDS bin~6 reaches beyond $z = 1.5$
   \end{itemize}
+  \source{Ivezić et al.\ 2019; Zhang et al.\ 2025}
 \end{frame}
 
-% ---------------------------------------------------------------
-\begin{frame}{Outlook: A Wider Galaxy Survey (LSST)}
-  \begin{columns}[T]
-    \begin{column}{0.5\textwidth}
-      \begin{itemize}
-        \item LSST Y10 footprint: $\qty{18000}{\deg\squared}$, $f_{\mathrm{sky}}=0.4363$ ($13\times$ KiDS)
-        \item Deep magnetar case: $\sigma_{b_0}$ improves from $1.27 \to 0.25$, FoM $\times 26$
-        \item The two progenitor models become distinguishable at $1\sigma$
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{../programming/frb-cosmology/plots/fisher_lsst/fisher_kids_vs_lsst_2x2.png}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ---------------------------------------------------------------
+\subsection{Summary}
 \begin{frame}{Conclusion}
-  \begin{itemize}
-    \item Built a full forecasting pipeline: matter power spectrum $\to$ radial kernels $\to$ Limber $C_\ell$ $\to$ Fisher forecast
-    \item FRB auto-correlation alone is shot-noise dominated and uninformative about host bias
-    \item Cross-correlating with KiDS-Legacy improves constraints by $1$--$2$ orders of magnitude
-    \item Current footprint is not yet sufficient to separate magnetar vs. neutron-star origin -- but a wider survey such as LSST would be
-    \item FRB $\times$ galaxy cross-correlation is a promising probe of FRB host populations
-  \end{itemize}
+  \begin{enumerate}
+    \item Forecasting pipeline: nonlinear $P(k,z)$ $\to$ Limber auto- and cross-spectra of FRBs and
+      six KiDS-Legacy bins $\to$ Fisher forecast for $b_0$ and $\delta$
+    \item FRB auto-correlation alone is \alert{shot-noise dominated} and does not constrain the bias
+    \item Cross-correlation with KiDS: $\sigma$ reduced \alert{15--46$\times$}, FoM increased
+      \alert{51--377$\times$}, despite a $\approx 28\times$ smaller sky area
+    \item KiDS footprint not yet sufficient to separate prompt magnetars from delayed neutron stars
+    \item LSST Y10: FoM $\times$ 9--12, separation becomes comparable to the uncertainties
+  \end{enumerate}
+  \bigskip
+  \begin{block}{Take-home message}
+    FRB$\times$galaxy cross-correlation is a promising probe of FRB progenitors, and next-generation
+    galaxy surveys can make it decisive.
+  \end{block}
 \end{frame}
 
-% ---------------------------------------------------------------
-\begin{frame}{Thank You}
+\begin{frame}[plain]
   \centering
-  \Large Thank you for your attention!\\[1em]
-  \normalsize Questions?
+  \vfill
+  {\usebeamerfont{title}\usebeamercolor[fg]{frametitle}Thank you for your attention!}
+  \vfill
+\end{frame}
+
+%==============================================================================
+\appendix
+\section{Backup}
+%==============================================================================
+
+\begin{frame}{Backup: fiducial cosmology and KiDS tomographic bins}
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \small
+      \begin{tabular}{l l S[table-format=2.4]}
+        \toprule
+        Parameter & Symbol & {Value} \\
+        \midrule
+        Hubble constant & $H_0\ [\si{\kilo\metre\per\second\per\mega\parsec}]$ & 67.36 \\
+        Total matter density & $\symup{\Omega}_{\mathrm{m},0}$ & 0.3153 \\
+        Baryon density & $\symup{\Omega}_{\mathrm{b},0}$ & 0.0493 \\
+        Fluctuation amplitude & $\sigma_8$ & 0.8111 \\
+        Scalar spectral index & $n_{\mathrm{s}}$ & 0.9649 \\
+        CMB temperature & $T_{\mathrm{CMB},0}\ [\si{\kelvin}]$ & 2.7255 \\
+        \bottomrule
+      \end{tabular}
+      \source{Planck 2018 TT,TE,EE+lowE+lensing}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \small
+      \begin{tabular}{S[table-format=1] S[table-format=1.3] S[table-format=1.3]}
+        \toprule
+        {Bin} & {$\langle z \rangle_i$} & {$b_{\mathrm{g}}^{\,i}$} \\
+        \midrule
+        1 & 0.335 & 1.135 \\
+        2 & 0.477 & 1.221 \\
+        3 & 0.587 & 1.291 \\
+        4 & 0.789 & 1.423 \\
+        5 & 0.940 & 1.525 \\
+        6 & 1.224 & 1.721 \\
+        \bottomrule
+      \end{tabular}
+      \source{$b_{\mathrm{g}}^{\,i} = 0.95 / D_+(\langle z \rangle_i)$}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Backup: full-sky spectrum and the Limber approximation}
+  Exact full-sky angular cross-power spectrum
+  \begin{equation*}
+    C_{\ell}^{AB} = \frac{2}{\pi} \int_0^\infty k^2\,\mathrm{d}k
+    \int \mathrm{d}\chi\, W^{A}(\chi)\, j_{\ell}(k\chi)
+    \int \mathrm{d}\chi'\, W^{B}(\chi')\, j_{\ell}(k\chi')\, P_{AB}(k;\chi,\chi')
+  \end{equation*}
+  \begin{itemize}
+    \item Spherical Bessel functions $j_\ell$ peak sharply at $k\chi \approx \ell + 1/2$ for large $\ell$
+    \item Kernels vary slowly compared to $j_\ell$ $\Rightarrow$ only $k = (\ell+1/2)/\chi$ contributes
+  \end{itemize}
+  \begin{equation*}
+    \Rightarrow\quad
+    C_{\ell}^{AB} \approx \int \frac{\mathrm{d}\chi}{\chi^2}\, W^{A}(\chi)\, W^{B}(\chi)\,
+    P_{AB}\!\left(\frac{\ell+1/2}{\chi},\, z(\chi)\right)
+  \end{equation*}
+  \begin{itemize}
+    \item Valid for $\ell \gtrsim 10$ $\Rightarrow$ $\ell_{\mathrm{min}} = 10$
+    \item $\ell_{\mathrm{max}} = 1000$: nonlinear $P(k)$ prescription still sufficiently reliable
+  \end{itemize}
+  \source{Limber 1953; LoVerde \& Afshordi 2008}
+\end{frame}
+
+\begin{frame}{Backup: KiDS versus LSST Y10}
+  \begin{columns}[c]
+    \begin{column}{0.64\textwidth}
+      \centering
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_magnetars_deep.pdf}\\[-0.5ex]
+        {\scriptsize (a) Magnetars, deep}
+      \end{minipage}\hfill
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_magnetars_shallow.pdf}\\[-0.5ex]
+        {\scriptsize (b) Magnetars, shallow}
+      \end{minipage}\\[0.5ex]
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_neutron_stars_deep.pdf}\\[-0.5ex]
+        {\scriptsize (c) Neutron stars, deep}
+      \end{minipage}\hfill
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_neutron_stars_shallow.pdf}\\[-0.5ex]
+        {\scriptsize (d) Neutron stars, shallow}
+      \end{minipage}
+    \end{column}
+    \begin{column}{0.34\textwidth}
+      \centering
+      \footnotesize
+      \begin{tabular}{l S[table-format=1.1] S[table-format=2.1] S[table-format=2.0]}
+        \toprule
+        & \multicolumn{3}{c}{FoM} \\
+        \cmidrule(lr){2-4}
+        & {KiDS} & {LSST} & {Ratio} \\
+        \midrule
+        Mag.\ deep    & 1.6 & 14.8 & 9  \\
+        Mag.\ shallow & 0.4 & 4.9  & 12 \\
+        NS deep       & 1.1 & 11.5 & 10 \\
+        NS shallow    & 0.3 & 4.2  & 12 \\
+        \bottomrule
+      \end{tabular}
+      \medskip
+      \begin{tabular}{l S[table-format=1.2] S[table-format=1.2]}
+        \toprule
+        LSST & {$\sigma_{b_0}$} & {$\sigma_{\delta}$} \\
+        \midrule
+        Mag.\ deep    & 0.42 & 0.68 \\
+        Mag.\ shallow & 0.57 & 1.14 \\
+        NS deep       & 0.55 & 0.61 \\
+        NS shallow    & 0.73 & 1.02 \\
+        \bottomrule
+      \end{tabular}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Backup: LSST Y10 lens sample}
+  \centering
+  \includegraphics[width=0.7\linewidth, height=0.68\textheight, keepaspectratio]{galaxy_lsst/LSST_Y10_fisherA2Z_figure3.pdf}
+  \plotlabel{Tomographic redshift distributions of the LSST Y10 lens sample (ten bins)}
+  \source{Zhang et al.\ 2025}
+\end{frame}
+
+\begin{frame}{Backup: an FRB compared to a mobile phone on the Moon}
+  GSM-900 phone: $P = \qty{2}{\watt}$, channel width $B = \qty{200}{\kilo\hertz}$,
+  isotropic emission at $d \approx \qty{3.84e8}{\metre}$
+  \begin{equation*}
+    F_{\mathrm{phone}} = \frac{P}{4\pi d^2} \approx \qty{1.08e-18}{\watt\per\square\metre}
+    \qquad
+    S_{\mathrm{phone}} = \frac{F_{\mathrm{phone}}}{B} \approx \qty{540}{\jansky}
+  \end{equation*}
+  \begin{itemize}
+    \item Typical FRB: $S_{\mathrm{FRB}} \approx \qty{0.54}{\jansky}$
+    \item $S_{\mathrm{phone}} / S_{\mathrm{FRB}} \approx 10^{3}$
+    \item Order-of-magnitude illustration; other standards and fluxes give different ratios
+  \end{itemize}
+  \source{ETSI/3GPP TS 45.005; Petroff et al.\ 2019; Billings 2013}
+\end{frame}
+
+\begin{frame}{Backup: further extensions}
+  \begin{itemize}
+    \item Replace the parametric $n(z)$ by the measured distribution of the second CHIME/FRB catalog,
+      already of shallow-configuration size
+    \item Full likelihood sampling instead of the Fisher formalism:
+      non-Gaussian posteriors and covariance contributions
+    \item Scale-dependent halo-model bias linked to host halo masses, extending to smaller scales
+    \item Realistic survey masks: pseudo-$C_\ell$ estimation with mode-coupling matrices
+  \end{itemize}
+  \source{CHIME/FRB Collaboration 2026; Hivon et al.\ 2002}
 \end{frame}
 
 \end{document}
