@@ -621,35 +621,66 @@
 \end{frame}
 
 \subsection{Outlook}
-\begin{frame}{Outlook: LSST Y10 brings discrimination within reach}
+\begin{frame}{Outlook: a wider galaxy survey shrinks the contours}
   \begin{columns}[c]
-    \begin{column}{0.30\textwidth}
+    \begin{column}{0.64\textwidth}
       \centering
-      \includegraphics[width=\linewidth, height=0.42\textheight, keepaspectratio]{fisher_lsst/fisher_comparison_1x2_lsst_deep.pdf}
-      \plotlabel{(a) Deep}
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_magnetars_deep.pdf}\\[-0.5ex]
+        {\scriptsize (a) Magnetars, deep}
+      \end{minipage}\hfill
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_magnetars_shallow.pdf}\\[-0.5ex]
+        {\scriptsize (b) Magnetars, shallow}
+      \end{minipage}\\[0.5ex]
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_neutron_stars_deep.pdf}\\[-0.5ex]
+        {\scriptsize (c) Neutron stars, deep}
+      \end{minipage}\hfill
+      \begin{minipage}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_neutron_stars_shallow.pdf}\\[-0.5ex]
+        {\scriptsize (d) Neutron stars, shallow}
+      \end{minipage}
     \end{column}
-    \begin{column}{0.30\textwidth}
-      \centering
-      \includegraphics[width=\linewidth, height=0.42\textheight, keepaspectratio]{fisher_lsst/fisher_comparison_1x2_lsst_shallow.pdf}
-      \plotlabel{(b) Shallow}
-    \end{column}
-    \begin{column}{0.36\textwidth}
+    \begin{column}{0.34\textwidth}
       \small
       \begin{itemize}
-        \item \qty{18000}{\deg\squared}, $f_{\mathrm{sky}} = 0.4363$, $\approx 13\times$ KiDS
-        \item Ten-bin Y10 lens sample
+        \item Blue: KiDS, six bins, \qty{1347}{\deg\squared}
+        \item Red: LSST Y10, ten lens bins, \qty{18000}{\deg\squared}
+        \item Solid: $1\sigma$, dotted: $2\sigma$
+        \item $f_{\mathrm{sky}} = 0.4363$, $\approx 13\times$ KiDS
         \item FoM $\times$ \alert{9--12}
         \item $\sigma_{b_0}$: $1.26 \to 0.42$ \\ (deep, magnetars)
+        \item Gain below $13$: LSST lens bins end at $z \approx 1.2$
       \end{itemize}
+    \end{column}
+  \end{columns}
+  \source{Ivezić et al.\ 2019; Zhang et al.\ 2025}
+\end{frame}
+
+\begin{frame}{Outlook: LSST Y10 brings discrimination within reach}
+  \begin{columns}[t]
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{fisher_lsst/fisher_comparison_1x2_lsst_deep.pdf}
+      \plotlabel{(a) Deep survey configuration}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth, height=0.55\textheight, keepaspectratio]{fisher_lsst/fisher_comparison_1x2_lsst_shallow.pdf}
+      \plotlabel{(b) Shallow survey configuration}
     \end{column}
   \end{columns}
   \medskip
   \begin{itemize}
     \item Deep: neutron-star fiducial \alert{just outside} the magnetar $1\sigma$ contour; both within $2\sigma$
     \item Shallow: models still overlap at $1\sigma$
-    \item FoM gain below $13$: LSST lens bins end at $z \approx 1.2$, KiDS bin~6 reaches beyond $z = 1.5$
+    \item Substantially better prospects, but not yet a decisive discrimination
   \end{itemize}
-  \source{Ivezić et al.\ 2019; Zhang et al.\ 2025}
 \end{frame}
 
 \subsection{Summary}
@@ -744,59 +775,36 @@
   \source{Limber 1953; LoVerde \& Afshordi 2008}
 \end{frame}
 
-\begin{frame}{Backup: KiDS versus LSST Y10}
-  \begin{columns}[c]
-    \begin{column}{0.64\textwidth}
-      \centering
-      \begin{minipage}[t]{0.49\linewidth}
-        \centering
-        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_magnetars_deep.pdf}\\[-0.5ex]
-        {\scriptsize (a) Magnetars, deep}
-      \end{minipage}\hfill
-      \begin{minipage}[t]{0.49\linewidth}
-        \centering
-        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_magnetars_shallow.pdf}\\[-0.5ex]
-        {\scriptsize (b) Magnetars, shallow}
-      \end{minipage}\\[0.5ex]
-      \begin{minipage}[t]{0.49\linewidth}
-        \centering
-        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_neutron_stars_deep.pdf}\\[-0.5ex]
-        {\scriptsize (c) Neutron stars, deep}
-      \end{minipage}\hfill
-      \begin{minipage}[t]{0.49\linewidth}
-        \centering
-        \includegraphics[width=\linewidth, height=0.33\textheight, keepaspectratio]{fisher_lsst/fisher_kids_vs_lsst_2x2_neutron_stars_shallow.pdf}\\[-0.5ex]
-        {\scriptsize (d) Neutron stars, shallow}
-      \end{minipage}
-    \end{column}
-    \begin{column}{0.34\textwidth}
-      \centering
-      \footnotesize
-      \begin{tabular}{l S[table-format=1.1] S[table-format=2.1] S[table-format=2.0]}
-        \toprule
-        & \multicolumn{3}{c}{FoM} \\
-        \cmidrule(lr){2-4}
-        & {KiDS} & {LSST} & {Ratio} \\
-        \midrule
-        Mag.\ deep    & 1.6 & 14.8 & 9  \\
-        Mag.\ shallow & 0.4 & 4.9  & 12 \\
-        NS deep       & 1.1 & 11.5 & 10 \\
-        NS shallow    & 0.3 & 4.2  & 12 \\
-        \bottomrule
-      \end{tabular}
-      \medskip
-      \begin{tabular}{l S[table-format=1.2] S[table-format=1.2]}
-        \toprule
-        LSST & {$\sigma_{b_0}$} & {$\sigma_{\delta}$} \\
-        \midrule
-        Mag.\ deep    & 0.42 & 0.68 \\
-        Mag.\ shallow & 0.57 & 1.14 \\
-        NS deep       & 0.55 & 0.61 \\
-        NS shallow    & 0.73 & 1.02 \\
-        \bottomrule
-      \end{tabular}
-    \end{column}
-  \end{columns}
+\begin{frame}{Backup: KiDS versus LSST Y10 in numbers}
+  \centering
+  \small
+  \begin{tabular}{l l S[table-format=1.2] S[table-format=1.2] S[table-format=1.2] S[table-format=1.2]}
+    \toprule
+    & & \multicolumn{2}{c}{$\sigma_{b_0}$} & \multicolumn{2}{c}{$\sigma_{\delta}$} \\
+    \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+    Progenitor & Config.\ & {KiDS} & {LSST} & {KiDS} & {LSST} \\
+    \midrule
+    Magnetars     & Deep    & 1.26 & 0.42 & 1.85 & 0.68 \\
+    Magnetars     & Shallow & 1.90 & 0.57 & 3.73 & 1.14 \\
+    Neutron stars & Deep    & 1.69 & 0.55 & 1.75 & 0.61 \\
+    Neutron stars & Shallow & 2.41 & 0.73 & 3.39 & 1.02 \\
+    \bottomrule
+  \end{tabular}
+  \bigskip
+
+  \begin{tabular}{l l S[table-format=1.1] S[table-format=2.1] S[table-format=2.0]}
+    \toprule
+    & & \multicolumn{3}{c}{FoM} \\
+    \cmidrule(lr){3-5}
+    Progenitor & Config.\ & {KiDS} & {LSST} & {Ratio} \\
+    \midrule
+    Magnetars     & Deep    & 1.6 & 14.8 & 9  \\
+    Magnetars     & Shallow & 0.4 & 4.9  & 12 \\
+    Neutron stars & Deep    & 1.1 & 11.5 & 10 \\
+    Neutron stars & Shallow & 0.3 & 4.2  & 12 \\
+    \bottomrule
+  \end{tabular}
+  \source{Ratios computed from unrounded values}
 \end{frame}
 
 \begin{frame}{Backup: LSST Y10 lens sample}

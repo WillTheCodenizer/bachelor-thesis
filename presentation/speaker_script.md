@@ -13,8 +13,8 @@ Slide source: [thesis_presentation.tex](thesis_presentation.tex)
   - **Key sentence**: the one sentence you must not forget.
 - Lines in *[brackets]* are stage directions (point, pause, gesture). Do not read them aloud.
 - Learn the key sentences and transitions by heart. The rest may be paraphrased freely.
-- Target is about 28:30 min, which leaves about 1.5 min of buffer for the 30 min slot.
-- If you fall behind, shorten slides 8 and 15. Their key sentences are enough.
+- Target is about 29:10 min, which leaves under a minute of buffer for the 30 min slot.
+- If you fall behind, shorten slides 8 and 15 to their key sentences. That saves about 1 min.
 
 ## Timing overview
 
@@ -41,11 +41,12 @@ Slide source: [thesis_presentation.tex](thesis_presentation.tex)
 | 19 | Constraints table | 1:45 | 23:15 |
 | 20 | Progenitor discrimination (KiDS) | 1:15 | 24:30 |
 | 21 | Limitations | 1:00 | 25:30 |
-| 22 | Outlook: LSST Y10 | 1:45 | 27:15 |
-| 23 | Conclusion | 1:15 | 28:30 |
-| 24 | Thank you | 0:10 | 28:40 |
+| 22 | Outlook: KiDS vs. LSST Y10 contours | 1:15 | 26:45 |
+| 23 | Outlook: LSST progenitor discrimination | 1:00 | 27:45 |
+| 24 | Conclusion | 1:15 | 29:00 |
+| 25 | Thank you | 0:10 | 29:10 |
 
-**Checkpoints:** By slide 9 you should be at about 9:30. By slide 17 at about 19:00 to 20:00. By slide 22 at no later than 27:30.
+**Checkpoints:** By slide 9 you should be at about 9:30. By slide 17 at about 19:00 to 20:00. By slide 22 at no later than 26:30.
 
 ---
 
@@ -366,26 +367,37 @@ There are several simplifying assumptions. First, the Limber approximation restr
 
 **Transition:** The most direct improvement, however, is clear from the Fisher matrix itself.
 
-### Slide 22: Outlook with LSST Y10 (1:45, cumulative 27:15)
+### Slide 22: Outlook, KiDS vs. LSST Y10 contours (1:15, cumulative 26:45)
 
-**On the slide:** LSST overlap contours (deep, shallow), LSST facts.
+**On the slide:** Four panels of b0–δ contours (blue KiDS, red LSST Y10), same layout as slide 18; LSST facts.
 
 **Say:**
 The Fisher information scales linearly with the sky fraction. So the obvious step is a wider galaxy survey. The Legacy Survey of Space and Time at the Rubin Observatory will cover about 18,000 square degrees, roughly 13 times the KiDS area. I ran exactly the same pipeline with the ten-bin year-ten lens sample of the LSST DESC, changing nothing else.
 
-The figure of merit improves by a factor of 9 to 12. For deep magnetars, σ of b zero drops from 1.26 to 0.42. The gain is slightly below the factor 13 from the area alone, because the LSST lens bins end at about redshift 1.2, whereas the last KiDS bin reaches beyond 1.5.
+*[point at panel a]* The layout is the same as before: magnetars on top, neutron stars below, deep on the left, shallow on the right. Blue are the KiDS contours you have already seen, red is LSST.
 
-*[point at left plot]* Most importantly, in the deep configuration the neutron-star fiducial now lies just outside the one-sigma contour of the magnetar model, although both are still within two sigma. *[point at right plot]* In the shallow configuration, the models still overlap at one sigma.
+*[point at red ellipse]* In every panel the LSST ellipse is much smaller. The figure of merit improves by a factor of 9 to 12. For deep magnetars, σ of b zero drops from 1.26 to 0.42. The gain is slightly below the factor 13 from the area alone, because the LSST lens bins end at about redshift 1.2, whereas the last KiDS bin reaches beyond 1.5.
 
-So an LSST-like galaxy sample would substantially improve the prospects of distinguishing a prompt from a delayed origin, though not yet decisively.
+**Key sentence:** LSST improves the figure of merit by 9 to 12 times, almost the full area gain.
 
-Further extensions would be using the measured redshift distribution of the second CHIME catalog, full likelihood sampling, and a halo-model bias.
+**Transition:** The decisive question is again: can we now separate the two progenitor models?
+
+### Slide 23: Outlook, LSST progenitor discrimination (1:00, cumulative 27:45)
+
+**On the slide:** LSST overlap contours of magnetar and neutron-star models (deep, shallow).
+
+**Say:**
+This is the LSST counterpart of the overlap plot I showed for KiDS. Magnetars in blue, neutron stars in orange.
+
+*[point at left plot]* In the deep configuration, the neutron-star fiducial now lies just outside the one-sigma contour of the magnetar model, although both are still within two sigma. *[point at right plot]* In the shallow configuration, the models still overlap at one sigma.
+
+So an LSST-like galaxy sample would substantially improve the prospects of distinguishing a prompt from a delayed origin, though not yet decisively. Further extensions would be using the measured redshift distribution of the second CHIME catalog, full likelihood sampling, and a halo-model bias.
 
 **Key sentence:** With LSST, the separation of the two models becomes comparable to the uncertainties.
 
 **Transition:** Let me summarize.
 
-### Slide 23: Conclusion (1:15, cumulative 28:30)
+### Slide 24: Conclusion (1:15, cumulative 29:00)
 
 **On the slide:** Five numbered results; take-home block.
 
@@ -398,7 +410,7 @@ The FRB auto-correlation alone is shot-noise dominated and does not constrain th
 
 **Key sentence:** FRB × galaxy cross-correlation is a promising probe of FRB progenitors.
 
-### Slide 24: Thank you (0:10, cumulative 28:40)
+### Slide 25: Thank you (0:10, cumulative 29:10)
 
 **Say:**
 Thank you very much for your attention. I am happy to take your questions.
@@ -411,7 +423,7 @@ Thank you very much for your attention. I am happy to take your questions.
 |--------|------------------------|
 | Fiducial cosmology and KiDS bins | exact parameter values, galaxy bias per bin |
 | Full-sky spectrum and Limber | validity of Limber, choice of ell range |
-| KiDS versus LSST Y10 | detailed LSST numbers, contour comparison |
+| KiDS versus LSST Y10 in numbers | exact LSST σ and FoM values per configuration |
 | LSST Y10 lens sample | LSST redshift coverage, why the gain is below 13 |
 | FRB vs. mobile phone on the Moon | the "phone on the Moon" claim |
 | Further extensions | "What would you do next?" |
