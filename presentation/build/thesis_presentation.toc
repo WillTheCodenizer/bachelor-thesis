@@ -1,1 +1,23 @@
 \babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Fast Radio Bursts}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Progenitor Mechanisms}{5}{0}{1}
+\beamer@subsectionintoc {1}{3}{Research Question}{6}{0}{1}
+\beamer@sectionintoc {2}{Theoretical Background}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Cosmological Background}{7}{0}{2}
+\beamer@subsectionintoc {2}{2}{Structure Formation}{8}{0}{2}
+\beamer@subsectionintoc {2}{3}{Angular Power Spectrum}{9}{0}{2}
+\beamer@sectionintoc {3}{Methodology}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{Fiducial Cosmology and Power Spectrum}{10}{0}{3}
+\beamer@subsectionintoc {3}{2}{Redshift Distributions}{11}{0}{3}
+\beamer@subsectionintoc {3}{3}{Tracer Bias Models}{13}{0}{3}
+\beamer@subsectionintoc {3}{4}{Angular Power Spectrum Computation}{14}{0}{3}
+\beamer@sectionintoc {4}{Results}{17}{0}{4}
+\beamer@subsectionintoc {4}{1}{Fisher Matrix}{17}{0}{4}
+\beamer@subsectionintoc {4}{2}{Forecast Constraints}{18}{0}{4}
+\beamer@subsectionintoc {4}{3}{Discussion}{20}{0}{4}
+\beamer@sectionintoc {5}{Conclusion \& Outlook}{21}{0}{5}
+\beamer@subsectionintoc {5}{1}{Limitations}{21}{0}{5}
+\beamer@subsectionintoc {5}{2}{Outlook}{22}{0}{5}
+\beamer@subsectionintoc {5}{3}{Summary}{23}{0}{5}
+\beamer@sectionintoc {6}{Backup}{25}{1}{6}
